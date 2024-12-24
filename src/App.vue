@@ -14,8 +14,8 @@ let vista = ref( {
 </script>
 
 <template>
-
-<div class="app">
+    
+<div>
     <h1>{{ cancion.titulo }}</h1>
     <h3>{{ cancion.artista }}</h3>
     <div class="cancion">
