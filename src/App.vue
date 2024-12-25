@@ -1,35 +1,68 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, markRaw, onMounted } from 'vue';
 import { Cancion } from './modelo/cancion';
+import { Contexto } from './modelo/contexto';
 
+import ComponenteMusical from './components/ComponenteMusical.vue';
+import ComponenteMusicalAcordes from './components/ComponenteMusicalAcordes.vue';
+import ComponenteMusicalLetra from './components/ComponenteMusicalLetra.vue';
+import ComponenteMusicalPartitura from './components/ComponenteMusicalPartitura.vue';
+import ComponenteMusicalMetronomo from './components/ComponenteMusicalMetronomo.vue';
+
+// Definir la canción y el contexto
 const cancion = ref(new Cancion(
     'Despacito', 
     'Luis Fonsi', 
     'Vamos a hacerlo en una playa en Puerto Rico...'
 ));
-
-let vista = ref( {
+let vista = ref({
    cargando_cancion: false
 });
+let contexto = new Contexto("Lista", 10);
+let compas = 0;
+
+
+
+
+// Vector de componentes musicales
+const componentesMusicales = ref([
+    markRaw(ComponenteMusicalAcordes),
+    markRaw(ComponenteMusicalLetra),
+    markRaw(ComponenteMusicalLetra),
+    markRaw(ComponenteMusicalMetronomo),
+    markRaw(ComponenteMusical),
+    markRaw(ComponenteMusical),
+    markRaw(ComponenteMusicalPartitura)
+]);
+
+    // Llamar a la función iniciarCompasEnComponentes cuando sea necesario 
+    onMounted(() => { 
+        console.log("APP MONTADA")
+    });
+
 </script>
 
 <template>
     
-<div>
-    <h1>{{ cancion.titulo }}</h1>
-    <h3>{{ cancion.artista }}</h3>
-    <div class="cancion">
-        
-        <p>{{ cancion.letra }}</p>
+<div id="barra_navegacion">
+  <div>Cancionero</div>
+  <div id="barra_control">
+      <div>{{ cancion.titulo }} </div>
+  </div>
+  <div>Controladores cancion</div>
+  <div style="margin-left: auto;">Configuración</div>
+</div>
+<div id="vistas">
+</div>
+<div id="contenedor-musical">
+    <div v-for="(Componente, index) in componentesMusicales" :key="index">
+        <component :is="Componente" :compas="compas" :cancion="cancion" :contexto="contexto"></component>
     </div>
 </div>
-
-
-
 </template>
 
 <style scoped>
-.app {
+#contenedor-musical {
     display: flex;
     flex-direction: column;
     align-items: center;
