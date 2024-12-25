@@ -8,6 +8,7 @@ import ComponenteMusicalAcordes from './components/ComponenteMusicalAcordes.vue'
 import ComponenteMusicalLetra from './components/ComponenteMusicalLetra.vue';
 import ComponenteMusicalPartitura from './components/ComponenteMusicalPartitura.vue';
 import ComponenteMusicalMetronomo from './components/ComponenteMusicalMetronomo.vue';
+import ControladorTiempo from './components/ControladorTiempo.vue';
 
 // Definir la canción y el contexto
 const cancion = ref(new Cancion(
@@ -35,6 +36,33 @@ const componentesMusicales = ref([
     markRaw(ComponenteMusicalPartitura)
 ]);
 
+
+function onPause() {
+    console.log("Pause event received");
+}
+
+function onStop() {
+    console.log("Stop event received");
+    compas  = 0;
+}
+
+function onNext() {
+    console.log("Next event received");
+    compas.value++;
+}
+
+function onPrevious() {
+    console.log("Previous event received");
+    if (compas.value > 0) {
+        compas.value--;
+    }
+}
+
+function onUpdateCompas(newCompas) {
+    console.log(`Update compas event received: ${newCompas}`);
+    compas.value = newCompas;
+}
+
     // Llamar a la función iniciarCompasEnComponentes cuando sea necesario 
     onMounted(() => { 
         console.log("APP MONTADA")
@@ -49,7 +77,10 @@ const componentesMusicales = ref([
   <div id="barra_control">
       <div>{{ cancion.titulo }} </div>
   </div>
-  <div>Controladores cancion</div>
+  <ControladorTiempo :compas="compas" :cancion="cancion" :contexto="contexto"
+  @play="onPlay" @pause="onPause" @stop="onStop" @next="onNext" @previous="onPrevious" @update-compas="onUpdateCompas">
+
+  </ControladorTiempo>
   <div style="margin-left: auto;">Configuración</div>
 </div>
 <div id="vistas">
