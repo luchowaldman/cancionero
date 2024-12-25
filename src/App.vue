@@ -2,6 +2,7 @@
 import { ref, markRaw, onMounted } from 'vue';
 import { Cancion } from './modelo/cancion';
 import { Contexto } from './modelo/contexto';
+import { Reproductor } from './modelo/reproductor';
 
 import ComponenteMusical from './components/ComponenteMusical.vue';
 import ComponenteMusicalAcordes from './components/ComponenteMusicalAcordes.vue';
@@ -20,8 +21,21 @@ let vista = ref({
    cargando_cancion: false
 });
 let contexto = new Contexto("Lista", 10);
-let compas = 0;
+const compas = ref(-1);
+let reproductor = new Reproductor(1000, 8);
 
+reproductor.setIniciaHandler(() => {
+    console.log("Iniciando reproductor");
+});
+
+reproductor.setIniciaCompasHandler((newCompas: number) => {
+    console.log("Tocando compas", newCompas);
+    compas.value = parseInt(newCompas)
+});
+
+reproductor.setFinalizaHandler(() => {
+    console.log("Deteniendo reproductor");
+});
 
 
 
@@ -38,29 +52,32 @@ const componentesMusicales = ref([
 
 
 function onPause() {
+    reproductor.pausar();
     console.log("Pause event received");
 }
 
+function onPlay() {
+    reproductor.iniciar();
+    console.log("Play event received");
+
+}
+
 function onStop() {
+    reproductor.parar();
     console.log("Stop event received");
-    compas  = 0;
 }
 
 function onNext() {
     console.log("Next event received");
-    compas.value++;
 }
 
 function onPrevious() {
     console.log("Previous event received");
-    if (compas.value > 0) {
-        compas.value--;
-    }
 }
 
-function onUpdateCompas(newCompas) {
-    console.log(`Update compas event received: ${newCompas}`);
-    compas.value = newCompas;
+function onUpdateCompas(newCompas: number) {
+    compas.value = parseInt(newCompas)
+    console.log(`Esto se actualiza: ${newCompas}`);
 }
 
     // Llamar a la función iniciarCompasEnComponentes cuando sea necesario 
@@ -77,10 +94,12 @@ function onUpdateCompas(newCompas) {
   <div id="barra_control">
       <div>{{ cancion.titulo }} </div>
   </div>
-  <ControladorTiempo :compas="compas" :cancion="cancion" :contexto="contexto"
+  <ControladorTiempo :compas=compas :cancion="cancion" :contexto="contexto"
   @play="onPlay" @pause="onPause" @stop="onStop" @next="onNext" @previous="onPrevious" @update-compas="onUpdateCompas">
 
   </ControladorTiempo>
+
+  {{ compas }}
   <div style="margin-left: auto;">Configuración</div>
 </div>
 <div id="vistas">

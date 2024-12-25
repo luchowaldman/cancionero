@@ -3,9 +3,14 @@ import { ref } from 'vue';
 import { Cancion } from '../modelo/cancion';
 import { Contexto } from '../modelo/contexto';
 
-defineProps<{ compas: number, cancion: Cancion, contexto: Contexto }>();
+const props = defineProps<{ compas: number, cancion: Cancion, contexto: Contexto }>();
 const emit = defineEmits(['play', 'pause', 'stop', 'next', 'previous', 'update-compas']);
+const currentCompas = ref(0);
+import { watch } from 'vue';
 
+watch(() => props.compas, (newCompas) => {
+  currentCompas.value = newCompas;
+});
 
 function play() {
     emit('play');
@@ -48,7 +53,7 @@ function updateCompas(newCompas: number) {
         <input 
             type="range" 
             min="0" 
-            :max="cancion.duracion" 
+            max="10" 
             v-model="currentCompas" 
             @input="updateCompas(currentCompas)" 
         />
