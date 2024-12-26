@@ -40,7 +40,7 @@ function Iniciar_Compas(nro_compas: number)
 </script>
 
 <template>
-{{ mostrando_parte }} - {{ mostrando_compas_parte }}
+
   <div class="componente_acordes">
   
     <div v-for="(parte, index_parte) in cancion.acordes.partes" :key="parte.nombre" >
