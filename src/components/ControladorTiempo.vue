@@ -67,18 +67,4 @@ function updateCompas(newCompas: number) {
     display: flex;
     
 }
-button {
-
-}
-button:hover {
-    background-color: #0056b3;
-}
-.progress-bar {
-    display: flex;
-    align-items: center;
-}
-input[type="range"] {
-    flex-grow: 1;
-    margin-right: 10px;
-}
 </style>

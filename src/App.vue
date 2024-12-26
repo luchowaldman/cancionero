@@ -10,19 +10,25 @@ import ComponenteMusicalLetra from './components/ComponenteMusicalLetra.vue';
 import ComponenteMusicalPartitura from './components/ComponenteMusicalPartitura.vue';
 import ComponenteMusicalMetronomo from './components/ComponenteMusicalMetronomo.vue';
 import ControladorTiempo from './components/ControladorTiempo.vue';
+import { Acordes, Parte } from './modelo/acordes';
 
 // Definir la canción y el contexto
 const cancion = ref(new Cancion(
-    'Despacito', 
-    'Luis Fonsi', 
-    'Vamos a hacerlo en una playa en Puerto Rico...'
+    'Fuiste lo mejor', 
+    'Intoxicados', 
+    'Vamos a hacerlo en una playa en Puerto Rico...',
+    new Acordes([
+        new Parte("verso", ["sol", "do sol", "MIm", "LaM", "Do"]),
+        new Parte("estribilllo", ["SIm", "Sol", "Mim","DO", "RE", "SIm", "Sol", "DO", "RE"])
+    ], [0, 0, 1, 0, 1, 0]),
+    
 ));
 let vista = ref({
    cargando_cancion: false
 });
 let contexto = new Contexto("Lista", 10);
 const compas = ref(-1);
-let reproductor = new Reproductor(1000, 8);
+let reproductor = new Reproductor(1200, 50);
 
 reproductor.setIniciaHandler(() => {
     console.log("Iniciando reproductor");
