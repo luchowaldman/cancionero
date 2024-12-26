@@ -28,7 +28,7 @@ let vista = ref({
 });
 let contexto = new Contexto("Lista", 10);
 const compas = ref(-1);
-let reproductor = new Reproductor(1200, 50);
+let reproductor = new Reproductor(2200, 50);
 
 reproductor.setIniciaHandler(() => {
     console.log("Iniciando reproductor");

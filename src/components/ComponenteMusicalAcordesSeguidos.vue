@@ -60,7 +60,7 @@ function Iniciar_Compas(nro_compas: number)
   <h3>Partes</h3>
         <div class="parte">
           <div v-for="(parte, index) in cancion.acordes.orden_partes" :key="index" class="ordenparte">
-            <span :class="{ compas_actual: mostrando_parte === index }">{{ cancion.acordes.partes[parte].nombre }}</span>
+            <span :class="{ compas_actual: mostrando_parte === index }">{{ parte }}</span>
           </div>
           
         </div>

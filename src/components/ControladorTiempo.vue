@@ -53,7 +53,7 @@ function updateCompas(newCompas: number) {
         <input 
             type="range" 
             min="0" 
-            max="10" 
+            max="100" 
             v-model="currentCompas" 
             @input="updateCompas(currentCompas)" 
         />
