@@ -72,20 +72,4 @@ function Iniciar_Compas(nro_compas: number)
   color: #888;
 }
 
-.parte {
-  display: flex;
-}
-.acorde {
-  border: 1px solid #888;
-  width: 25%;
-}
-.ordenparte {
-  border: 1px solid #888;
-  width: 25%;
-}
-
-.compas_actual {
-  background-color: #00FF00;
-  color: white;
-}
 </style>

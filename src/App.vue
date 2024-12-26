@@ -6,6 +6,7 @@ import { Reproductor } from './modelo/reproductor';
 
 import ComponenteMusical from './components/ComponenteMusical.vue';
 import ComponenteMusicalAcordes from './components/ComponenteMusicalAcordes.vue';
+import ComponenteMusicalAcordesSeguidos from './components/ComponenteMusicalAcordesSeguidos.vue';
 import ComponenteMusicalLetra from './components/ComponenteMusicalLetra.vue';
 import ComponenteMusicalPartitura from './components/ComponenteMusicalPartitura.vue';
 import ComponenteMusicalMetronomo from './components/ComponenteMusicalMetronomo.vue';
@@ -47,13 +48,16 @@ reproductor.setFinalizaHandler(() => {
 
 // Vector de componentes musicales
 const componentesMusicales = ref([
-    markRaw(ComponenteMusicalAcordes),
-    markRaw(ComponenteMusicalLetra),
-    markRaw(ComponenteMusicalLetra),
-    markRaw(ComponenteMusicalMetronomo),
-    markRaw(ComponenteMusical),
-    markRaw(ComponenteMusical),
-    markRaw(ComponenteMusicalPartitura)
+markRaw(ComponenteMusicalAcordesSeguidos),
+        markRaw(ComponenteMusicalAcordes)
+    
+    //markRaw()
+    //markRaw(ComponenteMusicalLetra),
+    //markRaw(ComponenteMusicalLetra),
+    //markRaw(ComponenteMusicalMetronomo),
+    //markRaw(ComponenteMusical),
+    //markRaw(ComponenteMusical),
+    
 ]);
 
 
