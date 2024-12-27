@@ -12,16 +12,30 @@ import ComponenteMusicalPartitura from './components/ComponenteMusicalPartitura.
 import ComponenteMusicalMetronomo from './components/ComponenteMusicalMetronomo.vue';
 import ControladorTiempo from './components/ControladorTiempo.vue';
 import { Acordes, Parte } from './modelo/acordes';
+import { Letra } from './modelo/letra';
 
 // Definir la canción y el contexto
 const cancion = ref(new Cancion(
     'Fuiste lo mejor', 
     'Intoxicados', 
-    'Vamos a hacerlo en una playa en Puerto Rico...',
     new Acordes([
         new Parte("verso", ["sol", "do sol", "MIm", "LaM", "Do"]),
         new Parte("estribilllo", ["SIm", "Sol", "Mim","DO", "RE", "SIm", "Sol", "DO", "RE"])
     ], [0, 0, 1, 0, 1, 0]),
+
+    new Letra([
+    ["", "", "", ""],
+    ["", "", "", ""],
+    ["aca", "llego a buscarte"],
+        ["en la playa", "bajo el sol"],
+        ["con la brisa", "del mar"],
+        ["y el sonido", "de las olas"],
+        [],
+        ["aca", "llego a buscarte"],
+        ["en la playa", "bajo el sol"],
+        ["con la brisa", "del mar"],
+        ["y el sonido", "de las olas"]
+    ]    )
     
 ));
 let vista = ref({
@@ -48,11 +62,12 @@ reproductor.setFinalizaHandler(() => {
 
 // Vector de componentes musicales
 const componentesMusicales = ref([
-markRaw(ComponenteMusicalAcordesSeguidos),
-        markRaw(ComponenteMusicalAcordes)
+    markRaw(ComponenteMusicalLetra),
+    markRaw(ComponenteMusicalAcordesSeguidos),
+    markRaw(ComponenteMusicalAcordes)
     
     //markRaw()
-    //markRaw(ComponenteMusicalLetra),
+    //
     //markRaw(ComponenteMusicalLetra),
     //markRaw(ComponenteMusicalMetronomo),
     //markRaw(ComponenteMusical),
