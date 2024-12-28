@@ -20,3 +20,6 @@ Learn more about the recommended Project Setup and IDE Support in the [Vue Docs 
 
 Sera distribuida en JSON, muy probablemente Casandra
 
+# Construccion de datos
+
+Vamos a obtener letras, acordes y partituras desde internet, mezclando datos o creandolas usando python.
