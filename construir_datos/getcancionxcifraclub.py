@@ -31,4 +31,10 @@ def download_cifraclub_page(band_name, song_name):
 
 # Example usage
 # download_cifraclub_page('intoxicados', 'fuiste lo mejor')
-download_cifraclub_page('intoxicados', 'fuego')
+# download_cifraclub_page('intoxicados', 'fuego')Nah
+download_cifraclub_page('intoxicados', 'esta saliendo el sol')
+download_cifraclub_page('intoxicados', 'se fue al cielo')
+download_cifraclub_page('intoxicados', 'casi sin pensar')
+download_cifraclub_page('intoxicados', 'pila pila')
+download_cifraclub_page('intoxicados', 'volver a casa')
+
