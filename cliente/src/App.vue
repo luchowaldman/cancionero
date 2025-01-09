@@ -13,6 +13,7 @@ import ComponenteMusicalMetronomo from './components/ComponenteMusicalMetronomo.
 import ControladorTiempo from './components/ControladorTiempo.vue';
 import { Acordes, Parte } from './modelo/acordes';
 import { Letra } from './modelo/letra';
+import { Almacenado } from './modelo/Almacenado';
 
 // Definir la canción y el contexto
 
@@ -38,14 +39,15 @@ async function getCancion(banda: string, tema: string): Promise<Cancion> {
     
 
 const cancion  = ref(new Cancion("", "", new Acordes([], []), new Letra([])));
+const almacen = new Almacenado();
+cancion.value = almacen.obtenerCancion('fuego', 'intoxicados');
 
-getCancion('Intoxicados', 'fuiste lo mejor').then((cancionret) => {
-    console.log("Canción cargada", cancionret);
-    cancion.value = cancionret;
+/*
+getCancion('Intoxicados', 'casi sin pensar').then((cancionret) => {
+    console.log("Canción obtenida", cancionret);
+    almacen.agregarCancion(cancionret);
 });
-
-
-
+*/
 let vista = ref({
    cargando_cancion: false
 });
@@ -59,7 +61,7 @@ reproductor.setIniciaHandler(() => {
 
 reproductor.setIniciaCompasHandler((newCompas: number) => {
     console.log("Tocando compas", newCompas);
-    compas.value = parseInt(newCompas)
+    compas.value = newCompas;
 });
 
 reproductor.setFinalizaHandler(() => {

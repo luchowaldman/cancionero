@@ -41,11 +41,9 @@ async function getCancion(banda: string, tema: string): Promise<Cancion> {
 
 const cancion  = ref(new Cancion("", "", new Acordes([], []), new Letra([])));
 const mostrando_compas_parte = ref(-1)
-
-getCancion('Intoxicados', 'fuiste lo mejor').then((cancionret) => {
-    console.log("Canción cargada", cancionret);
-    cancion.value = cancionret;
-});
+import { Almacenado } from './modelo/Almacenado';
+const almacen = new Almacenado();
+cancion.value = almacen.obtenerCancion('fuego', 'intoxicados');
 
 
 
@@ -113,6 +111,10 @@ function onUpdateCompas(newCompas: number) {
     console.log(`Esto se actualiza: ${newCompas}`);
 }
 
+function guardarCancion() {
+    almacen.agregarCancion(cancion.value);
+}
+
     // Llamar a la función iniciarCompasEnComponentes cuando sea necesario 
     onMounted(() => { 
         console.log("APP MONTADA")
@@ -126,6 +128,7 @@ function onUpdateCompas(newCompas: number) {
   <div>Cancionero -EDIT </div>
   <div id="barra_control">
       <div>{{ cancion.cancion }} </div>
+      <div><button v-on:click="guardarCancion()">GUARDAR</button></div>
   </div>
   <ControladorTiempo :compas=compas :cancion="cancion" :contexto="contexto"
   @play="onPlay" @pause="onPause" @stop="onStop" @next="onNext" @previous="onPrevious" @update-compas="onUpdateCompas">
