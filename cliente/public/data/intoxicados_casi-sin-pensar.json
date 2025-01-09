@@ -1,0 +1,267 @@
+{
+    "banda": "intoxicados",
+    "cancion": "casi sin pensar",
+    "tono": "C",
+    "acordes": {
+        "partes": [
+            {
+                "nombre": "Parte 1",
+                "acordes": [
+                    "C",
+                    "D",
+                    "G"
+                ]
+            },
+            {
+                "nombre": "Parte 2",
+                "acordes": [
+                    "Em"
+                ]
+            },
+            {
+                "nombre": "Parte 3",
+                "acordes": [
+                    "G"
+                ]
+            },
+            {
+                "nombre": "Parte 4",
+                "acordes": [
+                    "C",
+                    "D",
+                    "Em"
+                ]
+            }
+        ],
+        "orden_partes": [
+            0,
+            1,
+            0,
+            0,
+            1,
+            0,
+            2,
+            0,
+            1,
+            0,
+            0,
+            1,
+            0,
+            2,
+            0,
+            1,
+            0,
+            0,
+            1,
+            0,
+            2,
+            0,
+            1,
+            3,
+            0,
+            1,
+            0,
+            2,
+            0,
+            1,
+            0,
+            0,
+            1,
+            0,
+            2,
+            0,
+            1,
+            3
+        ]
+    },
+    "letras": [
+        [
+            "",
+            "",
+            "",
+            ""
+        ],
+        [
+            "",
+            "",
+            ""
+        ],
+        [
+            "<b>",
+            "C</b>           <b>",
+            "D</b>        <b>",
+            "G</b>          <b>",
+            "Em</b>"
+        ],
+        [
+            "<b>",
+            "C</b>           <b>",
+            "D</b>"
+        ],
+        [
+            "      <b>",
+            "G</b>               <b>",
+            "G</b>"
+        ],
+        [
+            "<b>",
+            "C</b>                <b>",
+            "D</b>"
+        ],
+        [
+            "       <b>",
+            "G</b>            <b>",
+            "Em</b>"
+        ],
+        [
+            "<b>",
+            "C</b>                 <b>",
+            "D</b>               <b>",
+            "G</b>       "
+        ],
+        [
+            "",
+            "",
+            ""
+        ],
+        [
+            "La vida",
+            " me la regalaron",
+            ""
+        ],
+        [
+            "La ",
+            "muerte en cuotas voy pag",
+            "ando",
+            ""
+        ],
+        [
+            "Puedo seguir ",
+            "mintiendo en nombre del amor \"si\"!"
+        ],
+        [
+            "Pued",
+            "o seguir cantando",
+            ""
+        ],
+        [
+            "Pue",
+            "do vivir mil veces",
+            ""
+        ],
+        [
+            "Sig",
+            "uiendo siempre por el",
+            " mismo camino"
+        ],
+        [
+            "Pero aunqu",
+            "e haga lo mismo"
+        ],
+        [
+            "Nun",
+            "ca voy a tener, el ",
+            "mismo destino",
+            "",
+            ""
+        ],
+        [
+            "<b>",
+            "C</b>           <b>D</b> ",
+            "       <b>G</b>          <b>Em</b>"
+        ],
+        [
+            "<b>",
+            "C</b>                 <b",
+            ">D</b>       "
+        ],
+        [
+            "<b>",
+            "G</b>              ",
+            "  <b>G</b>"
+        ],
+        [
+            "<b>",
+            "C</b>           <b>D</b>    ",
+            "    "
+        ],
+        [
+            "<b>",
+            "G</b>                 ",
+            "   <b>Em</b>",
+            ""
+        ],
+        [
+            "<b>",
+            "C</b>              <b>D</b>",
+            "                   <b>Em</b>"
+        ],
+        [
+            "",
+            "",
+            ""
+        ],
+        [
+            "No ",
+            "se si estar a la sombra d",
+            "el sol"
+        ],
+        [
+            "No se ",
+            "si seguir la luz de la lu",
+            "na"
+        ],
+        [
+            "Pue",
+            "de curarme la propia enfe",
+            "rmedad"
+        ],
+        [
+            "O p",
+            "uede matarme la misma cu",
+            "ra"
+        ],
+        [
+            "Sie",
+            "nto en el corazón a Dios",
+            ""
+        ],
+        [
+            "Sie",
+            "nto en los pulmones al diablo"
+        ],
+        [
+            "Sie",
+            "nto que tengo 2 oíd",
+            "os para escuchar",
+            "",
+            ""
+        ],
+        [
+            "Y d",
+            "os pies para ir tropezand",
+            "o"
+        ],
+        [
+            "<b>C",
+            "</b>           <b>D</b>   ",
+            "     <b>G</b>          <b>Em</b>"
+        ],
+        [
+            "<b>",
+            "C</b>              ",
+            "   <b>D</b>       "
+        ],
+        [
+            " <b",
+            ">G</b>                  <b>G<",
+            "/b>"
+        ],
+        [
+            "<b>",
+            "C</b>           <b>D</b>  ",
+            "     ",
+            ""
+        ]
+    ]
+}
