@@ -5,73 +5,58 @@
     "acordes": {
         "partes": [
             {
-                "nombre": "parte1",
+                "nombre": "Parte 1",
                 "acordes": [
                     "D",
                     "A",
                     "G",
-                    "A",
-                    "D",
-                    "A",
-                    "G",
-                    "A",
-                    "D",
-                    "A",
-                    "G",
-                    "A",
+                    "A"
+                ]
+            },
+            {
+                "nombre": "Parte 2",
+                "acordes": [
                     "D",
                     "Em",
                     "G",
-                    "A",
-                    "",
-                    "D",
-                    "A",
-                    "G",
-                    "A",
-                    "D",
-                    "A",
-                    "G",
-                    "A",
-                    "D",
-                    "A",
-                    "G",
-                    "A",
-                    "D",
-                    "Em",
-                    "G",
-                    "A",
-                    "",
+                    "A"
+                ]
+            },
+            {
+                "nombre": "Parte 3",
+                "acordes": [
+                    ""
+                ]
+            },
+            {
+                "nombre": "Parte 4",
+                "acordes": [
                     "Bm",
                     "Em",
                     "G",
                     "A",
                     "F#m",
                     "G",
-                    "A",
-                    "D",
-                    "A",
-                    "G",
-                    "A",
-                    "D",
-                    "Em",
-                    "G",
-                    "A",
-                    "D",
-                    "A",
-                    "G",
-                    "A",
-                    "D",
-                    "A",
-                    "G",
-                    "A",
-                    "D",
-                    "A",
-                    "G",
                     "A"
                 ]
             }
         ],
         "orden_partes": [
+            0,
+            0,
+            0,
+            1,
+            2,
+            0,
+            0,
+            0,
+            1,
+            2,
+            3,
+            0,
+            1,
+            0,
+            0,
             0
         ]
     },

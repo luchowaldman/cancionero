@@ -5,44 +5,17 @@
     "acordes": {
         "partes": [
             {
-                "nombre": "parte1",
+                "nombre": "Parte 1",
                 "acordes": [
                     "A",
                     "E",
                     "F#m",
-                    "D",
-                    "A",
-                    "E",
-                    "F#m",
-                    "D",
-                    "A",
-                    "E",
-                    "D",
-                    "Bm",
-                    "C#m",
-                    "A",
-                    "A",
-                    "E",
-                    "F#m",
-                    "D",
-                    "A",
-                    "E",
-                    "F#m",
-                    "D",
-                    "A",
-                    "E",
-                    "D",
-                    "Bm",
-                    "C#m",
-                    "A",
-                    "A",
-                    "E",
-                    "F#m",
-                    "D",
-                    "A",
-                    "E",
-                    "F#m",
-                    "D",
+                    "D"
+                ]
+            },
+            {
+                "nombre": "Parte 2",
+                "acordes": [
                     "A",
                     "E",
                     "D",
@@ -53,7 +26,15 @@
             }
         ],
         "orden_partes": [
-            0
+            0,
+            0,
+            1,
+            0,
+            0,
+            1,
+            0,
+            0,
+            1
         ]
     },
     "letras": [

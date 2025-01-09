@@ -2,38 +2,26 @@ import os
 import json
 from bs4 import BeautifulSoup
 
+
+from acordes import Acordes, Parte
+from buscar_partes import buscar_partes
+
+
 SAVE_DIRECTORY = 'cifraclub_pages/'
 DIRECTORIO_DATOS = '../cliente/public/data/'
 
-
-
-
-
-def tryN(n, parte):
-    acordes = parte.get('acordes')
-    print((len(acordes) + 1) % 4)
-
-
-
-    orden_partes = [0]    
-    parte_ret = { 'nombre': 'parte1', 'acordes': acordes }
-    return parte_ret, orden_partes
-
-    
-     
 # Función para calcular las partes de la canción
+
 def calcular_partes(acordes, letras):
     
-    parte = { 'nombre': 'parte1', 'acordes': acordes }
-    orden_partes = [0]
-
-    parte, orden_partes = tryN(1, parte)
+    partes, secuencia = buscar_partes(acordes)
 
 
-    return {
-        'partes': [parte],
-        'orden_partes': orden_partes
-    }
+    partes_obj = []
+    for (i, parte) in enumerate(partes):
+        partes_obj.append(Parte(f'Parte {i + 1}', parte))
+    acorde = Acordes(partes_obj, secuencia)
+    return acorde.toJson()
 
 
 # Función para analizar un archivo HTML y guardarlo en JSON
@@ -121,6 +109,7 @@ def analizar_html_y_guardar_en_json(band_name, song_name ):
                 addtexto.append(lineas[i + 1][last_pos:])
                 letras.append(addtexto)
                 i += 2
+
     analisis['acordes'] = calcular_partes(acordes, letras)
     analisis['letras'] = letras
 
@@ -140,8 +129,8 @@ def analizar_html_y_guardar_en_json(band_name, song_name ):
 # analizar_html_y_guardar_en_json("intoxicados", "fuiste lo mejor")
 # analizar_html_y_guardar_en_json("intoxicados", "fuego")
 
-analizar_html_y_guardar_en_json('intoxicados', 'esta saliendo el sol')
-analizar_html_y_guardar_en_json('intoxicados', 'se fue al cielo')
+#analizar_html_y_guardar_en_json('intoxicados', 'esta saliendo el sol')
+#analizar_html_y_guardar_en_json('intoxicados', 'se fue al cielo')
 analizar_html_y_guardar_en_json('intoxicados', 'casi sin pensar')
-analizar_html_y_guardar_en_json('intoxicados', 'pila pila')
-analizar_html_y_guardar_en_json('intoxicados', 'volver a casa')
+#analizar_html_y_guardar_en_json('intoxicados', 'pila pila')
+#analizar_html_y_guardar_en_json('intoxicados', 'volver a casa')
