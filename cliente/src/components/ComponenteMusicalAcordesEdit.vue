@@ -10,6 +10,11 @@ const mostrando_parte = ref(-1)
 const mostrando_compas_parte = ref(-1)
 const currentCompas = ref(0);
 
+const mostrando_renglon = ref(-1);
+const mostrando_palabra = ref(-1);
+const mostrando_renglon2 = ref(-1);
+const mostrando_palabra2 = ref(-1);
+
 watch(() => props.compas, (newCompas) => {
     
   let totalCompases = 0;
@@ -25,6 +30,31 @@ watch(() => props.compas, (newCompas) => {
     totalCompases += compases_x_parte;
   }
   currentCompas.value = newCompas;
+
+
+
+  totalCompases = 0;
+  for (let i = 0; i < props.cancion.letra.renglones.length; i++) 
+  {
+    let compases_x_parte = 0;
+    if (props.cancion.letra.renglones[i])
+      compases_x_parte = props.cancion.letra.renglones[i].length;
+
+    props.cancion.letra.renglones[i].length; 
+    if (newCompas < totalCompases + compases_x_parte) {
+      mostrando_renglon.value = i;
+      mostrando_palabra.value = newCompas - totalCompases;
+      totalCompases += compases_x_parte;
+      break;
+    }
+    totalCompases += compases_x_parte;
+  }
+  console.log("Compas", newCompas, "totalCompases", totalCompases , "Renglon", mostrando_renglon.value, "Palabra", mostrando_palabra.value);
+
+  if (newCompas >= totalCompases) {
+    mostrando_renglon.value = -1;
+    mostrando_palabra.value = -1;
+  }
 
 
 });
@@ -54,6 +84,20 @@ function agregar_compas(index_parte: number)
   console.log("Editando nombre de parte", index_parte)
 }
 
+function modificar_letra(index_parte: number) 
+{
+  const letra = props.cancion.letra.renglones[index_parte].join("|");
+  const nuevoNombre = prompt("Ingrese los acordes de la parte:", letra);
+  if (nuevoNombre !== null &&  nuevoNombre.trim() == "")
+  {    
+    props.cancion.letra.renglones.splice(index_parte, 1);
+
+  }
+  if (nuevoNombre !== null && nuevoNombre.trim() !== "") {
+    props.cancion.letra.renglones[index_parte] = nuevoNombre.trim().split("|");
+  }
+  console.log("Editando nombre de parte", index_parte)
+}
 
 function modificar_compas(index_parte: number, index: number) 
 {
@@ -100,6 +144,20 @@ function modificar_compas(index_parte: number, index: number)
           </div>
           
         </div>
+
+
+        
+<div id="letra">
+  <h3>Letra</h3>
+  <div v-for="(linea, index) in cancion.letra.renglones" :key="index" class="linea" @click="modificar_letra(index)">  
+    <span v-for="(palabra, index_palabra) in linea" :key="index_palabra" class="palabra" 
+        :class="{ compas_actual: mostrando_renglon === index && mostrando_palabra === index_palabra }"
+        >
+        {{ palabra }}|
+      </span>
+  </div>
+
+</div>
 </div>
 </template>
 
