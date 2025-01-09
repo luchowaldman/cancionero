@@ -26,7 +26,10 @@ export class Almacenado {
   
     // Método para obtener una canción por su nombre
     obtenerCancion(nombre: string, banda: string): Cancion | undefined {
+      nombre = nombre.toLocaleLowerCase();
+      banda  = banda.toLocaleLowerCase();
       const canciones = this.obtenerTodasLasCanciones();
+      console.log("Obtengo cancion", nombre, banda);
       return canciones.find((cancion) => cancion.cancion === nombre && cancion.banda === banda);
     }
   

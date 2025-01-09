@@ -14,6 +14,8 @@ import ControladorTiempo from './components/ControladorTiempo.vue';
 import { Acordes, Parte } from './modelo/acordes';
 import { Letra } from './modelo/letra';
 import { Almacenado } from './modelo/Almacenado';
+import { item_lista } from './modelo/item_lista';
+import { Console } from 'console';
 
 // Definir la canción y el contexto
 
@@ -52,10 +54,14 @@ for (const tema of canciones) {
     */
 
 
-    let canciones_sesion = [];
     const canciones = ['esta saliendo el sol', 'fuiste lo mejor','casi sin pensar', 'fuego', 'necesito', 'no tengo ganas', 'pila pila', 'volver a casa']
-    for (const tema of canciones) {
-        canciones_sesion.push(almacen.obtenerCancion(tema, 'intoxicados'));
+    
+
+    let canciones_sesion = [];
+    let canciones_lista: item_lista[] = JSON.parse(localStorage.getItem("canciones_lista") || "[]");
+    console.log("CANCIONES",canciones_lista)
+    for (const tema of canciones_lista) {
+        canciones_sesion.push(almacen.obtenerCancion(tema.cancion, tema.banda));
     }
 
 
