@@ -30,4 +30,5 @@ def download_cifraclub_page(band_name, song_name):
         print(f'Failed to download page: {url} (Status code: {response.status_code})')
 
 # Example usage
-download_cifraclub_page('intoxicados', 'fuiste lo mejor')
+# download_cifraclub_page('intoxicados', 'fuiste lo mejor')
+download_cifraclub_page('intoxicados', 'fuego')

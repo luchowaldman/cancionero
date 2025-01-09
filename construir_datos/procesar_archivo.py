@@ -6,10 +6,30 @@ SAVE_DIRECTORY = 'cifraclub_pages/'
 DIRECTORIO_DATOS = '../cliente/public/data/'
 
 
+
+
+
+def tryN(n, parte):
+    acordes = parte.get('acordes')
+    print((len(acordes) + 1) % 4)
+
+
+
+    orden_partes = [0]    
+    parte_ret = { 'nombre': 'parte1', 'acordes': acordes }
+    return parte_ret, orden_partes
+
+    
+     
 # Función para calcular las partes de la canción
 def calcular_partes(acordes, letras):
+    
     parte = { 'nombre': 'parte1', 'acordes': acordes }
     orden_partes = [0]
+
+    parte, orden_partes = tryN(1, parte)
+
+
     return {
         'partes': [parte],
         'orden_partes': orden_partes
@@ -51,10 +71,16 @@ def analizar_html_y_guardar_en_json(band_name, song_name ):
     # Obtener los acordes y la letra desde el tag <pre>
     pre_tag = soup.find('pre')
     if pre_tag:
+        # Eliminar todos los tags de la clase 'tablatura' y 'cnt'
+        for tag in pre_tag.find_all(class_=['tablatura', 'cnt']):
+            tag.decompose()
         acordes = []
         letras = []
         lineas = pre_tag.decode_contents().split('\n')
     count = 0
+
+
+
     for i, line in enumerate(lineas):
             if line.strip():  # Verificar si la línea no es un string en blanco
                 tiene_acordes = bool(BeautifulSoup(line, 'html.parser').find('b'))
@@ -65,7 +91,6 @@ def analizar_html_y_guardar_en_json(band_name, song_name ):
     i = 0
     while i < len(lineas_dict):
         tiene_acordes = lineas_tieneacordes[i]
-        print(f"Procesando línea {i}: {tiene_acordes}")
         if not (tiene_acordes):
             acordes.append('')
             letras.append([lineas_dict[i]])
@@ -78,10 +103,8 @@ def analizar_html_y_guardar_en_json(band_name, song_name ):
                 letras.append(addtexto)
                 i += 1
             else:
-                print ("Analizando", lineas_dict[i], lineas_dict[i + 1])
                 addacordes = [b.get_text() for b in BeautifulSoup(lineas_dict[i], 'html.parser').find_all('b')]
                 acordes.extend(addacordes)
-                print ("ACORDES", acordes) 
 
                 positions = []
                 last_pos = 0
@@ -114,4 +137,5 @@ def analizar_html_y_guardar_en_json(band_name, song_name ):
         json.dump(analisis, file, ensure_ascii=False, indent=4)
 
 # Ejemplo de uso
-analizar_html_y_guardar_en_json("intoxicados", "fuiste lo mejor")
+# analizar_html_y_guardar_en_json("intoxicados", "fuiste lo mejor")
+analizar_html_y_guardar_en_json("intoxicados", "fuego")

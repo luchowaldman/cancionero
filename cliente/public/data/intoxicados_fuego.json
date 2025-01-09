@@ -1,0 +1,289 @@
+{
+    "banda": "intoxicados",
+    "cancion": "fuego",
+    "tono": "D",
+    "acordes": {
+        "partes": [
+            {
+                "nombre": "parte1",
+                "acordes": [
+                    "D",
+                    "A",
+                    "G",
+                    "A",
+                    "D",
+                    "A",
+                    "G",
+                    "A",
+                    "D",
+                    "A",
+                    "G",
+                    "A",
+                    "D",
+                    "Em",
+                    "G",
+                    "A",
+                    "",
+                    "D",
+                    "A",
+                    "G",
+                    "A",
+                    "D",
+                    "A",
+                    "G",
+                    "A",
+                    "D",
+                    "A",
+                    "G",
+                    "A",
+                    "D",
+                    "Em",
+                    "G",
+                    "A",
+                    "",
+                    "Bm",
+                    "Em",
+                    "G",
+                    "A",
+                    "F#m",
+                    "G",
+                    "A",
+                    "D",
+                    "A",
+                    "G",
+                    "A",
+                    "D",
+                    "Em",
+                    "G",
+                    "A",
+                    "D",
+                    "A",
+                    "G",
+                    "A",
+                    "D",
+                    "A",
+                    "G",
+                    "A",
+                    "D",
+                    "A",
+                    "G",
+                    "A"
+                ]
+            }
+        ],
+        "orden_partes": [
+            0
+        ]
+    },
+    "letras": [
+        [
+            "",
+            "",
+            ""
+        ],
+        [
+            "",
+            ""
+        ],
+        [
+            "",
+            ""
+        ],
+        [
+            "",
+            "",
+            ""
+        ],
+        [
+            "",
+            ""
+        ],
+        [
+            " Esta v",
+            "ez es en serio"
+        ],
+        [
+            "No ",
+            "estoy mintiendo"
+        ],
+        [
+            "Algo se",
+            " prende fuego"
+        ],
+        [
+            " Se que ",
+            "mucha veces dije"
+        ],
+        [
+            "Que el lobo ven",
+            "ia pero esta vez"
+        ],
+        [
+            "El ",
+            "lobo esta aca"
+        ],
+        [
+            " Se",
+            " prende fuego"
+        ],
+        [
+            "Mi ",
+            "pelo mi piano"
+        ],
+        [
+            "Mis disc",
+            "os"
+        ],
+        [
+            "[Puente]"
+        ],
+        [
+            "<b>",
+            "D</b>",
+            ""
+        ],
+        [
+            "<b>Em</b>",
+            ""
+        ],
+        [
+            "<b>G</b>",
+            ""
+        ],
+        [
+            "   ",
+            "  <b>A</b>",
+            ""
+        ],
+        [
+            "",
+            ""
+        ],
+        [
+            "",
+            ""
+        ],
+        [
+            " Es",
+            "ta vez es en serio"
+        ],
+        [
+            "No esto",
+            "y mintiendo"
+        ],
+        [
+            "Algo se ",
+            "prende fuego"
+        ],
+        [
+            " Se que mucha v",
+            "eces dije"
+        ],
+        [
+            "Que",
+            " el lobo venia pero esta vez"
+        ],
+        [
+            "El ",
+            "lobo esta aca"
+        ],
+        [
+            " Se",
+            " prende fuego"
+        ],
+        [
+            "Mi pelo ",
+            "mi piano"
+        ],
+        [
+            "[Puente]"
+        ],
+        [
+            "   ",
+            "         <b>A</b>",
+            ""
+        ],
+        [
+            "<b>D</b>",
+            ""
+        ],
+        [
+            "<b>",
+            "Em</b>"
+        ],
+        [
+            "<b>",
+            "G</b>"
+        ],
+        [
+            "   ",
+            "  <b>A</b>"
+        ],
+        [
+            "",
+            ""
+        ],
+        [
+            "",
+            ""
+        ],
+        [
+            "Dame un",
+            " balde de agua"
+        ],
+        [
+            "O de are",
+            "na"
+        ],
+        [
+            "Pásame el mataf",
+            "uegos"
+        ],
+        [
+            "<b>",
+            "F#m</b>"
+        ],
+        [
+            "<b>",
+            "G</b>"
+        ],
+        [
+            "<b>",
+            "A</b>"
+        ],
+        [
+            "",
+            ""
+        ],
+        [
+            " Se",
+            " prende fuego",
+            ""
+        ],
+        [
+            "Mi ",
+            "pelo mi piano",
+            ""
+        ],
+        [
+            "Mis",
+            " discos",
+            ""
+        ],
+        [
+            "La ",
+            "ropa y el per",
+            "ro"
+        ],
+        [
+            " Pu",
+            "ede ser que otr",
+            "a vez"
+        ],
+        [
+            "No ",
+            "sea cierto pero",
+            ""
+        ]
+    ]
+}
