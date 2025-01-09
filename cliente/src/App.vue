@@ -49,9 +49,18 @@ for (const tema of canciones) {
         almacen.agregarCancion(cancionret);
     });
 }
-*/
+    */
 
-cancion.value = almacen.obtenerCancion('fuego', 'intoxicados');
+
+    let canciones_sesion = [];
+    const canciones = ['esta saliendo el sol', 'fuiste lo mejor','casi sin pensar', 'fuego', 'necesito', 'no tengo ganas', 'pila pila', 'volver a casa']
+    for (const tema of canciones) {
+        canciones_sesion.push(almacen.obtenerCancion(tema, 'intoxicados'));
+    }
+
+
+const nro_cancion = ref(0);
+cancion.value = canciones_sesion[nro_cancion.value];
 
 
 
@@ -111,10 +120,14 @@ function onStop() {
 
 function onNext() {
     console.log("Next event received");
+    nro_cancion.value = (nro_cancion.value + 1) % canciones_sesion.length;
+    cancion.value = canciones_sesion[nro_cancion.value];
 }
 
 function onPrevious() {
     console.log("Previous event received");
+    nro_cancion.value = (nro_cancion.value - 1 + canciones_sesion.length) % canciones_sesion.length;
+    cancion.value = canciones_sesion[nro_cancion.value];
 }
 
 function onUpdateCompas(newCompas: number) {
