@@ -126,11 +126,11 @@ def analizar_html_y_guardar_en_json(band_name, song_name ):
         json.dump(analisis, file, ensure_ascii=False, indent=4)
 
 # Ejemplo de uso
-# analizar_html_y_guardar_en_json("intoxicados", "fuiste lo mejor")
-# analizar_html_y_guardar_en_json("intoxicados", "fuego")
+analizar_html_y_guardar_en_json("intoxicados", "fuiste lo mejor")
 
-#analizar_html_y_guardar_en_json('intoxicados', 'esta saliendo el sol')
-#analizar_html_y_guardar_en_json('intoxicados', 'se fue al cielo')
-analizar_html_y_guardar_en_json('intoxicados', 'casi sin pensar')
-#analizar_html_y_guardar_en_json('intoxicados', 'pila pila')
-#analizar_html_y_guardar_en_json('intoxicados', 'volver a casa')
+# analizar_html_y_guardar_en_json("intoxicados", "fuego")
+# analizar_html_y_guardar_en_json('intoxicados', 'esta saliendo el sol')
+# analizar_html_y_guardar_en_json('intoxicados', 'se fue al cielo')
+# analizar_html_y_guardar_en_json('intoxicados', 'casi sin pensar')
+# analizar_html_y_guardar_en_json('intoxicados', 'pila pila')
+# analizar_html_y_guardar_en_json('intoxicados', 'volver a casa')

@@ -5,61 +5,65 @@
     "acordes": {
         "partes": [
             {
-                "nombre": "parte1",
+                "nombre": "Parte 1",
                 "acordes": [
                     "G",
                     "C",
-                    "G",
+                    "G"
+                ]
+            },
+            {
+                "nombre": "Parte 2",
+                "acordes": [
                     "Em",
                     "Am",
-                    "D",
-                    "G",
-                    "C",
-                    "G",
-                    "G",
-                    "D",
-                    "C",
-                    "G",
-                    "G",
-                    "C",
-                    "G",
-                    "Em",
-                    "Am",
-                    "D",
-                    "G",
-                    "C",
-                    "G",
-                    "G",
-                    "D",
-                    "C",
-                    "G",
-                    "Bm",
-                    "G",
-                    "Am",
-                    "C",
-                    "D",
-                    "Bm",
-                    "G",
-                    "C",
-                    "D",
-                    "G",
-                    "C",
-                    "G",
-                    "Em",
-                    "Am",
-                    "D",
-                    "G",
-                    "C",
-                    "G",
+                    "D"
+                ]
+            },
+            {
+                "nombre": "Parte 3",
+                "acordes": [
                     "G",
                     "D",
                     "C",
                     "G"
                 ]
+            },
+            {
+                "nombre": "Parte 4",
+                "acordes": [
+                    "Bm",
+                    "G",
+                    "Am",
+                    "C",
+                    "D"
+                ]
+            },
+            {
+                "nombre": "Parte 5",
+                "acordes": [
+                    "Bm",
+                    "G",
+                    "C",
+                    "D"
+                ]
             }
         ],
         "orden_partes": [
-            0
+            0,
+            1,
+            0,
+            2,
+            0,
+            1,
+            0,
+            2,
+            3,
+            4,
+            0,
+            1,
+            0,
+            2
         ]
     },
     "letras": [

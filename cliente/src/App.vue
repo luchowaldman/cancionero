@@ -39,7 +39,7 @@ async function getCancion(banda: string, tema: string): Promise<Cancion> {
 
 const cancion  = ref(new Cancion("", "", new Acordes([], [0]), new Letra([])));
 
-getCancion('Intoxicados', 'casi sin pensar').then((cancionret) => {
+getCancion('Intoxicados', 'fuiste lo mejor').then((cancionret) => {
     console.log("Canción cargada", cancionret);
     cancion.value = cancionret;
 });

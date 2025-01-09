@@ -38,19 +38,25 @@ def tryVN(n, acordes_inp):
         acordes = acordes[len(parte1):]
         secuencia.append(partes.index(parte1))
 
+    print (f'partes: {partes}')
+    print (f'secuencia: {secuencia}')  
     return partes, secuencia
     
 def buscar_partes(acordes):
 
     formas = []
     #formas.append([4, 6])
-    formas.append([4, 6]) # Esta saliendo el sol
-    formas.append([4, 4, 1, 7]) # Fuego
-    formas.append([3, 1, 1, 3]) # Casi sin pensar
+    
+    
+    #formas.append([4, 6]) # Esta saliendo el sol
+    #formas.append([4, 4, 1, 7]) # Fuego
+    #formas.append([3, 1, 1, 3]) # Casi sin pensar
+    formas.append([3, 3, 4, 5, 4]) # Fuiste lo mejor
+    
+    
     for forma in formas:
         partes, secuencia = tryVN(forma, acordes)
         dis = PartesDistintas(secuencia)
-        print (f'Partes: {dis}')
         if len(forma) == dis:
             print (f'forma encontrada: {forma}')
             return partes, secuencia
