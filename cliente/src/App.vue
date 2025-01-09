@@ -20,17 +20,6 @@ async function getCancion(banda: string, tema: string): Promise<Cancion> {
         const response = await fetch(`/public/data/${banda.replace(/\s+/g, '-')}_${tema.replace(/\s+/g, '-')}.json`);
         const data = await response.json();
         
-        /*
-        const partes = data.acordes.partes.map((parte: { nombre: string, acordes: [] }) => new Parte(parte.nombre, parte.acordes));
-        console.log("Partes", partes[0]);
-        const acordes = new Acordes(partes, data.acordes.orden_partes);
-        */
-/*
-        const partes = [
-        new Parte("verso", ["sol", "do sol", "MIm", "LaM", "Do"]),
-        new Parte("estribilllo", ["SIm", "Sol", "Mim","DO", "RE", "SIm", "Sol", "DO", "RE"])
-        ];
-*/
         let partes = []
         for (let i = 0; i < data.acordes.partes.length; i++) {
             partes.push(new Parte(data.acordes.partes[i].nombre, data.acordes.partes[i].acordes));
@@ -48,9 +37,6 @@ async function getCancion(banda: string, tema: string): Promise<Cancion> {
     }
     
 
-
-
-
 const cancion  = ref(new Cancion("", "", new Acordes([], [0]), new Letra([])));
 
 getCancion('Intoxicados', 'Fuiste lo mejor').then((cancionret) => {
@@ -59,30 +45,6 @@ getCancion('Intoxicados', 'Fuiste lo mejor').then((cancionret) => {
 });
 
 
-// Definir la canción y el contexto
-cancion.value = new Cancion(
-    'Fuiste lo mejor', 
-    'Intoxicados', 
-    new Acordes([
-        new Parte("verso", ["sol", "do sol", "MIm", "LaM", "Do"]),
-        new Parte("estribilllo", ["SIm", "Sol", "Mim","DO", "RE", "SIm", "Sol", "DO", "RE"])
-    ], [0, 0, 1, 0, 1, 0]),
-
-    new Letra([
-    ["", "", "", ""],
-    ["", "", "", ""],
-    ["aca", "llego a buscarte"],
-        ["en la playa", "bajo el sol"],
-        ["con la brisa", "del mar"],
-        ["y el sonido", "de las olas"],
-        [],
-        ["aca", "llego a buscarte"],
-        ["en la playa", "bajo el sol"],
-        ["con la brisa", "del mar"],
-        ["y el sonido", "de las olas"]
-    ]    )
-    
-);
 
 let vista = ref({
    cargando_cancion: false
@@ -108,9 +70,9 @@ reproductor.setFinalizaHandler(() => {
 
 // Vector de componentes musicales
 const componentesMusicales = ref([
-    markRaw(ComponenteMusicalLetra),
-    markRaw(ComponenteMusicalAcordesSeguidos),
-    markRaw(ComponenteMusicalAcordes)
+markRaw(ComponenteMusicalAcordes),
+markRaw(ComponenteMusicalLetra),
+    markRaw(ComponenteMusicalAcordesSeguidos)
     
     //markRaw()
     //
