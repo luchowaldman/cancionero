@@ -43,7 +43,10 @@ const cancion  = ref(new Cancion("", "", new Acordes([], []), new Letra([])));
 const mostrando_compas_parte = ref(-1)
 import { Almacenado } from './modelo/Almacenado';
 const almacen = new Almacenado();
-cancion.value = almacen.obtenerCancion('esta saliendo el sol', 'intoxicados');
+const banda = localStorage.getItem("editar_banda") || '';
+const tema = localStorage.getItem("editar_cancion") || '';
+
+cancion.value = almacen.obtenerCancion(tema, banda);
 
 
 
