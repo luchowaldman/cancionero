@@ -1,157 +1,75 @@
-import requests
-import json
 import os
+import json
+from bs4 import BeautifulSoup
 
-# Tu token de acceso
-token = 'BQDcKRvN66d1KUbYnyiWyAALlOoOno4cKhAnlDNzwlHY3E43eUm7THuGUbC9WwEpSoBOe7GdpLbYUvarp9s0wXB8cG-UzBnSLWGIcQnEbNPAI3zF3rw'
-
-# Datos para la solicitud
-headers = {
-    'Authorization': f'Bearer {token}'
-}
-
-# Directorio donde se guardará el archivo index.json
-DIRECTORIO_DATOS = './datos'
-
-# Crear el archivo index.json
-def crear_archivo_index():
-    if not os.path.exists(DIRECTORIO_DATOS):
-        os.makedirs(DIRECTORIO_DATOS)
+# Función para analizar un archivo HTML y guardarlo en JSON
+def analizar_html_y_guardar_en_json(nombre_archivo_html, nombre_archivo_json):
+    # Leer el contenido del archivo HTML
+    with open(nombre_archivo_html, 'r', encoding='utf-8') as file:
+        contenido_html = file.read()
     
-    ruta_archivo = os.path.join(DIRECTORIO_DATOS, 'index.json')
-    if not os.path.exists(ruta_archivo):
-        with open(ruta_archivo, 'w', encoding='utf-8') as file:
-            json.dump([], file, ensure_ascii=False, indent=4)
-
-# Obtener el ID de la banda
-def obtener_id_banda(nombre_banda):
-    url = 'https://api.spotify.com/v1/search'
-    params = {
-        'q': nombre_banda,
-        'type': 'artist',
-        'limit': 1
-    }
-    response = requests.get(url, headers=headers, params=params)
+    # Analizar el contenido HTML con BeautifulSoup
+    soup = BeautifulSoup(contenido_html, 'lxml')
     
-    data = response.json()
-    if data['artists']['items']:
-        return data['artists']['items'][0]['id']
+    # Crear un diccionario para almacenar el análisis
+    analisis = {}
+    
+    # Obtener el tono de la canción
+    cifra_tom = soup.find('span', id='cifra_tom')
+    if cifra_tom and cifra_tom.find('a'):
+        tono = cifra_tom.find('a').get_text()
     else:
-        return None
-
-# Obtener los discos de la banda
-def obtener_discos_banda(id_banda):
-    url = f'https://api.spotify.com/v1/artists/{id_banda}/albums'
-    params = {
-        'include_groups': 'album',
-        'limit': 50
-    }
-    response = requests.get(url, headers=headers, params=params)
-    data = response.json()
-    discos = [{'nombre_disco': album['name'], 'id_disco': album['id']} for album in data['items']] 
-    return discos
-
-# Obtener las pistas de un disco
-def obtener_tracks_disco(id_disco): 
-    url = f'https://api.spotify.com/v1/albums/{id_disco}/tracks' 
-    params = { 'limit': 50 } 
-    response = requests.get(url, headers=headers, params=params) 
-    data = response.json() 
-    tracks = [{'nombre_pista': track['name'], 'id_pista': track['id']} for track in data['items']] 
-    return tracks
-
-# Obtener las características de audio de una pista
-def obtener_caracteristicas_track(id_track):
-    url = f'https://api.spotify.com/v1/audio-features/{id_track}'
-    response = requests.get(url, headers=headers)
-    data = response.json()
+        tono = 'No se encontró el tono'
     
-    # Verificar que todos los campos estén presentes en los datos
-    escala = data.get('key', 'N/A')
-    bpm = data.get('tempo', 'N/A')
-    modo = 'Mayor' if data.get('mode') == 1 else 'Menor'
-    energia = data.get('energy', 'N/A')
-    danzabilidad = data.get('danceability', 'N/A')
-    acustica = data.get('acousticness', 'N/A')
-    instrumentalidad = data.get('instrumentalness', 'N/A')
-    valencia = data.get('valence', 'N/A')
-    popularidad = data.get('popularity', 'N/A')
+    analisis['tono'] = tono
     
-    return {
-        'escala': escala,
-        'bpm': bpm,
-        'modo': modo,
-        'energia': energia,
-        'danzabilidad': danzabilidad,
-        'acustica': acustica,
-        'instrumentalidad': instrumentalidad,
-        'valencia': valencia,
-        'popularidad': popularidad
-    }
-
-# Insertar o actualizar una canción específica en index.json
-def insertar_actualizar_cancion(nombre_cancion):
-    url = 'https://api.spotify.com/v1/search'
-    params = {
-        'q': nombre_cancion,
-        'type': 'track',
-        'limit': 1
-    }
-    response = requests.get(url, headers=headers, params=params)
-    data = response.json()
+    # Ejemplo de análisis: obtener el título del documento
+    titulo = soup.title.string if soup.title else 'No se encontró título'
+    analisis['titulo'] = titulo
     
-    if data['tracks']['items']:
-        track = data['tracks']['items'][0]
-        id_cancion = track['id']
-        nombre_banda = track['artists'][0]['name']
-        id_banda = track['artists'][0]['id']
-        caracteristicas = obtener_caracteristicas_track(id_cancion)
-        info_cancion = {
-            'nombre_cancion': track['name'],
-            'nombre_banda': nombre_banda,
-            'id_cancion': id_cancion,
-            'id_banda': id_banda,
-            'estado': 0,
-            'bpm': caracteristicas['bpm'],
-            'escala': caracteristicas['escala'],
-            'modo': caracteristicas['modo'],
-            'energia': caracteristicas['energia'],
-            'danzabilidad': caracteristicas['danzabilidad'],
-            'acustica': caracteristicas['acustica'],
-            'instrumentalidad': caracteristicas['instrumentalidad'],
-            'valencia': caracteristicas['valencia'],
-            'popularidad': caracteristicas['popularidad']
-        }
+    # Ejemplo de análisis: obtener todos los párrafos
+    parrafos = [p.get_text() for p in soup.find_all('p')]
+    analisis['parrafos'] = parrafos
+    
+    # Ejemplo de análisis: obtener todos los enlaces
+    enlaces = [{'texto': a.get_text(), 'href': a['href']} for a in soup.find_all('a', href=True)]
+    analisis['enlaces'] = enlaces
 
-        ruta_archivo = os.path.join(DIRECTORIO_DATOS, 'index.json')
-        with open(ruta_archivo, 'r+', encoding='utf-8') as file:
-            data = json.load(file)
-            cancion_existente = next((cancion for cancion in data if cancion['nombre_banda'] == nombre_banda and cancion['nombre_cancion'] == nombre_cancion), None)
-            
-            if cancion_existente:
-                # Actualizar los datos de la canción existente
-                cancion_existente.update(info_cancion)
-                print(f'Canción "{nombre_cancion}" actualizada en el índice.')
-            else:
-                # Insertar nueva canción
-                data.append(info_cancion)
-                print(f'Canción "{nombre_cancion}" agregada al índice.')
-
-            file.seek(0)
-            json.dump(data, file, ensure_ascii=False, indent=4)
+    # Obtener los acordes y la letra desde el tag <pre>
+    pre_tag = soup.find('pre')
+    if pre_tag:
+        acordes = []
+        letras = []
+        for line in pre_tag.get_text().split('\n'):
+            acorde_linea = []
+            letra_linea = []
+            last_index = 0
+            for tag in pre_tag.find_all('b'):
+                acorde = tag.get_text()
+                acordes.append(acorde)
+                acorde_linea.append(acorde)
+                acorde_start = line.find(acorde, last_index)
+                if acorde_start != -1:
+                    letra_linea.append(line[last_index:acorde_start].strip())
+                    last_index = acorde_start + len(acorde)
+            letra_linea.append(line[last_index:].strip())
+            letras.append(letra_linea)
+        analisis['acordes'] = acordes
+        analisis['letras'] = letras
     else:
-        print(f'No se encontró la canción: {nombre_cancion}')
+        analisis['acordes'] = 'No se encontraron acordes'
+        analisis['letras'] = 'No se encontraron letras'
+    
+    # Crear el directorio si no existe
+    directorio = os.path.dirname(nombre_archivo_json)
+    if not os.path.exists(directorio):
+        os.makedirs(directorio)
+    
+    # Guardar el análisis en un archivo JSON
+    with open(nombre_archivo_json, 'w', encoding='utf-8') as file:
+        json.dump(analisis, file, ensure_ascii=False, indent=4)
 
-# Crear el archivo index.json
-crear_archivo_index()
-
-# Nueva función para imprimir la banda y el nombre del tema
-def imprimir_bandas_y_canciones():
-    ruta_archivo = os.path.join(DIRECTORIO_DATOS, 'index.json')
-    with open(ruta_archivo, 'r', encoding='utf-8') as file:
-        data = json.load(file)
-        for cancion in data:
-            print(f"Banda: {cancion['nombre_banda']}, Canción: {cancion['nombre_cancion']}")
-
-# Ejemplo de uso: Insertar o actualizar una canción específica en index.json
-insertar_actualizar_cancion('Fuiste lo Mejor')
+# Ejemplo de uso
+nombre_archivo_html = 'ejemplo.html'
+nombre_archivo_json = './datos/analisis_ejemplo.json'
+analizar_html_y_guardar_en_json(nombre_archivo_html, nombre_archivo_json)

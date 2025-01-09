@@ -5,8 +5,8 @@ import { Letra } from "./letra";
 export class Cancion {
     
     constructor(
-        public titulo: string,
-        public artista: string,
+        public cancion: string,
+        public banda: string,
         public acordes: Acordes,
         public letra: Letra
     ) {}

@@ -6,7 +6,7 @@ import os
 DIRECTORIO_DATOS = '../cliente/public/data/'
 
 # Tu token de acceso
-token = 'BQDaZAgdUftOK3oST4XeYH-Ar56A_60-INUM7sMrI-PpCSlKngAhZEouVjyTW2926pCI4aFm-o6YSCEPKO4ogpw-dOzotSf362I1IXm6NieGj5pn-y4'
+token = 'BQBqsQp-xEx4JYdVA3b5iPqd4eK-rMMI_tt039ENkuhnVeph_WdXWt1DWUzxf7ucQiTWziEjT_qjX3XL_RbG1bpqE7C73gJ9uqRrFAgfOt9ZhXKXRUQ'
 
 # Datos para la solicitud
 headers = {
@@ -153,14 +153,24 @@ def insertar_actualizar_cancion(nombre_cancion):
         print(f'No se encontró la canción: {nombre_cancion}')
 
 
+def insertar_canciones_en_index(nombre_banda):
+    id_banda = obtener_id_banda(nombre_banda);
+    print ("ID BANDA: ", id_banda)
+    discos = obtener_discos_banda(id_banda);
+    print ("DISCOS: ", discos)
+    for disco in discos:
+        tracks = obtener_tracks_disco(disco['id_disco'])
+        for track in tracks:
+            insertar_actualizar_cancion(track['nombre_pista'])
+
 
 
 # Crear el archivo index.json
 crear_archivo_index()
 
 # Ejemplo de uso: Insertar canciones de Intoxicados en index.json
-# insertar_canciones_en_index('Intoxicados')
+insertar_canciones_en_index('Intoxicados')
 # insertar_actualizar_cancion('Fuiste lo Mejor')
-insertar_actualizar_cancion('Imagine')
+# insertar_actualizar_cancion('Fuiste lo Mejor')
 
 

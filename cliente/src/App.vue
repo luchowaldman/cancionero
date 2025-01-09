@@ -15,7 +15,52 @@ import { Acordes, Parte } from './modelo/acordes';
 import { Letra } from './modelo/letra';
 
 // Definir la canción y el contexto
-const cancion = ref(new Cancion(
+
+async function getCancion(banda: string, tema: string): Promise<Cancion> {
+        const response = await fetch(`/public/data/${banda.replace(/\s+/g, '-')}_${tema.replace(/\s+/g, '-')}.json`);
+        const data = await response.json();
+        
+        /*
+        const partes = data.acordes.partes.map((parte: { nombre: string, acordes: [] }) => new Parte(parte.nombre, parte.acordes));
+        console.log("Partes", partes[0]);
+        const acordes = new Acordes(partes, data.acordes.orden_partes);
+        */
+/*
+        const partes = [
+        new Parte("verso", ["sol", "do sol", "MIm", "LaM", "Do"]),
+        new Parte("estribilllo", ["SIm", "Sol", "Mim","DO", "RE", "SIm", "Sol", "DO", "RE"])
+        ];
+*/
+        let partes = []
+        for (let i = 0; i < data.acordes.partes.length; i++) {
+            partes.push(new Parte(data.acordes.partes[i].nombre, data.acordes.partes[i].acordes));
+        }
+
+        
+        const acordes = new Acordes(partes, data.acordes.orden_partes);
+    
+        return new Cancion(
+            data.cancion,
+            data.banda,
+            acordes,
+            new Letra(data.letras) 
+        );
+    }
+    
+
+
+
+
+const cancion  = ref(new Cancion("", "", new Acordes([], [0]), new Letra([])));
+
+getCancion('Intoxicados', 'Fuiste lo mejor').then((cancionret) => {
+    console.log("Canción cargada", cancionret);
+    cancion.value = cancionret;
+});
+
+
+// Definir la canción y el contexto
+cancion.value = new Cancion(
     'Fuiste lo mejor', 
     'Intoxicados', 
     new Acordes([
@@ -37,7 +82,8 @@ const cancion = ref(new Cancion(
         ["y el sonido", "de las olas"]
     ]    )
     
-));
+);
+
 let vista = ref({
    cargando_cancion: false
 });
@@ -113,11 +159,11 @@ function onUpdateCompas(newCompas: number) {
 </script>
 
 <template>
-    
+    <div>
 <div id="barra_navegacion">
   <div>Cancionero</div>
   <div id="barra_control">
-      <div>{{ cancion.titulo }} </div>
+      <div>{{ cancion.cancion }} </div>
   </div>
   <ControladorTiempo :compas=compas :cancion="cancion" :contexto="contexto"
   @play="onPlay" @pause="onPause" @stop="onStop" @next="onNext" @previous="onPrevious" @update-compas="onUpdateCompas">
@@ -133,6 +179,7 @@ function onUpdateCompas(newCompas: number) {
     <div v-for="(Componente, index) in componentesMusicales" :key="index">
         <component :is="Componente" :compas="compas" :cancion="cancion" :contexto="contexto"></component>
     </div>
+</div>
 </div>
 </template>
 

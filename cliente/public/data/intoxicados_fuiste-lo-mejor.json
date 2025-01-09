@@ -1,0 +1,163 @@
+{
+    "banda": "intoxicados",
+    "cancion": "fuiste lo mejor",
+    "tono": "G",
+    "acordes": {
+        "partes": [
+            {
+                "nombre": "parte1",
+                "acordes": [
+                    "G",
+                    "C",
+                    "G",
+                    "Em",
+                    "Am",
+                    "D",
+                    "G",
+                    "C",
+                    "G",
+                    "G",
+                    "D",
+                    "C",
+                    "G",
+                    "G",
+                    "C",
+                    "G",
+                    "Em",
+                    "Am",
+                    "D",
+                    "G",
+                    "C",
+                    "G",
+                    "G",
+                    "D",
+                    "C",
+                    "G",
+                    "Bm",
+                    "G",
+                    "Am",
+                    "C",
+                    "D",
+                    "Bm",
+                    "G",
+                    "C",
+                    "D",
+                    "G",
+                    "C",
+                    "G",
+                    "Em",
+                    "Am",
+                    "D",
+                    "G",
+                    "C",
+                    "G",
+                    "G",
+                    "D",
+                    "C",
+                    "G"
+                ]
+            }
+        ],
+        "orden_partes": [
+            0
+        ]
+    },
+    "letras": [
+        [
+            "Yo ",
+            "no creo que esté todo bien si salto por ",
+            "la ventana",
+            ""
+        ],
+        [
+            "Todo fue muy bueno y extrañ",
+            "o hoy, tu cuerpo en",
+            " mi habitación",
+            ""
+        ],
+        [
+            "Y p",
+            "erdona si te lastimé, pero quería que est",
+            "o terminara",
+            ""
+        ],
+        [
+            "Lam",
+            "ento no haber sido lo m",
+            "ejor para voooss",
+            "",
+            ""
+        ],
+        [
+            "Cua",
+            "ndo te deje y te dije que por un par de año",
+            "s más te amaría",
+            ""
+        ],
+        [
+            "Pero aunque no quiera est",
+            "oy pensando como pude aleja",
+            "rme de voos",
+            ""
+        ],
+        [
+            "Pero sé ",
+            "que te olvidaré pero hasta que l",
+            "legue ese día",
+            ""
+        ],
+        [
+            "Qui",
+            "ero que sepas que fuiste lo m",
+            "ejor",
+            "",
+            ""
+        ],
+        [
+            "<b>",
+            "Bm</b>                      <b>",
+            "G</b>                      <b>",
+            "Am</b>"
+        ],
+        [
+            "                      <b>",
+            "C</b>             <b>",
+            "D</b>"
+        ],
+        [
+            "<b>",
+            "Bm</b>                         <b>",
+            "G</b>"
+        ],
+        [
+            " <b>",
+            "C</b>                    <b>",
+            "D</b>"
+        ],
+        [
+            "",
+            "",
+            "",
+            ""
+        ],
+        [
+            "Yo no creo que estee todo",
+            " bien si salto por la",
+            " ventana",
+            ""
+        ],
+        [
+            "Tod",
+            "o fue muy bueno y extraño hoy, ",
+            "tu cuerpo en mi habitacion",
+            ""
+        ],
+        [
+            "Y p",
+            "erdoná si te lastime, p",
+            "ero quería que ",
+            "esto terminara",
+            ""
+        ]
+    ]
+}
