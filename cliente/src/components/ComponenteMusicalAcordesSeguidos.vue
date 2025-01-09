@@ -31,23 +31,15 @@ watch(() => props.compas, (newCompas) => {
 </script>
 
 <template>
-
-    
-    
+    <div>
       <div v-for="(parte, index) in cancion.acordes.orden_partes" :key="index" class="parte">
-        
-        
         <div  v-for="(aco, index_aco) in cancion.acordes.partes[parte].acordes" :key="index_aco"
-        class="acorde"
-         :class="{ compas_actual: mostrando_parte === index && mostrando_compas_parte === index_aco }"
-        >
+         class="acorde"
+         :class="{ compas_actual: mostrando_parte === index && mostrando_compas_parte === index_aco }">
          {{ aco }}
         </div>
-
-     </div>
-    
-    
-
+      </div>
+    </div>
 </template>
 
 <style scoped>

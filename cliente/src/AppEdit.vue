@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { ref, markRaw, onMounted } from 'vue';
+import { ref, markRaw, onMounted, watch } from 'vue';
 import { Cancion } from './modelo/cancion';
 import { Contexto } from './modelo/contexto';
 import { Reproductor } from './modelo/reproductor';
 
+
+import ComponenteMusicalAcordesEdit from './components/ComponenteMusicalAcordesEdit.vue';
 import ComponenteMusicalAcordes from './components/ComponenteMusicalAcordes.vue';
 import ComponenteMusicalAcordesSeguidos from './components/ComponenteMusicalAcordesSeguidos.vue';
 import ComponenteMusicalLetra from './components/ComponenteMusicalLetra.vue';
@@ -38,6 +40,7 @@ async function getCancion(banda: string, tema: string): Promise<Cancion> {
     
 
 const cancion  = ref(new Cancion("", "", new Acordes([], []), new Letra([])));
+const mostrando_compas_parte = ref(-1)
 
 getCancion('Intoxicados', 'fuiste lo mejor').then((cancionret) => {
     console.log("Canción cargada", cancionret);
@@ -51,6 +54,12 @@ let vista = ref({
 });
 let contexto = new Contexto("Lista", 10);
 const compas = ref(-1);
+
+const editando = ref(-1)
+const mostrando_parte = ref(-1)
+const currentCompas = ref(0);
+
+
 let reproductor = new Reproductor(2200, 50);
 
 reproductor.setIniciaHandler(() => {
@@ -59,7 +68,7 @@ reproductor.setIniciaHandler(() => {
 
 reproductor.setIniciaCompasHandler((newCompas: number) => {
     console.log("Tocando compas", newCompas);
-    compas.value = parseInt(newCompas)
+    compas.value = newCompas;
 });
 
 reproductor.setFinalizaHandler(() => {
@@ -70,17 +79,8 @@ reproductor.setFinalizaHandler(() => {
 
 // Vector de componentes musicales
 const componentesMusicales = ref([
-    markRaw(ComponenteMusicalAcordes),
-    markRaw(ComponenteMusicalLetra),
+    markRaw(ComponenteMusicalAcordesEdit),
     markRaw(ComponenteMusicalAcordesSeguidos)
-    
-    //markRaw()
-    //
-    //markRaw(ComponenteMusicalLetra),
-    //markRaw(ComponenteMusicalMetronomo),
-    //markRaw(ComponenteMusical),
-    //markRaw(ComponenteMusical),
-    
 ]);
 
 
@@ -123,7 +123,7 @@ function onUpdateCompas(newCompas: number) {
 <template>
     <div>
 <div id="barra_navegacion">
-  <div>Cancionero</div>
+  <div>Cancionero -EDIT </div>
   <div id="barra_control">
       <div>{{ cancion.cancion }} </div>
   </div>
@@ -137,11 +137,42 @@ function onUpdateCompas(newCompas: number) {
 </div>
 <div id="vistas">
 </div>
+
+
 <div id="contenedor-musical">
     <div v-for="(Componente, index) in componentesMusicales" :key="index">
         <component :is="Componente" :compas="compas" :cancion="cancion" :contexto="contexto"></component>
     </div>
 </div>
+
+
+    
+  <div class="componente_acordes">
+  
+  <div v-for="(parte, index_parte) in cancion.acordes.partes" :key="parte.nombre" >
+      <div>
+        <h3>{{ parte.nombre }}</h3>
+        <input type="text" v-model="parte.nombre" />
+      </div>
+      <div class="parte">
+        <div v-for="(acorde, index) in parte.acordes" class="acorde" :key="acorde">
+          <span  :class="{ compas_actual: ((  mostrando_compas_parte === index ) &&
+                                           ( index_parte  === cancion.acordes.orden_partes[mostrando_parte]  ))
+           }">{{ acorde }}</span>
+        </div>
+      </div>
+  </div>
+<h3>Partes</h3>
+      <div class="parte">
+        <div v-for="(parte, index) in cancion.acordes.orden_partes" :key="index" class="ordenparte">
+          <span :class="{ compas_actual: mostrando_parte === index }" >{{ cancion.acordes.partes[parte].nombre }}</span>
+        </div>
+        
+      </div>
+</div>
+
+
+
 </div>
 </template>
 

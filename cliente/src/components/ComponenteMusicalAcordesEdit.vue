@@ -16,9 +16,7 @@ watch(() => props.compas, (newCompas) => {
   for (let i = 0; i < props.cancion.acordes.orden_partes.length; i++) 
   {
 
-    let compases_x_parte = props.cancion.acordes.partes[props.cancion.acordes.orden_partes[i]].acordes.length; 
-
-
+    let compases_x_parte = props.cancion.acordes.partes[props.cancion.acordes.orden_partes[i]].acordes.length;
     if (newCompas < totalCompases + compases_x_parte) {
       mostrando_parte.value = i;
       mostrando_compas_parte.value = newCompas - totalCompases;
@@ -37,6 +35,43 @@ function Iniciar_Compas(nro_compas: number)
   console.log(`Iniciando compás ${nro_compas} en ComponenteMusicalAcordes`); 
 }
 
+function modificar_nombre(index_parte: number) 
+{
+  const nuevoNombre = prompt("Ingrese el nuevo nombre de la parte:", props.cancion.acordes.partes[index_parte].nombre);
+  if (nuevoNombre !== null && nuevoNombre.trim() !== "") {
+    props.cancion.acordes.partes[index_parte].nombre = nuevoNombre.trim();
+  }
+  console.log("Editando nombre de parte", index_parte)
+}
+
+
+function agregar_compas(index_parte: number) 
+{
+  const nuevoNombre = prompt("Ingrese los acordes de la parte:");
+  if (nuevoNombre !== null && nuevoNombre.trim() !== "") {
+    props.cancion.acordes.partes[index_parte].acordes.push(nuevoNombre.trim());
+  }
+  console.log("Editando nombre de parte", index_parte)
+}
+
+
+function modificar_compas(index_parte: number, index: number) 
+{
+  const nuevoNombre = prompt("Ingrese los acordes de la parte:", props.cancion.acordes.partes[index_parte].acordes[index]);
+  if (nuevoNombre !== null &&  nuevoNombre.trim() == "")
+  {    
+    props.cancion.acordes.partes[index_parte].acordes.splice(index, 1);
+
+  }
+  else if (nuevoNombre !== null && nuevoNombre.trim() !== "") {
+    props.cancion.acordes.partes[index_parte].acordes[index] = nuevoNombre.trim();
+  }
+  console.log("Editando nombre de parte", index_parte)
+}
+
+
+
+
 </script>
 
 <template>
@@ -44,20 +79,20 @@ function Iniciar_Compas(nro_compas: number)
   <div class="componente_acordes">
   
     <div v-for="(parte, index_parte) in cancion.acordes.partes" :key="parte.nombre" >
-      
-        <h3>{{ parte.nombre }}</h3>
+        <div>
+          <span>{{ parte.nombre }}</span><button @click="modificar_nombre(index_parte)">Editar</button>
+        </div>
         <div class="parte">
+          
           <div v-for="(acorde, index) in parte.acordes" class="acorde" :key="acorde">
             <span  :class="{ compas_actual: ((  mostrando_compas_parte === index ) &&
                                              ( index_parte  === cancion.acordes.orden_partes[mostrando_parte]  ))
-             }">{{ acorde }}</span>
+             }" @click="modificar_compas(index_parte, index)">{{ acorde }}</span>
           </div>
-        </div>
 
-    
-      
+          <button @click="agregar_compas(index_parte)">Agregar</button>
+        </div>
     </div>
-  
   <h3>Partes</h3>
         <div class="parte">
           <div v-for="(parte, index) in cancion.acordes.orden_partes" :key="index" class="ordenparte">
