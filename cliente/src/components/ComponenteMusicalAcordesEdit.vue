@@ -131,7 +131,7 @@ function modificar_compas(index_parte: number, index: number)
           <div v-for="(acorde, index) in parte.acordes" class="acorde" :key="acorde">
             <span  :class="{ compas_actual: ((  mostrando_compas_parte === index ) &&
                                              ( index_parte  === cancion.acordes.orden_partes[mostrando_parte]  ))
-             }" @click="modificar_compas(index_parte, index)">{{ acorde }}</span>
+             }" @click="modificar_compas(index_parte, index)"> &nbsp; {{ acorde }}</span>
           </div>
 
           <button @click="agregar_compas(index_parte)">Agregar</button>

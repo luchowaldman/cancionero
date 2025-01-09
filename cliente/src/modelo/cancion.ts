@@ -8,6 +8,8 @@ export class Cancion {
         public cancion: string,
         public banda: string,
         public acordes: Acordes,
-        public letra: Letra
+        public letra: Letra,
+        public tempo: number = 60,
+        public calidad: number = 0
     ) {}
 }

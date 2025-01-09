@@ -40,20 +40,27 @@ async function getCancion(banda: string, tema: string): Promise<Cancion> {
 
 const cancion  = ref(new Cancion("", "", new Acordes([], []), new Letra([])));
 const almacen = new Almacenado();
-cancion.value = almacen.obtenerCancion('fuego', 'intoxicados');
 
 /*
-getCancion('Intoxicados', 'casi sin pensar').then((cancionret) => {
-    console.log("Canción obtenida", cancionret);
-    almacen.agregarCancion(cancionret);
-});
+const canciones = ['esta saliendo el sol', 'fuiste lo mejor','casi sin pensar', 'fuego', 'necesito', 'no tengo ganas', 'pila pila', 'volver a casa']
+for (const tema of canciones) {
+    getCancion('Intoxicados', tema).then((cancionret) => {
+        console.log("Canción obtenida", cancionret);
+        almacen.agregarCancion(cancionret);
+    });
+}
 */
+
+cancion.value = almacen.obtenerCancion('fuego', 'intoxicados');
+
+
+
 let vista = ref({
    cargando_cancion: false
 });
 let contexto = new Contexto("Lista", 10);
 const compas = ref(-1);
-let reproductor = new Reproductor(2200, 50);
+let reproductor = new Reproductor(2200, 70);
 
 reproductor.setIniciaHandler(() => {
     console.log("Iniciando reproductor");
