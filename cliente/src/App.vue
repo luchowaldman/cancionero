@@ -148,36 +148,40 @@ function onUpdateCompas(newCompas: number) {
           </li>
           
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Editar</a>
+            <a class="nav-link active" aria-current="page" href="/edit">Editar</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Listas</a>
+            <a class="nav-link active" aria-current="page" href="/listas">Listas</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Configuracion</a>
+            <a class="nav-link active" aria-current="page" href="/config">Configuracion</a>
           </li>
         </ul>
       </div>
-        
-      
       <div>
         <ControladorTiempo :compas=compas :cancion="cancion" :contexto="contexto"
           @play="onPlay" @pause="onPause" @stop="onStop" @next="onNext" @previous="onPrevious" @update-compas="onUpdateCompas">
 
         </ControladorTiempo>
       </div>
-
-
-
     </div>
   </nav>
-        |
 
+
+
+  <div class="container">
+
+        
 <div id="contenedor-musical">
     <div v-for="(Componente, index) in componentesMusicales" :key="index">
         <component :is="Componente" :compas="compas" :cancion="cancion" :contexto="contexto"></component>
     </div>
 </div>
+
+
+
+      </div>
+
 </div>
 </template>
 

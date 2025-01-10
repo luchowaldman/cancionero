@@ -10,6 +10,7 @@ export default defineConfig({
         index: resolve(__dirname, 'index.html'),
         edit: resolve(__dirname, 'edit.html'),
         listas: resolve(__dirname, 'listas.html'),
+        config: resolve(__dirname, 'config.html'),
       }
     }
   }

@@ -41,9 +41,19 @@ function Iniciar_Compas(nro_compas: number)
 
 <template>
 
-  <div class="componente_acordes">
+  <div class="row">
   
-    <div v-for="(parte, index_parte) in cancion.acordes.partes" :key="parte.nombre" >
+    <h2>Orden</h2>
+    <div class="row ">
+          <div v-for="(parte, index) in cancion.acordes.orden_partes" :key="index" class="col-2 acorde">
+            <span :class="{ compas_actual: mostrando_parte === index }" >{{ cancion.acordes.partes[parte].nombre }}</span>
+          </div>
+          
+    </div>
+    <h1>&nbsp;</h1>
+
+    <h2>Partes</h2>
+    <div v-for="(parte, index_parte) in cancion.acordes.partes" :key="parte.nombre" class="row" >
       
         <h3>{{ parte.nombre }}</h3>
         <div class="parte">
@@ -53,18 +63,8 @@ function Iniciar_Compas(nro_compas: number)
              }">{{ acorde }}</span>
           </div>
         </div>
-
-    
-      
     </div>
   
-  <h3>Partes</h3>
-        <div class="parte">
-          <div v-for="(parte, index) in cancion.acordes.orden_partes" :key="index" class="ordenparte">
-            <span :class="{ compas_actual: mostrando_parte === index }" >{{ cancion.acordes.partes[parte].nombre }}</span>
-          </div>
-          
-        </div>
 </div>
 </template>
 
