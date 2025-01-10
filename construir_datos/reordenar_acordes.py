@@ -54,6 +54,16 @@ def reordenar_acordes(banda, tema):
                 parte = Parte(parte['nombre'], parte['acordes'])
                 partes_obj.append(parte)
             acordes = Acordes(partes_obj, acordes_data['orden_partes'])
+            if (acordes.orden_partes != [0]):
+                print(f"Reordenando{tema} , {banda}", acordes.partes[0].acordes)
+                todos_acordes = []
+                for parte in acordes.orden_partes:
+                    todos_acordes += acordes.partes[parte].acordes
+                print( todos_acordes)
+
+
+                acordes = Acordes([Parte("p1-rg", [todos_acordes])], [0])
+                                  
 
             if (acordes.orden_partes == [0]):
                 print(f"Inicial{tema} , {banda}", acordes.partes[0].acordes)
@@ -79,14 +89,17 @@ def reordenar_acordes(banda, tema):
     except Exception as e:
         print(f"Error al reordenar acordes de banda {banda}, tema {tema}: {e}")
 
+def hacer_archivo():
+    archivos = obtener_archivos_json(DIRECTORIO_DATOS)
+    for archivo in archivos:
+        if '_' in archivo:
+            banda = archivo.split('_')[0]
+            tema = archivo.split('_')[1]
+            print(f'Ordenando banda: {banda}, tema: {tema}')
+            try:
+                reordenar_acordes(banda, tema)
+            except Exception as e:
+                print(f"Error al procesar banda {banda}, tema {tema}: {e}")
 
-archivos = obtener_archivos_json(DIRECTORIO_DATOS)
-for archivo in archivos:
-    if '_' in archivo:
-        banda = archivo.split('_')[0]
-        tema = archivo.split('_')[1]
-        print(f'Ordenando banda: {banda}, tema: {tema}')
-        try:
-            reordenar_acordes(banda, tema)
-        except Exception as e:
-            print(f"Error al procesar banda {banda}, tema {tema}: {e}")
+#reordenar_acordes('andres-calamaro', 'ansia-en-plaza-francia')
+reordenar_acordes('andres-calamaro', 'Aguas-peligrosas')

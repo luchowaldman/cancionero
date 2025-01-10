@@ -49,7 +49,16 @@ def ProbarPartes(formas, acordes):
         #print (f'forma: {forma}, partes: {partes}, secuencia: {secuencia}, dis: {dis}')
         if len(forma) == dis:
             print (f'forma encontrada: {forma} partes: {partes}, secuencia: {secuencia}')
-            return partes, secuencia
+            descartar = False
+            for i in range(len(formas) - 1):
+                if formas[i] == partes[i].len():
+                    descartar = True
+                    break
+            
+            if descartar:
+                print (f'forma descartada')
+            else:
+                return partes, secuencia
     return [acordes], [0]
 
 def buscar_partes(acordes):
