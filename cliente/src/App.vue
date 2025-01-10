@@ -131,21 +131,48 @@ function onUpdateCompas(newCompas: number) {
 
 <template>
     <div>
-<div id="barra_navegacion">
-  <div>Cancionero</div>
-  <div id="barra_control">
-      <div>{{ cancion.cancion }} </div>
-  </div>
-  <ControladorTiempo :compas=compas :cancion="cancion" :contexto="contexto"
-  @play="onPlay" @pause="onPause" @stop="onStop" @next="onNext" @previous="onPrevious" @update-compas="onUpdateCompas">
 
-  </ControladorTiempo>
 
-  {{ compas }}
-  <div style="margin-left: auto;">Configuración</div>
-</div>
-<div id="vistas">
-</div>
+        
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">{{ cancion.cancion }}</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExample03">
+        <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Tocar</a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Editar</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Listas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Configuracion</a>
+          </li>
+        </ul>
+      </div>
+        
+      
+      <div>
+        <ControladorTiempo :compas=compas :cancion="cancion" :contexto="contexto"
+          @play="onPlay" @pause="onPause" @stop="onStop" @next="onNext" @previous="onPrevious" @update-compas="onUpdateCompas">
+
+        </ControladorTiempo>
+      </div>
+
+
+
+    </div>
+  </nav>
+        |
+
 <div id="contenedor-musical">
     <div v-for="(Componente, index) in componentesMusicales" :key="index">
         <component :is="Componente" :compas="compas" :cancion="cancion" :contexto="contexto"></component>
