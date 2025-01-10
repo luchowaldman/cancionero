@@ -8,16 +8,21 @@
                 "nombre": "Parte 1",
                 "acordes": [
                     "A",
-                    "E",
-                    "F#m",
-                    "D"
+                    "E"
                 ]
             },
             {
                 "nombre": "Parte 2",
                 "acordes": [
+                    "F#m",
+                    "D",
                     "A",
-                    "E",
+                    "E"
+                ]
+            },
+            {
+                "nombre": "Parte 3",
+                "acordes": [
                     "D",
                     "Bm",
                     "C#m",
@@ -27,14 +32,17 @@
         ],
         "orden_partes": [
             0,
+            1,
+            1,
+            2,
             0,
             1,
-            0,
+            1,
+            2,
             0,
             1,
-            0,
-            0,
-            1
+            1,
+            2
         ]
     },
     "letras": [

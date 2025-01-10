@@ -42,25 +42,33 @@ def tryVN(n, acordes_inp):
     #print (f'secuencia: {secuencia}')  
     return partes, secuencia
     
+def ProbarPartes(formas, acordes):
+    for forma in formas:
+        partes, secuencia = tryVN(forma, acordes)
+        dis = PartesDistintas(secuencia)
+        print (f'forma: {forma}, partes: {partes}, secuencia: {secuencia}, dis: {dis}')
+        if len(forma) == dis:
+            print (f'forma encontrada: {forma} partes: {partes}, secuencia: {secuencia}')
+            return partes, secuencia
+    return [acordes], [0]
+
 def buscar_partes(acordes):
 
     formas = []
     #formas.append([4, 6])
-    
+
+    formas.append([1, 4, 4, 4, 4]) # la parte de adelante
+    formas.append([2, 4, 4]) # Cuando no estas
     formas.append([8]) # Flaca
     formas.append([4, 4]) # Flaca
     formas.append([8, 8]) # Flaca
-    
     formas.append([4, 6]) # Esta saliendo el sol
-    formas.append([4, 4, 1, 7]) # Fuego
+    formas.append([4, 4, 7]) # Fuego
     formas.append([3, 1, 1, 3]) # Casi sin pensar
     formas.append([3, 3, 4, 5, 4]) # Fuiste lo mejor
+    aco, secu = ProbarPartes(formas, acordes)
+    if (len(secu)> 1):
+        return aco, secu
     
-    for forma in formas:
-        partes, secuencia = tryVN(forma, acordes)
-        dis = PartesDistintas(secuencia)
-        if len(forma) == dis:
-            print (f'forma encontrada: {forma} partes: {partes}, secuencia: {secuencia}')
-            return partes, secuencia
-        
     return [acordes], [0]
+    

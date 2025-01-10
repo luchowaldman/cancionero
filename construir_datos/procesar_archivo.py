@@ -15,8 +15,6 @@ DIRECTORIO_DATOS = '../cliente/public/data/'
 def calcular_partes(acordes, letras):
     
     partes, secuencia = buscar_partes(acordes)
-
-
     partes_obj = []
     for (i, parte) in enumerate(partes):
         partes_obj.append(Parte(f'Parte {i + 1}', parte))
@@ -80,6 +78,7 @@ def analizar_html_y_guardar_en_json(band_name, song_name ):
                     letras.append([line])
 
 
+    #print(f'calculo partes: {band_name} - {song_name}')
     analisis['acordes'] = calcular_partes(acordes, letras)
     analisis['letras'] = letras
 
@@ -98,6 +97,9 @@ def analizar_html_y_guardar_en_json(band_name, song_name ):
 # Ejemplo de uso
 
 
+
+analizar_html_y_guardar_en_json('andres calamaro', 'la parte de adelante')
+#exit()
 analizar_html_y_guardar_en_json("intoxicados", "fuiste lo mejor")
 analizar_html_y_guardar_en_json("intoxicados", "fuego")
 analizar_html_y_guardar_en_json('intoxicados', 'esta saliendo el sol')

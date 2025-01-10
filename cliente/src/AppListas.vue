@@ -12,7 +12,7 @@ const indice = ref(almacen.indice());
 
 
 const mascanciones: Banda[]  = [
-    new Banda("andres Calamaro", ["flaca", "cuando no estas", "te quiero igual", "crimenes perfectos", "paloma", "cartas sin marcar", "donde manda marinero", "pasemos a otro tema", "mi gin tonic", "loco", "soy tuyo", "el salmon", "alta suciedad", "media veronica", "bohemio"]),
+    new Banda("andres Calamaro", ["la parte de adelante", "flaca", "cuando no estas", "te quiero igual", "crimenes perfectos", "paloma", "cartas sin marcar", "donde manda marinero", "pasemos a otro tema", "mi gin tonic", "loco", "soy tuyo", "el salmon", "alta suciedad", "media veronica", "bohemio"]),
     new Banda("Intoxicados", ["esta saliendo el sol", "fuiste lo mejor","casi sin pensar", "fuego", "necesito", "no tengo ganas", "pila pila", "volver a casa"])
    // new Banda("Viejas Locas", ["esta saliendo el sol", "fuiste lo mejor","casi sin pensar", "fuego", "necesito", "no tengo ganas", "pila pila", "volver a casa"]),
    // new Banda("Beatles", ["esta saliendo el sol", "fuiste lo mejor","casi sin pensar", "fuego", "necesito", "no tengo ganas", "pila pila", "volver a casa"]),
@@ -129,6 +129,7 @@ function borrarCancion(indice: number) {
             <div v-for="cancion in banda.canciones" :key="cancion" class="cancion">
                 {{ cancion }}
                 <button @click="agregarCancion_disponible(cancion, banda.nombre)">Agregar</button>
+                <button @click="editarCancion(cancion, banda.nombre)">Editar</button>
             </div>
             
         </div>
