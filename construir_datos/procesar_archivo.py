@@ -11,7 +11,16 @@ SAVE_DIRECTORY = 'cifraclub_pages/'
 DIRECTORIO_DATOS = '../cliente/public/data/'
 
 # Función para calcular las partes de la canción
+def nocalcular_partes(acordes, letras):
+    
+    partes, secuencia = [acordes], [0]
+    partes_obj = []
+    for (i, parte) in enumerate(partes):
+        partes_obj.append(Parte(f'Parte {i + 1}', parte))
+    acorde = Acordes(partes_obj, secuencia)
+    return acorde.toJson()
 
+    
 def calcular_partes(acordes, letras):
     
     partes, secuencia = buscar_partes(acordes)
@@ -34,6 +43,7 @@ def construiracordes_dehtml(band_name, song_name ):
     nombre_archivo_html = os.path.join(SAVE_DIRECTORY, f'{band_name}_{song_name}.html')
     nombre_archivo_json  = os.path.join(DIRECTORIO_DATOS, f'{band_name}_{song_name}.json')
     # Leer el contenido del archivo HTML
+    print (f'leyendo archivo: {nombre_archivo_html}')
     with open(nombre_archivo_html, 'r', encoding='utf-8') as file:
         contenido_html = file.read()
     
@@ -79,7 +89,7 @@ def construiracordes_dehtml(band_name, song_name ):
 
 
     #print(f'calculo partes: {band_name} - {song_name}')
-    analisis['acordes'] = calcular_partes(acordes, letras)
+    analisis['acordes'] = nocalcular_partes(acordes, letras)
     analisis['letras'] = letras
 
 
@@ -96,10 +106,8 @@ def construiracordes_dehtml(band_name, song_name ):
 
 # Ejemplo de uso
 
-
-
+print('Construyendo acordes de canciones...')
 construiracordes_dehtml('andres calamaro', 'la parte de adelante')
-#exit()
 construiracordes_dehtml("intoxicados", "fuiste lo mejor")
 construiracordes_dehtml("intoxicados", "fuego")
 construiracordes_dehtml('intoxicados', 'esta saliendo el sol')

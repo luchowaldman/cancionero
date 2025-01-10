@@ -30,7 +30,7 @@ def get_tema(banda, tema):
             data = json.load(f)
             return data
     except Exception as e:
-        throw(e)
+        print(f"Error al obtener tema de banda {banda}, tema {tema}: {e}")
         return None
     
 def guardar_tema(banda, tema, data):
@@ -40,11 +40,11 @@ def guardar_tema(banda, tema, data):
     except Exception as e:
         print(f"Error al guardar tema de banda {banda}, tema {tema}: {e}")
 
-estatadisticas = {}
 
-def gettemaJSON(banda, tema):
-    data = get_tema(banda, tema)
-    if data:
+def reordenar_acordes(banda, tema):
+    try:
+        data = get_tema(banda, tema)
+        if data:
             #print("data", data)
             acordes_data = data['acordes']
             partes = acordes_data['partes']
@@ -53,34 +53,40 @@ def gettemaJSON(banda, tema):
                 #print("parte", parte['nombre'], parte['acordes'])
                 parte = Parte(parte['nombre'], parte['acordes'])
                 partes_obj.append(parte)
-            return Acordes(partes_obj, acordes_data['orden_partes'])
+            acordes = Acordes(partes_obj, acordes_data['orden_partes'])
+
+            if (acordes.orden_partes == [0]):
+                print(f"Inicial{tema} , {banda}", acordes.partes[0].acordes)
+
+                partes, secuencia = buscar_partes(acordes.partes[0].acordes)
+                partes_obj = []
+                for (i, parte) in enumerate(partes):
+                    partes_obj.append(Parte(f'Parte {i + 1}', parte))
+                acordes = Acordes(partes_obj, secuencia)
+
+            data['acordes'] = acordes.toJson()
+
+
+            #partes = [Parte(parte['nombre'], parte['acordes']) for parte in acordes_data['partes']]
+            #acordes = Acordes(partes, acordes_data['orden_partes'])
+            #print(acordes_data['partes'])
+            
+            
+            guardar_tema(banda, tema, data)
+        
+            
+        
+    except Exception as e:
+        print(f"Error al reordenar acordes de banda {banda}, tema {tema}: {e}")
 
 
 archivos = obtener_archivos_json(DIRECTORIO_DATOS)
-total = 0
-totalvalidos = 0
-errores = 0
-solounaparte = 0
-dos = 0
-masdedos = 0
-
 for archivo in archivos:
-    total = total + 1
     if '_' in archivo:
         banda = archivo.split('_')[0]
         tema = archivo.split('_')[1]
+        print(f'Ordenando banda: {banda}, tema: {tema}')
         try:
-            temaJSON = gettemaJSON(banda, tema)
-            if (temaJSON.orden_partes == [0]):
-                solounaparte = solounaparte + 1
-            elif (len(temaJSON.partes) == 2):
-                dos = dos + 1
-            else:
-                masdedos = masdedos + 1
-            totalvalidos = totalvalidos + 1
+            reordenar_acordes(banda, tema)
         except Exception as e:
-            errores = errores + 1
-            #print(f"Error al procesar banda {banda}, tema {tema}: {e}")
-
-print(f"Total: {total}, totalvalidos: {totalvalidos}, errores: {errores}")
-print(f"Solounaparte: {solounaparte}, dos: {dos}, masdedos: {masdedos}")
+            print(f"Error al procesar banda {banda}, tema {tema}: {e}")

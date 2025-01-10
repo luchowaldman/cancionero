@@ -41,13 +41,12 @@ def getartista_page(band_name):
 #download_cifraclub_page('andres calamaro', 'la parte de adelante')
 
 
-getartista_page("indio solari")
-getartista_page("luis alberto spinetta")
-getartista_page("moris")
-getartista_page("bob dylan")
-getartista_page("viejas locas")
+getartista_page("los piojos")
+getartista_page("bersuit-vergarabat")
 exit()
 
+getartista_page("bob dylan")
+getartista_page("viejas locas")
 getartista_page("gustavo cerati")
 getartista_page('charly garcia')
 getartista_page('the rolling stones')
@@ -59,6 +58,6 @@ getartista_page('los-redonditos-de-ricota')
 getartista_page('soda stereo')
 
 
-download_cifraclub_page('the beatles')
-download_cifraclub_page('intoxicados')
-download_cifraclub_page('andres calamaro')
+getartista_page('the beatles')
+getartista_page('intoxicados')
+getartista_page('andres calamaro')

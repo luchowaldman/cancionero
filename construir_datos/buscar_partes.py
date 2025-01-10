@@ -57,26 +57,28 @@ def buscar_partes(acordes):
     formas = []
     #formas.append([4, 6])
 
-    formas.append([1, 4, 4, 4, 4]) # la parte de adelante
-    formas.append([2, 4, 4]) # Cuando no estas
-    formas.append([8]) # Flaca
-    formas.append([4, 4]) # Flaca
-    formas.append([8, 8]) # Flaca
-    formas.append([4, 6]) # Esta saliendo el sol
-    formas.append([4, 4, 7]) # Fuego
-    formas.append([3, 1, 1, 3]) # Casi sin pensar
-    formas.append([3, 3, 4, 5, 4]) # Fuiste lo mejor
     formas.append([4])
+    formas.append([8]) # Flaca
     formas.append([5])
     formas.append([6])
     formas.append([7])
     formas.append([8])
     formas.append([9])
+    
+    formas.append([4, 4]) # Flaca
+    formas.append([8, 8]) # Flaca
     formas.append([5, 5])
     formas.append([6, 6])
     formas.append([7, 7])
     formas.append([8, 8])
     formas.append([9, 9])
+    
+    formas.append([4, 6]) # Esta saliendo el sol
+    formas.append([4, 4, 7]) # Fuego
+    formas.append([3, 1, 1, 3]) # Casi sin pensar
+    formas.append([3, 3, 4, 5, 4]) # Fuiste lo mejor
+    formas.append([1, 4, 4, 4, 4]) # la parte de adelante
+    formas.append([2, 4, 4]) # Cuando no estas
     aco, secu = ProbarPartes(formas, acordes)
     if (len(secu)> 1):
         return aco, secu
