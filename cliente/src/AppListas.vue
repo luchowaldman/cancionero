@@ -10,6 +10,7 @@ import { Letra } from './modelo/letra';
 const almacen = new Almacenado();
 
 const refindice_almacen = ref([]);
+const muy_faciles = ref(false);
 const indice_disponible = ref([]);
 const indice_disponible_filtro = ref([]);
 const fil_can = ref("");
@@ -57,7 +58,7 @@ async function getIndice(): Promise<item_lista[]> {
         
         let items_lista = []
         for (let i = 0; i < data.length; i++) {
-            items_lista.push(new item_lista(data[i].cancion, data[i].banda));
+            items_lista.push(new item_lista(data[i].cancion, data[i].banda, data[i].total_partes, data[i].total_orden_partes));
         }
         return items_lista;
 
@@ -75,7 +76,19 @@ function cancionesFiltradas()
         if (indice_disponible.value[indice].cancion.toLowerCase().includes(fil_can.value.toLowerCase())
          && indice_disponible.value[indice].banda.toLowerCase().includes(fil_ban.value.toLowerCase()))
         {
-            indices_ret.push(indice_disponible.value[indice]);
+            if (muy_faciles.value)
+            {
+                if (
+                    (indice_disponible.value[indice].total_partes < 3)
+                    && (indice_disponible.value[indice].total_orden_partes > 3)
+             ) {
+                    indices_ret.push(indice_disponible.value[indice]);
+                }
+            }
+            else {
+
+                indices_ret.push(indice_disponible.value[indice]);
+            }
         }
         indice = indice + 1;
     }
@@ -113,9 +126,7 @@ let canciones_lista: item_lista[] = [];
     if (canciones_lista.length == 0)
     {
         canciones_lista = [
-        new item_lista("Esta saliendo el sol", "Intoxicados"),
-        new item_lista("Fuego", "Intoxicados"),
-        new item_lista("fuiste lo mejor", "Intoxicados"),
+        
         ];
         localStorage.setItem("canciones_lista", JSON.stringify(canciones_lista));
     }
@@ -143,7 +154,7 @@ function borrarCancion(indice: number) {
         </div>
     </div>
 
-        <div>
+        <div v-if="1 == 0">
             <h1>Almacenado</h1>
         <div v-for="cancion in refindice_almacen" :key="cancion.cancion" class="cancion">
             {{ cancion.cancion }},  {{ cancion.banda }}
@@ -153,13 +164,21 @@ function borrarCancion(indice: number) {
     </div>
     <div>
         <h1>En indice disponible</h1>
+        <div>
         Maximo: <input type="text" v-on:change="cancionesFiltradas()" v-model="max_registros" />
+        </div>
+        <div>
+        Muy faciles: <input type="checkbox" v-on:change="cancionesFiltradas()" v-model="muy_faciles" />
+        </div>
         <table>
             <thead>
                 <tr>
                     <th>Canción</th>
                     <th>Banda</th>
                     <th>Acciones</th>
+                    
+                    <th>partes</th>                    
+                    <th>uso partes</th>
                 </tr>
                 
                 <tr>
@@ -177,7 +196,8 @@ function borrarCancion(indice: number) {
                         <button @click="editarCancion(cancion.cancion, cancion.banda)">Ver</button>
                         <button @click="agregarCancion_disponible(cancion.cancion, cancion.banda)">Agregar</button>
                     </td>
-
+                <td> {{  cancion.total_partes }}</td>
+                <td> {{  cancion.total_orden_partes }}</td>
             </tr>
             </tbody>
         </table>

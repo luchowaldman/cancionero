@@ -69,6 +69,7 @@ for archivo in archivos:
                 'cancion': tema,
             }
             item['total_partes'] = len(temaJSON.partes)
+            item['total_orden_partes'] = len(temaJSON.orden_partes)
             indice.append(item)
         except Exception as e:
             errores += 1
