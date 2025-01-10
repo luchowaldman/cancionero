@@ -2,12 +2,43 @@
 import { ref, markRaw, onMounted } from 'vue';
 import { Almacenado } from './modelo/Almacenado';
 import { item_lista } from './modelo/item_lista';
+import { Banda } from './modelo/banda';
+import { Cancion } from './modelo/cancion';
+import { Acordes, Parte } from './modelo/acordes';
+import { Letra } from './modelo/letra';
 
 const almacen = new Almacenado();
 const indice = ref(almacen.indice());
 
 
+const mascanciones: Banda[]  = [
+new Banda("andres Calamaro", ["flaca", "fuiste lo mejor","casi sin pensar", "fuego", "necesito", "no tengo ganas", "pila pila", "volver a casa"]),
+new Banda("Intoxicados", ["esta saliendo el sol", "fuiste lo mejor","casi sin pensar", "fuego", "necesito", "no tengo ganas", "pila pila", "volver a casa"]),
+    new Banda("Viejas Locas", ["esta saliendo el sol", "fuiste lo mejor","casi sin pensar", "fuego", "necesito", "no tengo ganas", "pila pila", "volver a casa"]),
+    new Banda("Beatles", ["esta saliendo el sol", "fuiste lo mejor","casi sin pensar", "fuego", "necesito", "no tengo ganas", "pila pila", "volver a casa"]),
 
+]
+
+
+async function getCancion(banda: string, tema: string): Promise<Cancion> {
+        const response = await fetch(`/public/data/${banda.replace(/\s+/g, '-')}_${tema.replace(/\s+/g, '-')}.json`);
+        const data = await response.json();
+        
+        let partes = []
+        for (let i = 0; i < data.acordes.partes.length; i++) {
+            partes.push(new Parte(data.acordes.partes[i].nombre, data.acordes.partes[i].acordes));
+        }
+
+        
+        const acordes = new Acordes(partes, data.acordes.orden_partes);
+    
+        return new Cancion(
+            data.cancion,
+            data.banda,
+            acordes,
+            new Letra(data.letras) 
+        );
+    }
 
 /*
 localStorage.setItem("canciones_lista", JSON.stringify([
@@ -45,6 +76,14 @@ function agregarCancion(cancion: string, banda: string) {
     localStorage.setItem("canciones_lista", JSON.stringify(canciones_lista));
 }
 
+function agregarCancion_disponible(cancion: string, banda: string) {
+    getCancion(banda, cancion).then((cancion) => {
+        console.log("Canción obtenida", cancion);
+        almacen.agregarCancion(cancion);
+        indice.value = almacen.indice();
+    }); 
+}
+
 function borrarCancion(indice: number) {
     console.log("Borrar canción", indice);
     canciones_editando.value.splice(indice, 1);
@@ -72,6 +111,19 @@ function borrarCancion(indice: number) {
             {{ cancion.cancion }},  {{ cancion.banda }}
             <button @click="editarCancion(cancion.cancion, cancion.banda)">Editar</button>
             <button @click="agregarCancion(cancion.cancion, cancion.banda)">Agregar</button>
+        </div>
+    </div>
+
+    
+    <div>
+            <h1>Disponibles</h1>
+        <div v-for="banda in mascanciones" :key="banda.nombre" class="cancion">
+            <h1>{{ banda.nombre }}</h1>
+            <div v-for="cancion in banda.canciones" :key="cancion" class="cancion">
+                {{ cancion }}
+                <button @click="agregarCancion_disponible(cancion, banda.nombre)">Agregar</button>
+            </div>
+            
         </div>
     </div>
 </div>

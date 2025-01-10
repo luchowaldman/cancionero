@@ -19,25 +19,6 @@ import { Console } from 'console';
 
 // Definir la canción y el contexto
 
-async function getCancion(banda: string, tema: string): Promise<Cancion> {
-        const response = await fetch(`/public/data/${banda.replace(/\s+/g, '-')}_${tema.replace(/\s+/g, '-')}.json`);
-        const data = await response.json();
-        
-        let partes = []
-        for (let i = 0; i < data.acordes.partes.length; i++) {
-            partes.push(new Parte(data.acordes.partes[i].nombre, data.acordes.partes[i].acordes));
-        }
-
-        
-        const acordes = new Acordes(partes, data.acordes.orden_partes);
-    
-        return new Cancion(
-            data.cancion,
-            data.banda,
-            acordes,
-            new Letra(data.letras) 
-        );
-    }
     
 
 const cancion  = ref(new Cancion("", "", new Acordes([], []), new Letra([])));
