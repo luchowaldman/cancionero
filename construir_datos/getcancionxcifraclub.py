@@ -38,6 +38,27 @@ def download_cifraclub_page(band_name, song_name):
 #download_cifraclub_page('intoxicados', 'pila pila')
 #download_cifraclub_page('intoxicados', 'volver a casa')
 
-download_cifraclub_page('andres calamaro', 'flaca')
-download_cifraclub_page('andres calamaro', 'la parte de adelante')
+#download_cifraclub_page('andres calamaro', 'flaca')
+#download_cifraclub_page('andres calamaro', 'la parte de adelante')
+
+
+download_cifraclub_page('andres calamaro', 'cuando no estas')
+download_cifraclub_page('andres calamaro', 'te quiero igual')
+download_cifraclub_page('andres calamaro', 'crimenes perfectos')
+download_cifraclub_page('andres calamaro', 'paloma')
+download_cifraclub_page('andres calamaro', 'cartas sin marcar')
+download_cifraclub_page('andres calamaro', 'donde manda marinero')
+download_cifraclub_page('andres calamaro', 'pasemos a otro tema')
+download_cifraclub_page('andres calamaro', 'mi gin tonic')
+download_cifraclub_page('andres calamaro', 'loco')
+download_cifraclub_page('andres calamaro', 'soy tuyo')
+download_cifraclub_page('andres calamaro', 'el salmon')
+download_cifraclub_page('andres calamaro', 'alta suciedad')
+download_cifraclub_page('andres calamaro', 'media veronica')
+download_cifraclub_page('andres calamaro', 'diez años despues')
+download_cifraclub_page('andres calamaro', 'bohemio')
+
+
+
+
 

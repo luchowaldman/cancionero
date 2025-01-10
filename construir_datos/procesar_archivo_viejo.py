@@ -72,13 +72,45 @@ def analizar_html_y_guardar_en_json(band_name, song_name ):
     for i, line in enumerate(lineas):
             if line.strip():  # Verificar si la línea no es un string en blanco
                 tiene_acordes = bool(BeautifulSoup(line, 'html.parser').find('b'))
-                #print(f'{i}: {tiene_acordes}- {line}')
-                if tiene_acordes:
-                    addacordes = [b.get_text() for b in BeautifulSoup(line, 'html.parser').find_all('b')]
-                    acordes.extend(addacordes)
-                else:
-                    letras.append([line])
+                print(f'{i}: {tiene_acordes}- {line}')
+                
+                lineas_dict[count] = line
+                lineas_tieneacordes[count] = tiene_acordes
+                count += 1
 
+    i = 0
+    while i < len(lineas_dict):
+        tiene_acordes = lineas_tieneacordes[i]
+        if not (tiene_acordes):
+            acordes.append('')
+            letras.append([lineas_dict[i]])
+            i += 1
+        else:
+            if (i == len(lineas) - 1) or (lineas_tieneacordes[i + 1]):
+                addacordes = [b.get_text() for b in BeautifulSoup(lineas_dict[i], 'html.parser').find_all('b')]
+                acordes.extend(addacordes)
+                addtexto = ['' for _ in addacordes]
+                letras.append(addtexto)
+                i += 1
+            else:
+                addacordes = [b.get_text() for b in BeautifulSoup(lineas_dict[i], 'html.parser').find_all('b')]
+                acordes.extend(addacordes)
+
+                positions = []
+                last_pos = 0
+                for b in BeautifulSoup(lineas_dict[i], 'html.parser').find_all('b'):
+                    pos = lineas_dict[i].find(b.get_text(), last_pos)
+                    positions.append(pos)
+                    last_pos = pos + len(b.get_text())
+                
+                addtexto = []
+                last_pos = 0
+                for pos in positions:
+                    addtexto.append(lineas[i + 1][last_pos:pos])
+                    last_pos = pos
+                addtexto.append(lineas[i + 1][last_pos:])
+                letras.append(addtexto)
+                i += 2
 
     analisis['acordes'] = calcular_partes(acordes, letras)
     analisis['letras'] = letras
@@ -96,29 +128,14 @@ def analizar_html_y_guardar_en_json(band_name, song_name ):
         json.dump(analisis, file, ensure_ascii=False, indent=4)
 
 # Ejemplo de uso
+#analizar_html_y_guardar_en_json("intoxicados", "fuiste lo mejor")
 
-
-analizar_html_y_guardar_en_json("intoxicados", "fuiste lo mejor")
-analizar_html_y_guardar_en_json("intoxicados", "fuego")
-analizar_html_y_guardar_en_json('intoxicados', 'esta saliendo el sol')
-analizar_html_y_guardar_en_json('intoxicados', 'se fue al cielo')
-analizar_html_y_guardar_en_json('intoxicados', 'casi sin pensar')
-analizar_html_y_guardar_en_json('intoxicados', 'pila pila')
-analizar_html_y_guardar_en_json('intoxicados', 'volver a casa')
+# analizar_html_y_guardar_en_json("intoxicados", "fuego")
+# analizar_html_y_guardar_en_json('intoxicados', 'esta saliendo el sol')
+# analizar_html_y_guardar_en_json('intoxicados', 'se fue al cielo')
+# analizar_html_y_guardar_en_json('intoxicados', 'casi sin pensar')
+# analizar_html_y_guardar_en_json('intoxicados', 'pila pila')
+# analizar_html_y_guardar_en_json('intoxicados', 'volver a casa')
 
 analizar_html_y_guardar_en_json('andres calamaro', 'flaca')
-analizar_html_y_guardar_en_json('andres calamaro', 'la parte de adelante')
-analizar_html_y_guardar_en_json('andres calamaro', 'cuando no estas')
-analizar_html_y_guardar_en_json('andres calamaro', 'te quiero igual')
-analizar_html_y_guardar_en_json('andres calamaro', 'crimenes perfectos')
-analizar_html_y_guardar_en_json('andres calamaro', 'paloma')
-analizar_html_y_guardar_en_json('andres calamaro', 'cartas sin marcar')
-analizar_html_y_guardar_en_json('andres calamaro', 'donde manda marinero')
-analizar_html_y_guardar_en_json('andres calamaro', 'pasemos a otro tema')
-analizar_html_y_guardar_en_json('andres calamaro', 'mi gin tonic')
-analizar_html_y_guardar_en_json('andres calamaro', 'loco')
-analizar_html_y_guardar_en_json('andres calamaro', 'soy tuyo')
-analizar_html_y_guardar_en_json('andres calamaro', 'el salmon')
-analizar_html_y_guardar_en_json('andres calamaro', 'alta suciedad')
-analizar_html_y_guardar_en_json('andres calamaro', 'media veronica')
-analizar_html_y_guardar_en_json('andres calamaro', 'bohemio')
+#analizar_html_y_guardar_en_json('andres calamaro', 'la parte de adelante')

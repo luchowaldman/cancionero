@@ -7,49 +7,16 @@
             {
                 "nombre": "Parte 1",
                 "acordes": [
-                    "",
-                    "",
-                    "",
-                    ""
-                ]
-            },
-            {
-                "nombre": "Parte 2",
-                "acordes": [
-                    "",
-                    "",
-                    "",
-                    "B5"
-                ]
-            },
-            {
-                "nombre": "Parte 3",
-                "acordes": [
-                    "B5"
-                ]
-            },
-            {
-                "nombre": "Parte 4",
-                "acordes": [
+                    "B5",
+                    "B5",
+                    "B5",
+                    "B5",
                     "E",
-                    "",
-                    "",
-                    "E",
-                    "",
-                    "",
-                    ""
+                    "E"
                 ]
             }
         ],
         "orden_partes": [
-            0,
-            0,
-            1,
-            2,
-            2,
-            2,
-            3,
-            0,
             0
         ]
     },
@@ -88,15 +55,10 @@
             "hace tiempo te engañe"
         ],
         [
-            "mal p",
-            "erdoname nena",
-            ""
+            "pero ahora nena quisiera"
         ],
         [
-            "y d",
-            "ejame entr",
-            "ar",
-            ""
+            "vo-lver volver a casa"
         ],
         [
             "           RIFF"
@@ -105,8 +67,7 @@
             "volver a casa"
         ],
         [
-            "pero ",
-            "ahora nena quisiera"
+            "volver a casa"
         ],
         [
             "           RIFF"

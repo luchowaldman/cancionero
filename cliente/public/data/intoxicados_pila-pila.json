@@ -6,20 +6,7 @@
         "partes": [
             {
                 "nombre": "Parte 1",
-                "acordes": [
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    ""
-                ]
+                "acordes": []
             }
         ],
         "orden_partes": [

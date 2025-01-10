@@ -10,265 +10,219 @@
                     "D",
                     "A",
                     "G",
-                    "A"
-                ]
-            },
-            {
-                "nombre": "Parte 2",
-                "acordes": [
+                    "A",
+                    "D",
+                    "A",
+                    "G",
+                    "A",
+                    "D",
+                    "A",
+                    "G",
+                    "A",
                     "D",
                     "Em",
                     "G",
-                    "A"
-                ]
-            },
-            {
-                "nombre": "Parte 3",
-                "acordes": [
-                    ""
-                ]
-            },
-            {
-                "nombre": "Parte 4",
-                "acordes": [
+                    "A",
+                    "D",
+                    "A",
+                    "G",
+                    "A",
+                    "D",
+                    "A",
+                    "G",
+                    "A",
+                    "D",
+                    "A",
+                    "G",
+                    "A",
+                    "D",
+                    "Em",
+                    "G",
+                    "A",
                     "Bm",
                     "Em",
                     "G",
                     "A",
                     "F#m",
                     "G",
+                    "A",
+                    "D",
+                    "A",
+                    "G",
+                    "A",
+                    "D",
+                    "Em",
+                    "G",
+                    "A",
+                    "D",
+                    "A",
+                    "G",
+                    "A",
+                    "D",
+                    "A",
+                    "G",
+                    "A",
+                    "D",
+                    "A",
+                    "G",
                     "A"
                 ]
             }
         ],
         "orden_partes": [
-            0,
-            0,
-            0,
-            1,
-            2,
-            0,
-            0,
-            0,
-            1,
-            2,
-            3,
-            0,
-            1,
-            0,
-            0,
             0
         ]
     },
     "letras": [
         [
-            "",
-            "",
-            ""
+            " Esta vez es en serio"
         ],
         [
-            "",
-            ""
+            "No estoy mintiendo"
         ],
         [
-            "",
-            ""
+            "Algo se prende fuego"
         ],
         [
-            "",
-            "",
-            ""
+            " Se que mucha veces dije"
         ],
         [
-            "",
-            ""
+            "Que el lobo venia pero esta vez"
         ],
         [
-            " Esta v",
-            "ez es en serio"
+            "El lobo esta aca"
         ],
         [
-            "No ",
-            "estoy mintiendo"
+            " Se prende fuego"
         ],
         [
-            "Algo se",
-            " prende fuego"
+            "Mi pelo mi piano"
         ],
         [
-            " Se que ",
-            "mucha veces dije"
+            "Mis discos"
         ],
         [
-            "Que el lobo ven",
-            "ia pero esta vez"
+            "La ropa y el perro"
         ],
         [
-            "El ",
-            "lobo esta aca"
+            " Puede ser que otra vez"
         ],
         [
-            " Se",
-            " prende fuego"
+            "No sea cierto pero"
         ],
         [
-            "Mi ",
-            "pelo mi piano"
+            "Siento como el fuego"
         ],
         [
-            "Mis disc",
-            "os"
+            "Me quema por dentro"
         ],
         [
             "[Puente]"
         ],
         [
-            "<b>",
-            "D</b>",
-            ""
+            " Esta vez es en serio"
         ],
         [
-            "<b>Em</b>",
-            ""
+            "No estoy mintiendo"
         ],
         [
-            "<b>G</b>",
-            ""
+            "Algo se prende fuego"
         ],
         [
-            "   ",
-            "  <b>A</b>",
-            ""
+            " Se que mucha veces dije"
         ],
         [
-            "",
-            ""
+            "Que el lobo venia pero esta vez"
         ],
         [
-            "",
-            ""
+            "El lobo esta aca"
         ],
         [
-            " Es",
-            "ta vez es en serio"
+            " Se prende fuego"
         ],
         [
-            "No esto",
-            "y mintiendo"
+            "Mi pelo mi piano"
         ],
         [
-            "Algo se ",
-            "prende fuego"
+            "Mis discos"
         ],
         [
-            " Se que mucha v",
-            "eces dije"
+            "La ropa y el perro"
         ],
         [
-            "Que",
-            " el lobo venia pero esta vez"
+            " Puede ser que otra vez"
         ],
         [
-            "El ",
-            "lobo esta aca"
+            "No sea cierto pero"
         ],
         [
-            " Se",
-            " prende fuego"
+            "Siento como el fuego"
         ],
         [
-            "Mi pelo ",
-            "mi piano"
+            "Me quema por dentro"
         ],
         [
             "[Puente]"
         ],
         [
-            "   ",
-            "         <b>A</b>",
-            ""
+            "Dame un balde de agua"
         ],
         [
-            "<b>D</b>",
-            ""
+            "O de arena"
         ],
         [
-            "<b>",
-            "Em</b>"
+            "Pásame el matafuegos"
         ],
         [
-            "<b>",
-            "G</b>"
+            "El incendio esta cerca"
         ],
         [
-            "   ",
-            "  <b>A</b>"
+            "Y no voy a quemarme"
         ],
         [
-            "",
-            ""
+            "Sin antes pelear"
         ],
         [
-            "",
-            ""
+            " Se prende fuego"
         ],
         [
-            "Dame un",
-            " balde de agua"
+            "Mi pelo mi piano"
         ],
         [
-            "O de are",
-            "na"
+            "Mis discos"
         ],
         [
-            "Pásame el mataf",
-            "uegos"
+            "La ropa y el perro"
         ],
         [
-            "<b>",
-            "F#m</b>"
+            " Puede ser que otra vez"
         ],
         [
-            "<b>",
-            "G</b>"
+            "No sea cierto pero"
         ],
         [
-            "<b>",
-            "A</b>"
+            "Siento como el fuego"
         ],
         [
-            "",
-            ""
+            "Me quema por dentro"
         ],
         [
-            " Se",
-            " prende fuego",
-            ""
+            "Fuego Fuego"
         ],
         [
-            "Mi ",
-            "pelo mi piano",
-            ""
+            "Fuego Fuego"
         ],
         [
-            "Mis",
-            " discos",
-            ""
+            "Estamos Enfermos"
         ],
         [
-            "La ",
-            "ropa y el per",
-            "ro"
+            "Fuego Fuego"
         ],
         [
-            " Pu",
-            "ede ser que otr",
-            "a vez"
+            "Estamos Enfermos"
         ],
         [
-            "No ",
-            "sea cierto pero",
-            ""
+            "Perdonennos Perdonenos"
         ]
     ]
 }

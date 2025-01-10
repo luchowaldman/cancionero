@@ -12,10 +12,10 @@ const indice = ref(almacen.indice());
 
 
 const mascanciones: Banda[]  = [
-new Banda("andres Calamaro", ["flaca", "fuiste lo mejor","casi sin pensar", "fuego", "necesito", "no tengo ganas", "pila pila", "volver a casa"]),
-new Banda("Intoxicados", ["esta saliendo el sol", "fuiste lo mejor","casi sin pensar", "fuego", "necesito", "no tengo ganas", "pila pila", "volver a casa"]),
-    new Banda("Viejas Locas", ["esta saliendo el sol", "fuiste lo mejor","casi sin pensar", "fuego", "necesito", "no tengo ganas", "pila pila", "volver a casa"]),
-    new Banda("Beatles", ["esta saliendo el sol", "fuiste lo mejor","casi sin pensar", "fuego", "necesito", "no tengo ganas", "pila pila", "volver a casa"]),
+    new Banda("andres Calamaro", ["flaca", "cuando no estas", "te quiero igual", "crimenes perfectos", "paloma", "cartas sin marcar", "donde manda marinero", "pasemos a otro tema", "mi gin tonic", "loco", "soy tuyo", "el salmon", "alta suciedad", "media veronica", "bohemio"]),
+    new Banda("Intoxicados", ["esta saliendo el sol", "fuiste lo mejor","casi sin pensar", "fuego", "necesito", "no tengo ganas", "pila pila", "volver a casa"])
+   // new Banda("Viejas Locas", ["esta saliendo el sol", "fuiste lo mejor","casi sin pensar", "fuego", "necesito", "no tengo ganas", "pila pila", "volver a casa"]),
+   // new Banda("Beatles", ["esta saliendo el sol", "fuiste lo mejor","casi sin pensar", "fuego", "necesito", "no tengo ganas", "pila pila", "volver a casa"]),
 
 ]
 
@@ -40,14 +40,6 @@ async function getCancion(banda: string, tema: string): Promise<Cancion> {
         );
     }
 
-/*
-localStorage.setItem("canciones_lista", JSON.stringify([
-    new item_lista("Esta saliendo el sol", "Intoxicados"),
-    new item_lista("Fuego", "Intoxicados"),
-    new item_lista("fuiste lo mejor", "Intoxicados"),
-    ]));
-
-*/
     let canciones_lista: item_lista[] = [];
     const canciones_editando = ref(canciones_lista);
     canciones_lista = JSON.parse(localStorage.getItem("canciones_lista") || "[]");
@@ -61,6 +53,21 @@ localStorage.setItem("canciones_lista", JSON.stringify([
         localStorage.setItem("canciones_lista", JSON.stringify(canciones_lista));
     }
     canciones_editando.value = canciones_lista;
+
+
+
+function cargarTodo() {
+    for (let i = 0; i < mascanciones.length; i++) {
+        for (let j = 0; j < mascanciones[i].canciones.length; j++) {
+            getCancion(mascanciones[i].nombre, mascanciones[i].canciones[j]).then((cancion) => {
+                console.log("Canción obtenida", cancion);
+                almacen.agregarCancion(cancion);
+                indice.value = almacen.indice();
+            }); 
+        }
+    }
+    
+}
 
 
 function editarCancion(cancion: string, banda: string) {
@@ -116,7 +123,7 @@ function borrarCancion(indice: number) {
 
     
     <div>
-            <h1>Disponibles</h1>
+            <h1>Disponibles   </h1><button @click="cargarTodo()">Cargar todo</button>
         <div v-for="banda in mascanciones" :key="banda.nombre" class="cancion">
             <h1>{{ banda.nombre }}</h1>
             <div v-for="cancion in banda.canciones" :key="cancion" class="cancion">

@@ -10,321 +10,157 @@
                     "G",
                     "B7",
                     "Em",
-                    "C"
-                ]
-            },
-            {
-                "nombre": "Parte 2",
-                "acordes": [
+                    "C",
                     "G",
                     "D",
                     "G",
                     "D"
                 ]
-            },
-            {
-                "nombre": "Parte 3",
-                "acordes": [
-                    ""
-                ]
             }
         ],
         "orden_partes": [
             0,
-            1,
-            2,
             0,
-            1,
             0,
-            1,
-            2,
             0,
-            1,
             0,
-            1,
             0,
-            1,
-            2,
             0,
-            1,
             0,
-            1,
             0,
-            1,
             0,
-            1,
             0,
-            1,
             0,
-            1,
             0,
-            1,
-            0,
-            1
+            0
         ]
     },
     "letras": [
         [
-            "",
-            "",
-            "",
-            ""
-        ],
-        [
-            "        <b>",
-            "G</b>  <b>",
-            "D</b>  <b>",
-            "G</b>  <b>",
-            "D</b>"
+            "[Tab - Solo Intro]"
         ],
         [
             "[Estribillo]"
         ],
         [
-            "",
-            "",
-            ""
+            "Flaca, no me claves"
         ],
         [
-            "",
-            "",
-            ""
+            "Tus puñales, por la espalda"
         ],
         [
-            "",
-            "",
-            ""
+            "Tan profundo, no me duelen"
         ],
         [
-            "",
-            "",
-            ""
+            "No me hacen mal"
         ],
         [
-            "",
-            "",
-            ""
+            "Lejos, en el centro"
         ],
         [
-            "[Estribillo]",
-            "",
-            ""
+            "De la Tierra, las raíces"
         ],
         [
-            "",
-            "",
-            ""
+            "Del amor, donde estaban"
         ],
         [
-            "    <b>G<",
-            "/b>       ",
-            "     <b>B7</b>"
+            "Quedarán"
         ],
         [
             "[Primera Parte]"
         ],
         [
-            "",
-            ""
+            "Entre no me olvides"
         ],
         [
-            "",
-            ""
+            "Me deje nuestros abriles"
         ],
         [
-            "",
-            ""
+            "Olvidados"
         ],
         [
-            "",
-            ""
+            "En el fondo del placard"
         ],
         [
-            "",
-            ""
+            "Del cuarto de invitados"
         ],
         [
-            "",
-            ""
+            "Eran tiempos dorados"
         ],
         [
-            "",
-            "",
-            ""
+            "Un pasado mejor"
         ],
         [
-            "",
-            ""
+            "Aunque casi me equivoco"
         ],
         [
-            "",
-            ""
+            "Y te digo poco a poco"
         ],
         [
-            "",
-            ""
+            "No me mientas"
         ],
         [
-            "",
-            ""
+            "No me digas la verdad"
         ],
         [
-            "",
-            ""
+            "No te quedes callada"
         ],
         [
-            "",
-            ""
+            "No levantes la voz"
         ],
         [
-            "",
-            "",
-            ""
+            "Ni me pidas perdón"
         ],
         [
-            "",
-            ""
+            "Aunque casi te confieso"
         ],
         [
-            "",
-            ""
+            "Que también he sido un perro"
         ],
         [
-            "",
-            ""
+            "Compañero"
         ],
         [
-            "",
-            ""
+            "Un perro ideal"
         ],
         [
-            "",
-            ""
+            "Que aprendió a ladrar"
         ],
         [
-            "",
-            ""
+            "Y a volver al hogar"
         ],
         [
-            "",
-            "",
-            ""
+            "Para poder comer"
         ],
         [
             "[Estribillo]"
         ],
         [
-            "Me deje",
-            " nuestros abriles",
-            ""
+            "Flaca, no me claves"
         ],
         [
-            "     <b>Em</",
-            "b>",
-            ""
+            "Tus puñales, por la espalda"
         ],
         [
-            "Olvidados",
-            "",
-            ""
+            "Tan profundo, no me duelen"
         ],
         [
-            "                ",
-            "    <b>C</",
-            "b>"
+            "No me hacen mal"
         ],
         [
-            "En el ",
-            "fondo del placard",
-            ""
+            "Lejos, en el centro"
         ],
         [
-            "              ",
-            "     <b>G</b>",
-            ""
+            "De la tierra, las raíces"
         ],
         [
-            "Del cuart",
-            "o de invitados",
-            ""
+            "Del amor, donde estaban"
         ],
         [
-            "         ",
-            "       <b>",
-            "D</b>"
+            "Quedarán"
         ],
         [
-            "",
-            "",
-            "",
-            ""
-        ],
-        [
-            "",
-            "",
-            "",
-            ""
-        ],
-        [
-            "",
-            "",
-            "",
-            ""
-        ],
-        [
-            "",
-            "",
-            "",
-            ""
-        ],
-        [
-            "",
-            "",
-            "",
-            ""
-        ],
-        [
-            "",
-            "",
-            "",
-            ""
-        ],
-        [
-            "",
-            "",
-            "",
-            ""
-        ],
-        [
-            "",
-            "",
-            "",
-            ""
-        ],
-        [
-            "",
-            "",
-            "",
-            ""
-        ],
-        [
-            "",
-            "",
-            "",
-            ""
-        ],
-        [
-            "",
-            "",
-            "",
-            ""
-        ],
-        [
-            "",
-            "",
-            "",
-            "",
-            ""
+            "[Tab - Solo Final]"
         ]
     ]
 }
