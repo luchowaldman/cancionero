@@ -8,16 +8,27 @@ import { Acordes, Parte } from './modelo/acordes';
 import { Letra } from './modelo/letra';
 
 const almacen = new Almacenado();
-const indice = ref(almacen.indice());
+
+const refindice_almacen = ref([]);
+const indice_disponible = ref([]);
+const indice_disponible_filtro = ref([]);
+const fil_can = ref("");
+const fil_ban = ref("");
+const max_registros = ref(50);
+
+const todo_almacen = almacen.indice();
+let indice_almacen = [];
+for (let i = 0; i < todo_almacen.length; i++) {
+    console.log("Canción", todo_almacen[i]);
+    indice_almacen.push(new item_lista(todo_almacen[i].cancion, todo_almacen[i].banda));
+}
+refindice_almacen.value = indice_almacen;
 
 
-const mascanciones: Banda[]  = [
-    new Banda("andres Calamaro", ["la parte de adelante", "flaca", "cuando no estas", "te quiero igual", "crimenes perfectos", "paloma", "cartas sin marcar", "donde manda marinero", "pasemos a otro tema", "mi gin tonic", "loco", "soy tuyo", "el salmon", "alta suciedad", "media veronica", "bohemio"]),
-    new Banda("Intoxicados", ["esta saliendo el sol", "fuiste lo mejor","casi sin pensar", "fuego", "necesito", "no tengo ganas", "pila pila", "volver a casa"])
-   // new Banda("Viejas Locas", ["esta saliendo el sol", "fuiste lo mejor","casi sin pensar", "fuego", "necesito", "no tengo ganas", "pila pila", "volver a casa"]),
-   // new Banda("Beatles", ["esta saliendo el sol", "fuiste lo mejor","casi sin pensar", "fuego", "necesito", "no tengo ganas", "pila pila", "volver a casa"]),
-
-]
+getIndice().then((indice) => {
+    indice_disponible.value = indice;
+    cancionesFiltradas() 
+});
 
 
 async function getCancion(banda: string, tema: string): Promise<Cancion> {
@@ -38,35 +49,38 @@ async function getCancion(banda: string, tema: string): Promise<Cancion> {
             acordes,
             new Letra(data.letras) 
         );
-    }
+}
 
-    let canciones_lista: item_lista[] = [];
-    const canciones_editando = ref(canciones_lista);
-    canciones_lista = JSON.parse(localStorage.getItem("canciones_lista") || "[]");
-    if (canciones_lista.length == 0)
-    {
-        canciones_lista = [
-        new item_lista("Esta saliendo el sol", "Intoxicados"),
-        new item_lista("Fuego", "Intoxicados"),
-        new item_lista("fuiste lo mejor", "Intoxicados"),
-        ];
-        localStorage.setItem("canciones_lista", JSON.stringify(canciones_lista));
-    }
-    canciones_editando.value = canciones_lista;
-
-
-
-function cargarTodo() {
-    for (let i = 0; i < mascanciones.length; i++) {
-        for (let j = 0; j < mascanciones[i].canciones.length; j++) {
-            getCancion(mascanciones[i].nombre, mascanciones[i].canciones[j]).then((cancion) => {
-                console.log("Canción obtenida", cancion);
-                almacen.agregarCancion(cancion);
-                indice.value = almacen.indice();
-            }); 
+async function getIndice(): Promise<item_lista[]> {
+        const response = await fetch(`/public/data/indice.json`);
+        const data = await response.json();
+        
+        let items_lista = []
+        for (let i = 0; i < data.length; i++) {
+            items_lista.push(new item_lista(data[i].cancion, data[i].banda));
         }
-    }
+        return items_lista;
+
+}
+
+function cancionesFiltradas() 
+{
+    let indices_ret = [];
+    let indice = 0;
+    console.log("Ejec")
+    console.log(indice_disponible.value.length)
     
+    while ((indices_ret.length < max_registros.value) && (indice < indice_disponible.value.length)) 
+    {
+        if (indice_disponible.value[indice].cancion.toLowerCase().includes(fil_can.value.toLowerCase())
+         && indice_disponible.value[indice].banda.toLowerCase().includes(fil_ban.value.toLowerCase()))
+        {
+            indices_ret.push(indice_disponible.value[indice]);
+        }
+        indice = indice + 1;
+    }
+    indice_disponible_filtro.value = indices_ret;
+
 }
 
 
@@ -87,9 +101,26 @@ function agregarCancion_disponible(cancion: string, banda: string) {
     getCancion(banda, cancion).then((cancion) => {
         console.log("Canción obtenida", cancion);
         almacen.agregarCancion(cancion);
-        indice.value = almacen.indice();
+        refindice_almacen.value = almacen.indice();
     }); 
 }
+
+
+
+let canciones_lista: item_lista[] = [];
+    const canciones_editando = ref(canciones_lista);
+    canciones_lista = JSON.parse(localStorage.getItem("canciones_lista") || "[]");
+    if (canciones_lista.length == 0)
+    {
+        canciones_lista = [
+        new item_lista("Esta saliendo el sol", "Intoxicados"),
+        new item_lista("Fuego", "Intoxicados"),
+        new item_lista("fuiste lo mejor", "Intoxicados"),
+        ];
+        localStorage.setItem("canciones_lista", JSON.stringify(canciones_lista));
+    }
+    canciones_editando.value = canciones_lista;
+
 
 function borrarCancion(indice: number) {
     console.log("Borrar canción", indice);
@@ -114,26 +145,44 @@ function borrarCancion(indice: number) {
 
         <div>
             <h1>Almacenado</h1>
-        <div v-for="cancion in indice" :key="cancion.cancion" class="cancion">
+        <div v-for="cancion in refindice_almacen" :key="cancion.cancion" class="cancion">
             {{ cancion.cancion }},  {{ cancion.banda }}
             <button @click="editarCancion(cancion.cancion, cancion.banda)">Editar</button>
             <button @click="agregarCancion(cancion.cancion, cancion.banda)">Agregar</button>
         </div>
     </div>
-
-    
     <div>
-            <h1>Disponibles   </h1><button @click="cargarTodo()">Cargar todo</button>
-        <div v-for="banda in mascanciones" :key="banda.nombre" class="cancion">
-            <h1>{{ banda.nombre }}</h1>
-            <div v-for="cancion in banda.canciones" :key="cancion" class="cancion">
-                {{ cancion }}
-                <button @click="agregarCancion_disponible(cancion, banda.nombre)">Agregar</button>
-                <button @click="editarCancion(cancion, banda.nombre)">Editar</button>
-            </div>
-            
-        </div>
+        <h1>En indice disponible</h1>
+        Maximo: <input type="text" v-on:change="cancionesFiltradas()" v-model="max_registros" />
+        <table>
+            <thead>
+                <tr>
+                    <th>Canción</th>
+                    <th>Banda</th>
+                    <th>Acciones</th>
+                </tr>
+                
+                <tr>
+                    <td><input type="text" v-on:change="cancionesFiltradas()" v-model="fil_can" /></td>
+                    <td><input type="text" v-on:change="cancionesFiltradas()" v-model="fil_ban" /></td>
+                    <td></td>
+                </tr>
+
+            </thead>
+            <tbody>
+            <tr v-for="cancion in indice_disponible_filtro" :key="cancion.cancion">
+                <td>{{ cancion.cancion }}</td>
+                <td>{{ cancion.banda }}</td>
+                <td>
+                        <button @click="editarCancion(cancion.cancion, cancion.banda)">Ver</button>
+                        <button @click="agregarCancion_disponible(cancion.cancion, cancion.banda)">Agregar</button>
+                    </td>
+
+            </tr>
+            </tbody>
+        </table>
     </div>
+
 </div>
 </template>
 
