@@ -23,7 +23,7 @@ def calcular_partes(acordes, letras):
 
 
 # Función para analizar un archivo HTML y guardarlo en JSON
-def analizar_html_y_guardar_en_json(band_name, song_name ):
+def construiracordes_dehtml(band_name, song_name ):
     # Crear un diccionario para almacenar el análisis
     analisis = {}
     analisis['banda'] = band_name
@@ -98,29 +98,29 @@ def analizar_html_y_guardar_en_json(band_name, song_name ):
 
 
 
-analizar_html_y_guardar_en_json('andres calamaro', 'la parte de adelante')
+construiracordes_dehtml('andres calamaro', 'la parte de adelante')
 #exit()
-analizar_html_y_guardar_en_json("intoxicados", "fuiste lo mejor")
-analizar_html_y_guardar_en_json("intoxicados", "fuego")
-analizar_html_y_guardar_en_json('intoxicados', 'esta saliendo el sol')
-analizar_html_y_guardar_en_json('intoxicados', 'se fue al cielo')
-analizar_html_y_guardar_en_json('intoxicados', 'casi sin pensar')
-analizar_html_y_guardar_en_json('intoxicados', 'pila pila')
-analizar_html_y_guardar_en_json('intoxicados', 'volver a casa')
+construiracordes_dehtml("intoxicados", "fuiste lo mejor")
+construiracordes_dehtml("intoxicados", "fuego")
+construiracordes_dehtml('intoxicados', 'esta saliendo el sol')
+construiracordes_dehtml('intoxicados', 'se fue al cielo')
+construiracordes_dehtml('intoxicados', 'casi sin pensar')
+construiracordes_dehtml('intoxicados', 'pila pila')
+construiracordes_dehtml('intoxicados', 'volver a casa')
 
-analizar_html_y_guardar_en_json('andres calamaro', 'flaca')
-analizar_html_y_guardar_en_json('andres calamaro', 'la parte de adelante')
-analizar_html_y_guardar_en_json('andres calamaro', 'cuando no estas')
-analizar_html_y_guardar_en_json('andres calamaro', 'te quiero igual')
-analizar_html_y_guardar_en_json('andres calamaro', 'crimenes perfectos')
-analizar_html_y_guardar_en_json('andres calamaro', 'paloma')
-analizar_html_y_guardar_en_json('andres calamaro', 'cartas sin marcar')
-analizar_html_y_guardar_en_json('andres calamaro', 'donde manda marinero')
-analizar_html_y_guardar_en_json('andres calamaro', 'pasemos a otro tema')
-analizar_html_y_guardar_en_json('andres calamaro', 'mi gin tonic')
-analizar_html_y_guardar_en_json('andres calamaro', 'loco')
-analizar_html_y_guardar_en_json('andres calamaro', 'soy tuyo')
-analizar_html_y_guardar_en_json('andres calamaro', 'el salmon')
-analizar_html_y_guardar_en_json('andres calamaro', 'alta suciedad')
-analizar_html_y_guardar_en_json('andres calamaro', 'media veronica')
-analizar_html_y_guardar_en_json('andres calamaro', 'bohemio')
+construiracordes_dehtml('andres calamaro', 'flaca')
+construiracordes_dehtml('andres calamaro', 'la parte de adelante')
+construiracordes_dehtml('andres calamaro', 'cuando no estas')
+construiracordes_dehtml('andres calamaro', 'te quiero igual')
+construiracordes_dehtml('andres calamaro', 'crimenes perfectos')
+construiracordes_dehtml('andres calamaro', 'paloma')
+construiracordes_dehtml('andres calamaro', 'cartas sin marcar')
+construiracordes_dehtml('andres calamaro', 'donde manda marinero')
+construiracordes_dehtml('andres calamaro', 'pasemos a otro tema')
+construiracordes_dehtml('andres calamaro', 'mi gin tonic')
+construiracordes_dehtml('andres calamaro', 'loco')
+construiracordes_dehtml('andres calamaro', 'soy tuyo')
+construiracordes_dehtml('andres calamaro', 'el salmon')
+construiracordes_dehtml('andres calamaro', 'alta suciedad')
+construiracordes_dehtml('andres calamaro', 'media veronica')
+construiracordes_dehtml('andres calamaro', 'bohemio')
