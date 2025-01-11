@@ -136,14 +136,21 @@ function onUpdateCompas(newCompas: number) {
 
   <Menu :titulo="cancion.cancion"></Menu>
 
-  <div>
-        <ControladorTiempo :compas=compas :cancion="cancion" :contexto="contexto"
-          @play="onPlay" @pause="onPause" @stop="onStop" @next="onNext" @previous="onPrevious" @update-compas="onUpdateCompas">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-6">
+        <h1>
+            <ControladorTiempo :compas=compas :cancion="cancion" :contexto="contexto"
+                @play="onPlay" @pause="onPause" @stop="onStop" @next="onNext" @previous="onPrevious" @update-compas="onUpdateCompas">
 
         </ControladorTiempo>
+        </h1>
+        <h2>{{ cancion.banda }}</h2>
+      </div>    
+  
+  
       </div>
-      
-  <div class="container">
 
         
 <div id="contenedor-musical">
