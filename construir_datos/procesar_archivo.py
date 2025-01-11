@@ -56,6 +56,10 @@ def construiracordes_dehtml(band_name, song_name ):
         tono = 'No se encontró el tono'
     
     analisis['tono'] = tono
+    acordes = []
+    acordes_gen = []
+    letras = []
+    letras_gen = []
 
     
     # Obtener los acordes y la letra desde el tag <pre>
@@ -64,9 +68,6 @@ def construiracordes_dehtml(band_name, song_name ):
         # Eliminar todos los tags de la clase 'tablatura' y 'cnt'
         for tag in pre_tag.find_all(class_=['tablatura', 'cnt']):
             tag.decompose()
-        acordes = []
-        letras = []
-        letras_gen = []
         lineas = pre_tag.decode_contents().split('\n')
 
     for i, line in enumerate(lineas):
@@ -77,12 +78,14 @@ def construiracordes_dehtml(band_name, song_name ):
         if (not tiene_acordes):
             pos = 0
             letras.append([line])
+            letras_gen.append(i)
             print (i, line)
         else:
             for acorde in acorde_inline:
                 if acorde.__contains__('</b>'):
                     acorde_r = acorde.split('</b>')[0]
                     acordes.append(acorde_r)
+                    acordes_gen.append({'linea': i, 'pos': pos})
                     print (i, pos, acorde_r)
 
                 pos += len(acorde)
@@ -102,13 +105,15 @@ def construiracordes_dehtml(band_name, song_name ):
     analisis['acordes'] = Acordes([Parte('p1', acordes)], [0]).toJson()
     analisis['letras'] = letras
 
+    gen = {}
+    gen['acordes'] = acordes_gen
+    gen['letras'] = letras_gen
 
 
         
-    # Crear el directorio si no existe
-    directorio = os.path.dirname(nombre_archivo_json)
-    if not os.path.exists(directorio):
-        os.makedirs(directorio)
+    with open(nombre_archivo_generado_json, 'w', encoding='utf-8') as file:
+        json.dump(gen, file, ensure_ascii=False, indent=4)
+
     
     # Guardar el análisis en un archivo JSON
     with open(nombre_archivo_json, 'w', encoding='utf-8') as file:
