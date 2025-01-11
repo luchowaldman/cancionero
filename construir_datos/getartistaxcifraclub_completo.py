@@ -82,7 +82,7 @@ def getartista_page(band_name):
         print (f'Descargar... {song_name}')
         download_cifraclub_page(band_name, song_name)
 
-def procesar_html(band_name):
+def procesar_html_artista(band_name):
     # Crear un diccionario para almacenar el análisis
     analisis = {}
     analisis['banda'] = band_name
@@ -135,7 +135,7 @@ def download_cifraclub_artista(band_name):
 
 def descargarbandacompleta(banda):
     #getartista_page(banda)
-    procesar_html(banda)
+    procesar_html_artista(banda)
     download_cifraclub_artista(banda)
 
 

@@ -36,10 +36,64 @@ def getartista_page(band_name):
 #download_cifraclub_page('intoxicados', 'casi sin pensar')
 #download_cifraclub_page('intoxicados', 'pila pila')
 #download_cifraclub_page('intoxicados', 'volver a casa')
-
 #download_cifraclub_page('andres calamaro', 'flaca')
 #download_cifraclub_page('andres calamaro', 'la parte de adelante')
 
+
+
+
+getartista_page("parra-violeta")
+getartista_page("alfredo-zitarrosa")
+getartista_page("elvis-presley")
+getartista_page("michael-jackson")
+getartista_page("aretha-franklin")
+getartista_page("frank-sinatra")
+getartista_page("bruce-springsteen")
+getartista_page("stevie-wonder") 
+getartista_page("taylor-swift")
+getartista_page("lady-gaga")
+getartista_page("jay-z")
+getartista_page("kanye-west")
+
+exit()
+getartista_page("sandro")
+getartista_page("palito-ortega")
+getartista_page("jimenez-jose-alfredo")
+getartista_page("george-harrison")
+getartista_page("violeta-parra")
+getartista_page("chico-buarque")
+getartista_page("caetano-veloso")
+getartista_page("leo-masliah")
+
+getartista_page("jorge-drexler")
+getartista_page("alfred-zitarrosa")
+getartista_page("ruben-rada")
+getartista_page("natalia-oreiro")
+getartista_page("leon-gieco")
+getartista_page("victor-jara")
+getartista_page("gilberto-gil")
+getartista_page("roberto-carlos")
+getartista_page("milton-nascimento")
+
+
+getartista_page("victor-jara")
+getartista_page("gilberto-gil")
+getartista_page("roberto-carlos")
+getartista_page("milton-nascimento")
+
+getartista_page("madonna")
+getartista_page("beyonce") 
+getartista_page("prince")
+getartista_page("beyonce")
+
+
+
+exit()
+getartista_page("conociendo-rusia")
+getartista_page("la-mosca")
+getartista_page("la-mona-gimenez")
+getartista_page("almafuerte")
+getartista_page("os-paralamas-do-sucesso")
 
 getartista_page("los piojos")
 getartista_page("bersuit-vergarabat")
@@ -61,7 +115,18 @@ getartista_page("jose-larralde")
 getartista_page("la-mosca-tse-tse")
 getartista_page("la-mona-jimenez")
 getartista_page("carlos gardel")
-
+getartista_page("roberto-goyeneche")
+getartista_page("almendra")
+getartista_page("jim-morrison")
+getartista_page("john-lennon")
+getartista_page("paul-mccartney")
+getartista_page("jose-larralde")
+getartista_page("jorge-cafrune")
+getartista_page("mercedes-sosa")
+getartista_page("los-chalchaleros")
+getartista_page("los-nocheros")
+getartista_page("los-tekis")
+getartista_page("los-almafuerte")
 exit()
 
 getartista_page("bob dylan")

@@ -1,7 +1,5 @@
 import os
 import json
-from bs4 import BeautifulSoup
-
 
 from acordes import Acordes, Parte
 from buscar_partes import buscar_partes
@@ -12,7 +10,12 @@ DIRECTORIO_DATOS = '../cliente/public/data/'
 DIRECTORIO_DATOS_GENERADA = 'data_generada/'
 # Función para calcular las partes de la canción
 def nocalcular_partes(acordes, letras):
-    acorde = Acordes([Parte('p1', [acordes])], [0])
+    
+    partes, secuencia = [acordes], [0]
+    partes_obj = []
+    for (i, parte) in enumerate(partes):
+        partes_obj.append(Parte(f'Parte {i + 1}', parte))
+    acorde = Acordes(partes_obj, secuencia)
     return acorde.toJson()
 
     
@@ -29,10 +32,17 @@ def calcular_partes(acordes, letras):
 # Función para analizar un archivo HTML y guardarlo en JSON
 def construiracordes_dehtml(band_name, song_name ):
     # Crear un diccionario para almacenar el análisis
-    analisis = {}
-    data_gen = {}
-    analisis['banda'] = band_name
-    analisis['cancion'] = song_name
+    to_json = {}
+    to_json['banda'] = band_name
+    to_json['cancion'] = song_name
+    to_json['tempo'] = 60
+    to_json['compas_cantidad'] = 4
+    to_json['compas_unidad'] = 4
+    to_json['tono'] = ''
+
+    to_gene = {}
+
+    
     band_name = band_name.replace(' ', '-')
     song_name = song_name.replace(' ', '-')
     
@@ -44,8 +54,8 @@ def construiracordes_dehtml(band_name, song_name ):
     with open(nombre_archivo_html, 'r', encoding='utf-8') as file:
         contenido_html = file.read()
     
-    # Analizar el contenido HTML con BeautifulSoup
-    soup = BeautifulSoup(contenido_html, 'lxml')
+    print(contenido_html)
+    exit()
     
     
     # Obtener el tono de la canción
@@ -55,8 +65,11 @@ def construiracordes_dehtml(band_name, song_name ):
     else:
         tono = 'No se encontró el tono'
     
-    analisis['tono'] = tono
+    to_json['tono'] = tono
 
+    # Crear un diccionario vacío
+    lineas_dict = {}
+    lineas_tieneacordes = {}
     
     # Obtener los acordes y la letra desde el tag <pre>
     pre_tag = soup.find('pre')
@@ -65,42 +78,28 @@ def construiracordes_dehtml(band_name, song_name ):
         for tag in pre_tag.find_all(class_=['tablatura', 'cnt']):
             tag.decompose()
         acordes = []
+        acordes_gen = []
         letras = []
         letras_gen = []
         lineas = pre_tag.decode_contents().split('\n')
+    count = 0
+
+
 
     for i, line in enumerate(lineas):
-        #print(i, line)
-        pos = 0
-        acorde_inline = line.split('<b>')
-        tiene_acordes = (len(acorde_inline) > 1)
-        if (not tiene_acordes):
-            pos = 0
-            letras.append([line])
-            print (i, line)
-        else:
-            for acorde in acorde_inline:
-                if acorde.__contains__('</b>'):
-                    acorde_r = acorde.split('</b>')[0]
-                    acordes.append(acorde_r)
-                    print (i, pos, acorde_r)
-
-                pos += len(acorde)
-
-            
-            #if line.strip():  # Verificar si la línea no es un string en blanco
-            #    tiene_acordes = bool(BeautifulSoup(line, 'html.parser').find('b'))
+            if line.strip():  # Verificar si la línea no es un string en blanco
+                tiene_acordes = bool(BeautifulSoup(line, 'html.parser').find('b'))
                 #print(f'{i}: {tiene_acordes}- {line}')
-            #    if tiene_acordes:
-            #        addacordes = [b.get_text() for b in BeautifulSoup(line, 'html.parser').find_all('b')]
-            #        acordes.extend(addacordes)
-            #    else:
-            #        letras.append([line])
+                if tiene_acordes:
+                    addacordes = [b.get_text() for b in BeautifulSoup(line, 'html.parser').find_all('b')]
+                    acordes.extend(addacordes)
+                else:
+                    letras.append([line])
 
 
     #print(f'calculo partes: {band_name} - {song_name}')
-    analisis['acordes'] = Acordes([Parte('p1', acordes)], [0]).toJson()
-    analisis['letras'] = letras
+    to_json['acordes'] = nocalcular_partes(acordes, letras)
+    to_json['letras'] = letras
 
 
 
@@ -112,16 +111,16 @@ def construiracordes_dehtml(band_name, song_name ):
     
     # Guardar el análisis en un archivo JSON
     with open(nombre_archivo_json, 'w', encoding='utf-8') as file:
-        json.dump(analisis, file, ensure_ascii=False, indent=4)
+        json.dump(to_json, file, ensure_ascii=False, indent=4)
 
 # Ejemplo de uso
 
 print('Construyendo acordes de canciones...')
-construiracordes_dehtml("intoxicados", "fuego")
+construiracordes_dehtml('andres calamaro', 'la parte de adelante')
 exit()
 
 construiracordes_dehtml("intoxicados", "fuiste lo mejor")
-construiracordes_dehtml('andres calamaro', 'la parte de adelante')
+construiracordes_dehtml("intoxicados", "fuego")
 construiracordes_dehtml('intoxicados', 'esta saliendo el sol')
 construiracordes_dehtml('intoxicados', 'se fue al cielo')
 construiracordes_dehtml('intoxicados', 'casi sin pensar')
