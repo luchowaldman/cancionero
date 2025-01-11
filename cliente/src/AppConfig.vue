@@ -3,6 +3,7 @@ import { ref, markRaw, onMounted, watch } from 'vue';
 import { Cancion } from './modelo/cancion';
 import { Contexto } from './modelo/contexto';
 import { Reproductor } from './modelo/reproductor';
+import Menu from './components/menu.vue';
 
 
 import ComponenteMusicalAcordesEdit from './components/ComponenteMusicalAcordesEdit.vue';
@@ -107,6 +108,8 @@ function guardarCancion() {
 
 <template>
     <div>
+        
+  <Menu titulo="config"></Menu>
         Config
 </div>
 </template>

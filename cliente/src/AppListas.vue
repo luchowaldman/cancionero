@@ -6,6 +6,7 @@ import { Banda } from './modelo/banda';
 import { Cancion } from './modelo/cancion';
 import { Acordes, Parte } from './modelo/acordes';
 import { Letra } from './modelo/letra';
+import Menu from './components/menu.vue';
 
 const almacen = new Almacenado();
 
@@ -145,6 +146,8 @@ function borrarCancion(indice: number) {
 <template>
     <div>
         
+  <Menu titulo="Listas"></Menu>
+        
         <div>
             <h1>Lista actual</h1>
         <div v-for="(cancion, cancion_id) in canciones_editando" :key="cancion.cancion" class="cancion">
@@ -154,7 +157,7 @@ function borrarCancion(indice: number) {
         </div>
     </div>
 
-        <div v-if="1 == 0">
+        <div v-if="1 == 1">
             <h1>Almacenado</h1>
         <div v-for="cancion in refindice_almacen" :key="cancion.cancion" class="cancion">
             {{ cancion.cancion }},  {{ cancion.banda }}

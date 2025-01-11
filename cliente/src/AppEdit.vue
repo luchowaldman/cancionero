@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { ref, markRaw, onMounted, watch } from 'vue';
+import { ref, markRaw, onMounted } from 'vue';
 import { Cancion } from './modelo/cancion';
 import { Contexto } from './modelo/contexto';
 import { Reproductor } from './modelo/reproductor';
 
+import Menu from './components/menu.vue';
 
 import ComponenteMusicalAcordesEdit from './components/ComponenteMusicalAcordesEdit.vue';
 import ComponenteMusicalAcordes from './components/ComponenteMusicalAcordes.vue';
@@ -107,20 +108,15 @@ function guardarCancion() {
 
 <template>
     <div>
-<div id="barra_navegacion">
-  <div>Cancionero -EDIT </div>
-  <div id="barra_control">
-      <div>{{ cancion.cancion }} </div>
-      <div><button v-on:click="guardarCancion()">GUARDAR</button></div>
-  </div>
-  <ControladorTiempo :compas=compas :cancion="cancion" :contexto="contexto"
-  @play="onPlay" @pause="onPause" @stop="onStop" @next="onNext" @previous="onPrevious" @update-compas="onUpdateCompas">
+        <Menu :titulo="cancion.cancion"></Menu>
+        <div>
+    <ControladorTiempo :compas=compas :cancion="cancion" :contexto="contexto"
+    @play="onPlay" @pause="onPause" @stop="onStop" @next="onNext" @previous="onPrevious" @update-compas="onUpdateCompas">
 
-  </ControladorTiempo>
-
-  {{ compas }}
-  <div style="margin-left: auto;">Configuración</div>
+    </ControladorTiempo>
 </div>
+
+  
 <div id="vistas">
 </div>
 

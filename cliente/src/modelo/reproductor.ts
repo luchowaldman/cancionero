@@ -30,6 +30,8 @@ export class Reproductor  {
         public setIniciaCompasHandler(handler: (nro_compas: number) => void) {
             this.IniciaCompasHandler = handler;
         }    
+
+
         
         
         public iniciar() 
