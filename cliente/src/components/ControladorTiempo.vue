@@ -6,6 +6,7 @@ import { Contexto } from '../modelo/contexto';
 const props = defineProps<{ compas: number, cancion: Cancion, contexto: Contexto }>();
 const emit = defineEmits(['play', 'pause', 'stop', 'next', 'previous', 'update-compas']);
 const currentCompas = ref(0);
+const tempo = ref(props.cancion.tempo);
 import { watch } from 'vue';
 
 watch(() => props.compas, (newCompas) => {
@@ -41,14 +42,19 @@ function updateCompas(newCompas: number) {
 </script>
 
 <template>
-<div>
-    <div class="controls">
+<div class="row">
+  <div class="row">
+    <div class="controls col-6">
         <button @click="play">Play</button>
         <button @click="pause">Pause</button>
         <button @click="stop">Stop</button>
         <button @click="previous">Anterior</button>
         <button @click="next">Siguiente</button>
     </div>
+    <div class="col-2">Compás: {{ currentCompas }} </div>
+    <div class="col-2">Tempo: <input type="number" v-model="props.cancion.tempo"> </div>
+  <div class="row">
+
     <div class="progress-bar">
         <input 
             type="range" 
@@ -57,8 +63,13 @@ function updateCompas(newCompas: number) {
             v-model="currentCompas" 
             @input="updateCompas(currentCompas)" 
         />
-        <div>Compás: {{ currentCompas }}</div>
+        
     </div>
+
+  </div>
+
+    
+</div>
 </div>
 </template>
 

@@ -56,6 +56,12 @@ getartista_page("manu-chao")
 getartista_page("no-te-va-gustar")
 getartista_page("la-renga")
 getartista_page("zaz")
+getartista_page("la-mississippi")
+getartista_page("jose-larralde")
+getartista_page("la-mosca-tse-tse")
+getartista_page("la-mona-jimenez")
+getartista_page("carlos gardel")
+
 exit()
 
 getartista_page("bob dylan")

@@ -71,22 +71,11 @@ reproductor.setFinalizaHandler(() => {
     console.log("Deteniendo reproductor");
 });
 
-
-
 // Vector de componentes musicales
 const componentesMusicales = ref([
-    markRaw(ComponenteMusicalLetra),
     markRaw(ComponenteMusicalAcordesSeguidos),
+    markRaw(ComponenteMusicalLetra),
     markRaw(ComponenteMusicalAcordes)
-
-    
-    //markRaw()
-    //
-    //markRaw(ComponenteMusicalLetra),
-    //markRaw(ComponenteMusicalMetronomo),
-    //markRaw(ComponenteMusical),
-    //markRaw(ComponenteMusical),
-    
 ]);
 
 
@@ -96,6 +85,10 @@ function onPause() {
 }
 
 function onPlay() {
+    console.log("Play Cancion", cancion.value.tempo, cancion.value.compas_unidad, cancion.value.compas_cantidad);
+    const seg = (60) * (cancion.value.compas_cantidad / cancion.value.tempo);
+    console.log("Duracion:", seg);
+    reproductor.setDuracion(seg * 1000);
     reproductor.iniciar();
     console.log("Play event received");
 
@@ -147,6 +140,7 @@ function onUpdateCompas(newCompas: number) {
       </div>    
       <div class="col-3">
         Escala: G
+        Tempo: {{  cancion.tempo }} bpm
       </div>
   
      </div>

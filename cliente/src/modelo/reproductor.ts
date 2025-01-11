@@ -8,6 +8,8 @@ export class Reproductor  {
 
     private intervalId: any;
 
+    
+
         constructor(duracion_compas: number, total_compases: number) 
         {
             this.duracion_compas = duracion_compas;
@@ -30,6 +32,10 @@ export class Reproductor  {
         public setIniciaCompasHandler(handler: (nro_compas: number) => void) {
             this.IniciaCompasHandler = handler;
         }    
+
+        public setDuracion(duracion_compas: number) {
+            this.duracion_compas = duracion_compas;
+        }
 
 
         

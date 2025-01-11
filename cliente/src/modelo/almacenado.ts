@@ -30,7 +30,15 @@ export class Almacenado {
       banda  = banda.toLocaleLowerCase();
       const canciones = this.obtenerTodasLasCanciones();
       console.log("Obtengo cancion", nombre, banda);
-      return canciones.find((cancion) => cancion.cancion.toLocaleLowerCase() === nombre && cancion.banda.toLocaleLowerCase() === banda);
+      let toret: Cancion | undefined = canciones.find((cancion) => cancion.cancion.toLocaleLowerCase() === nombre && cancion.banda.toLocaleLowerCase() === banda);
+      if (!(toret === undefined)) {
+        if (toret.compas_cantidad === undefined) {
+          toret.compas_cantidad = 4;
+          toret.compas_unidad = 4;
+        }
+      }
+
+      return toret;
     }
   
     // Método para devolver un listado de todas las canciones almacenadas
