@@ -23,14 +23,23 @@ const props = defineProps<{ titulo: string }>()
             <a class="nav-link active" aria-current="page" href="/">Tocar</a>
           </li>
           
+          <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle active" href="#" data-bs-toggle="dropdown" aria-expanded="false">Vistas</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Guitarrista</a></li>
+              <li><a class="dropdown-item" href="#">Cantante</a></li>
+              <li><a class="dropdown-item" href="#">Multiple</a></li>
+            </ul>
+          </li>
+          
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/edit">Editar</a>
+            <a class="nav-link " aria-current="page" href="/edit">Editar</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/listas">Listas</a>
+            <a class="nav-link " aria-current="page" href="/listas">Listas</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/config">Configuracion</a>
+            <a class="nav-link " aria-current="page" href="/config">Configuracion</a>
           </li>
         </ul>
       </div>
