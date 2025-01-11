@@ -75,9 +75,10 @@ reproductor.setFinalizaHandler(() => {
 
 // Vector de componentes musicales
 const componentesMusicales = ref([
-    markRaw(ComponenteMusicalAcordes),
     markRaw(ComponenteMusicalLetra),
-    markRaw(ComponenteMusicalAcordesSeguidos)
+    markRaw(ComponenteMusicalAcordesSeguidos),
+    markRaw(ComponenteMusicalAcordes)
+
     
     //markRaw()
     //
@@ -136,25 +137,23 @@ function onUpdateCompas(newCompas: number) {
 
   <Menu :titulo="cancion.cancion"></Menu>
 
-  <div class="container">
+  <div class="pantalla">
 
     <div class="row">
       <div class="col-6">
-        <h1>
             <ControladorTiempo :compas=compas :cancion="cancion" :contexto="contexto"
                 @play="onPlay" @pause="onPause" @stop="onStop" @next="onNext" @previous="onPrevious" @update-compas="onUpdateCompas">
-
         </ControladorTiempo>
-        </h1>
-        <h2>{{ cancion.banda }}</h2>
       </div>    
-  
-  
+      <div class="col-3">
+        Escala: G
       </div>
+  
+     </div>
 
         
-<div id="contenedor-musical">
-    <div v-for="(Componente, index) in componentesMusicales" :key="index">
+<div class="row">
+    <div v-for="(Componente, index) in componentesMusicales" :key="index" class="col-3">
         <component :is="Componente" :compas="compas" :cancion="cancion" :contexto="contexto"></component>
     </div>
 </div>
