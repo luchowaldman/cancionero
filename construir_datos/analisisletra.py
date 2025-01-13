@@ -38,7 +38,7 @@ def renglon_valido(renglon):
     if renglon['tipo'] == 'l':
         texto = renglon['letra'].strip()
         
-        excluidos = ['','[Puente]','[Estribillo]','[Solo Final]','[Primera Parte]', 'Intro:','Bajo:','RIFF']
+        excluidos = ['','[Puente]','[Estribillo]','[sin musica]','[repite todo]','(sin musica)','(repite todo)','[Solo Final]','[Primera Parte]', 'Intro:','Bajo:','RIFF']
         if texto in excluidos:
             return  False
         
@@ -114,8 +114,7 @@ def analizarxletra(banda, tema):
             musicas.append(renglon)
         if renglon['tipo'] == 'l':            
             if '_m' not in renglon:
-                print("LETRA SIN MUSICA", renglon)
-                
+                #print("LETRA SIN MUSICA", renglon)
                 renglon['_m'] = 'NO'
                 con_letra_sin_musica = True
 
@@ -140,24 +139,56 @@ def analizarxletra(banda, tema):
         if (prof > 5):            
             print("proxima empieza prueba ",prof,"> 5")
         if son_distintos:
-            aco, secu, resu = probar(prof, acordes_nuevos)
+            acordes_de_partes, secu, resu = probar(prof, acordes_nuevos)
         if not resu:
-            aco, secu, resu = probar(prof, acordes)
+            acordes_de_partes, secu, resu = probar(prof, acordes)
         prof = prof + 1
     prof = prof - 1
         
 
+
+#    if con_letra_sin_musica:
+#        print("con letra sin musica", tema)
+#        return { 'generado': 0 }
+   
+
     if resu:
-       #print("encontrada prof", prof, tema)
-       a = 4
+       #print("encontrada prof", prof, aco, secu)
+       # ARMO EL ARCHIVO
+       letra = []
+       secu_fin = []
+       termino_secu = True
+       indice_secu = -1
+       procesando_secu = -1
+       print(acordes_de_partes, secu)
+       acordes_agregados = []
+       for renglon in renglones:
+            #print (renglon)
+            if (renglon['tipo'] == 'm'):
+                for acor in renglon['acordes']:
+                    if termino_secu:
+                        termino_secu = False
+                        procesando_secu = procesando_secu + 1
+                    indice_secu = indice_secu + 1
+                    if procesando_secu  >= len(secu):
+                        print("Termino el vector", termino_secu, indice_secu)
+                    else:
+                        #print("secuencia", secu[procesando_secu])
+                        #print("acordes busca:", procesando_secu, acordes_de_partes[secu[procesando_secu]])
+                        acordes_agregados.append(acor['acorde'])
+                        print("aaa",secu[procesando_secu])
+                        termino_secu = len(acordes_de_partes[secu[procesando_secu]])  == len(acordes_agregados) 
+                        print("renglon", termino_secu, len(acordes_de_partes[secu[procesando_secu]])  , len(acordes_agregados), len(acordes_de_partes[secu[procesando_secu]]))
+                        if termino_secu:
+                                acord_agregados = 0
+                                indice_secu = -1
+                                print (acordes_agregados)
+                                acordes_agregados.clear()
+                    #print (procesando_secu, indice_secu,termino_secu )
     else:
         print("no encontrada", tema, len(acordes))
 
         
-    if con_letra_sin_musica:
-        print("con letra sin musica", tema)
-        return { 'generado': 0 }
-    
 
 
     #print("Se puede generar completa" , tema)
