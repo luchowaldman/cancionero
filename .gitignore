@@ -15,6 +15,7 @@ dist-ssr
 # Editor directories and files
 .vscode/*
 construir_datos/cifraclub_pages/*
+construir_datos/data_generada/*
 cliente/public/data/*
 !.vscode/extensions.json
 .idea
