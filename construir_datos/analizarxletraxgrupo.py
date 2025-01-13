@@ -1,16 +1,12 @@
+from analisisletra  import analizarxletra
 import os
-import requests
 import json
-from bs4 import BeautifulSoup
-from acordes import Acordes, Parte
-from buscar_partes import ProbarPartes, buscar_partes
-from Analizador  import Analizador
-
 
 # Define the directory where the pages will be saved
 SAVE_DIRECTORY = 'cifraclub_pages'
 DIRECTORIO_DATOS = '../cliente/public/data/'
 DIRECTORIO_DATOS_GENERADA = 'data_generada/'
+
 
 
 
@@ -24,24 +20,6 @@ def get_JSON(directorio, archivo):
         return None
     
 
-    
-def guardar_tema(banda, tema, data):
-    try:
-        with open(f'{DIRECTORIO_DATOS}{banda}_{tema}.json', 'w') as f:
-            json.dump(data, f)
-    except Exception as e:
-        print(f"Error al guardar tema de banda {banda}, tema {tema}: {e}")
-
-
-def renglon_valido(renglon):
-    if renglon['tipo'] == 'l':
-        excluidos = ['','[Puente]','[Estribillo]','[Solo Final]','[Primera Parte]']
-        if renglon['letra'] in excluidos:
-            return  False
-    return True
-
-
-
 def obtener_archivos_json(directorio):
     archivos = []
     try:
@@ -54,80 +32,17 @@ def obtener_archivos_json(directorio):
         return []
 
 
-
-
-def analizarxletra(banda, tema):
-    #print(f"analizarxletra {banda}, {tema}")
-    renglones = get_JSON(DIRECTORIO_DATOS_GENERADA, f'{banda}_{tema}')
-    val_reng = []
-    for renglon in renglones:
-        if (renglon_valido(renglon)):
-            val_reng.append(renglon)
-    renglones = val_reng
-
-    partes = []
-    i = 0
-    nuevo = True
-    parte = { 'tipo':'0', 'letra': [], 'musica': []}
-
-    musicas = []
-    acordes = []
-    con_letra_sin_musica = False
-    while i < len(renglones):
-        renglon = renglones[i]
-        if renglon['tipo'] == 'm':
-            for acor in renglon['acordes']:
-                acordes.append(acor['acorde'])
-            if i+1 < len(renglones):
-                if renglones[i+1]['tipo']=='l':
-                    renglon['conl'] = True
-                    renglon['letra'] = renglones[i+1]
-                    renglones[i+1]['_m'] = 'SI'
-            musicas.append(renglon)
-        if renglon['tipo'] == 'l':            
-            if '_m' not in renglon:
-                #print("LETRA SIN MUSICA", renglon)
-                renglon['_m'] = 'NO'
-                con_letra_sin_musica = True
-
-
-            #print (renglon['_m'])
-        i = i + 1
-
-    #for mus in musicas:
-    #    print(mus)   
-    
-    formas = []
-    formas.append([4])
-    formas.append([8])
-    for i in range(4, 8):
-        formas.append([4, i])
-    for i in range(4, 8):
-        formas.append([4, 4, i])
-    
-    
-    aco, secu = ProbarPartes(formas, acordes)
-    if len(secu) == 1:
-        #print("No encontre el patron")
-        return { 'generado': 0 }
-
-    if con_letra_sin_musica:
-        #print("con letra sin musica")
-        return { 'generado': 0 }
-
-
-    print("Se puede generar completa" , tema)
-    return { 'generado': 1 }
-
-
         
 resultados = []
-banda = 'joaquin-sabina'
+banda = 'intoxicados'
+
+
 arch = obtener_archivos_json(DIRECTORIO_DATOS_GENERADA)
 for ar in arch:
     if ar.startswith(banda + '_'):
         sp = ar.split('_')
-        try:            
+        try:
+            a = 1            
             resultados.append(analizarxletra(sp[0], sp[1]))
         except Exception as e:
             #print(f"Error al archivo {ar}: {e}")

@@ -46,7 +46,7 @@ def ProbarPartes(formas, acordes):
     for forma in formas:
         partes, secuencia = tryVN(forma, acordes)
         dis = PartesDistintas(secuencia)
-        #print (f'forma: {forma}, partes: {partes}, secuencia: {secuencia}, dis: {dis}')
+        #print (f'forma: {forma}, partes: {partes}, secuencia: {secuencia}, dis: {dis}, secuencia {secuencia}')
         if len(forma) == dis:
             #print (f'forma encontrada: {forma} partes: {partes}, secuencia: {secuencia}')
             descartar = False

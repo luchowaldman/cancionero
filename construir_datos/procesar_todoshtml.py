@@ -80,7 +80,7 @@ def construir_prearchivo(band_name, song_name ):
 
 
 arch = obtener_archivos(SAVE_DIRECTORY)
-desde, hasta = 45, 1500
+desde, hasta = 3400, 13500000
 cont = 0
 for archivo in arch:
     print (archivo, desde, hasta, cont)
