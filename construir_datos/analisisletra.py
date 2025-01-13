@@ -160,9 +160,16 @@ def analizarxletra(banda, tema):
        termino_secu = True
        indice_secu = -1
        procesando_secu = -1
-       print(acordes_de_partes, secu)
+       #print(acordes_de_partes, secu)
        acordes_agregados = []
-       for renglon in renglones:
+       id_renglon = -1
+
+       acordes_originales_renglones = []
+
+
+    for renglon in renglones:
+            id_renglon = id_renglon + 1
+            secuenciasagregadas = []
             #print (renglon)
             if (renglon['tipo'] == 'm'):
                 for acor in renglon['acordes']:
@@ -171,24 +178,55 @@ def analizarxletra(banda, tema):
                         procesando_secu = procesando_secu + 1
                     indice_secu = indice_secu + 1
                     if procesando_secu  >= len(secu):
-                        print("Termino el vector", termino_secu, indice_secu)
+                        #print("Termino el vector", termino_secu, indice_secu)
+                        a = 3
                     else:
                         #print("secuencia", secu[procesando_secu])
                         #print("acordes busca:", procesando_secu, acordes_de_partes[secu[procesando_secu]])
                         acordes_agregados.append(acor['acorde'])
-                        print("aaa",secu[procesando_secu])
-                        termino_secu = len(acordes_de_partes[secu[procesando_secu]])  == len(acordes_agregados) 
-                        print("renglon", termino_secu, len(acordes_de_partes[secu[procesando_secu]])  , len(acordes_agregados), len(acordes_de_partes[secu[procesando_secu]]))
+                        termino_secu = len(acordes_de_partes[secu[procesando_secu]])  == len(acordes_agregados)
+                        
                         if termino_secu:
-                                acord_agregados = 0
+                                secu_fin.append(secu[procesando_secu])
+                                secuenciasagregadas.append(secu[procesando_secu])
                                 indice_secu = -1
-                                print (acordes_agregados)
                                 acordes_agregados.clear()
                     #print (procesando_secu, indice_secu,termino_secu )
-    else:
-        print("no encontrada", tema, len(acordes))
 
-        
+
+                if (renglon['conl']):
+                    acordes_originales_renglones.append(secuenciasagregadas)
+                    #print("Agrega MUSICA de letra", acordes_originales_renglones)
+
+            else:
+                if renglon['_m'] == 'SI':
+                    a = 3
+
+                else:
+                    texto_desde = id_renglon                    
+                    ind_texto = texto_desde + 1
+                    #print(texto_desde, ind_texto)
+                    renglones_sinmusica = []
+                    renglones_sinmusica.append(renglones[texto_desde])
+                    while  (ind_texto < len(renglones)):
+                        if (renglones[ind_texto]['tipo'] == 'l'):
+                            #print("Agrego renglon sin musica")
+                            renglones_sinmusica.append(renglones[ind_texto])
+                            renglones[ind_texto]['_m'] = 'SI'
+                        else:
+                            break
+                        ind_texto = ind_texto + 1
+
+                    indice_reng  = 0
+                    
+                    for i in range(texto_desde, ind_texto):
+                        for secu_aca in acordes_originales_renglones[indice_reng]:
+                            secu_fin.append(secu_aca)
+                        indice_reng = (indice_reng + 1) % len(acordes_originales_renglones)
+                        #print("Ponemos musica para", renglones[i], secu_fin)
+                        
+
+
 
 
     #print("Se puede generar completa" , tema)
