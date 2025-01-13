@@ -20,7 +20,7 @@ def get_JSON(directorio, archivo):
             data = json.load(f)
             return data
     except Exception as e:
-        print(f"Error al obtener JSON {directorio}, tema {archivo}: {e}")
+        #print(f"Error al obtener JSON {directorio}, tema {archivo}: {e}")
         return None
     
 
@@ -39,6 +39,20 @@ def renglon_valido(renglon):
         if renglon['letra'] in excluidos:
             return  False
     return True
+
+
+
+def obtener_archivos_json(directorio):
+    archivos = []
+    try:
+        for archivo in os.listdir(directorio):
+            if archivo.endswith('.json'):
+                archivos.append(archivo.replace('.json', '')) 
+        return archivos
+    except Exception as e:
+        print(f"Error al leer el directorio: {e}")
+        return []
+
 
 
 
@@ -64,16 +78,16 @@ def analizarxletra(banda, tema):
         if renglon['tipo'] == 'm':
             for acor in renglon['acordes']:
                 acordes.append(acor['acorde'])
-            if renglones[i+1]['tipo']=='l':
-                renglon['conl'] = True
-                renglon['letra'] = renglones[i+1]
-                renglones[i+1]['_m'] = 'SI'
+            if i+1 < len(renglones):
+                if renglones[i+1]['tipo']=='l':
+                    renglon['conl'] = True
+                    renglon['letra'] = renglones[i+1]
+                    renglones[i+1]['_m'] = 'SI'
             musicas.append(renglon)
         if renglon['tipo'] == 'l':            
             if '_m' not in renglon:
                 #print("LETRA SIN MUSICA", renglon)
                 renglon['_m'] = 'NO'
-                print(renglones[i+1])
                 con_letra_sin_musica = True
 
 
@@ -94,23 +108,35 @@ def analizarxletra(banda, tema):
     
     aco, secu = ProbarPartes(formas, acordes)
     if len(secu) == 1:
-        print("No encontre el patron")
+        #print("No encontre el patron")
         return { 'generado': 0 }
 
     if con_letra_sin_musica:
-        print("con letra sin musica")
+        #print("con letra sin musica")
         return { 'generado': 0 }
 
 
-    print("Se puede generar completa")
+    print("Se puede generar completa" , tema)
     return { 'generado': 1 }
 
 
         
 resultados = []
-resultados.append(analizarxletra('intoxicados', 'fuego'))
-resultados.append(analizarxletra('andres-calamaro', 'flaca'))
-resultados.append(analizarxletra("intoxicados", "fuiste-lo-mejor"))
+banda = 'joaquin-sabina'
+arch = obtener_archivos_json(DIRECTORIO_DATOS_GENERADA)
+for ar in arch:
+    if ar.startswith(banda + '_'):
+        sp = ar.split('_')
+        try:            
+            resultados.append(analizarxletra(sp[0], sp[1]))
+        except Exception as e:
+            #print(f"Error al archivo {ar}: {e}")
+            resultados.append({ 'generado': 0 })
+        
+
+#resultados.append(analizarxletra('intoxicados', 'fuego'))
+#resultados.append(analizarxletra('andres-calamaro', 'flaca'))
+#resultados.append(analizarxletra("intoxicados", "fuiste-lo-mejor"))
 generados = 0
 for gen in resultados:
     generados = generados + gen['generado']

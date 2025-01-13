@@ -48,7 +48,7 @@ def ProbarPartes(formas, acordes):
         dis = PartesDistintas(secuencia)
         #print (f'forma: {forma}, partes: {partes}, secuencia: {secuencia}, dis: {dis}')
         if len(forma) == dis:
-            print (f'forma encontrada: {forma} partes: {partes}, secuencia: {secuencia}')
+            #print (f'forma encontrada: {forma} partes: {partes}, secuencia: {secuencia}')
             descartar = False
             for i in range(len(forma) - 1):
                 if forma[i] != len(partes[i]):

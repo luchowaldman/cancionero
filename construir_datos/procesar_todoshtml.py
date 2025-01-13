@@ -18,10 +18,14 @@ def obtener_archivos(directorio):
         print(f"Error al leer el directorio: {e}")
         return []
 
-
+def existe_preprocesado(band_name, song_name ):
+    # Crear un diccionario para almacenar el análisis
+    band_name = band_name.replace(' ', '-')
+    song_name = song_name.replace(' ', '-')
+    nombre_archivo_generado_json  = os.path.join(DIRECTORIO_DATOS_GENERADA, f'{band_name}_{song_name}.json')
+    return os.path.isfile(nombre_archivo_generado_json)
 # Función para analizar un archivo HTML y guardarlo en JSON
 def construir_prearchivo(band_name, song_name ):
-    # Crear un diccionario para almacenar el análisis
     data_gen = {}
     band_name = band_name.replace(' ', '-')
     song_name = song_name.replace(' ', '-')
@@ -78,23 +82,22 @@ def construir_prearchivo(band_name, song_name ):
 arch = obtener_archivos(SAVE_DIRECTORY)
 desde, hasta = 45, 1500
 cont = 0
-print('vMOS')
 for archivo in arch:
-    #print (archivo, desde, hasta, cont)
-    #if (desde > cont):
-#        cont = cont  + 1
-        #continue
-    #if (cont > hasta):
-        #break
+    print (archivo, desde, hasta, cont)
+    if (desde > cont):
+        cont = cont  + 1
+        continue
+    if (cont > hasta):
+        break
         
 
     spl = archivo.split('_')
-    if (spl[0] != 'joaquin-sabina'):
-        continue
+    
     if (len(spl)==2):
-        print ("Procesar", spl[0],spl[1])
-        try:            
-            construir_prearchivo(spl[0],spl[1])
+        try:       
+            if (not existe_preprocesado(spl[0],spl[1])):
+                print ("Procesar", spl[0],spl[1])
+                construir_prearchivo(spl[0],spl[1])
         except:
             print("Error procesando")
     else:
