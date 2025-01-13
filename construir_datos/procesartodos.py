@@ -21,16 +21,6 @@ def obtener_archivos(directorio):
         print(f"Error al leer el directorio: {e}")
         return []
 
-
-def procesar_bandas():
-    arch = obtener_archivos(SAVE_DIRECTORY)
-    bandas = []
-    for archivo in arch:
-        if '_' in archivo:
-            banda = archivo.split('_')[0]
-            tema = archivo.split('_')[1]
-            print(f'Procesando banda: {banda}, tema: {tema}')
-            construiracordes_dehtml(banda, tema)
-
-print('Procesando todas las bandas...')
-#procesar_bandas()
+arch = obtener_archivos(SAVE_DIRECTORY)
+for archivo in arch:
+    print (archivo)

@@ -35,7 +35,7 @@ def guardar_tema(banda, tema, data):
 
 def renglon_valido(renglon):
     if renglon['tipo'] == 'l':
-        excluidos = ['','[Puente]','[Estribillo]','[Solo Final]']
+        excluidos = ['','[Puente]','[Estribillo]','[Solo Final]','[Primera Parte]']
         if renglon['letra'] in excluidos:
             return  False
     return True
@@ -58,7 +58,7 @@ def analizarxletra(banda, tema):
 
     musicas = []
     acordes = []
-    con_letra_sin_musico = False
+    con_letra_sin_musica = False
     while i < len(renglones):
         renglon = renglones[i]
         if renglon['tipo'] == 'm':
@@ -71,9 +71,10 @@ def analizarxletra(banda, tema):
             musicas.append(renglon)
         if renglon['tipo'] == 'l':            
             if '_m' not in renglon:
+                print("LETRA SIN MUSICA", renglon)
                 renglon['_m'] = 'NO'
                 print(renglones[i+1])
-                con_letra_sin_musico = True
+                con_letra_sin_musica = True
 
 
             #print (renglon['_m'])
@@ -96,16 +97,26 @@ def analizarxletra(banda, tema):
         print("No encontre el patron")
         return { 'generado': 0 }
 
-    print("Busco si todo la letra tiene musica")
+    if con_letra_sin_musica:
+        print("con letra sin musica")
+        return { 'generado': 0 }
 
-    return { 'generado': 0 }
+
+    print("Se puede generar completa")
+    return { 'generado': 1 }
 
 
         
+resultados = []
+resultados.append(analizarxletra('intoxicados', 'fuego'))
+resultados.append(analizarxletra('andres-calamaro', 'flaca'))
+resultados.append(analizarxletra("intoxicados", "fuiste-lo-mejor"))
+generados = 0
+for gen in resultados:
+    generados = generados + gen['generado']
 
-analizarxletra('intoxicados', 'fuego')
-analizarxletra('andres-calamaro', 'flaca')
-analizarxletra("intoxicados", "fuiste-lo-mejor")
+print("total", len(resultados), "generado", generados)
+
 #analizarxletra('andres calamaro', 'la parte de adelante')
 #analizarxletra('intoxicados', 'esta saliendo el sol')
 #analizarxletra('intoxicados', 'se fue al cielo')

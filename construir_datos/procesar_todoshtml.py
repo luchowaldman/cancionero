@@ -1,29 +1,22 @@
 import os
+import requests
 import json
 from bs4 import BeautifulSoup
 
-
-from acordes import Acordes, Parte
-from buscar_partes import buscar_partes
-
-
-SAVE_DIRECTORY = 'cifraclub_pages/'
-DIRECTORIO_DATOS = '../cliente/public/data/'
+# Define the directory where the pages will be saved
+SAVE_DIRECTORY = 'cifraclub_pages'
 DIRECTORIO_DATOS_GENERADA = 'data_generada/'
-# Función para calcular las partes de la canción
-def nocalcular_partes(acordes, letras):
-    acorde = Acordes([Parte('p1', [acordes])], [0])
-    return acorde.toJson()
-
-    
-def calcular_partes(acordes, letras):
-    
-    partes, secuencia = buscar_partes(acordes)
-    partes_obj = []
-    for (i, parte) in enumerate(partes):
-        partes_obj.append(Parte(f'Parte {i + 1}', parte))
-    acorde = Acordes(partes_obj, secuencia)
-    return acorde.toJson()
+# nombre_archivo_json  = os.path.join(DIRECTORIO_DATOS, f'{band_name}_{song_name}.json')
+def obtener_archivos(directorio):
+    archivos = []
+    try:
+        for archivo in os.listdir(directorio):
+            if archivo.endswith('.html'):
+                archivos.append(archivo.replace('.html', '')) 
+        return archivos
+    except Exception as e:
+        print(f"Error al leer el directorio: {e}")
+        return []
 
 
 # Función para analizar un archivo HTML y guardarlo en JSON
@@ -82,32 +75,31 @@ def construir_prearchivo(band_name, song_name ):
 
 
 
-print('Construyendo acordes de canciones...')
+arch = obtener_archivos(SAVE_DIRECTORY)
+desde, hasta = 45, 1500
+cont = 0
+print('vMOS')
+for archivo in arch:
+    #print (archivo, desde, hasta, cont)
+    #if (desde > cont):
+#        cont = cont  + 1
+        #continue
+    #if (cont > hasta):
+        #break
+        
 
-construir_prearchivo('intoxicados', 'casi sin pensar')
-construir_prearchivo("intoxicados", "fuego")
-construir_prearchivo("intoxicados", "fuiste lo mejor")
-construir_prearchivo('andres-calamaro', 'la parte de adelante')
-construir_prearchivo('intoxicados', 'esta saliendo el sol')
-construir_prearchivo('intoxicados', 'se fue al cielo')
-construir_prearchivo('intoxicados', 'casi sin pensar')
-construir_prearchivo('intoxicados', 'pila pila')
-construir_prearchivo('intoxicados', 'volver a casa')
+    spl = archivo.split('_')
+    if (spl[0] != 'joaquin-sabina'):
+        continue
+    if (len(spl)==2):
+        print ("Procesar", spl[0],spl[1])
+        try:            
+            construir_prearchivo(spl[0],spl[1])
+        except:
+            print("Error procesando")
+    else:
+        print (cont, archivo)
+    cont = cont  + 1
 
-construir_prearchivo('andres calamaro', 'flaca')
-construir_prearchivo('andres calamaro', 'la parte de adelante')
-construir_prearchivo('andres calamaro', 'cuando no estas')
-exit()
-construir_prearchivo('andres calamaro', 'te quiero igual')
-construir_prearchivo('andres calamaro', 'crimenes perfectos')
-construir_prearchivo('andres calamaro', 'paloma')
-construir_prearchivo('andres calamaro', 'cartas sin marcar')
-construir_prearchivo('andres calamaro', 'donde manda marinero')
-construir_prearchivo('andres calamaro', 'pasemos a otro tema')
-construir_prearchivo('andres calamaro', 'mi gin tonic')
-construir_prearchivo('andres calamaro', 'loco')
-construir_prearchivo('andres calamaro', 'soy tuyo')
-construir_prearchivo('andres calamaro', 'el salmon')
-construir_prearchivo('andres calamaro', 'alta suciedad')
-construir_prearchivo('andres calamaro', 'media veronica')
-construir_prearchivo('andres calamaro', 'bohemio')
+
+    
