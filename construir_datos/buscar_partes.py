@@ -50,8 +50,8 @@ def ProbarPartes(formas, acordes):
         if len(forma) == dis:
             print (f'forma encontrada: {forma} partes: {partes}, secuencia: {secuencia}')
             descartar = False
-            for i in range(len(formas) - 1):
-                if formas[i] == partes[i].len():
+            for i in range(len(forma) - 1):
+                if forma[i] != len(partes[i]):
                     descartar = True
                     break
             

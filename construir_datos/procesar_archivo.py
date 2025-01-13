@@ -27,17 +27,14 @@ def calcular_partes(acordes, letras):
 
 
 # Función para analizar un archivo HTML y guardarlo en JSON
-def construiracordes_dehtml(band_name, song_name ):
+def construir_prearchivo(band_name, song_name ):
     # Crear un diccionario para almacenar el análisis
-    analisis = {}
     data_gen = {}
-    analisis['banda'] = band_name
-    analisis['cancion'] = song_name
     band_name = band_name.replace(' ', '-')
     song_name = song_name.replace(' ', '-')
     
     nombre_archivo_html = os.path.join(SAVE_DIRECTORY, f'{band_name}_{song_name}.html')
-    nombre_archivo_json  = os.path.join(DIRECTORIO_DATOS, f'{band_name}_{song_name}.json')
+#    nombre_archivo_json  = os.path.join(DIRECTORIO_DATOS, f'{band_name}_{song_name}.json')
     nombre_archivo_generado_json  = os.path.join(DIRECTORIO_DATOS_GENERADA, f'{band_name}_{song_name}.json')
     # Leer el contenido del archivo HTML
     print (f'leyendo archivo: {nombre_archivo_html}')
@@ -45,31 +42,19 @@ def construiracordes_dehtml(band_name, song_name ):
         contenido_html = file.read()
     
     # Analizar el contenido HTML con BeautifulSoup
-    soup = BeautifulSoup(contenido_html, 'lxml')
     
     
-    # Obtener el tono de la canción
-    cifra_tom = soup.find('span', id='cifra_tom')
-    if cifra_tom and cifra_tom.find('a'):
-        tono = cifra_tom.find('a').get_text()
-    else:
-        tono = 'No se encontró el tono'
-    
-    analisis['tono'] = tono
-    acordes = []
-    acordes_gen = []
-    letras = []
-    letras_gen = []
-
+    renglones = []
     
     # Obtener los acordes y la letra desde el tag <pre>
+    soup = BeautifulSoup(contenido_html, 'lxml')
     pre_tag = soup.find('pre')
     if pre_tag:
         # Eliminar todos los tags de la clase 'tablatura' y 'cnt'
         for tag in pre_tag.find_all(class_=['tablatura', 'cnt']):
             tag.decompose()
         lineas = pre_tag.decode_contents().split('\n')
-
+    max_renglon = 0
     for i, line in enumerate(lineas):
         #print(i, line)
         pos = 0
@@ -77,75 +62,50 @@ def construiracordes_dehtml(band_name, song_name ):
         tiene_acordes = (len(acorde_inline) > 1)
         if (not tiene_acordes):
             pos = 0
-            letras.append([line])
-            letras_gen.append(i)
-            print (i, line)
+            renglones.append({'tipo': 'l', 'linea':i, 'letra': line } )
+            #print (i, line)
         else:
+            acordes = []
             for acorde in acorde_inline:
                 if acorde.__contains__('</b>'):
                     acorde_r = acorde.split('</b>')[0]
-                    acordes.append(acorde_r)
-                    acordes_gen.append({'linea': i, 'pos': pos})
-                    print (i, pos, acorde_r)
-
+                    acordes.append({'acorde':acorde_r, 'pos': pos})
                 pos += len(acorde)
-
+            renglones.append({'tipo': 'm', 'linea':i, 'acordes': acordes })
             
-            #if line.strip():  # Verificar si la línea no es un string en blanco
-            #    tiene_acordes = bool(BeautifulSoup(line, 'html.parser').find('b'))
-                #print(f'{i}: {tiene_acordes}- {line}')
-            #    if tiene_acordes:
-            #        addacordes = [b.get_text() for b in BeautifulSoup(line, 'html.parser').find_all('b')]
-            #        acordes.extend(addacordes)
-            #    else:
-            #        letras.append([line])
-
-
-    #print(f'calculo partes: {band_name} - {song_name}')
-    analisis['acordes'] = Acordes([Parte('p1', acordes)], [0]).toJson()
-    analisis['letras'] = letras
-
-    gen = {}
-    gen['acordes'] = acordes_gen
-    gen['letras'] = letras_gen
-
-
         
     with open(nombre_archivo_generado_json, 'w', encoding='utf-8') as file:
-        json.dump(gen, file, ensure_ascii=False, indent=4)
+        json.dump(renglones, file, ensure_ascii=False, indent=4)
 
     
-    # Guardar el análisis en un archivo JSON
-    with open(nombre_archivo_json, 'w', encoding='utf-8') as file:
-        json.dump(analisis, file, ensure_ascii=False, indent=4)
-
 # Ejemplo de uso
 
 print('Construyendo acordes de canciones...')
-construiracordes_dehtml("intoxicados", "fuego")
+
+construir_prearchivo('intoxicados', 'casi sin pensar')
+construir_prearchivo("intoxicados", "fuego")
+construir_prearchivo("intoxicados", "fuiste lo mejor")
+construir_prearchivo('andres-calamaro', 'la parte de adelante')
+construir_prearchivo('intoxicados', 'esta saliendo el sol')
+construir_prearchivo('intoxicados', 'se fue al cielo')
+construir_prearchivo('intoxicados', 'casi sin pensar')
+construir_prearchivo('intoxicados', 'pila pila')
+construir_prearchivo('intoxicados', 'volver a casa')
+
+construir_prearchivo('andres calamaro', 'flaca')
+construir_prearchivo('andres calamaro', 'la parte de adelante')
+construir_prearchivo('andres calamaro', 'cuando no estas')
 exit()
-
-construiracordes_dehtml("intoxicados", "fuiste lo mejor")
-construiracordes_dehtml('andres calamaro', 'la parte de adelante')
-construiracordes_dehtml('intoxicados', 'esta saliendo el sol')
-construiracordes_dehtml('intoxicados', 'se fue al cielo')
-construiracordes_dehtml('intoxicados', 'casi sin pensar')
-construiracordes_dehtml('intoxicados', 'pila pila')
-construiracordes_dehtml('intoxicados', 'volver a casa')
-
-construiracordes_dehtml('andres calamaro', 'flaca')
-construiracordes_dehtml('andres calamaro', 'la parte de adelante')
-construiracordes_dehtml('andres calamaro', 'cuando no estas')
-construiracordes_dehtml('andres calamaro', 'te quiero igual')
-construiracordes_dehtml('andres calamaro', 'crimenes perfectos')
-construiracordes_dehtml('andres calamaro', 'paloma')
-construiracordes_dehtml('andres calamaro', 'cartas sin marcar')
-construiracordes_dehtml('andres calamaro', 'donde manda marinero')
-construiracordes_dehtml('andres calamaro', 'pasemos a otro tema')
-construiracordes_dehtml('andres calamaro', 'mi gin tonic')
-construiracordes_dehtml('andres calamaro', 'loco')
-construiracordes_dehtml('andres calamaro', 'soy tuyo')
-construiracordes_dehtml('andres calamaro', 'el salmon')
-construiracordes_dehtml('andres calamaro', 'alta suciedad')
-construiracordes_dehtml('andres calamaro', 'media veronica')
-construiracordes_dehtml('andres calamaro', 'bohemio')
+construir_prearchivo('andres calamaro', 'te quiero igual')
+construir_prearchivo('andres calamaro', 'crimenes perfectos')
+construir_prearchivo('andres calamaro', 'paloma')
+construir_prearchivo('andres calamaro', 'cartas sin marcar')
+construir_prearchivo('andres calamaro', 'donde manda marinero')
+construir_prearchivo('andres calamaro', 'pasemos a otro tema')
+construir_prearchivo('andres calamaro', 'mi gin tonic')
+construir_prearchivo('andres calamaro', 'loco')
+construir_prearchivo('andres calamaro', 'soy tuyo')
+construir_prearchivo('andres calamaro', 'el salmon')
+construir_prearchivo('andres calamaro', 'alta suciedad')
+construir_prearchivo('andres calamaro', 'media veronica')
+construir_prearchivo('andres calamaro', 'bohemio')

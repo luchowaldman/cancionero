@@ -1,0 +1,741 @@
+[
+    {
+        "tipo": "m",
+        "linea": 0,
+        "acordes": [
+            {
+                "acorde": "C",
+                "pos": 8
+            },
+            {
+                "acorde": "D",
+                "pos": 15
+            },
+            {
+                "acorde": "G",
+                "pos": 22
+            },
+            {
+                "acorde": "Em",
+                "pos": 29
+            }
+        ]
+    },
+    {
+        "tipo": "m",
+        "linea": 1,
+        "acordes": [
+            {
+                "acorde": "C",
+                "pos": 8
+            },
+            {
+                "acorde": "D",
+                "pos": 15
+            },
+            {
+                "acorde": "G",
+                "pos": 22
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 2,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 3,
+        "acordes": [
+            {
+                "acorde": "C",
+                "pos": 0
+            },
+            {
+                "acorde": "D",
+                "pos": 16
+            },
+            {
+                "acorde": "G",
+                "pos": 29
+            },
+            {
+                "acorde": "Em",
+                "pos": 44
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 4,
+        "letra": "Casi sin pensar, la vida voy viviendo"
+    },
+    {
+        "tipo": "m",
+        "linea": 5,
+        "acordes": [
+            {
+                "acorde": "C",
+                "pos": 0
+            },
+            {
+                "acorde": "D",
+                "pos": 16
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 6,
+        "letra": "Casi sin pensar las cosas"
+    },
+    {
+        "tipo": "m",
+        "linea": 7,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 6
+            },
+            {
+                "acorde": "G",
+                "pos": 26
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 8,
+        "letra": "Que voy haciendo parecen un sueño"
+    },
+    {
+        "tipo": "m",
+        "linea": 9,
+        "acordes": [
+            {
+                "acorde": "C",
+                "pos": 0
+            },
+            {
+                "acorde": "D",
+                "pos": 21
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 10,
+        "letra": "Casi sin darme cuenta"
+    },
+    {
+        "tipo": "m",
+        "linea": 11,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 7
+            },
+            {
+                "acorde": "Em",
+                "pos": 24
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 12,
+        "letra": "Se me va pasando el día y la vida"
+    },
+    {
+        "tipo": "m",
+        "linea": 13,
+        "acordes": [
+            {
+                "acorde": "C",
+                "pos": 0
+            },
+            {
+                "acorde": "D",
+                "pos": 22
+            },
+            {
+                "acorde": "G",
+                "pos": 42
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 14,
+        "letra": "Casi sin darme cuenta deje que te fueras"
+    },
+    {
+        "tipo": "l",
+        "linea": 15,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 16,
+        "acordes": [
+            {
+                "acorde": "C",
+                "pos": 0
+            },
+            {
+                "acorde": "D",
+                "pos": 22
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 17,
+        "letra": "La vida me la regalaron"
+    },
+    {
+        "tipo": "m",
+        "linea": 18,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 4
+            },
+            {
+                "acorde": "Em",
+                "pos": 26
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 19,
+        "letra": "La muerte en cuotas voy pagando"
+    },
+    {
+        "tipo": "m",
+        "linea": 20,
+        "acordes": [
+            {
+                "acorde": "C",
+                "pos": 0
+            },
+            {
+                "acorde": "D",
+                "pos": 21
+            },
+            {
+                "acorde": "G",
+                "pos": 50
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 21,
+        "letra": "Puedo seguir mintiendo en nombre del amor \"si\"!"
+    },
+    {
+        "tipo": "m",
+        "linea": 22,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 10
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 23,
+        "letra": "Puedo seguir cantando"
+    },
+    {
+        "tipo": "m",
+        "linea": 24,
+        "acordes": [
+            {
+                "acorde": "C",
+                "pos": 1
+            },
+            {
+                "acorde": "D",
+                "pos": 22
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 25,
+        "letra": "Puedo vivir mil veces"
+    },
+    {
+        "tipo": "m",
+        "linea": 26,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 0
+            },
+            {
+                "acorde": "Em",
+                "pos": 28
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 27,
+        "letra": "Siguiendo siempre por el mismo camino"
+    },
+    {
+        "tipo": "m",
+        "linea": 28,
+        "acordes": [
+            {
+                "acorde": "C",
+                "pos": 0
+            },
+            {
+                "acorde": "D",
+                "pos": 18
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 29,
+        "letra": "Pero aunque haga lo mismo"
+    },
+    {
+        "tipo": "m",
+        "linea": 30,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 7
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 31,
+        "letra": "Nunca voy a tener, el mismo destino"
+    },
+    {
+        "tipo": "l",
+        "linea": 32,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 33,
+        "acordes": [
+            {
+                "acorde": "C",
+                "pos": 0
+            },
+            {
+                "acorde": "D",
+                "pos": 16
+            },
+            {
+                "acorde": "G",
+                "pos": 29
+            },
+            {
+                "acorde": "Em",
+                "pos": 44
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 34,
+        "letra": "Casi sin pensar, la vida voy viviendo"
+    },
+    {
+        "tipo": "m",
+        "linea": 35,
+        "acordes": [
+            {
+                "acorde": "C",
+                "pos": 0
+            },
+            {
+                "acorde": "D",
+                "pos": 22
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 36,
+        "letra": "Casi sin pensar las cosas"
+    },
+    {
+        "tipo": "m",
+        "linea": 37,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 0
+            },
+            {
+                "acorde": "G",
+                "pos": 21
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 38,
+        "letra": "Que voy haciendo parecen un sueño"
+    },
+    {
+        "tipo": "m",
+        "linea": 39,
+        "acordes": [
+            {
+                "acorde": "C",
+                "pos": 0
+            },
+            {
+                "acorde": "D",
+                "pos": 16
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 40,
+        "letra": "Casi sin darme cuenta"
+    },
+    {
+        "tipo": "m",
+        "linea": 41,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 0
+            },
+            {
+                "acorde": "Em",
+                "pos": 25
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 42,
+        "letra": "Se me va pasando el día y la vida"
+    },
+    {
+        "tipo": "m",
+        "linea": 43,
+        "acordes": [
+            {
+                "acorde": "C",
+                "pos": 0
+            },
+            {
+                "acorde": "D",
+                "pos": 19
+            },
+            {
+                "acorde": "Em",
+                "pos": 43
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 44,
+        "letra": "Casi sin darme cuenta deje que te fueras"
+    },
+    {
+        "tipo": "l",
+        "linea": 45,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 46,
+        "acordes": [
+            {
+                "acorde": "C",
+                "pos": 0
+            },
+            {
+                "acorde": "D",
+                "pos": 24
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 47,
+        "letra": "No se si estar a la sombra del sol"
+    },
+    {
+        "tipo": "m",
+        "linea": 48,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 0
+            },
+            {
+                "acorde": "Em",
+                "pos": 23
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 49,
+        "letra": "No se si seguir la luz de la luna"
+    },
+    {
+        "tipo": "m",
+        "linea": 50,
+        "acordes": [
+            {
+                "acorde": "C",
+                "pos": 0
+            },
+            {
+                "acorde": "D",
+                "pos": 22
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 51,
+        "letra": "Puede curarme la propia enfermedad"
+    },
+    {
+        "tipo": "m",
+        "linea": 52,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 3
+            },
+            {
+                "acorde": "G",
+                "pos": 25
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 53,
+        "letra": "O puede matarme la misma cura"
+    },
+    {
+        "tipo": "m",
+        "linea": 54,
+        "acordes": [
+            {
+                "acorde": "C",
+                "pos": 0
+            },
+            {
+                "acorde": "D",
+                "pos": 22
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 55,
+        "letra": "Siento en el corazón a Dios"
+    },
+    {
+        "tipo": "m",
+        "linea": 56,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 0
+            },
+            {
+                "acorde": "Em",
+                "pos": 21
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 57,
+        "letra": "Siento en los pulmones al diablo"
+    },
+    {
+        "tipo": "m",
+        "linea": 58,
+        "acordes": [
+            {
+                "acorde": "C",
+                "pos": 0
+            },
+            {
+                "acorde": "D",
+                "pos": 22
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 59,
+        "letra": "Siento que tengo 2 oídos para escuchar"
+    },
+    {
+        "tipo": "m",
+        "linea": 60,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 0
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 61,
+        "letra": "Y dos pies para ir tropezando"
+    },
+    {
+        "tipo": "l",
+        "linea": 62,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 63,
+        "acordes": [
+            {
+                "acorde": "C",
+                "pos": 0
+            },
+            {
+                "acorde": "D",
+                "pos": 16
+            },
+            {
+                "acorde": "G",
+                "pos": 29
+            },
+            {
+                "acorde": "Em",
+                "pos": 44
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 64,
+        "letra": "Casi sin pensar, la vida voy viviendo"
+    },
+    {
+        "tipo": "m",
+        "linea": 65,
+        "acordes": [
+            {
+                "acorde": "C",
+                "pos": 0
+            },
+            {
+                "acorde": "D",
+                "pos": 22
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 66,
+        "letra": "Casi sin pensar las cosas"
+    },
+    {
+        "tipo": "m",
+        "linea": 67,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 1
+            },
+            {
+                "acorde": "G",
+                "pos": 24
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 68,
+        "letra": "Que voy haciendo parecieron un sueño"
+    },
+    {
+        "tipo": "m",
+        "linea": 69,
+        "acordes": [
+            {
+                "acorde": "C",
+                "pos": 0
+            },
+            {
+                "acorde": "D",
+                "pos": 16
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 70,
+        "letra": "Casi sin darme cuenta"
+    },
+    {
+        "tipo": "m",
+        "linea": 71,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 0
+            },
+            {
+                "acorde": "Em",
+                "pos": 26
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 72,
+        "letra": "Se me va pasando el día y la vida"
+    },
+    {
+        "tipo": "m",
+        "linea": 73,
+        "acordes": [
+            {
+                "acorde": "C",
+                "pos": 0
+            },
+            {
+                "acorde": "D",
+                "pos": 23
+            },
+            {
+                "acorde": "Em",
+                "pos": 44
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 74,
+        "letra": "Casi sin darme cuenta deje que te fueras"
+    }
+]

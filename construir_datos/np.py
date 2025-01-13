@@ -1,3 +1,94 @@
+import json
+
+data = '''[
+    {
+        "tipo": "m",
+        "linea": 10,
+        "acordes": [
+            {
+                "acorde": "D",
+                "pos": 0
+            },
+            {
+                "acorde": "A",
+                "pos": 20
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 11,
+        "letra": "Esta vez es en serio"
+    },
+    {
+        "tipo": "m",
+        "linea": 12,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 13
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 13,
+        "letra": "No estoy mintiendo"
+    },
+    {
+        "tipo": "l",
+        "linea": 14,
+        "letra": "Esto está agrupado"
+    },
+    {
+        "tipo": "m",
+        "linea": 15,
+        "acordes": [
+            {
+                "acorde": "A",
+                "pos": 6
+            }
+        ]
+    }
+]'''
+
+renglones = json.loads(data)
+
+partes = []
+i = 0
+while i < len(renglones):
+    elemento = renglones[i]
+
+    if elemento["tipo"] == "m":
+        if i + 1 < len(renglones) and renglones[i + 1]["tipo"] == "l":
+            parte = {
+                "tipo": "letra_y_musica",
+                "elementos": [elemento, renglones[i + 1]]
+            }
+            i += 1  # Saltar la siguiente línea porque ya fue agregada
+        else:
+            parte = {
+                "tipo": "solo_musica",
+                "elementos": [elemento]
+            }
+    elif elemento["tipo"] == "l":
+        letras = [elemento]
+        while i + 1 < len(renglones) and renglones[i + 1]["tipo"] == "l":
+            letras.append(renglones[i + 1])
+            i += 1
+        parte = {
+            "tipo": "solo_letra",
+            "elementos": letras
+        }
+
+    partes.append(parte)
+    i += 1
+
+print("Partes:", json.dumps(partes, indent=4))
+
+
+
+
 import os
 import json
 

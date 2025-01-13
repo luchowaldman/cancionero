@@ -7,7 +7,48 @@
             {
                 "nombre": "p1",
                 "acordes": [
-                    []
+                    "A",
+                    "E",
+                    "F#m",
+                    "D",
+                    "A",
+                    "E",
+                    "F#m",
+                    "D",
+                    "A",
+                    "E",
+                    "D",
+                    "Bm",
+                    "C#m",
+                    "A",
+                    "A",
+                    "E",
+                    "F#m",
+                    "D",
+                    "A",
+                    "E",
+                    "F#m",
+                    "D",
+                    "A",
+                    "E",
+                    "D",
+                    "Bm",
+                    "C#m",
+                    "A",
+                    "A",
+                    "E",
+                    "F#m",
+                    "D",
+                    "A",
+                    "E",
+                    "F#m",
+                    "D",
+                    "A",
+                    "E",
+                    "D",
+                    "Bm",
+                    "C#m",
+                    "A"
                 ]
             }
         ],
@@ -15,5 +56,60 @@
             0
         ]
     },
-    "letras": []
+    "letras": [
+        [
+            "Esta saliendo el sol que es"
+        ],
+        [
+            "Sin duda mi dios"
+        ],
+        [
+            "Pero no estoy apto para aprender hoy"
+        ],
+        [
+            "De su sabiduria"
+        ],
+        [
+            "Porque la luna aparecio"
+        ],
+        [
+            "Y me invito a estar con ella hasta que vuelvas vos"
+        ],
+        [
+            ""
+        ],
+        [
+            "Esta saliendo el sol que es"
+        ],
+        [
+            "Sin duda mi dios"
+        ],
+        [
+            "Y aunque no cerre un ojo en toda la semana"
+        ],
+        [
+            "Y tenga ganas de desmayarme en la cama"
+        ],
+        [
+            "Voy a salir a recibir su bendicion oh dios"
+        ],
+        [
+            ""
+        ],
+        [
+            "Padre sol nuestro que estas en los cielos"
+        ],
+        [
+            "Guiame si no esta bien la vida que llevo"
+        ],
+        [
+            "No dejes nunca de brillar"
+        ],
+        [
+            "Porque eso me pone bien cuando estoy un poco mal"
+        ],
+        [
+            "La luz nuestra de cada dia danosle hoy y que asi sea amen"
+        ]
+    ]
 }
