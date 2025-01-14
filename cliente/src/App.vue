@@ -24,17 +24,6 @@ import { item_lista } from './modelo/item_lista';
 const cancion  = ref(new Cancion("", "", new Acordes([], []), new Letra([])));
 const almacen = new Almacenado();
 
-/*
-const canciones = ['esta saliendo el sol', 'fuiste lo mejor','casi sin pensar', 'fuego', 'necesito', 'no tengo ganas', 'pila pila', 'volver a casa']
-for (const tema of canciones) {
-    getCancion('Intoxicados', tema).then((cancionret) => {
-        console.log("Canción obtenida", cancionret);
-        almacen.agregarCancion(cancionret);
-    });
-}
-    */
-
-
     const canciones = ['esta saliendo el sol', 'fuiste lo mejor','casi sin pensar', 'fuego', 'necesito', 'no tengo ganas', 'pila pila', 'volver a casa']
     
 
