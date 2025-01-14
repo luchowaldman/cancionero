@@ -1,13 +1,31 @@
 <script setup lang="ts">
 import { ref, markRaw, onMounted, watch } from 'vue';
 import Menu from './components/menu.vue';
+import { Letra } from './modelo/letra';
+import { Configuracion, Sesion }  from './modelo/configuracion';
 // Definir la canción y el contexto
 
 const viendo = ref("perfil")
-const configuracion = ref(localStorage.getItem("configuracion"))
-if (configuracion.value == undefined)
-  console.log("SS")
-  configuracion.value = "{asd}"
+
+
+let config_load: string | null = localStorage.getItem("configuracion")
+if (!config_load)
+  config_load = ""
+
+let configuracionObj: Configuracion | null = JSON.parse(config_load)
+//let configuracionObj: Configuracion | null = null
+if (!configuracionObj) {
+  configuracionObj = new Configuracion()
+  configuracionObj.sesion = new Sesion()
+  configuracionObj.sesion.nombre = "default"
+  configuracionObj.nombre = "no cargado"
+  localStorage.setItem("configuracion", JSON.stringify(configuracionObj))
+}
+
+const configuracion = ref(configuracionObj)
+if (configuracion.value == undefined) {
+  let configuracionObj
+}
 
 
 
@@ -21,13 +39,19 @@ if (configuracion.value == undefined)
       
     }
 
+    function guardar_configuracion() {
+      
+        localStorage.setItem("configuracion", JSON.stringify(configuracionObj))
+    }
+
 </script>
 
 <template>
     <div>
         
         <Menu titulo="Configuracion"></Menu>
-        
+        <div class="row">
+          <div class="col-3">
   <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px;">
     <ul class="nav nav-pills flex-column mb-auto">
     
@@ -35,7 +59,7 @@ if (configuracion.value == undefined)
       <li @click="click_opcion('perfil')">
         <a href="#" class="nav-link text-white"  :class="{ 'active': viendo==='perfil' }" >
           
-          Perfil
+           Usuario 
         </a>
       </li>
       
@@ -75,9 +99,35 @@ if (configuracion.value == undefined)
     </ul>
     <hr>
     
+  </div></div>
+
+
+  <div class="col-9">
+            
+      <div v-if="viendo=='perfil'">
+        Usuario : <input v-model="configuracion.nombre">
+
+      </div>
+      
+      <div v-if="viendo=='sesion'">
+        Sesion
+      </div>
+      
+      <div v-if="viendo=='vistas'">
+        Vistas
+      </div>
+      <button @click="guardar_configuracion()">Guardar</button>
   </div>
 
+        </div>
+
+
+
+
+    
 </div>
+
+
 </template>
 
 <style scoped></style>
