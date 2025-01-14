@@ -5,5 +5,9 @@ export class Letra {
     constructor(renglones: string[][]) {
         this.renglones = renglones;
     }
+
+    getRenglones() {
+        return this.renglones.flat();
+    }
      
 }

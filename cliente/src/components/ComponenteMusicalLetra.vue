@@ -40,14 +40,12 @@ watch(() => props.compas, (newCompas) => {
 </script>
 
 <template>
-<div id="letra">
-  <div v-for="(linea, index) in cancion.letra.renglones" :key="index" class="linea">
-    <span v-for="(palabra, index_palabra) in linea" :key="index_palabra" class="palabra" 
-        :class="{ compas_actual: mostrando_renglon === index && mostrando_palabra === index_palabra }">
-        {{ palabra }}&nbsp;
-      </span>
-  </div>
 
+<div id="letra">
+          <span v-for="(palabra, index_palabra) in cancion.letra.renglones.flat()" 
+            :key="index_palabra" 
+            :class="{ compas_actual: compas === index_palabra }"
+            v-html="palabra.replace('/n', '<br>')"></span>
 </div>
 </template>
 
