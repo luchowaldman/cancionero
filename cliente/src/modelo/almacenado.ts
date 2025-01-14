@@ -30,6 +30,7 @@ export class Almacenado {
       banda  = banda.toLocaleLowerCase();
       const canciones = this.obtenerTodasLasCanciones();
       console.log("Obtengo cancion", nombre, banda);
+      
       let toret: Cancion | undefined = canciones.find((cancion) => cancion.cancion.toLocaleLowerCase() === nombre && cancion.banda.toLocaleLowerCase() === banda);
       if (!(toret === undefined)) {
         if (toret.compas_cantidad === undefined) {

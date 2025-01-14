@@ -270,7 +270,7 @@ def analizarxletra(banda, tema):
                         
 
 
-    print("Cancion Completa", acordes_de_partes, secu_fin, letras_fin)
+    #print("Cancion Completa", acordes_de_partes, secu_fin, letras_fin)
 
     partes_obj = []
     
@@ -281,6 +281,8 @@ def analizarxletra(banda, tema):
         partes_obj.append(parte)
     acordes = Acordes(partes_obj, secu_fin)
     data = {
+        'cancion': tema,
+        'banda': banda,
         'tono': 'X',
         'tempo': 60,        
         'compas_cantidad': 4,
