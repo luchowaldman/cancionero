@@ -3,6 +3,7 @@ import { ref, markRaw, onMounted, watch } from 'vue';
 import Menu from './components/menu.vue';
 import { Letra } from './modelo/letra';
 import { Configuracion, Sesion }  from './modelo/configuracion';
+import { Cliente }  from './modelo/client_socketio';
 // Definir la canción y el contexto
 
 const viendo = ref("perfil")
@@ -12,8 +13,8 @@ let config_load: string | null = localStorage.getItem("configuracion")
 if (!config_load)
   config_load = ""
 
-let configuracionObj: Configuracion | null = JSON.parse(config_load)
-//let configuracionObj: Configuracion | null = null
+//let configuracionObj: Configuracion | null = JSON.parse(config_load)
+let configuracionObj: Configuracion | null = null
 if (!configuracionObj) {
   configuracionObj = new Configuracion()
   configuracionObj.sesion = new Sesion()
@@ -22,14 +23,32 @@ if (!configuracionObj) {
   localStorage.setItem("configuracion", JSON.stringify(configuracionObj))
 }
 
-const configuracion = ref(configuracionObj)
-if (configuracion.value == undefined) {
-  let configuracionObj
+
+let cliente = new Cliente("http://localhost:8080/")
+cliente.connect()
+
+cliente.setCambioCancionHandler((nuevaCancion: number) => {
+  console.log("Cambio de canción recibido:", nuevaCancion);
+  // Aquí puedes agregar el código necesario para manejar el cambio de canción
+});
+
+
+cliente.setIniciarCompasHandler((compas: number) => {
+  console.log("Cambio de compas:", compas);
+  // Aquí puedes agregar el código necesario para manejar el cambio de canción
+});
+
+cliente.setPausaHandler(() => {
+  console.log("pausa");
+});
+
+
+
+function play_acorde() {
+  console.log("play_acorde")
+  cliente.enviarIniciarCompas(4)
+
 }
-
-
-
-
     // Llamar a la función iniciarCompasEnComponentes cuando sea necesario 
     onMounted(() => { 
         console.log("APP CONFIGURACION MONTADA")
@@ -99,18 +118,32 @@ if (configuracion.value == undefined) {
     </ul>
     <hr>
     
+    <ul class="nav nav-pills flex-column mb-auto">
+      
+      <li @click="click_opcion('acercade')">
+        <a href="#" class="nav-link text-white"
+        :class="{ 'active': viendo==='acercade' }" >
+          
+          Acerca de ...
+        </a>
+      </li>
+    </ul>
   </div></div>
 
 
   <div class="col-9">
             
       <div v-if="viendo=='perfil'">
-        Usuario : <input v-model="configuracion.nombre">
-
+        Usuario : Aca vendria el input
+        <!-- 
+        <input v-model="configuracion.nombre">
+      -->
+      
       </div>
       
       <div v-if="viendo=='sesion'">
         Sesion
+        <button @click="play_acorde()">MANDAR PLAY</button>
       </div>
       
       <div v-if="viendo=='vistas'">
