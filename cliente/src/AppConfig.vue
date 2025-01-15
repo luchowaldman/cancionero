@@ -27,26 +27,16 @@ if (!configuracionObj) {
 let cliente = new Cliente("http://localhost:8080/")
 cliente.connect()
 
-cliente.setCambioCancionHandler((nuevaCancion: number) => {
-  console.log("Cambio de canción recibido:", nuevaCancion);
-  // Aquí puedes agregar el código necesario para manejar el cambio de canción
-});
+function replicaHandler(datos: string[]) {
+  console.log("replicaHandler", datos)
+}
 
-
-cliente.setIniciarCompasHandler((compas: number) => {
-  console.log("Cambio de compas:", compas);
-  // Aquí puedes agregar el código necesario para manejar el cambio de canción
-});
-
-cliente.setPausaHandler(() => {
-  console.log("pausa");
-});
-
+cliente.setreplicaHandler(replicaHandler);
 
 
 function play_acorde() {
-  console.log("play_acorde")
-  cliente.enviarIniciarCompas(4)
+  console.log("envia para replicar play_acorde")
+  cliente.replicar(["4"])
 
 }
     // Llamar a la función iniciarCompasEnComponentes cuando sea necesario 

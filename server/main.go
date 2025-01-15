@@ -11,6 +11,7 @@ import (
 const Port = ":8080"
 
 func main() {
+	//gameMap := loadMap()
 
 	log.Println("Starting sever")
 
