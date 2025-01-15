@@ -139,8 +139,24 @@ function play_acorde() {
       <div v-if="viendo=='vistas'">
         Vistas
       </div>
+
+      
+      <div v-if="viendo=='acercade'">
+        <div>
+        Desarrollado por Luis Waldman para y gracias a:
+      </div>
+      <A href="https://fi.uba.ar/"><img src="https://fi.uba.ar/images/logo-fiuba.png"></A>
+        
+  <p></p>
+  <p>github: <a href="https://github.com/luchowaldman/cancionero">cancionero</a></p>
+  <p>comercial: <a href="https://www.instagram.com/eme.redes/">Eme.redes</a></p>
+  <p>donaciones al alias: la.plata.de.luis</p>
+
+      </div>
       <button @click="guardar_configuracion()">Guardar</button>
-  </div>
+    </div>
+
+    
 
         </div>
 
