@@ -30,10 +30,13 @@ export class AdminListasURL  {
         return items_lista;
 
     }
+    
 
     async GetCancion(item: item_lista): Promise<Cancion> {
+    
         const response = await fetch(`/public/data/${item.banda.replace(/\s+/g, '-')}_${item.cancion.replace(/\s+/g, '-')}.json`);
         const data = await response.json();
+        
         
         let partes = []
         for (let i = 0; i < data.acordes.partes.length; i++) {
@@ -49,6 +52,13 @@ export class AdminListasURL  {
             acordes,
             new Letra(data.letras) 
         );
-}
+    }
+
+    async GetCancionxTema(banda: string, tema: string): Promise<Cancion> {
+        console.log("Busca cancion", banda, tema);
+        return this.GetCancion(new item_lista(tema, banda, 0, 0));
+    
+    }
+
 }
 

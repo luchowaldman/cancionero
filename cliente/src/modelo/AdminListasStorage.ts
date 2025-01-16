@@ -26,6 +26,7 @@ export class AdminListasLocalStorage  {
 
     async getIndice(): Promise<item_lista[]> {
         return this.almacen.indice('canciones');
-
     }
+
+    
 }

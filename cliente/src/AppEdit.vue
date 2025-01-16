@@ -17,16 +17,33 @@ import ControladorTiempo from './components/ControladorTiempo.vue';
 import { Acordes, Parte } from './modelo/acordes';
 import { Letra } from './modelo/letra';
 
+import { AdminListasLocalStorage } from './modelo/AdminListasStorage';
+import { AdminListasTocables } from './modelo/AdminListasTocables';
+import { AdminListasURL } from './modelo/AdminListasURL';
+import { Almacenado } from './modelo/Almacenado';
+
+
+
+const almacen = new Almacenado();
+
+// INICIALIZA LAS LISTAS DE CANCIONES GENERADAS
+const generadorlistasURL = new AdminListasURL('/data');
+const generadorlistasLS = new AdminListasLocalStorage(almacen);
+const generadorlistasTocables = new AdminListasTocables(almacen);
 // Definir la canción y el contexto
 
 const cancion  = ref(new Cancion("", "", new Acordes([], []), new Letra([])));
 const mostrando_compas_parte = ref(-1)
-import { Almacenado } from './modelo/Almacenado';
-const almacen = new Almacenado();
-const banda = localStorage.getItem("editar_banda") || '';
-const tema = localStorage.getItem("editar_cancion") || '';
 
-cancion.value = almacen.obtenerCancion(tema, banda);
+const banda = localStorage.getItem("editar_banda") || 'intoxicados';
+const tema = localStorage.getItem("editar_cancion") || 'esta-saliendo-el-sol';
+console.log("Banda", banda);
+console.log("Tema", tema);
+generadorlistasURL.GetCancionxTema(banda, tema).then((cancion_obtenida) => {
+    cancion.value = cancion_obtenida;
+    console.log("Canción", cancion.value);
+    return cancion;
+});
 console.log("Canción", cancion.value);
 
 
@@ -34,9 +51,10 @@ console.log("Canción", cancion.value);
 let vista = ref({
    cargando_cancion: false
 });
+
+
 let contexto = new Contexto("Lista", 10);
 const compas = ref(-1);
-
 const editando = ref(-1)
 const mostrando_parte = ref(-1)
 const currentCompas = ref(0);
