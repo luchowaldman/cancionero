@@ -11,19 +11,20 @@ import ListadoTemas from './components/listadotemas.vue';
 import { AdminListasURL } from './modelo/AdminListasURL';
 import { AdminListasLocalStorage } from './modelo/AdminListasStorage';
 import { AdminListasTocables } from './modelo/AdminListasTocables';
+import { it } from 'node:test';
 
 
 const almacen = new Almacenado();
 
 // INICIALIZA LAS LISTAS DE CANCIONES GENERADAS
-const generadorlistas = new AdminListasURL('/data');
+const generadorlistasURL = new AdminListasURL('/data');
 const generadorlistasLS = new AdminListasLocalStorage(almacen);
 const generadorlistasTocables = new AdminListasTocables(almacen);
 const canciones_listaURL = ref([] as item_lista[]);
 const canciones_Storage = ref([] as item_lista[]);
 const canciones_tocables = ref([] as item_lista[]);
 
-generadorlistas.getIndice().then((indi_get: item_lista[]) => {
+generadorlistasURL.getIndice().then((indi_get: item_lista[]) => {
     canciones_listaURL.value = indi_get;
 });
 
@@ -31,6 +32,22 @@ generadorlistasLS.getIndice().then((indi_get: item_lista[]) => {
     canciones_Storage.value = indi_get;
 });
 
+generadorlistasTocables.getIndice().then((indi_get: item_lista[]) => {
+    canciones_tocables.value = indi_get;
+});
+
+function click_descargar_URL(item: item_lista) {
+    generadorlistasURL.GetCancion(item).then((cancion: Cancion) => {
+        generadorlistasLS.GuardarCancion(item, cancion);
+    });
+    console.log(item);
+}
+
+
+function click_agregar_almacenada(item: item_lista) {
+    console.log("almacenar",item);
+    generadorlistasTocables.GuardarCancion(item);
+}
 
 
 /*
@@ -50,9 +67,12 @@ getIndice().then((indice) => {
         
   <Menu titulo="Listas"></Menu>
         
-  <ListadoTemas titulo="En la lista de reproduccion" @click_descargar="click_descargar_URL()" :indice="canciones_tocables"></ListadoTemas>
-  <ListadoTemas titulo="Almacenadas" :indice="canciones_listaURL"></ListadoTemas>
-  <ListadoTemas titulo="En data generada por Luis Waldman" @click_descargar="click_descargar_URL()" :indice="canciones_Storage"></ListadoTemas>
+  <ListadoTemas titulo="En la lista de reproduccion"  :indice="canciones_tocables"></ListadoTemas>
+  <ListadoTemas titulo="Almacenadas"
+  @click_agregar="click_agregar_almacenada"
+    :indice="canciones_Storage"></ListadoTemas>
+  <ListadoTemas titulo="En data generada por Luis Waldman" 
+        @click_descargar="click_descargar_URL" :indice="canciones_listaURL"></ListadoTemas>
   
 </div>
 
