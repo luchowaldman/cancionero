@@ -25,7 +25,15 @@ export class AdminListasURL  {
         // console.log(data);
         let items_lista = []
         for (let i = 0; i < data.length; i++) {
-            items_lista.push(new item_lista(data[i].cancion, data[i].banda, data[i].total_partes, data[i].total_orden_partes));
+            const item = new item_lista(data[i].cancion, data[i].banda);
+            item.total_partes = data[i].total_partes;
+            item.total_orden_partes = data[i].total_orden_partes;
+            item.compases_tiempo = data[i].compases_tiempo;
+            item.bpm = data[i].bpm;
+            item.calidad = data[i].calidad;
+            item.len_partes = data[i].len_partes;
+            console.log("item", item);
+            items_lista.push(item);
         }
         return items_lista;
 

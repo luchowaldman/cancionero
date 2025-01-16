@@ -48,13 +48,14 @@ def obtenerItemIndice(banda, tema):
         tema_nuevo['escala'] = temaJSON.partes[0].acordes[0]
         tema_nuevo['total_partes'] = len(temaJSON.partes)
 
-        #tema_nuevo['len_partes'] = [ len(parte.acordes) for parte in temaJSON.partes ]
+        tema_nuevo['len_partes'] = [ len(parte.acordes) for parte in temaJSON.partes ]
         tema_nuevo['total_orden_partes'] = len(temaJSON.orden_partes)
         tema_nuevo['estado'] = 'ok'
         tema_nuevo['compases_tiempo'] = 4
         tema_nuevo['bpm'] = 60
+        tema_nuevo['calidad'] = 1
     except Exception as e:
-        tema_nuevo = { 'banda': banda, 'cancion': tema, 'error': str(e), 'estado': 'error' }
+        tema_nuevo = { 'banda': banda, 'cancion': tema, 'error': str(e), 'calidad': 0,  'estado': 'error' }
         print(f"Error al procesar banda {banda}, tema {tema}: {e}")
     return tema_nuevo
     
