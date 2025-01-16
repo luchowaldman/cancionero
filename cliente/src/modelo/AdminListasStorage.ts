@@ -8,16 +8,12 @@ export class AdminListasLocalStorage  {
         let indice = this.almacen.indice('canciones');
         const index = indice.findIndex(i => i.banda === banda && i.cancion === cancion);
         console.log("Busca cancion", banda, cancion, index);
-        const toret: Cancion = this.almacen.obtenerTodasLasCanciones()[index];
-        console.log(toret);
-        return toret;
-
+        return this.almacen.obtenerTodasLasCanciones()[index];
     
     }
 
     GuardarCancion(item: item_lista, cancion: Cancion) {
         let indice = this.almacen.indice('canciones');
-        console.log(indice);
         const index = indice.findIndex(i => i.banda === item.banda && i.cancion === item.cancion);
         let canciones = this.almacen.obtenerTodasLasCanciones()
         if (index === -1) {

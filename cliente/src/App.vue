@@ -21,22 +21,32 @@ import { item_lista } from './modelo/item_lista';
 
     
 
-const cancion  = ref(new Cancion("", "", new Acordes([], []), new Letra([])));
+
+import { AdminListasTocables } from './modelo/AdminListasTocables';
+
 const almacen = new Almacenado();
+const generadorlistasTocables = new AdminListasTocables(almacen);
 
-    const canciones = ['esta saliendo el sol', 'fuiste lo mejor','casi sin pensar', 'fuego', 'necesito', 'no tengo ganas', 'pila pila', 'volver a casa']
-    
+const cancion  = ref(new Cancion("", "", new Acordes([], []), new Letra([])));
+const nro_cancion = ref(0);
 
-    let canciones_sesion = [];
-    let canciones_lista: item_lista[] = JSON.parse(localStorage.getItem("canciones_lista") || "[]");
-    console.log("CANCIONES",canciones_lista)
-    for (const tema of canciones_lista) {
-        canciones_sesion.push(almacen.obtenerCancion(tema.cancion, tema.banda));
+let canciones_sesion: Cancion[] = [];
+let canciones_lista: item_lista[] = []
+generadorlistasTocables.getIndice().then((value: item_lista[]) => {
+    canciones_lista = value;
+    for (const tema of canciones_lista) 
+    {
+        generadorlistasTocables.GetCancionxTema(tema.banda, tema.cancion).then((cancion_obtenida: Cancion) => {
+            canciones_sesion.push(cancion_obtenida);
+            cancion.value = canciones_sesion[nro_cancion.value];
+        });        
     }
 
+});
+    
 
-const nro_cancion = ref(0);
-cancion.value = canciones_sesion[nro_cancion.value];
+
+
 
 
 
