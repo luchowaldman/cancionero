@@ -40,6 +40,25 @@ def guardar_tema(banda, tema, data):
     except Exception as e:
         print(f"Error al guardar tema de banda {banda}, tema {tema}: {e}")
 
+def obtenerItemIndice(banda, tema):
+    tema_nuevo = {}
+    try:
+        tema_nuevo = { 'banda': banda, 'cancion': tema, 'estado': 'nocargado' }
+        temaJSON = gettemaJSON(banda, tema)
+        tema_nuevo['escala'] = temaJSON.partes[0].acordes[0]
+        tema_nuevo['total_partes'] = len(temaJSON.partes)
+
+        #tema_nuevo['len_partes'] = [ len(parte.acordes) for parte in temaJSON.partes ]
+        tema_nuevo['total_orden_partes'] = len(temaJSON.orden_partes)
+        tema_nuevo['estado'] = 'ok'
+        tema_nuevo['compases_tiempo'] = 4
+        tema_nuevo['bpm'] = 60
+    except Exception as e:
+        tema_nuevo = { 'banda': banda, 'cancion': tema, 'error': str(e), 'estado': 'error' }
+        print(f"Error al procesar banda {banda}, tema {tema}: {e}")
+    return tema_nuevo
+    
+
 
 def gettemaJSON(banda, tema):
     data = get_tema(banda, tema)
@@ -54,31 +73,23 @@ def gettemaJSON(banda, tema):
                 partes_obj.append(parte)
             return Acordes(partes_obj, acordes_data['orden_partes'])
 
+def obtener_todos_los_archivos():
+    archivos = obtener_archivos_json(DIRECTORIO_DATOS)
+    indice = []
+    errores = 0
 
-archivos = obtener_archivos_json(DIRECTORIO_DATOS)
-indice = []
-errores = 0
-for archivo in archivos:
-    if '_' in archivo:
-        banda = archivo.split('_')[0]
-        tema = archivo.split('_')[1]
-        try:
-            temaJSON = gettemaJSON(banda, tema)
-            item = {
-                'banda': banda,
-                'cancion': tema,
-            }
-            item['total_partes'] = len(temaJSON.partes)
-            item['total_orden_partes'] = len(temaJSON.orden_partes)
-            indice.append(item)
-        except Exception as e:
-            errores += 1
-            #print(f"Error al procesar banda {banda}, tema {tema}: {e}")
-    
+    for archivo in archivos:
+        if '_' in archivo:
+            banda = archivo.split('_')[0]
+            tema = archivo.split('_')[1]
+            indice.append(obtenerItemIndice(banda, tema))
+            
 
 
-try:
-    with open(f'{DIRECTORIO_DATOS}indice.json', 'w') as f:
-        json.dump(indice, f)
-except Exception as e:
-    print(f"Error al guardar indice: {e}")
+    try:
+        with open(f'{DIRECTORIO_DATOS}indice.json', 'w') as f:
+            json.dump(indice, f)
+    except Exception as e:
+        print(f"Error al guardar indice: {e}")
+
+obtener_todos_los_archivos()
