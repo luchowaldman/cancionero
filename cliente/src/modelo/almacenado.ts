@@ -1,4 +1,5 @@
 import { Cancion } from "./cancion";
+import { item_lista } from "./item_lista";
 
 export class Almacenado {
     private storageKey: string;
@@ -43,8 +44,14 @@ export class Almacenado {
     }
   
     // Método para devolver un listado de todas las canciones almacenadas
-    indice(): Cancion[] {
-      return this.obtenerTodasLasCanciones();
+    indice(): item_lista[] 
+    {
+        const item = localStorage.getItem('indice_canciones');
+        if (item) {
+            return JSON.parse(item)
+
+        }
+        return []
     }
   
     // Método privado para obtener todas las canciones del localStorage

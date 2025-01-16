@@ -1,0 +1,138 @@
+<script setup lang="ts">
+import { ref, watch } from 'vue';
+import { item_lista } from '../modelo/item_lista';
+
+const emit = defineEmits(['click_editar', 'click_descargar', 'click_agregar', 'click_borrar']);
+const props = defineProps<{ indice: item_lista[], titulo: string }>();
+const indice_disponible = ref(props.indice);
+const indice_disponible_filtro = ref([] as item_lista[]);
+
+
+watch(() => props.indice, (newindice: item_lista[]) => {
+  indice_disponible.value = newindice;
+  cancionesFiltradas() 
+});
+
+function click_editar(indice: item_lista) {
+    emit('click_editar', indice);
+}
+
+function click_descargar(indice: item_lista) {
+    emit('click_descargar', indice);
+}
+
+function click_agregar(indice: item_lista) {
+    emit('click_agregar', indice);
+}
+
+function click_borrar(indice: item_lista) {
+    emit('click_borrar', indice);
+}
+
+
+const muy_faciles = ref(false);
+const fil_can = ref("");
+const fil_ban = ref("");
+const max_registros = ref(10);
+
+
+function cancionesFiltradas() 
+{
+    //console.log("Filtrando", indice_disponible.value);
+    let indices_ret = [];
+    let indice = 0;    
+    while ((indices_ret.length < max_registros.value) && (indice < indice_disponible.value.length)) 
+    {
+        if (indice_disponible.value[indice].cancion.toLowerCase().includes(fil_can.value.toLowerCase())
+         && indice_disponible.value[indice].banda.toLowerCase().includes(fil_ban.value.toLowerCase()))
+        {
+            if (muy_faciles.value)
+            {
+                if (
+                    (indice_disponible.value[indice].total_partes < 3)
+                    && (indice_disponible.value[indice].total_orden_partes > 3)
+             ) {
+                    indices_ret.push(indice_disponible.value[indice]);
+                }
+            }
+            else {
+
+                indices_ret.push(indice_disponible.value[indice]);
+            }
+        }
+        indice = indice + 1;
+    }
+    indice_disponible_filtro.value = indices_ret;
+
+}
+cancionesFiltradas();
+</script>
+
+<template>
+  
+  
+  <div>
+        <h1>{{ titulo }}</h1>
+        <div>
+        Maximo: <input type="text" v-on:change="cancionesFiltradas()" v-model="max_registros" />
+        </div>
+        <div>
+        Muy faciles: <input type="checkbox" v-on:change="cancionesFiltradas()" v-model="muy_faciles" />
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Canción</th>
+                    <th>Banda</th>
+                    <th>Acciones</th>
+                    
+                    <th>partes</th>                    
+                    <th>uso partes</th>
+                </tr>
+                
+                <tr>
+                    <td><input type="text" v-on:change="cancionesFiltradas()" v-model="fil_can" /></td>
+                    <td><input type="text" v-on:change="cancionesFiltradas()" v-model="fil_ban" /></td>
+                    <td></td>
+                </tr>
+
+            </thead>
+            <tbody>
+            <tr v-for="cancion in indice_disponible_filtro" :key="cancion.cancion">
+                <td>{{ cancion.cancion }}</td>
+                <td>{{ cancion.banda }}</td>
+                <td>
+                        <button @click="click_editar(cancion)">Editar</button>
+                        <button @click="click_agregar(cancion)">Agregar</button>
+                        <button @click="click_descargar(cancion)">Descargar</button>
+                        <button @click="click_borrar(cancion)">Borrar</button>
+                        
+                    </td>
+                <td> {{  cancion.total_partes }}</td>
+                <td> {{  cancion.total_orden_partes }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</template>
+
+<style scoped>
+.controls {
+    display: flex;
+    
+}
+
+.beat_activo {
+  background-color: greenyellow;
+}
+</style>
+
+
+
+
+
+
+
+

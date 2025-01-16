@@ -18,9 +18,6 @@ watch(() => props.compas, (newCompas) => {
 
 function play() {
     emit('play');
-    console.log(metronomeRef) 
-    console.log("valor", metronomeRef.value) ;
-    console.log(metronomeRef)
     metronomeRef.value?.startMetronome();
     
 }
