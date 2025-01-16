@@ -40,8 +40,19 @@ def getartista_page(band_name):
 #download_cifraclub_page('andres calamaro', 'la parte de adelante')
 
 
+getartista_page("arjona-ricardo")
+exit()
+getartista_page("alejandro-sanz")
+getartista_page("luis-fonsi")
+getartista_page("luis-miguel")
+getartista_page("calle-13")
+getartista_page("mana")
+getartista_page("manal")
+getartista_page("sui-generis")
 
 
+
+exit()
 getartista_page("parra-violeta")
 getartista_page("alfredo-zitarrosa")
 getartista_page("elvis-presley")
@@ -55,7 +66,6 @@ getartista_page("lady-gaga")
 getartista_page("jay-z")
 getartista_page("kanye-west")
 
-exit()
 getartista_page("sandro")
 getartista_page("palito-ortega")
 getartista_page("jimenez-jose-alfredo")

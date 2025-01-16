@@ -43,7 +43,6 @@ def download_cifraclub_artista(band_name):
     
     # Iterate over the list of songs and download each page
     for song_name in canciones:
-        print (f'Descargar... {song_name}')
         download_cifraclub_page(band_name, song_name)
 
 

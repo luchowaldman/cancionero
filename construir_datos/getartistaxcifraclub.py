@@ -2,14 +2,20 @@ import os
 import requests
 import json
 
+from normalizarnombres import normalizar_nombre
+
 # Define the directory where the pages will be saved
 SAVE_DIRECTORY = 'cifraclub_pages'
 DIRECTORIO_DATOS = '../cliente/public/data/'
 
 def download_cifraclub_page(band_name, song_name):
     # Format the URL
-    band_name = band_name.replace(' ', '-')
-    song_name = song_name.replace(' ', '-').replace('?', '')
+    band_name = normalizar_nombre(band_name)
+    song_name = normalizar_nombre(song_name)
+    file_path = os.path.join(SAVE_DIRECTORY, f'{band_name}_{song_name}.html')
+    if os.path.exists(file_path):
+        return
+        
     url = f'https://www.cifraclub.com/{band_name}/{song_name}/'.lower()
     
     # Make the request to get the page content
@@ -33,20 +39,46 @@ def download_cifraclub_page(band_name, song_name):
 
 def download_cifraclub_artista(band_name):
     
-    band_name = band_name.replace(' ', '-')
+    band_name = normalizar_nombre(band_name)
+
     nombre_archivo_json  = os.path.join(DIRECTORIO_DATOS, f'{band_name}.json')
+    
     # Load the JSON file
     with open(nombre_archivo_json, 'r', encoding='utf-8') as file:
         canciones = json.load(file)
     
     # Iterate over the list of songs and download each page
     for song_name in canciones:
-        print (f'Descargar... {song_name}')
+        #print (f'Descargar... {song_name}')
         download_cifraclub_page(band_name, song_name)
 
 
 
+# Alejandro sans - https://www.cifraclub.com/alejandro-sanz/
+download_cifraclub_artista('la renga')
+download_cifraclub_artista("bob dylan")
+download_cifraclub_artista('charly garcia')
+download_cifraclub_artista('the rolling stones')
+download_cifraclub_artista('fito paez')
+download_cifraclub_artista('shakira')
+download_cifraclub_artista('joaquin sabina')
+download_cifraclub_artista('joan-manuel-serrat')
+download_cifraclub_artista('los-redonditos-de-ricota')
+download_cifraclub_artista('soda stereo')
 
+download_cifraclub_artista('intoxicados')
+download_cifraclub_artista('the beatles')
+download_cifraclub_artista('andres calamaro')
+exit()
+download_cifraclub_artista("sui-generis")
+download_cifraclub_artista("luis-miguel")
+download_cifraclub_artista("calle-13")
+download_cifraclub_artista("mana")
+download_cifraclub_artista("manal")
+download_cifraclub_artista("sui-generis")
+download_cifraclub_artista("arjona ricardo")
+download_cifraclub_artista("alejandro-sanz")
+download_cifraclub_artista("luis-fonsi")
 download_cifraclub_artista("ruben-rada")
 download_cifraclub_artista("natalia-oreiro")
 download_cifraclub_artista("leon-gieco")
@@ -65,7 +97,6 @@ download_cifraclub_artista("madonna")
 download_cifraclub_artista("beyonce") 
 download_cifraclub_artista("prince")
 download_cifraclub_artista("beyonce")
-exit()
 
 
 download_cifraclub_artista("chico-buarque")
@@ -110,21 +141,5 @@ download_cifraclub_artista("almafuerte")
 download_cifraclub_artista("os-paralamas-do-sucesso")
 
 
-exit()
 download_cifraclub_artista("indio solari")
 download_cifraclub_artista("luis alberto spinetta")
-download_cifraclub_artista("moris")
-download_cifraclub_artista("bob dylan")
-download_cifraclub_artista('charly garcia')
-download_cifraclub_artista('the rolling stones')
-download_cifraclub_artista('fito paez')
-download_cifraclub_artista('shakira')
-download_cifraclub_artista('joaquin sabina')
-download_cifraclub_artista('joan-manuel-serrat')
-download_cifraclub_artista('los-redonditos-de-ricota')
-download_cifraclub_artista('soda stereo')
-
-exit()
-download_cifraclub_artista('intoxicados')
-download_cifraclub_artista('the beatles')
-download_cifraclub_artista('andres calamaro')

@@ -34,8 +34,6 @@ def obtener_archivos_json(directorio):
 
         
 resultados = []
-banda = 'viejas-locas'
-
 
 arch = obtener_archivos_json(DIRECTORIO_DATOS_GENERADA)
 for ar in arch:

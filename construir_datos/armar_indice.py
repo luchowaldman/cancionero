@@ -30,8 +30,7 @@ def get_tema(banda, tema):
             data = json.load(f)
             return data
     except Exception as e:
-        throw(e)
-        return None
+        raise Exception
     
 def guardar_tema(banda, tema, data):
     try:
@@ -56,7 +55,7 @@ def obtenerItemIndice(banda, tema):
         tema_nuevo['calidad'] = 1
     except Exception as e:
         tema_nuevo = { 'banda': banda, 'cancion': tema, 'error': str(e), 'calidad': 0,  'estado': 'error' }
-        print(f"Error al procesar banda {banda}, tema {tema}: {e}")
+        print(f"Error al procesar banda para el indice {banda}, tema {tema}: {e}")
     return tema_nuevo
     
 

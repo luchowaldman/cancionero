@@ -7,12 +7,14 @@ from bs4 import BeautifulSoup
 SAVE_DIRECTORY = 'cifraclub_pages'
 DIRECTORIO_DATOS_GENERADA = 'data_generada/'
 # nombre_archivo_json  = os.path.join(DIRECTORIO_DATOS, f'{band_name}_{song_name}.json')
-def obtener_archivos(directorio):
+def obtener_archivos_parapreprocesarcancion(directorio):
     archivos = []
     try:
         for archivo in os.listdir(directorio):
-            if archivo.endswith('.html'):
-                archivos.append(archivo.replace('.html', '')) 
+            archivo_path = os.path.join(directorio, archivo)
+            if os.path.getsize(archivo_path) < 220 * 1024:  # 220 KB
+                if archivo.endswith('.html'):
+                    archivos.append(archivo.replace('.html', '')) 
         return archivos
     except Exception as e:
         print(f"Error al leer el directorio: {e}")
@@ -79,19 +81,25 @@ def construir_prearchivo(band_name, song_name ):
 
 
 
-arch = obtener_archivos(SAVE_DIRECTORY)
-desde, hasta = 3400, 13500000
+arch = obtener_archivos_parapreprocesarcancion(SAVE_DIRECTORY)
+
+
+desde, hasta = 0, 10
 cont = 0
 for archivo in arch:
-    print (archivo, desde, hasta, cont)
-    if (desde > cont):
+    #print (archivo, desde, hasta, cont)
+    #if (desde > cont):
+#        cont = cont  + 1
+        #continue
+    #if (cont > hasta):
+        #break
+        
+    
+    spl = archivo.split('_')
+    if (spl[0] !='sui-generis'):
         cont = cont  + 1
         continue
-    if (cont > hasta):
-        break
-        
-
-    spl = archivo.split('_')
+    print(cont, archivo)
     
     if (len(spl)==2):
         try:       

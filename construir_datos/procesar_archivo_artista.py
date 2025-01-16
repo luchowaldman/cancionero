@@ -55,6 +55,15 @@ def procesar_html_artista(band_name):
 
 
 
+procesar_html_artista("alejandro-sanz")
+procesar_html_artista("luis-fonsi")
+procesar_html_artista("arjona-ricardo")
+procesar_html_artista("luis-miguel")
+procesar_html_artista("calle-13")
+procesar_html_artista("mana")
+procesar_html_artista("manal")
+procesar_html_artista("sui-generis")
+exit()
 
 procesar_html_artista("parra-violeta")
 procesar_html_artista("alfredo-zitarrosa")
