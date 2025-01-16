@@ -35,16 +35,25 @@ const generadorlistasTocables = new AdminListasTocables(almacen);
 const cancion  = ref(new Cancion("", "", new Acordes([], []), new Letra([])));
 const mostrando_compas_parte = ref(-1)
 
+const origen = localStorage.getItem("origen") || 'almacenada';
 const banda = localStorage.getItem("editar_banda") || 'intoxicados';
 const tema = localStorage.getItem("editar_cancion") || 'esta-saliendo-el-sol';
 console.log("Banda", banda);
 console.log("Tema", tema);
-generadorlistasURL.GetCancionxTema(banda, tema).then((cancion_obtenida) => {
+if (origen == 'almacenada') {
+
+    generadorlistasLS.GetCancionxTema(banda, tema).then((cancion_obtenida) => {
     cancion.value = cancion_obtenida;
     console.log("Canción", cancion.value);
-    return cancion;
-});
-console.log("Canción", cancion.value);
+    });
+} else if (origen == 'URL') {
+    generadorlistasURL.GetCancionxTema(banda, tema).then((cancion_obtenida) => {
+    cancion.value = cancion_obtenida;
+    console.log("Canción", cancion.value);
+    }); 
+    
+}
+
 
 
 

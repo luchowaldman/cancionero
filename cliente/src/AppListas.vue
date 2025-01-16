@@ -50,6 +50,24 @@ function click_agregar_almacenada(item: item_lista) {
 }
 
 
+function click_editar_almacenada(item: item_lista) {
+    console.log("editar",item);
+    editarCancion(item.cancion, item.banda, 'almacenada');
+}
+
+function click_editar_URL(item: item_lista) {
+    console.log("editar",item);
+    editarCancion(item.cancion, item.banda, 'URL');
+}
+
+function editarCancion(cancion: string, banda: string, origen: string) {
+    console.log("Editar canción", cancion, banda);
+    localStorage.setItem("origen", origen);
+    localStorage.setItem("editar_cancion", cancion);
+    localStorage.setItem("editar_banda", banda);
+    window.location.href = '/edit';
+}
+
 /*
 getIndice().then((indice) => {
     indice_disponible.value = indice;
@@ -67,11 +85,16 @@ getIndice().then((indice) => {
         
   <Menu titulo="Listas"></Menu>
         
-  <ListadoTemas titulo="En la lista de reproduccion"  :indice="canciones_tocables"></ListadoTemas>
+  <ListadoTemas titulo="En la lista de reproduccion"  
+  @click_editar="click_editar_almacenada"
+  :indice="canciones_tocables"></ListadoTemas>
   <ListadoTemas titulo="Almacenadas"
   @click_agregar="click_agregar_almacenada"
-    :indice="canciones_Storage"></ListadoTemas>
+    :indice="canciones_Storage"
+    @click_editar="click_editar_almacenada"
+    ></ListadoTemas>
   <ListadoTemas titulo="En data generada por Luis Waldman" 
+    @click_editar="click_editar_URL"  
         @click_descargar="click_descargar_URL" :indice="canciones_listaURL"></ListadoTemas>
   
 </div>
