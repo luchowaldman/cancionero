@@ -2,6 +2,8 @@
 
 
 const props = defineProps<{ titulo: string, viendo_vista: string }>()
+if (props.viendo_vista == undefined) 
+  console.log("Viendo vista no definida")
 
 </script>
 

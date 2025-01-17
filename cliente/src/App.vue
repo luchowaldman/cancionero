@@ -13,12 +13,6 @@ import { Acordes } from './modelo/acordes';
 import { Letra } from './modelo/letra';
 import { Almacenado } from './modelo/Almacenado';
 import { item_lista } from './modelo/item_lista';
-
-// Definir la canción y el contexto
-
-    
-
-
 import { AdminListasTocables } from './modelo/AdminListasTocables';
 
 const almacen = new Almacenado();
@@ -41,12 +35,7 @@ generadorlistasTocables.getIndice().then((value: item_lista[]) => {
     }
 
 });
-    
-
-
-
-
-
+   
 
 let contexto = new Contexto("Lista", 10);
 const compas = ref(-1);

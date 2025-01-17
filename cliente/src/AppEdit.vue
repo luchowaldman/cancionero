@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, markRaw, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import { Cancion } from './modelo/cancion';
 import { Contexto } from './modelo/contexto';
 import { Reproductor } from './modelo/reproductor';
@@ -7,7 +7,6 @@ import { Reproductor } from './modelo/reproductor';
 import Menu from './components/menu.vue';
 
 import ComponenteMusicalAcordesEdit from './components/ComponenteMusicalAcordesEdit.vue';
-import ComponenteMusicalAcordesSeguidos from './components/ComponenteMusicalAcordesSeguidos.vue';
 import ControladorTiempo from './components/ControladorTiempo.vue';
 import { Acordes } from './modelo/acordes';
 import { Letra } from './modelo/letra';
@@ -26,7 +25,6 @@ const generadorlistasLS = new AdminListasLocalStorage(almacen);
 // Definir la canción y el contexto
 
 const cancion  = ref(new Cancion("", "", new Acordes([], []), new Letra([])));
-const mostrando_compas_parte = ref(-1)
 
 const origen = localStorage.getItem("origen") || 'almacenada';
 const banda = localStorage.getItem("editar_banda") || 'intoxicados';
@@ -50,7 +48,6 @@ if (origen == 'almacenada') {
 
 let contexto = new Contexto("Lista", 10);
 const compas = ref(-1);
-const mostrando_parte = ref(-1)
 
 
 let reproductor = new Reproductor(2200, 50);
@@ -70,11 +67,6 @@ reproductor.setFinalizaHandler(() => {
 
 
 
-// Vector de componentes musicales
-const componentesMusicales = ref([
-    markRaw(ComponenteMusicalAcordesEdit),
-    markRaw(ComponenteMusicalAcordesSeguidos)
-]);
 
 
 function onPause() {
@@ -126,48 +118,11 @@ function guardarCancion() {
     @play="onPlay" @pause="onPause" @stop="onStop" @next="onNext" @previous="onPrevious" @update-compas="onUpdateCompas">
 
     </ControladorTiempo>
-</div>
+        </div>
+        <ComponenteMusicalAcordesEdit :compas="compas" :cancion="cancion" :contexto="contexto"></ComponenteMusicalAcordesEdit>
 
-  
-<div id="vistas">
-</div>
-
-
-<div id="contenedor-musical">
-    <div v-for="(Componente, index) in componentesMusicales" :key="index">
-        <component :is="Componente" :compas="compas" :cancion="cancion" :contexto="contexto"></component>
     </div>
-</div>
-
-
-    
-  <div class="componente_acordes">
   
-  <div v-for="(parte, index_parte) in cancion.acordes.partes" :key="parte.nombre" >
-      <div>
-        <h3>{{ parte.nombre }}</h3>
-        <input type="text" v-model="parte.nombre" />
-      </div>
-      <div class="parte">
-        <div v-for="(acorde, index) in parte.acordes" class="acorde" :key="acorde">
-          <span  :class="{ compas_actual: ((  mostrando_compas_parte === index ) &&
-                                           ( index_parte  === cancion.acordes.orden_partes[mostrando_parte]  ))
-           }">{{ acorde }}</span>
-        </div>
-      </div>
-  </div>
-<h3>Partes</h3>
-      <div class="parte">
-        <div v-for="(parte, index) in cancion.acordes.orden_partes" :key="index" class="ordenparte">
-          <span :class="{ compas_actual: mostrando_parte === index }" >{{ cancion.acordes.partes[parte].nombre }}</span>
-        </div>
-        
-      </div>
-</div>
-
-
-
-</div>
 </template>
 
 <style scoped>

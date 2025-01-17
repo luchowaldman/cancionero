@@ -113,10 +113,10 @@ function modificar_compas(index_parte: number, index: number)
 <template>
 
   <div class="componente_acordes">
-  
     <div v-for="(parte, index_parte) in cancion.acordes.partes" :key="parte.nombre" >
         <div>
-          <span>{{ parte.nombre }}</span><button @click="modificar_nombre(index_parte)">Editar</button>
+          <span >{{ parte.nombre }}</span>
+          <button @click="modificar_nombre(index_parte)">Editar</button>
         </div>
         <div class="parte">
           
@@ -140,7 +140,7 @@ function modificar_compas(index_parte: number, index: number)
 
         
 <div id="letra">
-  <h3>Letra</h3>
+  <h3>Editar Letra</h3>
   <div v-for="(linea, index) in cancion.letra.renglones" :key="index" class="linea" @click="modificar_letra(index)">  
     <span v-for="(palabra, index_palabra) in linea" :key="index_palabra" class="palabra" 
         :class="{ compas_actual: mostrando_renglon === index && mostrando_palabra === index_palabra }"
