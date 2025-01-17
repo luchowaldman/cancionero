@@ -1,16 +1,13 @@
 <script setup lang="ts">
-import { ref, markRaw, onMounted } from 'vue';
+import { ref } from 'vue';
 import { Almacenado } from './modelo/Almacenado';
 import { item_lista } from './modelo/item_lista';
-import { Banda } from './modelo/banda';
 import { Cancion } from './modelo/cancion';
-import { Acordes, Parte } from './modelo/acordes';
 import Menu from './components/menu.vue';
 import ListadoTemas from './components/listadotemas.vue';
 import { AdminListasURL } from './modelo/AdminListasURL';
 import { AdminListasLocalStorage } from './modelo/AdminListasStorage';
 import { AdminListasTocables } from './modelo/AdminListasTocables';
-import { it } from 'node:test';
 
 
 const almacen = new Almacenado();

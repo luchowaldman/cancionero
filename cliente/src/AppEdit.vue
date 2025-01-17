@@ -14,11 +14,10 @@ import ComponenteMusical from './components/ComponenteMusical.vue';
 import ComponenteMusicalPartitura from './components/ComponenteMusicalPartitura.vue';
 import ComponenteMusicalMetronomo from './components/ComponenteMusicalMetronomo.vue';
 import ControladorTiempo from './components/ControladorTiempo.vue';
-import { Acordes, Parte } from './modelo/acordes';
+import { Acordes } from './modelo/acordes';
 import { Letra } from './modelo/letra';
 
 import { AdminListasLocalStorage } from './modelo/AdminListasStorage';
-import { AdminListasTocables } from './modelo/AdminListasTocables';
 import { AdminListasURL } from './modelo/AdminListasURL';
 import { Almacenado } from './modelo/Almacenado';
 
@@ -29,7 +28,6 @@ const almacen = new Almacenado();
 // INICIALIZA LAS LISTAS DE CANCIONES GENERADAS
 const generadorlistasURL = new AdminListasURL('/data');
 const generadorlistasLS = new AdminListasLocalStorage(almacen);
-const generadorlistasTocables = new AdminListasTocables(almacen);
 // Definir la canción y el contexto
 
 const cancion  = ref(new Cancion("", "", new Acordes([], []), new Letra([])));
@@ -55,18 +53,9 @@ if (origen == 'almacenada') {
 }
 
 
-
-
-let vista = ref({
-   cargando_cancion: false
-});
-
-
 let contexto = new Contexto("Lista", 10);
 const compas = ref(-1);
-const editando = ref(-1)
 const mostrando_parte = ref(-1)
-const currentCompas = ref(0);
 
 
 let reproductor = new Reproductor(2200, 50);
@@ -118,12 +107,12 @@ function onPrevious() {
 }
 
 function onUpdateCompas(newCompas: number) {
-    compas.value = parseInt(newCompas)
+    compas.value = newCompas;
     console.log(`Esto se actualiza: ${newCompas}`);
 }
 
 function guardarCancion() {
-    almacen.agregarCancion(cancion.value);
+    //almacen.agregarCancion(cancion.value);
 }
 
     // Llamar a la función iniciarCompasEnComponentes cuando sea necesario 
@@ -137,6 +126,7 @@ function guardarCancion() {
     <div>
         <Menu :titulo="cancion.cancion" viendo_vista="editar"></Menu>
         <div>
+            <input type="button" value="Guardar" @click="guardarCancion" />
     <ControladorTiempo :compas=compas :cancion="cancion" :contexto="contexto"
     @play="onPlay" @pause="onPause" @stop="onStop" @next="onNext" @previous="onPrevious" @update-compas="onUpdateCompas">
 

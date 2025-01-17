@@ -12,8 +12,6 @@ const currentCompas = ref(0);
 
 const mostrando_renglon = ref(-1);
 const mostrando_palabra = ref(-1);
-const mostrando_renglon2 = ref(-1);
-const mostrando_palabra2 = ref(-1);
 
 watch(() => props.compas, (newCompas) => {
     
@@ -58,12 +56,6 @@ watch(() => props.compas, (newCompas) => {
 
 
 });
-
-
-function Iniciar_Compas(nro_compas: number) 
-{ 
-  console.log(`Iniciando compás ${nro_compas} en ComponenteMusicalAcordes`); 
-}
 
 function modificar_nombre(index_parte: number) 
 {

@@ -63,7 +63,8 @@ onUnmounted(() => {
 
 function mover_scroll(posX: Number) 
 {
-  letraDiv.value?.scrollTo({ top: posX, behavior: 'smooth' });
+  let prevPosX = posX as number;
+  letraDiv.value?.scrollTo({ top: prevPosX, behavior: 'smooth' });
 }
 </script>
 

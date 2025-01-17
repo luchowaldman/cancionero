@@ -32,10 +32,6 @@ watch(() => props.compas, (newCompas) => {
 });
 
 
-function Iniciar_Compas(nro_compas: number) 
-{ 
-  console.log(`Iniciando compás ${nro_compas} en ComponenteMusicalAcordes`); 
-}
 
 </script>
 

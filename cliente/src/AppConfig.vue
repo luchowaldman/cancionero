@@ -36,7 +36,7 @@ cliente.setreplicaHandler(replicaHandler);
 
 function play_acorde() {
   console.log("envia para replicar play_acorde")
-  cliente.replicar(["4"])
+  //cliente.replicar(4)
 
 }
     // Llamar a la función iniciarCompasEnComponentes cuando sea necesario 
