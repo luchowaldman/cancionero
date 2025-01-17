@@ -39,9 +39,10 @@ def getartista_page(band_name):
 #download_cifraclub_page('andres calamaro', 'flaca')
 #download_cifraclub_page('andres calamaro', 'la parte de adelante')
 
+getartista_page("zambayonny")
+exit()
 
 getartista_page("arjona-ricardo")
-exit()
 getartista_page("alejandro-sanz")
 getartista_page("luis-fonsi")
 getartista_page("luis-miguel")

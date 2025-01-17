@@ -96,7 +96,7 @@ for archivo in arch:
         
     
     spl = archivo.split('_')
-    if (spl[0] !='sui-generis'):
+    if (spl[0] !='zambayonny'):
         cont = cont  + 1
         continue
     print(cont, archivo)

@@ -55,6 +55,9 @@ def download_cifraclub_artista(band_name):
 
 
 # Alejandro sans - https://www.cifraclub.com/alejandro-sanz/
+
+download_cifraclub_artista('zambayonny')
+exit()
 download_cifraclub_artista('la renga')
 download_cifraclub_artista("bob dylan")
 download_cifraclub_artista('charly garcia')
