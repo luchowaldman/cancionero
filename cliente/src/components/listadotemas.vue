@@ -3,7 +3,7 @@ import { ref, watch } from 'vue';
 import { item_lista } from '../modelo/item_lista';
 
 const emit = defineEmits(['click_editar', 'click_descargar', 'click_agregar', 'click_borrar']);
-const props = defineProps<{ indice: item_lista[], titulo: string }>();
+const props = defineProps<{ indice: item_lista[], titulo: string, muestra_renglones: number }>();
 const indice_disponible = ref(props.indice);
 const indice_disponible_filtro = ref([] as item_lista[]);
 
@@ -33,7 +33,7 @@ function click_borrar(indice: item_lista) {
 const muy_faciles = ref(false);
 const fil_can = ref("");
 const fil_ban = ref("");
-const max_registros = ref(10);
+const max_registros = ref(3000);
 
 
 function cancionesFiltradas() 
@@ -71,14 +71,24 @@ cancionesFiltradas();
 <template>
   
   
-  <div>
-        <h1>{{ titulo }}</h1>
+  <div >
+    <h1>{{ titulo }}</h1>
+    <div>
+
         <div>
         Maximo: <input type="text" v-on:change="cancionesFiltradas()" v-model="max_registros" />
         </div>
         <div>
         Muy faciles: <input type="checkbox" v-on:change="cancionesFiltradas()" v-model="muy_faciles" />
         </div>
+        
+        <div>Banda <input type="text" v-on:change="cancionesFiltradas()" v-model="fil_can" />
+             Cancion <input type="text" v-on:change="cancionesFiltradas()" v-model="fil_ban" />
+        </div>
+                    
+    </div>
+    <div class="overflow-auto" style="max-height: 300px;">
+
         <table>
             <thead>
                 <tr>
@@ -91,12 +101,6 @@ cancionesFiltradas();
                     <th>calidad</th>
                 </tr>
                 
-                <tr>
-                    <td><input type="text" v-on:change="cancionesFiltradas()" v-model="fil_can" /></td>
-                    <td><input type="text" v-on:change="cancionesFiltradas()" v-model="fil_ban" /></td>
-                    <td></td>
-                </tr>
-
             </thead>
             <tbody>
             <tr v-for="cancion in indice_disponible_filtro" :key="cancion.cancion">
@@ -116,6 +120,9 @@ cancionesFiltradas();
             </tbody>
         </table>
     </div>
+    
+        
+    </div>
 
 
 </template>
@@ -129,9 +136,8 @@ cancionesFiltradas();
 .beat_activo {
   background-color: greenyellow;
 }
+
 </style>
-
-
 
 
 
