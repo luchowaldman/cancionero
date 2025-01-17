@@ -7,12 +7,7 @@ import { Reproductor } from './modelo/reproductor';
 import Menu from './components/menu.vue';
 
 import ComponenteMusicalAcordesEdit from './components/ComponenteMusicalAcordesEdit.vue';
-import ComponenteMusicalAcordes from './components/ComponenteMusicalAcordes.vue';
 import ComponenteMusicalAcordesSeguidos from './components/ComponenteMusicalAcordesSeguidos.vue';
-import ComponenteMusicalLetra from './components/ComponenteMusicalLetra.vue';
-import ComponenteMusical from './components/ComponenteMusical.vue';
-import ComponenteMusicalPartitura from './components/ComponenteMusicalPartitura.vue';
-import ComponenteMusicalMetronomo from './components/ComponenteMusicalMetronomo.vue';
 import ControladorTiempo from './components/ControladorTiempo.vue';
 import { Acordes } from './modelo/acordes';
 import { Letra } from './modelo/letra';

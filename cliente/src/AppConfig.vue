@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { ref, markRaw, onMounted, watch } from 'vue';
+import { ref, onMounted } from 'vue';
 import Menu from './components/menu.vue';
-import { Letra } from './modelo/letra';
 import { Configuracion, Sesion }  from './modelo/configuracion';
 import { Cliente }  from './modelo/client_socketio';
 // Definir la canción y el contexto

@@ -7,9 +7,6 @@ import { Reproductor } from './modelo/reproductor';
 import ComponenteMusicalAcordes from './components/ComponenteMusicalAcordes.vue';
 import ComponenteMusicalAcordesSeguidos from './components/ComponenteMusicalAcordesSeguidos.vue';
 import ComponenteMusicalLetra from './components/ComponenteMusicalLetra.vue';
-import ComponenteMusical from './components/ComponenteMusical.vue';
-import ComponenteMusicalPartitura from './components/ComponenteMusicalPartitura.vue';
-import ComponenteMusicalMetronomo from './components/ComponenteMusicalMetronomo.vue';
 import ControladorTiempo from './components/ControladorTiempo.vue';
 import Menu from './components/menu.vue';
 import { Acordes } from './modelo/acordes';
@@ -51,9 +48,6 @@ generadorlistasTocables.getIndice().then((value: item_lista[]) => {
 
 
 
-let vista = ref({
-   cargando_cancion: false
-});
 let contexto = new Contexto("Lista", 10);
 const compas = ref(-1);
 let reproductor = new Reproductor(2200, 70);
@@ -112,7 +106,7 @@ function onPrevious() {
 }
 
 function onUpdateCompas(newCompas: number) {
-    compas.value = parseInt(newCompas)
+    compas.value = newCompas
     console.log(`Esto se actualiza: ${newCompas}`);
 }
 
