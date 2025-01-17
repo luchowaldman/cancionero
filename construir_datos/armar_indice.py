@@ -55,7 +55,7 @@ def obtenerItemIndice(banda, tema):
         tema_nuevo['calidad'] = 1
     except Exception as e:
         tema_nuevo = { 'banda': banda, 'cancion': tema, 'error': str(e), 'calidad': 0,  'estado': 'error' }
-        print(f"Error al procesar banda para el indice {banda}, tema {tema}: {e}")
+        #print(f"Error al procesar banda para el indice {banda}, tema {tema}: {e}")
     return tema_nuevo
     
 
@@ -73,17 +73,21 @@ def gettemaJSON(banda, tema):
                 partes_obj.append(parte)
             return Acordes(partes_obj, acordes_data['orden_partes'])
 
-def obtener_todos_los_archivos():
+def procesar_todos_los_archivos():
     archivos = obtener_archivos_json(DIRECTORIO_DATOS)
     indice = []
     errores = 0
 
+
     for archivo in archivos:
         if '_' in archivo:
+            
             banda = archivo.split('_')[0]
             tema = archivo.split('_')[1]
+            if (banda != 'intoxicados'):
+                continue
+            print(f'Procesando tema de banda: {banda}, tema: {tema}')
             indice.append(obtenerItemIndice(banda, tema))
-            
 
 
     try:
@@ -92,4 +96,4 @@ def obtener_todos_los_archivos():
     except Exception as e:
         print(f"Error al guardar indice: {e}")
 
-obtener_todos_los_archivos()
+procesar_todos_los_archivos()
