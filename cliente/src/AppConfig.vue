@@ -58,7 +58,7 @@ function play_acorde() {
 <template>
     <div>
         
-        <Menu titulo="Configuracion"></Menu>
+        <Menu titulo="Configuracion" viendo_vista="config"></Menu>
         <div class="row">
           <div class="col-3">
   <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px;">

@@ -84,7 +84,7 @@ getIndice().then((indice) => {
 <template>
     <div>
         
-  <Menu titulo="Listas"></Menu>
+  <Menu titulo="Listas" viendo_vista="listas"></Menu>
         
   <ListadoTemas titulo="En la lista de reproduccion"  
   

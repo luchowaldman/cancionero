@@ -78,11 +78,6 @@ function mover_scroll(posX)
     </div>
   </div>
   
-  <!-- Mostrar la posición del desplazamiento horizontal -->
-  <div style="margin-top: 10px;">Posición de desplazamiento horizontal: {{ scrollTop }}</div>
-  
-  <!-- Botón para cambiar la posición del scroll (opcional) -->
-  <button style="margin-top: 10px;" @click="mover_scroll(199)">Mover Scroll a 1000px</button>
 </div>
 </template>
 

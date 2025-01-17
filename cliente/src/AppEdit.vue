@@ -135,7 +135,7 @@ function guardarCancion() {
 
 <template>
     <div>
-        <Menu :titulo="cancion.cancion"></Menu>
+        <Menu :titulo="cancion.cancion" viendo_vista="editar"></Menu>
         <div>
     <ControladorTiempo :compas=compas :cancion="cancion" :contexto="contexto"
     @play="onPlay" @pause="onPause" @stop="onStop" @next="onNext" @previous="onPrevious" @update-compas="onUpdateCompas">

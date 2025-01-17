@@ -128,7 +128,7 @@ function onUpdateCompas(newCompas: number) {
 
        
 
-  <Menu :titulo="cancion.cancion"></Menu>
+  <Menu :titulo="cancion.cancion" viendo_vista="tocar"></Menu>
 
   <div class="pantalla">
 
