@@ -97,26 +97,21 @@ def letra_separar(verso, acordes):
     partes.pop(0)
     return intro, partes
 
-def analizarxletra(banda, tema):
-    #print(f"analizarxletra {banda}, {tema}")
-    renglones = get_JSON(DIRECTORIO_DATOS_GENERADA, f'{banda}_{tema}')
-    if (renglones == None):
-        return { 'generado': 0}
+
+def get_renglones_validos(renglones):
     val_reng = []
     if (renglones):
         for renglon in renglones:
             if (renglon_valido(renglon)):
                 val_reng.append(renglon)
-    renglones = val_reng
+    return val_reng
 
-
-    partes = []
+def BuscarMusicaYAcordes(renglones):
+    
     i = 0
-    nuevo = True
-    parte = { 'tipo':'0', 'letra': [], 'musica': []}
-
     musicas = []
     acordes = []
+     
     con_letra_sin_musica = False
     while i < len(renglones):
         renglon = renglones[i]
@@ -139,17 +134,20 @@ def analizarxletra(banda, tema):
 
             #print (renglon['_m'])
         i = i + 1
+    return con_letra_sin_musica, acordes, musicas
 
-    acordes_nuevos = []
+def AcordesSoloLetra(renglones):
+    
+    acordes_sololetra = []
     for renglon in renglones:
         if (renglon['tipo'] == 'm' and renglon['conl']):
             for acor in renglon['acordes']:
-                acordes_nuevos.append(acor['acorde'])
+                acordes_sololetra.append(acor['acorde'])
+    return acordes_sololetra
 
-
-    son_distintos = (acordes_nuevos != acordes)
-
+def GetOrdenPartes(acordes, acordes_sololetra):
     
+    son_distintos = (acordes_sololetra != acordes)
     resu = len(acordes) == 0
     prof = 1
     max_prof = 5
@@ -157,34 +155,49 @@ def analizarxletra(banda, tema):
         if (prof > 5):            
             print("proxima empieza prueba ",prof,"> 5")
         if son_distintos:
-            acordes_de_partes, secu, resu = probar(prof, acordes_nuevos)
+            acordes_de_partes, secu, resu = probar(prof, acordes_sololetra)
         if not resu:
             acordes_de_partes, secu, resu = probar(prof, acordes)
         prof = prof + 1
     prof = prof - 1
+    if resu:
+        return acordes_de_partes, secu
+    return [acordes], [0]
         
 
+
+def analizarxletra(banda, tema):
+    print(f"analizarxletra {banda}, {tema}")
+    renglones = get_JSON(DIRECTORIO_DATOS_GENERADA, f'{banda}_{tema}')
+    if (renglones == None):
+        return { 'generado': 0}
+    renglones = get_renglones_validos(renglones)
+
+
+
+    con_letra_sin_musica, acordes, musica = BuscarMusicaYAcordes(renglones)
+    acordes_sololetra = AcordesSoloLetra(renglones)
+
+    
 
 #    if con_letra_sin_musica:
 #        print("con letra sin musica", tema)
 #        return { 'generado': 0 }
    
-
-    if resu:
-       #print("encontrada prof", prof, aco, secu)
+    acordes_de_partes, secu = GetOrdenPartes(acordes, acordes_sololetra)
+    
+    print("encontrada prof", acordes_de_partes, secu)
        # ARMO EL ARCHIVO
-       letra = []
-       secu_fin = []
-       termino_secu = True
-       indice_secu = -1
-       procesando_secu = -1
-       #print(acordes_de_partes, secu)
-       acordes_agregados = []
-       id_renglon = -1
-
-       acordes_originales_renglones = []
+    letra = []
+    secu_fin = []
+    termino_secu = True
+    indice_secu = -1
+    procesando_secu = -1
+    acordes_agregados = []
+    acordes_originales_renglones = []
 
     letras_fin = []
+    id_renglon = -1
     for renglon in renglones:
         id_renglon = id_renglon + 1
         secuenciasagregadas = []
@@ -267,8 +280,6 @@ def analizarxletra(banda, tema):
                             texto_paragregar = letras_fin[-1][-1]
                             letras_fin[-1][-1] = texto_paragregar  + '/n' + ini_letra
                         letras_fin.append(reng_letra)
-                        
-
 
     #print("Cancion Completa", acordes_de_partes, secu_fin, letras_fin)
 
@@ -280,6 +291,7 @@ def analizarxletra(banda, tema):
         parte = Parte(f"parte{i}", parte)
         partes_obj.append(parte)
     acordes = Acordes(partes_obj, secu_fin)
+    
     data = {
         'cancion': tema,
         'banda': banda,
@@ -293,5 +305,5 @@ def analizarxletra(banda, tema):
     }
     guardar_tema(banda, tema, data)
 
-    #print("Se puede generar completa" , tema)
+    print("Se puede generar completa" , tema)
     return { 'generado': 1 }
