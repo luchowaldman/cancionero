@@ -9,7 +9,7 @@ export class Cancion {
         public banda: string,
         public acordes: Acordes,
         public letra: Letra,
-        public tempo: number = 60,
+        public tempo: number = 12,
         public calidad: number = 0,
         public compas_cantidad: number = 4,
         public compas_unidad: number = 4

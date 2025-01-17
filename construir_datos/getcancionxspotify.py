@@ -6,7 +6,7 @@ import os
 DIRECTORIO_DATOS = '../cliente/public/data/'
 
 # Tu token de acceso
-token = 'BQBqsQp-xEx4JYdVA3b5iPqd4eK-rMMI_tt039ENkuhnVeph_WdXWt1DWUzxf7ucQiTWziEjT_qjX3XL_RbG1bpqE7C73gJ9uqRrFAgfOt9ZhXKXRUQ'
+token = 'BQCAW6ngei2GvOUSZzcRWbkh9ig8V6pkI9Na41nAzQUIBzV7w7s_KhYBfhlPlnju39QVFrJY72WxFIk0LAQCVkK-uUwSyHkHArTM3NAtVhlWg1SwW7I'
 
 # Datos para la solicitud
 headers = {
@@ -68,7 +68,7 @@ def obtener_caracteristicas_track(id_track):
     url = f'https://api.spotify.com/v1/audio-analysis/{id_track}'
     response = requests.get(url, headers=headers)
     data = response.json()
-    
+    print(data)
     # Verificar que todos los campos estén presentes en los datos
     escala = data.get('key', 'N/A')
     bpm = data.get('tempo', 'N/A')
@@ -103,7 +103,7 @@ def insertar_actualizar_cancion(nombre_cancion):
     }
     response = requests.get(url, headers=headers, params=params)
     data = response.json()
-    
+    #print(data['tracks'])
     if data['tracks']['items']:
         track = data['tracks']['items'][0]
         nombre_realcancion = track['name']
@@ -133,7 +133,7 @@ def insertar_actualizar_cancion(nombre_cancion):
             data = json.load(file)
             cancion_existente = None
             for cancion in data:
-                print ("NOMBRE BANDA", nombre_banda, "NOMBRE CANCION",track['name'])
+                #print ("NOMBRE BANDA", nombre_banda, "NOMBRE CANCION",track['name'])
                 if cancion['nombre_banda'] == nombre_banda and cancion['nombre_cancion'] == nombre_realcancion:
                     cancion_existente = cancion
                     break
@@ -166,11 +166,12 @@ def insertar_canciones_en_index(nombre_banda):
 
 
 # Crear el archivo index.json
-crear_archivo_index()
+#crear_archivo_index()
 
 # Ejemplo de uso: Insertar canciones de Intoxicados en index.json
-insertar_canciones_en_index('Intoxicados')
-# insertar_actualizar_cancion('Fuiste lo Mejor')
+#insertar_canciones_en_index('Intoxicados')
+#insertar_actualizar_cancion('Fuiste lo Mejor')
+obtener_caracteristicas_track("0pvHj0RHMGZ7JBOYh7Kmsk")
 # insertar_actualizar_cancion('Fuiste lo Mejor')
 
 

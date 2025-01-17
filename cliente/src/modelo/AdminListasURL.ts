@@ -21,8 +21,6 @@ export class AdminListasURL  {
         console.log("Busca indice", this.url + `/indice.json`);
         const response = await fetch(this.url + `/indice.json`);
         const data = await response.json();
-        
-        // console.log(data);
         let items_lista = []
         for (let i = 0; i < data.length; i++) {
             const item = new item_lista(data[i].cancion, data[i].banda);
@@ -32,7 +30,6 @@ export class AdminListasURL  {
             item.bpm = data[i].bpm;
             item.calidad = data[i].calidad;
             item.len_partes = data[i].len_partes;
-            console.log("item", item);
             items_lista.push(item);
         }
         return items_lista;
@@ -53,12 +50,13 @@ export class AdminListasURL  {
 
         
         const acordes = new Acordes(partes, data.acordes.orden_partes);
-    
+        
         return new Cancion(
             data.cancion,
             data.banda,
             acordes,
-            new Letra(data.letras) 
+            new Letra(data.letras),
+            data.tempo
         );
     }
 

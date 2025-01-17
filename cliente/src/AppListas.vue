@@ -40,8 +40,8 @@ generadorlistasTocables.getIndice().then((indi_get: item_lista[]) => {
 function click_descargar_URL(item: item_lista) {
     generadorlistasURL.GetCancion(item).then((cancion: Cancion) => {
         generadorlistasLS.GuardarCancion(item, cancion);
+        
     });
-    console.log(item);
 }
 
 

@@ -189,7 +189,7 @@ def procesar_renglonmusica(renglon, termino_secu, procesando_secu, indice_secu, 
                         acordes_secu.append(acor['acorde'])
 
                         
-                        print("termino secu = " , len(acordes_de_partes[secu[procesando_secu]]), len(acordes_secu))
+                        #print("termino secu = " , len(acordes_de_partes[secu[procesando_secu]]), len(acordes_secu))
                         termino_secu = len(acordes_de_partes[secu[procesando_secu]])  == len(acordes_secu)
                         
                         if (renglon['conl']):
@@ -282,6 +282,17 @@ def generar_archivo(banda, tema, acordes_de_partes, secu_fin, letras_fin):
     return data
     
 
+def tempo_conocido(archivo):
+    print("cancion", archivo['cancion'], "banda", archivo['banda'])
+    if (archivo['cancion'] == 'fuego' and archivo['banda'] == 'intoxicados'): 
+        print("Cancion conocida")       
+        archivo['tempo'] = 120
+    return archivo
+
+
+def post_procesar(archivo):
+    archivo = tempo_conocido(archivo)
+    return archivo
 
 def analizarxletra(banda, tema):
     print(f"analizarxletra {banda}, {tema}")
@@ -289,21 +300,11 @@ def analizarxletra(banda, tema):
     if (renglones == None):
         return { 'generado': 0}
     renglones = get_renglones_validos(renglones)
-
-
-
     con_letra_sin_musica, acordes, musica = BuscarMusicaYAcordes(renglones)
     acordes_sololetra = AcordesSoloLetra(renglones)
-
-    
-
-#    if con_letra_sin_musica:
-#        print("con letra sin musica", tema)
-#        return { 'generado': 0 }
-   
     acordes_de_partes, secu = GetOrdenPartes(acordes, acordes_sololetra)
     
-       # ARMO EL ARCHIVO
+    # ARMO EL ARCHIVO
     letra = []
     secu_fin = []
     termino_secu = True
@@ -321,7 +322,8 @@ def analizarxletra(banda, tema):
         else:
             secu_fin, letras_fin = procesar_renglontexto(renglon, renglones, id_renglon, acordes_originales_renglones, secu_fin, letras_fin)
     #print("Cancion Completa", acordes_de_partes, secu_fin, letras_fin)
-
-    guardar_tema(banda, tema, generar_archivo(banda, tema, acordes_de_partes, secu_fin, letras_fin))
+    archivo = generar_archivo(banda, tema, acordes_de_partes, secu_fin, letras_fin)
+    archivo = post_procesar(archivo)
+    guardar_tema(banda, tema, archivo)
     print("Se puede generar completa" , tema)
     return { 'generado': 1 }
