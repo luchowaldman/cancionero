@@ -34,6 +34,7 @@ let canciones_sesion: Cancion[] = [];
 let canciones_lista: item_lista[] = []
 generadorlistasTocables.getIndice().then((value: item_lista[]) => {
     canciones_lista = value;
+    console.log("Canciones", canciones_lista);
     for (const tema of canciones_lista) 
     {
         generadorlistasTocables.GetCancionxTema(tema.banda, tema.cancion).then((cancion_obtenida: Cancion) => {

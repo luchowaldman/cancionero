@@ -33,6 +33,7 @@ generadorlistasLS.getIndice().then((indi_get: item_lista[]) => {
 });
 
 generadorlistasTocables.getIndice().then((indi_get: item_lista[]) => {
+    console.log("Tocables", indi_get);
     canciones_tocables.value = indi_get;
 });
 
