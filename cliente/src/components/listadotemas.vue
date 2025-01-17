@@ -82,8 +82,10 @@ cancionesFiltradas();
         Muy faciles: <input type="checkbox" v-on:change="cancionesFiltradas()" v-model="muy_faciles" />
         </div>
         
-        <div>Banda <input type="text" v-on:change="cancionesFiltradas()" v-model="fil_can" />
-             Cancion <input type="text" v-on:change="cancionesFiltradas()" v-model="fil_ban" />
+        <div>
+            
+             Cancion <input type="text" v-on:change="cancionesFiltradas()" v-model="fil_can" />
+             Banda <input type="text" v-on:change="cancionesFiltradas()" v-model="fil_ban" />
         </div>
                     
     </div>
