@@ -84,8 +84,8 @@ def procesar_todos_los_archivos():
             
             banda = archivo.split('_')[0]
             tema = archivo.split('_')[1]
-            if (banda != 'intoxicados'):
-                continue
+            #if (banda != 'intoxicados'):
+            #   continue
             print(f'Procesando tema de banda: {banda}, tema: {tema}')
             indice.append(obtenerItemIndice(banda, tema))
 
