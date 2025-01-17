@@ -1,5 +1,4 @@
 import { Acordes, Parte } from "./acordes";
-import { Almacenado } from "./Almacenado";
 import { Cancion } from "./cancion";
 import { item_lista } from "./item_lista";
 import { Letra } from "./letra";
@@ -62,7 +61,7 @@ export class AdminListasURL  {
 
     async GetCancionxTema(banda: string, tema: string): Promise<Cancion> {
         //console.log("Busca cancion", banda, tema);
-        return this.GetCancion(new item_lista(tema, banda, 0, 0));
+        return this.GetCancion(new item_lista(tema, banda));
     
     }
 

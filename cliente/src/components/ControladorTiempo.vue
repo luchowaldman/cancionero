@@ -2,12 +2,10 @@
 import { ref } from 'vue';
 import { Cancion } from '../modelo/cancion';
 import { Contexto } from '../modelo/contexto';
-
 import Metronomo from './metronomo.vue';
 const props = defineProps<{ compas: number, cancion: Cancion, contexto: Contexto }>();
 const emit = defineEmits(['play', 'pause', 'stop', 'next', 'previous', 'update-compas']);
 const currentCompas = ref(0);
-const tempo = ref(props.cancion.tempo);
 const metronomeRef = ref();
 
 import { watch } from 'vue';

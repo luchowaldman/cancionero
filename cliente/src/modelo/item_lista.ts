@@ -5,7 +5,6 @@ export class item_lista {
     public estado: string;
     public escala: string;
     public total_partes: number;
-    public total_partes: number;
     public len_partes: number[];
     public total_orden_partes: number;
     public compases_tiempo: number;

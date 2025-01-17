@@ -5,7 +5,6 @@ import { item_lista } from './modelo/item_lista';
 import { Banda } from './modelo/banda';
 import { Cancion } from './modelo/cancion';
 import { Acordes, Parte } from './modelo/acordes';
-import { Letra } from './modelo/letra';
 import Menu from './components/menu.vue';
 import ListadoTemas from './components/listadotemas.vue';
 import { AdminListasURL } from './modelo/AdminListasURL';

@@ -1,7 +1,7 @@
 import { io, Socket } from "socket.io-client";
 
 interface ServerToClientEvents {
-    replica: ([]) => void;
+    replica: (datos: string[]) => void;
 }
 
 interface ClientToServerEvents {
@@ -45,7 +45,7 @@ export class Cliente {
             console.log("socket disconnected");
         });
 
-        socket.on("replica", (datos) => {
+        socket.on("replica", (datos: string[]) => {
             console.log("inicio_compas received with compas:", datos);
             this.replicaHandler?.(datos);
         });

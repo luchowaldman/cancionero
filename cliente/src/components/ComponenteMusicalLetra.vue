@@ -61,7 +61,7 @@ onUnmounted(() => {
   }
 });
 
-function mover_scroll(posX) 
+function mover_scroll(posX: Number) 
 {
   letraDiv.value?.scrollTo({ top: posX, behavior: 'smooth' });
 }

@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { Cancion } from '../modelo/cancion';
 
 
 const props = defineProps<{ titulo: string, viendo_vista: string }>()
