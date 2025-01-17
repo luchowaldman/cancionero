@@ -287,6 +287,9 @@ def tempo_conocido(archivo):
     if (archivo['cancion'] == 'fuego' and archivo['banda'] == 'intoxicados'): 
         print("Cancion conocida")       
         archivo['tempo'] = 120
+    if (archivo['cancion'] == 'casi-sin-pensar' and archivo['banda'] == 'intoxicados'): 
+        print("Cancion conocida")       
+        archivo['tempo'] = 120
     return archivo
 
 
