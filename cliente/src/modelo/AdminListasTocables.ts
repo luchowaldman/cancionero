@@ -30,7 +30,7 @@ export class AdminListasTocables  {
         async GetCancionxTema(banda: string, cancion: string): Promise<Cancion> {
             let indice = this.almacen.indice('tocables');
             const index = indice.findIndex(i => i.banda === banda && i.cancion === cancion);
-            console.log("Busca cancion", banda, cancion, index);
+            //console.log("Busca cancion", banda, cancion, index);
             return this.almacen.obtenerTodasLasCanciones()[index];   
         
         }

@@ -61,7 +61,7 @@ export class AdminListasURL  {
     }
 
     async GetCancionxTema(banda: string, tema: string): Promise<Cancion> {
-        console.log("Busca cancion", banda, tema);
+        //console.log("Busca cancion", banda, tema);
         return this.GetCancion(new item_lista(tema, banda, 0, 0));
     
     }
