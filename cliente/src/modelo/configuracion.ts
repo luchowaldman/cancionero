@@ -2,6 +2,8 @@
 export class Sesion {
     nombre: string = "";
     estado: string = "";
+    usuario_sesion: string = "";
+    iniciar_alcomienzo: boolean = false;
     
 
     constructor() {

@@ -6,6 +6,7 @@ import { Configuracion } from '../modelo/configuracion';
 const props = defineProps<{ cliente: Cliente, config_guardada: Configuracion  }>()
 const replicas_recibidas = ref<string[][]>([])
 function conectarse() {
+  props.config_guardada.sesion.usuario_sesion = props.config_guardada.nombre + Math.random()
   props.config_guardada.sesion.estado = "...conectando.."
   props.cliente.connect()
 }
@@ -20,7 +21,7 @@ props.cliente.setconectadoHandler((estado: string)=> {
   console.log("conectado", estado)
   if (estado=="") {
       props.config_guardada.sesion.estado = "conectado"
-      props.cliente.unirme_sesion(props.config_guardada.sesion.nombre, props.config_guardada.nombre)
+      props.cliente.unirme_sesion(props.config_guardada.sesion.nombre, props.config_guardada.sesion.usuario_sesion)
   }
     
   if (estado=="desconecado") {
@@ -50,13 +51,23 @@ function play_acorde() {
                 <label>Estado: {{ config_guardada.sesion.estado }}</label>
               </div>
             </div>
+            <div class="col-6">
+              <div class="form-group col-6">
+                <label>Iniciar al conectarse</label>
+                <input v-model="config_guardada.sesion.iniciar_alcomienzo" type="checkbox">
+              </div>
+            </div>
           </div>
 
           <div class="row">
             <div class="col-12">
+              <div v-if="config_guardada.sesion.estado != 'conectado'">
               <button @click="conectarse()">Conectarse</button>
+            </div>
+            <div v-if="config_guardada.sesion.estado === 'conectado'">
               <button @click="play_acorde()">MANDAR PLAY</button>      
             </div>
+          </div>
           </div>
 
           <div class="row">
