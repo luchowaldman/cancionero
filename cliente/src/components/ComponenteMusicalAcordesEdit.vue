@@ -4,6 +4,7 @@ import { Cancion } from '../modelo/cancion';
 import { Contexto } from '../modelo/contexto';
 import { Musica } from '../modelo/musica';
 
+let musica = new Musica();
 const props = defineProps<{ compas: number, cancion: Cancion, contexto: Contexto }>()
 const borrar: string = "borrar";
 const mostrando_renglon = ref(-1);
@@ -16,6 +17,7 @@ const scrollTop = ref(0); // Ref to store the horizontal scroll position
 // Watch for changes in the compas prop
 const reng_letra = ref([] as String[][]);
 const reng_Acordes = ref([] as String[]);
+const acord_escala = ref([] as String[]);
 
 
 
@@ -66,15 +68,13 @@ function ConstruyeCancion(cancion: Cancion) {
   }
   reng_letra.value = nuevosRengLetra;
 }
+const nota_escala = ref(0);
 function BuscaMusica(cancion: Cancion) {
-      let musica = new Musica();
       console.log("Buscando musica");
       let escala = reng_Acordes.value[0][0];
       console.log(escala);
-      const nota_escala = musica.numeroNota(escala)
-      console.log(nota_escala);
-      const notas_escala = musica.GetNotasdeescala('mayor', nota_escala);
-      console.log(notas_escala);
+      nota_escala.value = musica.numeroNota(escala)
+      acord_escala.value = musica.GetNotasdeescala('mayor', nota_escala.value);
       
 }
 
@@ -196,6 +196,38 @@ function compas_activo(reng_texto: number, parte_texto: number) {
     </div>
     <div class="col-4">
       
+
+      
+<div class="row">
+  <div class="col-3">Escala {{ musica.nombreNota(nota_escala) }}</div>
+  <div class="col-3">Acordes de Escala {{ acord_escala }}</div>
+
+</div>
+  <div class="row">
+  
+  <h2>Orden</h2>
+  <div class="row ">
+        <div v-for="(parte, index) in cancion.acordes.orden_partes" :key="index" class="col-2 acorde">
+          <span :class="{ compas_actual: mostrando_parte === index }" >{{ cancion.acordes.partes[parte].nombre }}</span>
+        </div>
+        
+  </div>
+  <h1>&nbsp;</h1>
+
+  <h2>Partes</h2>
+  <div v-for="(parte, index_parte) in cancion.acordes.partes" :key="parte.nombre" class="row" >
+    
+      <h3>{{ parte.nombre }}</h3>
+      <div class="parte">
+        <div v-for="(acorde, index) in parte.acordes" class="acorde" :key="acorde">
+          <span  :class="{ compas_actual: ((  mostrando_compas_parte === index ) &&
+                                           ( index_parte  === cancion.acordes.orden_partes[mostrando_parte]  ))
+           }">{{ acorde }}</span>
+        </div>
+      </div>
+  </div>
+
+</div>
     </div>
   </div>
 </template>

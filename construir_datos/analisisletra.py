@@ -291,10 +291,8 @@ def generar_archivo(banda, tema, acordes_de_partes, secu_fin, letras_fin):
 def tempo_conocido(archivo):
     print("cancion", archivo['cancion'], "banda", archivo['banda'])
     if (archivo['cancion'] == 'fuego' and archivo['banda'] == 'intoxicados'): 
-        print("Cancion conocida")       
         archivo['tempo'] = 120
     if (archivo['cancion'] == 'casi-sin-pensar' and archivo['banda'] == 'intoxicados'): 
-        print("Cancion conocida")       
         archivo['tempo'] = 120
     return archivo
 

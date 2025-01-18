@@ -44,6 +44,7 @@ def obtenerItemIndice(banda, tema):
     try:
         tema_nuevo = { 'banda': banda, 'cancion': tema, 'estado': 'nocargado' }
         temaJSON = gettemaJSON(banda, tema)
+        
         tema_nuevo['escala'] = temaJSON.partes[0].acordes[0]
         tema_nuevo['total_partes'] = len(temaJSON.partes)
 
@@ -97,3 +98,4 @@ def procesar_todos_los_archivos():
         print(f"Error al guardar indice: {e}")
 
 procesar_todos_los_archivos()
+#obtenerItemIndice('intoxicados', 'homero')

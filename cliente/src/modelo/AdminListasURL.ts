@@ -27,6 +27,7 @@ export class AdminListasURL extends  AdminiListas {
             item.bpm = data[i].bpm;
             item.calidad = data[i].calidad;
             item.len_partes = data[i].len_partes;
+            item.escala = data[i].escala;
             items_lista.push(item);
         }
         return items_lista;

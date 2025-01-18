@@ -97,10 +97,11 @@ cancionesFiltradas();
                     <th>Canción</th>
                     <th>Banda</th>
                     <th>Acciones</th>
-                    
-                    <th>partes</th>                    
-                    <th>uso partes</th>        
+                       
+                    <th>escala</th>
                     <th>calidad</th>
+                    <th>partes</th>                    
+                    <th>uso partes</th>     
                 </tr>
                 
             </thead>
@@ -115,9 +116,10 @@ cancionesFiltradas();
                         <button @click="click_borrar(cancion)">Borrar</button>
                         
                     </td>
+                    <td> {{  cancion.escala }}</td>
+                    <td> {{  cancion.calidad }}</td>
                 <td> {{  cancion.total_partes }} - {{ cancion.len_partes}} </td>
                 <td> {{  cancion.total_orden_partes }}</td>
-                <td> {{  cancion.calidad }}</td>
             </tr>
             </tbody>
         </table>
