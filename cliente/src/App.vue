@@ -123,9 +123,8 @@ function onUpdateCompas(newCompas: number) {
                 @play="onPlay" @pause="onPause" @stop="onStop" @next="onNext" @previous="onPrevious" @update-compas="onUpdateCompas">
         </ControladorTiempo>
       </div>    
-      <div class="col-3">
-        Escala: G
-        Tempo: {{  cancion.tempo }} bpm
+      <div class="col-6">
+        SIN CONECTARSE
       </div>
   
      </div>

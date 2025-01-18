@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue';
 import Menu from './components/menu.vue';
 import { Configuracion, Sesion }  from './modelo/configuracion';
 import { Cliente }  from './modelo/client_socketio';
+import ConfigSesion from './components/configSesion.vue';
 // Definir la canción y el contexto
 
 const viendo = ref("perfil")
@@ -24,20 +25,9 @@ if (!configuracionObj) {
 
 
 let cliente = new Cliente("http://localhost:8080/")
-cliente.connect()
 const config_guardada = ref(configuracionObj)
-function replicaHandler(datos: string[]) {
-  console.log("replicaHandler", datos)
-}
-
-cliente.setreplicaHandler(replicaHandler);
 
 
-function play_acorde() {
-  console.log("envia para replicar play_acorde")
-  //cliente.replicar(4)
-
-}
     // Llamar a la función iniciarCompasEnComponentes cuando sea necesario 
     onMounted(() => { 
         console.log("APP CONFIGURACION MONTADA")
@@ -121,7 +111,7 @@ function play_acorde() {
   </div></div>
 
 
-  <div class="col-9">
+  <div class="col-9 innerConfig">
             
       <div v-if="viendo=='perfil'" class="container">
         <div class="row">
@@ -137,9 +127,13 @@ function play_acorde() {
       </div>
       
       <div v-if="viendo=='sesion'">
-        Sesion
-        <button @click="play_acorde()">MANDAR PLAY</button>
-      </div>
+        <ConfigSesion :cliente="cliente" :config_guardada="config_guardada"></ConfigSesion>
+      
+      
+        </div>
+        
+
+        
       
       <div v-if="viendo=='vistas'">
         Vistas
@@ -158,7 +152,8 @@ function play_acorde() {
   <p>donaciones al alias: la.plata.de.luis</p>
 
       </div>
-      <button @click="guardar_configuracion()">Guardar</button>
+      <div class="botoneraConfig">
+      <button id="btnGuardar" @click="guardar_configuracion()">Guardar</button></div>
     </div>
 
     
@@ -174,4 +169,16 @@ function play_acorde() {
 
 </template>
 
-<style scoped></style>
+<style scoped>
+  .innerConfig {
+    padding: 20px;
+  }
+
+  #btnGuardar {
+    font-size: 30px;
+  }
+
+  .botoneraConfig {padding: 20px;
+  }
+
+</style>

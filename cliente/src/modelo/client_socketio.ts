@@ -16,6 +16,11 @@ export class Cliente {
         this.replicaHandler = handler;
     }
 
+    private conectadoHandler?: (resultado: string) => void;
+    public setconectadoHandler(handler: (resultado: string) => void): void {
+        this.conectadoHandler = handler;
+    }
+
     private urlserver: string;
 
     constructor(urlserver: string) {
@@ -39,12 +44,23 @@ export class Cliente {
 
         socket.on("connect", () => {
             console.log("socket connected");
+            this.conectadoHandler?.("");
         });
+
+        
+        socket.on("connect_error", () => {
+            console.log("socket connected");
+            this.conectadoHandler?.("error");
+        });
+
+
+        
 
         socket.on("disconnect", () => {
             console.log("socket disconnected");
+            this.conectadoHandler?.("desconecado");
         });
-
+            
         socket.on("replica", (datos: string[]) => {
             console.log("inicio_compas received with compas:", datos);
             this.replicaHandler?.(datos);
@@ -53,7 +69,7 @@ export class Cliente {
         this.socket = socket;
     }
 
-    public replicar(datos: []): void {
+    public replicar(datos: string[] ): void {
         this.socket.emit('replicar', datos);
     }
 

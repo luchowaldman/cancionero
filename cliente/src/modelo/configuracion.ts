@@ -14,6 +14,7 @@ export class Configuracion {
 
 
     nombre: string = "no cargado";
+    
     sesion: Sesion = new Sesion();
     concecciones: string[] = [];
     datos: string[] = [];
