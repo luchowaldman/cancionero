@@ -2,20 +2,18 @@ import { Acordes, Parte } from "./acordes";
 import { Cancion } from "./cancion";
 import { item_lista } from "./item_lista";
 import { Letra } from "./letra";
+import { AdminiListas } from "./AdminListas";
 
 
-export class AdminListasURL  {
+export class AdminListasURL extends  AdminiListas {
     private url: string;
     public items_lista: item_lista[] = [];
 
     constructor(url: string) {
+        super();
         this.url = url;
-        this.initialize();
     }
 
-    private async initialize() {
-        this.items_lista = await this.getIndice();
-    }
     async getIndice(): Promise<item_lista[]> {
         console.log("Busca indice", this.url + `/indice.json`);
         const response = await fetch(this.url + `/indice.json`);

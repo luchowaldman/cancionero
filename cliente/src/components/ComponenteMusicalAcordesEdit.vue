@@ -74,7 +74,7 @@ function BuscaMusica(cancion: Cancion) {
       const nota_escala = musica.numeroNota(escala)
       console.log(nota_escala);
       const notas_escala = musica.GetNotasdeescala('mayor', nota_escala);
-      console.log(nota_escala);
+      console.log(notas_escala);
       
 }
 

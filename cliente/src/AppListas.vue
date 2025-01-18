@@ -85,7 +85,7 @@ getIndice().then((indice) => {
   <ListadoTemas titulo="En la lista de reproduccion"  
   
   :muestra_renglones=10
-  @click_editar="click_editar_almacenada"
+  
   :indice="canciones_tocables"></ListadoTemas>
   <ListadoTemas titulo="Almacenadas"
   :muestra_renglones=10

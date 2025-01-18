@@ -1,35 +1,20 @@
 import { Almacenado } from "./Almacenado";
+import { Cancion } from "./cancion";
 import { item_lista } from "./item_lista";
 
 
-export class GeneradorListas  {
-    private url: string;
-    public items_lista: item_lista[] = [];
+export class AdminiListas  {
 
-    constructor(url: string) {
-        this.url = url;
-        this.initialize();
+    constructor() {
     }
 
-    private async initialize() {
-        this.items_lista = await this.getIndice();
-    }
     async getIndice(): Promise<item_lista[]> {
-        console.log("Busca indice", this.url + `/indice.json`);
-        const response = await fetch(this.url + `/indice.json`);
-        const data = await response.json();
-        
-        // console.log(data);
-        let items_lista = []
-        for (let i = 0; i < data.length; i++) {
-            items_lista.push(new item_lista(data[i].cancion, data[i].banda, data[i].total_partes, data[i].total_orden_partes));
-        }
-        return items_lista;
-
+        return [];
     }
 
-    GetCancion(banda: string, cancion: string): string {
+
+    GetCancionxTema(banda: string, cancion: string): Promise<Cancion>  {
         // Implementación específica para GeneradorListasURL
-        return `https://example.com/${banda}/${cancion}`; // Ejemplo de retorno, reemplazar con lógica real
+        throw new Error("Method not implemented.");
     }
 }
