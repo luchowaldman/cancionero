@@ -152,7 +152,31 @@ function getAcorde(reng_texto: number, parte_texto: number) {
 
 
 function compas_activo(reng_texto: number, parte_texto: number) {
-  return reng_texto + parte_texto;
+  let cont_part = 0;
+  for (var i = 0; i < reng_texto; i++) 
+  {
+    cont_part += len_renglon[i];
+    if (i > 0)
+    {
+      if (tiene_enters[i - 1]) {
+        cont_part -= 1;
+      }
+    }
+  }
+  
+  if (reng_texto > 0)
+    {
+      if (tiene_enters[reng_texto - 1]) {
+          
+        if (parte_texto == 0)
+        {
+          return cont_part -= 1;
+        }
+        
+      }
+    }
+
+  return cont_part + parte_texto;
 }
 </script>
 <template>

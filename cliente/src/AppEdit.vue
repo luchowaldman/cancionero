@@ -18,25 +18,7 @@ import { Almacenado } from './modelo/Almacenado';
 import { MidiPlayer } from './modelo/MidiPlayer';
 
 
-const midiPlayer = new MidiPlayer();
 
-const playNote = () => { 
-        if (midiPlayer.isPlayerReady) { 
-            
-            midiPlayer.play("C2"); 
-        } else { 
-            console.error("MIDI Player is not ready"); }
-             
-        };
-
-const iniciar = () => {
-    midiPlayer.initialize();
-    console.log("Iniciando reproductor");
-};
-
-midiPlayer.setConectadoHandler((resultado: string) => {
-    console.log(resultado);
-});
 function onPlay() {
     reproductor.iniciar();
     console.log("Play event received");
@@ -118,7 +100,7 @@ function onUpdateCompas(newCompas: number) {
 }
 
 function guardarCancion() {
-    //almacen.agregarCancion(cancion.value);
+    generadorlistasLS.GuardarCancion(cancion.value, null);
 }
 
     // Llamar a la función iniciarCompasEnComponentes cuando sea necesario 
@@ -134,24 +116,26 @@ function guardarCancion() {
 <template>
      
 
-    <div>
-        <Menu :titulo="cancion.cancion" viendo_vista="editar"></Menu>
-
-
-        <button @click="iniciar">iniciar</button>
-        <button @click="playNote">Reproducir Nota MIDI</button>
-        
-        <div>
-            <input type="button" value="Guardar" @click="guardarCancion" />
-    <ControladorTiempo :compas=compas :cancion="cancion" :contexto="contexto"
-    @play="onPlay" @pause="onPause" @stop="onStop" @next="onNext" @previous="onPrevious" @update-compas="onUpdateCompas">
-
-    </ControladorTiempo>
-        </div>
-        <ComponenteMusicalAcordesEdit :compas="compas" :cancion="cancion" :contexto="contexto"></ComponenteMusicalAcordesEdit>
-
-    </div>
+<div >
+    
+  <Menu :titulo="cancion.cancion" viendo_vista="tocar"></Menu>
+     <div class="row">
+      <div class="col-6">
+            <ControladorTiempo :compas=compas :cancion="cancion" :contexto="contexto"
+                @play="onPlay" @pause="onPause" @stop="onStop" @next="onNext" @previous="onPrevious" @update-compas="onUpdateCompas">
+        </ControladorTiempo>
+      </div>    
+      <div class="col-6">
+        SIN CONECTARSE
+      </div>
   
+     </div>
+
+     <h1>{{ cancion.cancion }}</h1>
+     <h2>{{ cancion.banda }}</h2>
+    <ComponenteMusicalAcordesEdit :compas="compas" :cancion="cancion" :contexto="contexto"></ComponenteMusicalAcordesEdit>
+    <button @click="guardarCancion">Guardar</button>
+    </div>  
 </template>
 
 <style scoped>

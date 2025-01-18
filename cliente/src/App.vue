@@ -129,8 +129,9 @@ function onUpdateCompas(newCompas: number) {
   
      </div>
 
-        
-<div class="row">
+     <h1>{{ cancion.cancion }}</h1>
+     <h2>{{ cancion.banda }}</h2>
+     <div class="row">
     <div v-for="(Componente, index) in componentesMusicales" :key="index" 
     :class="{ 'col-7': index == 0,
               'col-3': index == 1

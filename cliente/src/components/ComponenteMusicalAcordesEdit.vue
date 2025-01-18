@@ -1,161 +1,209 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted, watch } from 'vue';
 import { Cancion } from '../modelo/cancion';
 import { Contexto } from '../modelo/contexto';
-import { watch } from 'vue';
+import { Musica } from '../modelo/musica';
 
 const props = defineProps<{ compas: number, cancion: Cancion, contexto: Contexto }>()
-
-const mostrando_parte = ref(-1)
-const mostrando_compas_parte = ref(-1)
-const currentCompas = ref(0);
-
+const borrar: string = "borrar";
 const mostrando_renglon = ref(-1);
 const mostrando_palabra = ref(-1);
+const letraDiv = ref<HTMLElement | null>(null); // Ref to the div
+const scrollTop = ref(0); // Ref to store the horizontal scroll position
 
-watch(() => props.compas, (newCompas) => {
-    
-  let totalCompases = 0;
-  for (let i = 0; i < props.cancion.acordes.orden_partes.length; i++) 
-  {
 
-    let compases_x_parte = props.cancion.acordes.partes[props.cancion.acordes.orden_partes[i]].acordes.length;
-    if (newCompas < totalCompases + compases_x_parte) {
-      mostrando_parte.value = i;
-      mostrando_compas_parte.value = newCompas - totalCompases;
-      break;
+
+// Watch for changes in the compas prop
+const reng_letra = ref([] as String[][]);
+const reng_Acordes = ref([] as String[]);
+
+
+
+let tiene_enters = [] as boolean[];
+let len_renglon = [] as number[];
+
+
+function ConstruyeCancion(cancion: Cancion) {
+  
+  const secu = cancion.acordes.orden_partes;
+  // Construimos reng_Acordes
+  let todos_los_acordes: string[] = [];
+  secu.forEach(secu_val => {
+    todos_los_acordes.push(...cancion.acordes.partes[secu_val].acordes);
+  });
+  console.log(todos_los_acordes);
+  reng_Acordes.value = todos_los_acordes;
+  // Construimos reng_letra (ejemplo, puedes ajustarlo según tus necesidades)
+  const nuevosRengLetra = [] as String[][];
+
+
+  len_renglon = [] as number[];
+  
+  let falta: string = "";
+  for (let i = 0; i < cancion.letra.renglones.length; i++) {
+    let tieneEnter = false;
+    let toAdd: string[] = cancion.letra.renglones[i];  
+    if (falta != "")
+    {
+      toAdd[0] = falta + toAdd[0];
+      falta = "";
     }
-    totalCompases += compases_x_parte;
+
+    if (toAdd.length > 0 && toAdd[toAdd.length - 1].includes('/n')) {
+      const split = toAdd[toAdd.length - 1].split('/n');
+      falta = split[1];
+      toAdd[toAdd.length - 1] = split[0];
+      tieneEnter = true;
+    }
+    if (toAdd.length > 0)
+    {
+      tiene_enters.push(tieneEnter);
+      len_renglon.push(toAdd.length);
+      nuevosRengLetra.push(toAdd)
+    }
+    
+
   }
-  currentCompas.value = newCompas;
+  reng_letra.value = nuevosRengLetra;
+}
+function BuscaMusica(cancion: Cancion) {
+      let musica = new Musica();
+      console.log("Buscando musica");
+      let escala = reng_Acordes.value[0][0];
+      console.log(escala);
+      const nota_escala = musica.numeroNota(escala)
+      console.log(nota_escala);
+      const notas_escala = musica.GetNotasdeescala('mayor', nota_escala);
+      console.log(nota_escala);
+      
+}
+
+watch(() => props.cancion, (cancion: Cancion) => {
+  ConstruyeCancion(cancion);
+  BuscaMusica(cancion);
+});
 
 
-
-  totalCompases = 0;
-  for (let i = 0; i < props.cancion.letra.renglones.length; i++) 
-  {
+watch(() => props.compas, (newCompas: number) => {
+  
+  let totalCompases = 0;
+  for (let i = 0; i < props.cancion.letra.renglones.length; i++) {
     let compases_x_parte = 0;
     if (props.cancion.letra.renglones[i])
       compases_x_parte = props.cancion.letra.renglones[i].length;
 
-    props.cancion.letra.renglones[i].length; 
     if (newCompas < totalCompases + compases_x_parte) {
       mostrando_renglon.value = i;
       mostrando_palabra.value = newCompas - totalCompases;
-      totalCompases += compases_x_parte;
+
+      const conti_prev = 3;
+      const mostrar_renglonen = Math.max((mostrando_renglon.value * 18) - (18 * conti_prev), 0);
+      
+
+      mover_scroll(mostrar_renglonen);
       break;
     }
     totalCompases += compases_x_parte;
   }
-  console.log("Compas", newCompas, "totalCompases", totalCompases , "Renglon", mostrando_renglon.value, "Palabra", mostrando_palabra.value);
 
   if (newCompas >= totalCompases) {
     mostrando_renglon.value = -1;
     mostrando_palabra.value = -1;
   }
-
-
 });
 
-function modificar_nombre(index_parte: number) 
-{
-  const nuevoNombre = prompt("Ingrese el nuevo nombre de la parte:", props.cancion.acordes.partes[index_parte].nombre);
-  if (nuevoNombre !== null && nuevoNombre.trim() !== "") {
-    props.cancion.acordes.partes[index_parte].nombre = nuevoNombre.trim();
+// Función para manejar el evento de scroll
+const handleScroll = () => {
+  
+  if (letraDiv.value) {
+    console.log('Scrolling', letraDiv.value.scrollTop);
+    scrollTop.value = letraDiv.value.scrollTop; // Actualiza la posición del scroll
   }
-  console.log("Editando nombre de parte", index_parte)
+};
+
+// Añadir el evento de scroll cuando se monta el componente
+onMounted(() => {
+  if (letraDiv.value) {
+    letraDiv.value.addEventListener('scroll', handleScroll);
+  }
+});
+
+// Eliminar el evento de scroll cuando se desmonta el componente
+onUnmounted(() => {
+  if (letraDiv.value) {
+    letraDiv.value.removeEventListener('scroll', handleScroll);
+  }
+});
+
+function mover_scroll(posX: Number) 
+{
+  let prevPosX = posX as number;
+  letraDiv.value?.scrollTo({ top: prevPosX, behavior: 'smooth' });
+}
+
+function getAcorde(reng_texto: number, parte_texto: number) {
+  let cont_part = 0;
+  for (var i = 0; i < reng_texto; i++) 
+  {
+    cont_part += len_renglon[i];
+    if (i > 0)
+    {
+      if (tiene_enters[i - 1]) {
+        cont_part -= 1;
+      }
+    }
+  }
+  if (reng_texto > 0)
+    {
+      if (tiene_enters[reng_texto - 1]) {
+          
+        if (parte_texto == 0)
+        {
+          return "";
+        }
+        cont_part -= 1;
+      }
+    }
+  return reng_Acordes.value[cont_part + parte_texto];
+
 }
 
 
-function agregar_compas(index_parte: number) 
-{
-  const nuevoNombre = prompt("Ingrese los acordes de la parte:");
-  if (nuevoNombre !== null && nuevoNombre.trim() !== "") {
-    props.cancion.acordes.partes[index_parte].acordes.push(nuevoNombre.trim());
-  }
-  console.log("Editando nombre de parte", index_parte)
+function compas_activo(reng_texto: number, parte_texto: number) {
+  return reng_texto + parte_texto;
 }
-
-function modificar_letra(index_parte: number) 
-{
-  const letra = props.cancion.letra.renglones[index_parte].join("|");
-  const nuevoNombre = prompt("Ingrese los acordes de la parte:", letra);
-  if (nuevoNombre !== null &&  nuevoNombre.trim() == "")
-  {    
-    props.cancion.letra.renglones.splice(index_parte, 1);
-
-  }
-  if (nuevoNombre !== null && nuevoNombre.trim() !== "") {
-    props.cancion.letra.renglones[index_parte] = nuevoNombre.trim().split("|");
-  }
-  console.log("Editando nombre de parte", index_parte)
-}
-
-function modificar_compas(index_parte: number, index: number) 
-{
-  const nuevoNombre = prompt("Ingrese los acordes de la parte:", props.cancion.acordes.partes[index_parte].acordes[index]);
-  if (nuevoNombre !== null &&  nuevoNombre.trim() == "")
-  {    
-    props.cancion.acordes.partes[index_parte].acordes.splice(index, 1);
-
-  }
-  else if (nuevoNombre !== null && nuevoNombre.trim() !== "") {
-    props.cancion.acordes.partes[index_parte].acordes[index] = nuevoNombre.trim();
-  }
-  console.log("Editando nombre de parte", index_parte)
-}
-
-
-
-
 </script>
-
 <template>
+  <div class="row">
+    <div class="col-8">
 
-  <div class="componente_acordes">
-    <div v-for="(parte, index_parte) in cancion.acordes.partes" :key="parte.nombre" >
-        <div>
-          <span >{{ parte.nombre }}</span>
-          <button @click="modificar_nombre(index_parte)">Editar</button>
+    <!-- CANCION COMPLETA LETRA Y ACORDES EDIT -->
+      <div class="overflow-auto" ref="letraDiv" style="max-height: 500px;">
+    <div v-for="(parte, letra_parte) in reng_letra" :key="letra_parte" class="col-12">
+      <div style="display: flex; flex-wrap: wrap;">
+        <div v-for="(p, id_p) in parte" :key="id_p" style="margin-right: 5px; display: flex; flex-direction: column; align-items: flex-start;"
+          :class="{ compas_actual: props.compas === compas_activo(letra_parte, id_p) }">
+          <!-- Texto por encima del span -->
+          <div>  {{ getAcorde(letra_parte, id_p)  }} &nbsp;</div>
+          <!-- Texto del span -->
+          <div>{{ p }}</div>
         </div>
-        <div class="parte">
-          
-          <div v-for="(acorde, index) in parte.acordes" class="acorde" :key="acorde">
-            <span  :class="{ compas_actual: ((  mostrando_compas_parte === index ) &&
-                                             ( index_parte  === cancion.acordes.orden_partes[mostrando_parte]  ))
-             }" @click="modificar_compas(index_parte, index)"> &nbsp; {{ acorde }}</span>
-          </div>
-
-          <button @click="agregar_compas(index_parte)">Agregar</button>
-        </div>
+      </div>
     </div>
-  <h3>Partes</h3>
-        <div class="parte">
-          <div v-for="(parte, index) in cancion.acordes.orden_partes" :key="index" class="ordenparte">
-            <span :class="{ compas_actual: mostrando_parte === index }" >{{ cancion.acordes.partes[parte].nombre }}</span>
-          </div>
-          
-        </div>
-
-
-        
-<div id="letra">
-  <h3>Editar Letra</h3>
-  <div v-for="(linea, index) in cancion.letra.renglones" :key="index" class="linea" @click="modificar_letra(index)">  
-    <span v-for="(palabra, index_palabra) in linea" :key="index_palabra" class="palabra" 
-        :class="{ compas_actual: mostrando_renglon === index && mostrando_palabra === index_palabra }"
-        >
-        {{ palabra }}|
-      </span>
   </div>
 
-</div>
-</div>
+
+    </div>
+    <div class="col-4">
+      
+    </div>
+  </div>
 </template>
+
+
 
 <style scoped>
 .read-the-docs {
   color: #888;
 }
-
 </style>
