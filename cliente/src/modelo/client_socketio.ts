@@ -1,11 +1,11 @@
 import { io, Socket } from "socket.io-client";
 
 interface ServerToClientEvents {
-    replica: (datos: string[]) => void;
+    replica: (usuario: string, datos: string[]) => void;
 }
 
 interface ClientToServerEvents {
-    replicar: ([]) => void;
+    replicar: (sesion: string, usuario: string, datos: string[]) => void;
     unirme_sesion(sesion: string, usuario: string): void;
 }
 
@@ -70,8 +70,8 @@ export class Cliente {
         this.socket = socket;
     }
 
-    public replicar(datos: string[] ): void {
-        this.socket.emit('replicar', datos);
+    public replicar(sesion: string, usuario: string, datos: string[] ): void {
+        this.socket.emit('replicar' ,sesion, usuario, datos);
     }
 
 

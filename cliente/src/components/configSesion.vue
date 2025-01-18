@@ -33,7 +33,7 @@ props.cliente.setconectadoHandler((estado: string)=> {
 
 function play_acorde() {
   console.log("envia para replicar play_acorde")
-  props.cliente.replicar(["play_acorde"])
+  props.cliente.replicar(props.config_guardada.sesion.nombre, props.config_guardada.nombre, ["play_acorde"])
 
 }
 

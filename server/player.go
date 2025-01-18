@@ -1,26 +1,54 @@
 package main
 
-import "github.com/zishang520/socket.io/v2/socket"
+import (
+	"github.com/zishang520/socket.io/v2/socket"
+)
 
 type Player struct {
-	Socket *socket.Socket
-
-	PosX int
-	PosY int
-
-	HasGravityInverted bool
+	ID        int
+	Name      string
+	Socket    *socket.Socket
+	Room      *Room
+	Character *Character
 }
 
-func (player *Player) InvertGravity() {
-	player.HasGravityInverted = !player.HasGravityInverted
+func NewPlayer(socket *socket.Socket) *Player {
+	return &Player{
+		Socket: socket,
+	}
 }
 
-func (player *Player) Advance() {
-	if player.HasGravityInverted {
-		player.PosY = player.PosY + 1
-	} else {
-		player.PosY = player.PosY - 1
+func (player *Player) SendTick(playersPositions []any, cameraX int) error {
+	return player.emit("tick", playersPositions, cameraX)
+}
+
+func (player *Player) SendInicioJuego() error {
+	return player.emit("inicioJuego")
+}
+
+func (player *Player) SendReplica(nombre_usuario string, datos interface{}) error {
+	return player.emit("replica", nombre_usuario, datos)
+}
+
+func (player *Player) SendInformacionSala(roomUUID string, mapName string, players []map[string]any) error {
+	return player.emit("informacionSala", roomUUID, mapName, players)
+}
+
+func (player *Player) ToInformacionSalaInfo() map[string]any {
+	return map[string]any{
+		"numeroJugador": player.ID,
+		"nombre":        player.Name,
+	}
+}
+
+func (player *Player) SendCarreraTerminada(raceResult []map[string]any) error {
+	return player.emit("carreraTerminada", raceResult)
+}
+
+func (player *Player) emit(ev string, args ...any) error {
+	if player.Socket == nil {
+		return nil
 	}
 
-	player.PosX = player.PosX + 1
+	return player.Socket.Emit(ev, args...)
 }
