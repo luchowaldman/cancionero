@@ -88,10 +88,16 @@ def letra_separar(verso, acordes):
     intro = ""
     partes = []
     desde = 0
+
+    acordes_encontrados = 0
     for aco in acordes:
-        sb = subtexto(verso, desde, aco['pos'])
+        new_desde = aco['pos'] - (acordes_encontrados * 3)
+        sb = subtexto(verso, desde, new_desde)
         partes.append(sb)
-        desde = aco['pos']
+        
+        if (new_desde > desde):
+            desde = new_desde
+        acordes_encontrados = acordes_encontrados + 1
     partes.append(subtexto(verso, desde, len(verso)))
     intro = partes[0]
     partes.pop(0)
