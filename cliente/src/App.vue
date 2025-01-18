@@ -7,6 +7,8 @@ import { Reproductor } from './modelo/reproductor';
 import ComponenteMusicalAcordes from './components/ComponenteMusicalAcordes.vue';
 import ComponenteMusicalAcordesSeguidos from './components/ComponenteMusicalAcordesSeguidos.vue';
 import ComponenteMusicalLetra from './components/ComponenteMusicalLetra.vue';
+import ComponenteMusicalLetraAcordes from './components/ComponenteMusicalLetrayAcordes.vue';
+
 import ControladorTiempo from './components/ControladorTiempo.vue';
 import Menu from './components/menu.vue';
 import { Acordes } from './modelo/acordes';
@@ -56,8 +58,8 @@ reproductor.setFinalizaHandler(() => {
 
 // Vector de componentes musicales
 const componentesMusicales = ref([
-    markRaw(ComponenteMusicalAcordesSeguidos),
-    markRaw(ComponenteMusicalLetra),
+
+    markRaw(ComponenteMusicalLetraAcordes),
     markRaw(ComponenteMusicalAcordes)
 ]);
 
@@ -130,7 +132,10 @@ function onUpdateCompas(newCompas: number) {
 
         
 <div class="row">
-    <div v-for="(Componente, index) in componentesMusicales" :key="index" class="col-3">
+    <div v-for="(Componente, index) in componentesMusicales" :key="index" 
+    :class="{ 'col-7': index == 0,
+              'col-3': index == 1
+     } ">
         <component :is="Componente" :compas="compas" :cancion="cancion" :contexto="contexto"></component>
     </div>
 </div>

@@ -25,7 +25,7 @@ if (!configuracionObj) {
 
 let cliente = new Cliente("http://localhost:8080/")
 cliente.connect()
-
+const config_guardada = ref(configuracionObj)
 function replicaHandler(datos: string[]) {
   console.log("replicaHandler", datos)
 }
@@ -48,8 +48,9 @@ function play_acorde() {
     }
 
     function guardar_configuracion() {
+      console.log("guardar_configuracion")
       
-        localStorage.setItem("configuracion", JSON.stringify(configuracionObj))
+        localStorage.setItem("configuracion", JSON.stringify(config_guardada.value))
     }
 
 </script>
@@ -67,7 +68,7 @@ function play_acorde() {
       <li @click="click_opcion('perfil')">
         <a href="#" class="nav-link text-white"  :class="{ 'active': viendo==='perfil' }" >
           
-           Usuario 
+           Perfil 
         </a>
       </li>
       
@@ -122,12 +123,17 @@ function play_acorde() {
 
   <div class="col-9">
             
-      <div v-if="viendo=='perfil'">
-        Usuario : Aca vendria el input
-        <!-- 
-        <input v-model="configuracion.nombre">
-      -->
-      
+      <div v-if="viendo=='perfil'" class="container">
+        <div class="row">
+          <div class="col-6">
+            <div class="form-group col-6">
+              <label>Nombre</label>
+              <input v-model="config_guardada.nombre">
+            </div>
+          </div>
+
+        </div>
+        
       </div>
       
       <div v-if="viendo=='sesion'">

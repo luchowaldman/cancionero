@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, watchEffect } from 'vue';
+import { ref, onMounted, onUnmounted, watch } from 'vue';
 import { Cancion } from '../modelo/cancion';
 import { Contexto } from '../modelo/contexto';
 
@@ -10,8 +10,8 @@ const mostrando_palabra = ref(-1);
 const letraDiv = ref<HTMLElement | null>(null); // Ref to the div
 const scrollTop = ref(0); // Ref to store the horizontal scroll position
 
-watchEffect(() => {
-  let newCompas = props.compas;
+watch(() => props.compas, (newCompas: number) => {
+  
   let totalCompases = 0;
   for (let i = 0; i < props.cancion.letra.renglones.length; i++) {
     let compases_x_parte = 0;
