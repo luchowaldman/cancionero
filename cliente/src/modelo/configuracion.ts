@@ -13,7 +13,7 @@ export class Configuracion {
 
 
 
-    nombre: string = "no cargado";
+    nombre: string = "default";
     
     sesion: Sesion = new Sesion();
     concecciones: string[] = [];

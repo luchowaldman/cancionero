@@ -18,12 +18,17 @@ props.cliente.setreplicaHandler(replicaHandler);
 
 props.cliente.setconectadoHandler((estado: string)=> {
   console.log("conectado", estado)
-  if (estado=="")
-    props.config_guardada.sesion.estado = "conectado"
-    if (estado=="desconecado")
+  if (estado=="") {
+      props.config_guardada.sesion.estado = "conectado"
+      props.cliente.unirme_sesion(props.config_guardada.sesion.nombre, props.config_guardada.nombre)
+  }
+    
+  if (estado=="desconecado") {
         props.config_guardada.sesion.estado = "desconectado"
-    if (estado=="error")
-      props.config_guardada.sesion.estado = "error"
+  }
+    if (estado=="error") {
+     props.config_guardada.sesion.estado = "error"
+  }
 })
 
 function play_acorde() {

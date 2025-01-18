@@ -19,7 +19,7 @@ if (!configuracionObj) {
   configuracionObj = new Configuracion()
   configuracionObj.sesion = new Sesion()
   configuracionObj.sesion.nombre = "default"
-  configuracionObj.nombre = "no cargado"
+  configuracionObj.nombre = "default"
   localStorage.setItem("configuracion", JSON.stringify(configuracionObj))
 }
 

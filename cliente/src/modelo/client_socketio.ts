@@ -6,6 +6,7 @@ interface ServerToClientEvents {
 
 interface ClientToServerEvents {
     replicar: ([]) => void;
+    unirme_sesion(sesion: string, usuario: string): void;
 }
 
 export class Cliente {
@@ -71,6 +72,12 @@ export class Cliente {
 
     public replicar(datos: string[] ): void {
         this.socket.emit('replicar', datos);
+    }
+
+
+    public unirme_sesion(sesion: string, usuario: string): void {
+        console.log("unirme_sesion", sesion, usuario);
+        this.socket.emit('unirme_sesion', sesion, usuario);
     }
 
 }

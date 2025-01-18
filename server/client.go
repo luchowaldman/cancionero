@@ -31,6 +31,23 @@ func manageClientConnection(clients []any, playersMutex *sync.Mutex, players *[]
 		newClient.Disconnect(true)
 	}
 
+	err = newClient.On("unirme_sesion", func(datas ...any) {
+		log.Println("evento unirme_sesion")
+
+		// TODO: mutex for each player, not only for the list
+		playersMutex.Lock()
+		// players[newClient.Id()].InvertGravity()
+
+		for _, player := range *players {
+			player.Socket.Emit("replica", datas)
+		}
+		playersMutex.Unlock()
+	})
+	if err != nil {
+		log.Println("evento replicar recibido", "err", err)
+		newClient.Disconnect(true)
+	}
+
 	err = newClient.On("disconnect", func(...any) {
 		log.Println("client disconnected", newClient.Id())
 		// delete(players, newClientID)
