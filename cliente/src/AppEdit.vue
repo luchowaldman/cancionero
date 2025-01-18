@@ -15,7 +15,33 @@ import { AdminListasLocalStorage } from './modelo/AdminListasStorage';
 import { AdminListasURL } from './modelo/AdminListasURL';
 import { Almacenado } from './modelo/Almacenado';
 
+import { MidiPlayer } from './modelo/MidiPlayer';
 
+
+const midiPlayer = new MidiPlayer();
+
+const playNote = () => { 
+        if (midiPlayer.isPlayerReady) { 
+            
+            midiPlayer.play("C2"); 
+        } else { 
+            console.error("MIDI Player is not ready"); }
+             
+        };
+
+const iniciar = () => {
+    midiPlayer.initialize();
+    console.log("Iniciando reproductor");
+};
+
+midiPlayer.setConectadoHandler((resultado: string) => {
+    console.log(resultado);
+});
+function onPlay() {
+    reproductor.iniciar();
+    console.log("Play event received");
+
+}
 
 const almacen = new Almacenado();
 
@@ -29,8 +55,6 @@ const cancion  = ref(new Cancion("", "", new Acordes([], []), new Letra([])));
 const origen = localStorage.getItem("origen") || 'almacenada';
 const banda = localStorage.getItem("editar_banda") || 'intoxicados';
 const tema = localStorage.getItem("editar_cancion") || 'esta-saliendo-el-sol';
-console.log("Banda", banda);
-console.log("Tema", tema);
 if (origen == 'almacenada') {
 
     generadorlistasLS.GetCancionxTema(banda, tema).then((cancion_obtenida) => {
@@ -74,11 +98,6 @@ function onPause() {
     console.log("Pause event received");
 }
 
-function onPlay() {
-    reproductor.iniciar();
-    console.log("Play event received");
-
-}
 
 function onStop() {
     reproductor.parar();
@@ -107,11 +126,21 @@ function guardarCancion() {
         console.log("APP MONTADA")
     });
 
+
+
+
 </script>
 
 <template>
+     
+
     <div>
         <Menu :titulo="cancion.cancion" viendo_vista="editar"></Menu>
+
+
+        <button @click="iniciar">iniciar</button>
+        <button @click="playNote">Reproducir Nota MIDI</button>
+        
         <div>
             <input type="button" value="Guardar" @click="guardarCancion" />
     <ControladorTiempo :compas=compas :cancion="cancion" :contexto="contexto"
