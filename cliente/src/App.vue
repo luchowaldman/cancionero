@@ -65,6 +65,7 @@ function acciono(valor: string) {
 </template>
 
 <style scoped>
+
 #contenedor-musical {
     display: flex;
     flex-direction: column;

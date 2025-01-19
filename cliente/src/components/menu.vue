@@ -18,28 +18,30 @@ if (props.viendo_vista == undefined)
 </script>
 
 <template>
-  <div class="navbar">
+  <div class="navbarFogon">
     <div class="marca">
-      <a class="navbar-brand" href="#"><i class="bi bi-fire"></i>Fogon</a>
+      <i class="bi bi-fire"></i>Fogon
     </div>
-
     
-          <div class="marca-item">
-            <p class="nav-link" :class="{active: viendo_vista == 'tocar'}" aria-current="page"  @click="acciono('tocar')">Tocar</p>	
-          </div>
-
+    
+    
+    <div class="pagina_seleccionable" @click="acciono('tocar')"  :class="{active: viendo_vista == 'tocar'}" >
+        <p class="nombre-pagina" :class="{active: viendo_vista == 'tocar'}" aria-current="page">Tocar</p>	
           <ControladorTiempo :compas=compas :cancion="cancion">
         </ControladorTiempo> 
+    </div>
 
-          <div class="nav-item">
-            <p class="nav-link" :class="{active: viendo_vista == 'listas'}" aria-current="page"  @click="acciono('listas')">Listas</p>
-          </div>
-          
-          <ControladorSesion :compas=compas :cancion="cancion" :cliente="cliente">
+
+    <div class="pagina_seleccionable" @click="acciono('listas')"  :class="{active: viendo_vista == 'listas'}" >
+        <p class="nombre-pagina"aria-current="page">Listas</p>	
+        <ControladorSesion :compas=compas :cancion="cancion" :cliente="cliente">
         </ControladorSesion>
+    </div>
+
+
           
-          <div class="nav-item">
-            <p class="nav-link" :class="{active: viendo_vista == 'config'}" aria-current="page" @click="acciono('config')">
+          <div class="pagina_seleccionable config" @click="acciono('config')" :class="{active: viendo_vista == 'config'}" >
+            <p class="nombre-pagina" aria-current="page">
               
               <i class="bi bi-gear-fill"></i>
 
@@ -50,11 +52,41 @@ if (props.viendo_vista == undefined)
 </template>
 
 <style scoped>
+.navbarFogon {
+  display: flex;
+  border: 1px solid;
+}
+
+.pagina_seleccionable {
+  display: flex;
+  border: 1px solid transparent;
+  margin: 10px 0px 10px 10px;
+}
+
+.pagina_seleccionable:hover {
+  border-color: black;
+}
+
+.active {
+  color: blue
+}
+
+.marca {
+  font-size: 60px;
+  color: red;
+}
+.nombre-pagina {
+  font-size: 60px;
+}
+
 body {
   font-size: 20px; /* Hacer las letras más grandes */
   background-color: #F5DEB3; /* Color claro, como un papel viejo */
   color: #333; /* Color de texto gris oscuro para mejor contraste */
   font-family: 'Arial', sans-serif; /* Cambiar a una fuente moderna */
+}
+.config {
+  margin-left: auto
 }
 
 .navbar {
@@ -66,17 +98,6 @@ body {
   color: #8B4513; /* Color marrón para un estilo de papel viejo */
   font-size: 42px; /* Aumentar tamaño de la marca */
   text-decoration: none;
-}
-
-.nav-link {
-  color: #8B4513;
-  text-decoration: none;
-  padding: 5px 10px;
-}
-
-.nav-link.active {
-  font-weight: bold;
-  font-size: 22px; /* Aumentar el tamaño de la letra para el enlace activo */
 }
 
 .navbar-toggler {
