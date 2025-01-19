@@ -22,6 +22,7 @@ const reng_Acordes = ref([] as String[]);
 const acord_escala = ref([] as String[]);
 const analisis_armonicos = ref([] as AnalisisArmonico[]);
 const cancion_enescala = ref(false);
+const nota_escala = ref("");
 
 
 let tiene_enters = [] as boolean[];
@@ -72,12 +73,8 @@ function ConstruyeCancion(cancion: Cancion) {
   }
   reng_letra.value = nuevosRengLetra;
 }
-const nota_escala = ref("");
-function BuscaMusica(cancion: Cancion) {
-      console.log("Buscando musica");
-      let escala = reng_Acordes.value[0];
-      
-      nota_escala.value = escala
+function BuscaMusica(escala: string, cancion: Cancion) {
+      console.log("BuscaMusica", escala, cancion);
       let acordes_escala = musica.GetAcordesdeescala(escala);
 
       let analisis_armonicosnuev: AnalisisArmonico[] = []
@@ -98,7 +95,9 @@ function BuscaMusica(cancion: Cancion) {
 
 watch(() => props.cancion, (cancion: Cancion) => {
   ConstruyeCancion(cancion);
-  BuscaMusica(cancion);
+  const nota = cancion.acordes.partes[0].acordes[0];
+  nota_escala.value = nota; 
+  BuscaMusica(nota, cancion);
 });
 
 
