@@ -79,17 +79,13 @@ getIndice().then((indice) => {
 <template>
     <div>
         
-  <Menu titulo="Listas" viendo_vista="listas"></Menu>
-        
   <ListadoTemas titulo="En la lista de reproduccion"  
-  
-  :muestra_renglones=10
-  
-  :indice="canciones_tocables"></ListadoTemas>
+    :muestra_renglones=10
+    :indice="canciones_tocables"></ListadoTemas>
   <ListadoTemas titulo="Almacenadas"
-  :muestra_renglones=10
-  @click_agregar="click_agregar_almacenada"
+    :muestra_renglones=10
     :indice="canciones_Storage"
+    @click_agregar="click_agregar_almacenada"
     @click_editar="click_editar_almacenada"
     ></ListadoTemas>
   <ListadoTemas titulo="En data generada por Luis Waldman" 

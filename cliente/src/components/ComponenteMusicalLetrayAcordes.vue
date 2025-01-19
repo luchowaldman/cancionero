@@ -29,7 +29,7 @@ watch(() => props.cancion, (cancion: Cancion) => {
   secu.forEach(secu_val => {
     todos_los_acordes.push(...cancion.acordes.partes[secu_val].acordes);
   });
-  console.log(todos_los_acordes);
+  
   reng_Acordes.value = todos_los_acordes;
   // Construimos reng_letra (ejemplo, puedes ajustarlo según tus necesidades)
   const nuevosRengLetra = [] as String[][];

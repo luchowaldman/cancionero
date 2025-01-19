@@ -41,12 +41,12 @@ if (origen == 'almacenada') {
 
     generadorlistasLS.GetCancionxTema(banda, tema).then((cancion_obtenida) => {
     cancion.value = cancion_obtenida;
-    console.log("Canción", cancion.value);
+    
     });
 } else if (origen == 'URL') {
     generadorlistasURL.GetCancionxTema(banda, tema).then((cancion_obtenida) => {
     cancion.value = cancion_obtenida;
-    console.log("Canción", cancion.value);
+    
     }); 
     
 }

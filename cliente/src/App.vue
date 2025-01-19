@@ -28,7 +28,7 @@ const updateDimensions = () => { width.value = window.innerWidth; height.value =
 const generadorlistasURL = new AdminListasURL('/data');
 generadorlistasURL.GetCancionxTema('intoxicados', 'casi-sin-pensar').then((cancion_obtenida) => {
     cancion.value = cancion_obtenida;
-    console.log("Canción", cancion.value);
+    
     }); 
     
 
