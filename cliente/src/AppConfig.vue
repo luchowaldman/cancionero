@@ -24,7 +24,7 @@ if (!configuracionObj) {
 }
 
 
-let cliente = new Cliente("http://localhost:8080/")
+let cliente = new Cliente("http://192.168.0.202:8080/")
 const config_guardada = ref(configuracionObj)
 
 

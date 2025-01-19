@@ -45,26 +45,39 @@ function cancionesFiltradas()
     let indice = 0;    
     while ((indices_ret.length < max_registros.value) && (indice < indice_disponible.value.length)) 
     {
-        if (indice_disponible.value[indice].cancion.toLowerCase().includes(fil_can.value.toLowerCase())
-         && indice_disponible.value[indice].banda.toLowerCase().includes(fil_ban.value.toLowerCase()))
-        {
+        let incluye = true
 
-
-            // con_buenaspropos
-            if (muy_faciles.value)
+        if (fil_can.value != "") {
+            if (!indice_disponible.value[indice].cancion.toLowerCase().includes(fil_can.value.toLowerCase()))
             {
-                if (
-                    (indice_disponible.value[indice].total_partes < 3)
-                    && (indice_disponible.value[indice].total_orden_partes > 3)
-             ) {
-                    indices_ret.push(indice_disponible.value[indice]);
-                }
-            }
-            else {
-
-                indices_ret.push(indice_disponible.value[indice]);
+                incluye = false;
             }
         }
+        if (fil_ban.value != "") {
+            if (!indice_disponible.value[indice].banda.toLowerCase().includes(fil_ban.value.toLowerCase()))
+            {
+                incluye = false;
+            }
+        }
+        
+        
+            if (muy_faciles.value)
+            {
+                if (!((indice_disponible.value[indice].total_partes < 3)
+                    && (indice_disponible.value[indice].total_orden_partes > 3)))
+                {
+                    
+                    incluye = false;
+                }
+            }
+            if (con_buenaspropos.value)
+            {
+            }
+
+
+            if (incluye) {
+                indices_ret.push(indice_disponible.value[indice]);
+            }
         indice = indice + 1;
     }
     indice_disponible_filtro.value = indices_ret;
