@@ -50,16 +50,17 @@ function acciono(valor: string) {
 
        
 
-  <Menu :titulo="cancion.cancion" viendo_vista="tocar" @acciono="acciono" :compas="compas" :cancion="cancion" :cliente="cliente"></Menu>
-   <p>Anchura: {{ width }} px</p> <p>Altura: {{ height }} px</p>
+  <Menu :titulo="cancion.cancion" :viendo_vista="viendo" @acciono="acciono" :compas="compas" :cancion="cancion" :cliente="cliente"></Menu>
+
   <div class="pantalla">
-    <Tocar v-if="viendo=='tocar'" :titulo="cancion.cancion" viendo_vista="tocar" :compas="compas" :cancion="cancion"></Tocar>
-    <Listas v-if="viendo=='listas'" :titulo="cancion.cancion" viendo_vista="listas" :compas="compas" :cancion="cancion"></Listas>
+    <Tocar v-if="viendo=='tocar'" :titulo="cancion.cancion" :viendo_vista="viendo" :compas="compas" :cancion="cancion"></Tocar>
+    <Listas v-if="viendo=='listas'" :titulo="cancion.cancion" :viendo_vista="viendo" :compas="compas" :cancion="cancion"></Listas>
     <Configuracion v-if="viendo=='config'"></Configuracion>
 
     
   </div>
-
+  <div class="fixed-bottom-right"><p>Anchura: {{ width }} px</p> <p>Altura: {{ height }} px</p>
+  </div>
 </div>
 </template>
 
@@ -75,4 +76,12 @@ function acciono(valor: string) {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-top: 20px;
 }
+
+.fixed-bottom-right {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 9999; /* Asegura que se muestre encima de otros elementos */
+}
+
 </style>

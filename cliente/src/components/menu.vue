@@ -20,7 +20,7 @@ if (props.viendo_vista == undefined)
 <template>
   <div class="navbar">
     <div class="marca">
-      <a class="navbar-brand" href="#">Cancionero</a>
+      <a class="navbar-brand" href="#"><i class="bi bi-fire"></i>Fogon</a>
     </div>
 
     
@@ -39,7 +39,11 @@ if (props.viendo_vista == undefined)
         </ControladorSesion>
           
           <div class="nav-item">
-            <p class="nav-link" :class="{active: viendo_vista == 'config'}" aria-current="page" @click="acciono('config')">Configuración</p>
+            <p class="nav-link" :class="{active: viendo_vista == 'config'}" aria-current="page" @click="acciono('config')">
+              
+              <i class="bi bi-gear-fill"></i>
+
+            </p>
           </div>
     
     </div>
