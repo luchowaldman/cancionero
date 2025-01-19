@@ -3,10 +3,12 @@ import { ref, onMounted, onUnmounted, watch } from 'vue';
 import { Cancion } from '../modelo/cancion';
 import { Contexto } from '../modelo/contexto';
 import { Musica } from '../modelo/musica';
+import { AnalisisArmonico } from '../modelo/analisis_armonico';
+import Acordedit from './acordedit.vue';
+import { todo } from 'node:test';
 
 let musica = new Musica();
 const props = defineProps<{ compas: number, cancion: Cancion, contexto: Contexto }>()
-const borrar: string = "borrar";
 const mostrando_renglon = ref(-1);
 const mostrando_palabra = ref(-1);
 const letraDiv = ref<HTMLElement | null>(null); // Ref to the div
@@ -18,22 +20,24 @@ const scrollTop = ref(0); // Ref to store the horizontal scroll position
 const reng_letra = ref([] as String[][]);
 const reng_Acordes = ref([] as String[]);
 const acord_escala = ref([] as String[]);
-
+const analisis_armonicos = ref([] as AnalisisArmonico[]);
+const cancion_enescala = ref(false);
 
 
 let tiene_enters = [] as boolean[];
 let len_renglon = [] as number[];
 
 
+let todos_los_acordes: string[] = [];
+
 function ConstruyeCancion(cancion: Cancion) {
   
   const secu = cancion.acordes.orden_partes;
+  todos_los_acordes = [];
   // Construimos reng_Acordes
-  let todos_los_acordes: string[] = [];
   secu.forEach(secu_val => {
     todos_los_acordes.push(...cancion.acordes.partes[secu_val].acordes);
   });
-  console.log(todos_los_acordes);
   reng_Acordes.value = todos_los_acordes;
   // Construimos reng_letra (ejemplo, puedes ajustarlo según tus necesidades)
   const nuevosRengLetra = [] as String[][];
@@ -68,13 +72,27 @@ function ConstruyeCancion(cancion: Cancion) {
   }
   reng_letra.value = nuevosRengLetra;
 }
-const nota_escala = ref(0);
+const nota_escala = ref("");
 function BuscaMusica(cancion: Cancion) {
       console.log("Buscando musica");
-      let escala = reng_Acordes.value[0][0];
-      console.log(escala);
-      nota_escala.value = musica.numeroNota(escala)
-      acord_escala.value = musica.GetNotasdeescala('mayor', nota_escala.value);
+      let escala = reng_Acordes.value[0];
+      
+      nota_escala.value = escala
+      let acordes_escala = musica.GetAcordesdeescala(escala);
+
+      let analisis_armonicosnuev: AnalisisArmonico[] = []
+      cancion_enescala.value = true;
+      for (var acorde in todos_los_acordes) {
+        let ana = musica.getAnalisis(todos_los_acordes[acorde], acordes_escala);
+        if (!ana.esta_enscala)
+        {
+          cancion_enescala.value = false;
+        }
+        analisis_armonicosnuev.push(ana);
+      }
+
+      acord_escala.value = acordes_escala;
+      analisis_armonicos.value = analisis_armonicosnuev
       
 }
 
@@ -169,6 +187,54 @@ function getAcorde(reng_texto: number, parte_texto: number) {
 }
 
 
+
+
+function getAnalisisArmonico(reng_texto: number, parte_texto: number): AnalisisArmonico {
+    try {
+        // Aquí iría tu lógica de análisis
+        let resultado = getAnalisisArmonicoTry(reng_texto, parte_texto);
+        if (resultado == undefined)
+        {
+          return new AnalisisArmonico(false, -1, "", "");
+        }
+        return resultado;
+    } catch (e) {
+        // Retorna un nuevo objeto AnalisisArmonico en caso de excepción
+        return new AnalisisArmonico(false, -1, "", "");
+    }
+}
+
+
+function getAnalisisArmonicoTry(reng_texto: number, parte_texto: number): AnalisisArmonico {
+
+  let cont_part = 0;
+  for (var i = 0; i < reng_texto; i++) 
+  {
+    cont_part += len_renglon[i];
+    if (i > 0)
+    {
+      if (tiene_enters[i - 1]) {
+        cont_part -= 1;
+      }
+    }
+  }
+
+  if (reng_texto > 0)
+    {
+      if (tiene_enters[reng_texto - 1]) {
+          
+        if (parte_texto == 0)
+        {
+          return new AnalisisArmonico(-1, false, "", "", "");
+        }
+        cont_part -= 1;
+      }
+    }
+  return analisis_armonicos.value[cont_part + parte_texto];
+
+}
+
+
 function compas_activo(reng_texto: number, parte_texto: number) {
   return reng_texto + parte_texto;
 }
@@ -184,7 +250,7 @@ function compas_activo(reng_texto: number, parte_texto: number) {
         <div v-for="(p, id_p) in parte" :key="id_p" style="margin-right: 5px; display: flex; flex-direction: column; align-items: flex-start;"
           :class="{ compas_actual: props.compas === compas_activo(letra_parte, id_p) }">
           <!-- Texto por encima del span -->
-          <div>  {{ getAcorde(letra_parte, id_p)  }} &nbsp;</div>
+          <Acordedit :analisis="getAnalisisArmonico(letra_parte, id_p)"></Acordedit>
           <!-- Texto del span -->
           <div>{{ p }}</div>
         </div>
@@ -199,7 +265,7 @@ function compas_activo(reng_texto: number, parte_texto: number) {
 
       
 <div class="row">
-  <div class="col-3">Escala {{ musica.nombreNota(nota_escala) }}</div>
+  <div class="col-3" :class="{ noesta_enscala: cancion_enescala === false } ">Escala {{ nota_escala }} </div>
   <div class="col-3">Acordes de Escala {{ acord_escala }}</div>
 
 </div>
@@ -208,21 +274,19 @@ function compas_activo(reng_texto: number, parte_texto: number) {
   <h2>Orden</h2>
   <div class="row ">
         <div v-for="(parte, index) in cancion.acordes.orden_partes" :key="index" class="col-2 acorde">
-          <span :class="{ compas_actual: mostrando_parte === index }" >{{ cancion.acordes.partes[parte].nombre }}</span>
+          <span >{{ cancion.acordes.partes[parte].nombre }}</span>
         </div>
         
   </div>
   <h1>&nbsp;</h1>
 
   <h2>Partes</h2>
-  <div v-for="(parte, index_parte) in cancion.acordes.partes" :key="parte.nombre" class="row" >
+  <div v-for="(parte, index_parte) in cancion.acordes.partes" :key="index_parte" class="row" >
     
       <h3>{{ parte.nombre }}</h3>
       <div class="parte">
-        <div v-for="(acorde, index) in parte.acordes" class="acorde" :key="acorde">
-          <span  :class="{ compas_actual: ((  mostrando_compas_parte === index ) &&
-                                           ( index_parte  === cancion.acordes.orden_partes[mostrando_parte]  ))
-           }">{{ acorde }}</span>
+        <div v-for="(acorde, index) in parte.acordes" class="acorde" :key="index">
+          <span  >{{ acorde }}</span>
         </div>
       </div>
   </div>
@@ -237,5 +301,10 @@ function compas_activo(reng_texto: number, parte_texto: number) {
 <style scoped>
 .read-the-docs {
   color: #888;
+}
+
+
+.noesta_enscala {
+  color: red;
 }
 </style>
