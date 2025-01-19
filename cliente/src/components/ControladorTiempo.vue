@@ -4,7 +4,7 @@ import { Cancion } from '../modelo/cancion';
 import { Contexto } from '../modelo/contexto';
 import Metronomo from './metronomo.vue';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-const props = defineProps<{ compas: number, cancion: Cancion, contexto: Contexto }>();
+const props = defineProps<{ compas: number, cancion: Cancion }>();
 const emit = defineEmits(['play', 'pause', 'stop', 'next', 'previous', 'update-compas']);
 const currentCompas = ref(0);
 const metronomeRef = ref();
@@ -48,32 +48,36 @@ function updateCompas(newCompas: number) {
 </script>
 
 <template>
-<div class="row">
-  <div class="row">
-    <div class="controls col-6">
-      <button @click="play">
-  <i class="bi bi-play-fill"></i>
-</button>
-<button @click="pause">
-  <i class="bi bi-pause-fill"></i>
-</button>
-<button @click="stop">
-  <i class="bi bi-stop-fill"></i>
-</button>
-<button @click="previous">
-  <i class="bi bi-skip-backward-fill"></i>
-</button>
-<button @click="next">
-  <i class="bi bi-skip-forward-fill"></i>
-</button>
 
+  <div>
+    1 / 12 {{ cancion.cancion }} - {{ cancion.banda }}
+    
+    
+    
+    <div class="controls">
+            <button class="boton_controller" @click="play">
+              <i class="bi bi-play-fill"></i>
+            </button>
+            <button class="boton_controller" @click="pause">
+              <i class="bi bi-pause-fill"></i>
+            </button>
+            <button class="boton_controller" @click="stop">
+              <i class="bi bi-stop-fill"></i>
+            </button>
+            <button class="boton_controller" @click="previous">
+              <i class="bi bi-skip-backward-fill"></i>
+            </button>
+            <button class="boton_controller" @click="next">
+              <i class="bi bi-skip-forward-fill"></i>
+            </button>
+            <span>1:23 / 2:13</span>
     </div>
-    <div class="col-2">Compás: {{ currentCompas }} 
+    
+    
     <Metronomo ref="metronomeRef" :cancion="cancion"></Metronomo>
 
-    </div>
-    <div class="col-2">Tempo: <input type="number" v-model="props.cancion.tempo"> </div>
-  <div class="row">
+    
+  <div>
 
     <div class="progress-bar">
         <input 
@@ -90,12 +94,17 @@ function updateCompas(newCompas: number) {
 
     
 </div>
-</div>
+
 </template>
 
 <style scoped>
 .controls {
     display: flex;
     
+}
+
+.boton_controller {
+  width: 50px;
+  height: 50px;
 }
 </style>

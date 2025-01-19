@@ -3,7 +3,7 @@ import { ref, onMounted, onUnmounted, watch } from 'vue';
 import { Cancion } from '../modelo/cancion';
 import { Contexto } from '../modelo/contexto';
 
-const props = defineProps<{ compas: number, cancion: Cancion, contexto: Contexto }>()
+const props = defineProps<{ compas: number, cancion: Cancion }>()
 
 const mostrando_renglon = ref(-1);
 const mostrando_palabra = ref(-1);

@@ -4,7 +4,7 @@ import { Cancion } from '../modelo/cancion';
 import { Contexto } from '../modelo/contexto';
 import ComponenteAcordeYLetra from './ComponenteAcordeYLetra.vue';
 
-const props = defineProps<{ compas: number, cancion: Cancion, contexto: Contexto }>()
+const props = defineProps<{ compas: number, cancion: Cancion  }>()
 const borrar: string = "borrar";
 const mostrando_renglon = ref(-1);
 const mostrando_palabra = ref(-1);

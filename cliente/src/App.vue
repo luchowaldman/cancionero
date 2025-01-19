@@ -1,110 +1,47 @@
 <script setup lang="ts">
+
+
 import { ref, markRaw, onMounted } from 'vue';
-import { Cancion } from './modelo/cancion';
-import { Contexto } from './modelo/contexto';
-import { Reproductor } from './modelo/reproductor';
 
-import ComponenteMusicalAcordes from './components/ComponenteMusicalAcordes.vue';
-import ComponenteMusicalAcordesSeguidos from './components/ComponenteMusicalAcordesSeguidos.vue';
-import ComponenteMusicalLetra from './components/ComponenteMusicalLetra.vue';
-import ComponenteMusicalLetraAcordes from './components/ComponenteMusicalLetrayAcordes.vue';
 
-import ControladorTiempo from './components/ControladorTiempo.vue';
 import Menu from './components/menu.vue';
+import Tocar from './pages/tocar.vue';
+import Listas from './pages/listas.vue';
+import Configuracion from './pages/configuracion.vue';
+import { Cancion } from './modelo/cancion';
 import { Acordes } from './modelo/acordes';
 import { Letra } from './modelo/letra';
-import { Almacenado } from './modelo/Almacenado';
-import { item_lista } from './modelo/item_lista';
-import { AdminListasTocables } from './modelo/AdminListasTocables';
+import { Cliente } from './modelo/client_socketio';
 
-const almacen = new Almacenado();
-const generadorlistasTocables = new AdminListasTocables(almacen);
+import { AdminListasURL } from './modelo/AdminListasURL';
 
-const cancion  = ref(new Cancion("", "", new Acordes([], []), new Letra([])));
 const nro_cancion = ref(0);
-
-let canciones_sesion: Cancion[] = [];
-let canciones_lista: item_lista[] = []
-generadorlistasTocables.getIndice().then((value: item_lista[]) => {
-    canciones_lista = value;
-    //console.log("Canciones", canciones_lista);
-    for (const tema of canciones_lista) 
-    {
-        generadorlistasTocables.GetCancionxTema(tema.banda, tema.cancion).then((cancion_obtenida: Cancion) => {
-            canciones_sesion.push(cancion_obtenida);
-            cancion.value = canciones_sesion[nro_cancion.value];
-        });        
-    }
-
-});
-   
-
-let contexto = new Contexto("Lista", 10);
 const compas = ref(-1);
-let reproductor = new Reproductor(2200, 70);
+const cancion  = ref(new Cancion("no song name", "no band name", new Acordes([], []), new Letra([])));
 
-reproductor.setIniciaHandler(() => {
-    console.log("Iniciando reproductor");
+const width = ref(window.innerWidth); 
+const height = ref(window.innerHeight);
+const viendo = ref("tocar");
+let cliente = new Cliente("http://192.168.0.202:8080/")
+const updateDimensions = () => { width.value = window.innerWidth; height.value = window.innerHeight; };
+
+const generadorlistasURL = new AdminListasURL('/data');
+generadorlistasURL.GetCancionxTema('intoxicados', 'casi-sin-pensar').then((cancion_obtenida) => {
+    cancion.value = cancion_obtenida;
+    console.log("Canción", cancion.value);
+    }); 
+    
+
+onMounted(() => { 
+    console.log("APP MONTADA")
+    window.addEventListener('resize', updateDimensions);
 });
 
-reproductor.setIniciaCompasHandler((newCompas: number) => {
-    console.log("Tocando compas", newCompas);
-    compas.value = newCompas;
-});
-
-reproductor.setFinalizaHandler(() => {
-    console.log("Deteniendo reproductor");
-});
-
-// Vector de componentes musicales
-const componentesMusicales = ref([
-
-    markRaw(ComponenteMusicalLetraAcordes),
-    markRaw(ComponenteMusicalAcordes)
-]);
-
-
-function onPause() {
-    reproductor.pausar();
-    console.log("Pause event received");
+function acciono(valor: string) {
+    console.log("ACCIONO", valor);
+    viendo.value = valor;    
 }
 
-function onPlay() {
-    console.log("Play Cancion", cancion.value.tempo, cancion.value.compas_unidad, cancion.value.compas_cantidad);
-    const seg = (60) * (cancion.value.compas_cantidad / cancion.value.tempo);
-    console.log("Duracion:", seg);
-    reproductor.setDuracion(seg * 1000);
-    reproductor.iniciar();
-    console.log("Play event received");
-
-}
-
-function onStop() {
-    reproductor.parar();
-    console.log("Stop event received");
-}
-
-function onNext() {
-    console.log("Next event received");
-    nro_cancion.value = (nro_cancion.value + 1) % canciones_sesion.length;
-    cancion.value = canciones_sesion[nro_cancion.value];
-}
-
-function onPrevious() {
-    console.log("Previous event received");
-    nro_cancion.value = (nro_cancion.value - 1 + canciones_sesion.length) % canciones_sesion.length;
-    cancion.value = canciones_sesion[nro_cancion.value];
-}
-
-function onUpdateCompas(newCompas: number) {
-    compas.value = newCompas
-    console.log(`Esto se actualiza: ${newCompas}`);
-}
-
-    // Llamar a la función iniciarCompasEnComponentes cuando sea necesario 
-    onMounted(() => { 
-        console.log("APP MONTADA")
-    });
 
 </script>
 
@@ -113,36 +50,15 @@ function onUpdateCompas(newCompas: number) {
 
        
 
-  <Menu :titulo="cancion.cancion" viendo_vista="tocar"></Menu>
-
+  <Menu :titulo="cancion.cancion" viendo_vista="tocar" @acciono="acciono" :compas="compas" :cancion="cancion" :cliente="cliente"></Menu>
+   <p>Anchura: {{ width }} px</p> <p>Altura: {{ height }} px</p>
   <div class="pantalla">
+    <Tocar v-if="viendo=='tocar'" :titulo="cancion.cancion" viendo_vista="tocar" :compas="compas" :cancion="cancion"></Tocar>
+    <Listas v-if="viendo=='listas'" :titulo="cancion.cancion" viendo_vista="listas" :compas="compas" :cancion="cancion"></Listas>
+    <Configuracion v-if="viendo=='config'"></Configuracion>
 
-    <div class="row">
-      <div class="col-6">
-            <ControladorTiempo :compas=compas :cancion="cancion" :contexto="contexto"
-                @play="onPlay" @pause="onPause" @stop="onStop" @next="onNext" @previous="onPrevious" @update-compas="onUpdateCompas">
-        </ControladorTiempo>
-      </div>    
-      <div class="col-6">
-        SIN CONECTARSE
-      </div>
-  
-     </div>
-
-     <h1>{{ cancion.cancion }}</h1>
-     <h2>{{ cancion.banda }}</h2>
-     <div class="row">
-    <div v-for="(Componente, index) in componentesMusicales" :key="index" 
-    :class="{ 'col-7': index == 0,
-              'col-3': index == 1
-     } ">
-        <component :is="Componente" :compas="compas" :cancion="cancion" :contexto="contexto"></component>
-    </div>
-</div>
-
-
-
-      </div>
+    
+  </div>
 
 </div>
 </template>

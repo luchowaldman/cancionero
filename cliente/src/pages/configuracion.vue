@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import Menu from './components/menu.vue';
-import { Configuracion, Sesion }  from './modelo/configuracion';
-import { Cliente }  from './modelo/client_socketio';
-import ConfigSesion from './components/configSesion.vue';
+import Menu from '../components/menu.vue';
+import { Configuracion, Sesion }  from '../modelo/configuracion';
+import { Cliente }  from '../modelo/client_socketio';
+import ConfigSesion from '../components/configSesion.vue';
 // Definir la canción y el contexto
 
 const viendo = ref("perfil")
@@ -48,7 +48,7 @@ const config_guardada = ref(configuracionObj)
 <template>
     <div>
         
-        <Menu titulo="Configuracion" viendo_vista="config"></Menu>
+        
         <div class="row">
           <div class="col-3">
   <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px;">
@@ -152,7 +152,7 @@ const config_guardada = ref(configuracionObj)
   <p>donaciones al alias: la.plata.de.luis</p>
 
       </div>
-      <div class="botoneraConfig">
+      <div>
       <button id="btnGuardar" @click="guardar_configuracion()">Guardar</button></div>
     </div>
 

@@ -8,7 +8,7 @@ import Acordedit from './acordedit.vue';
 import { todo } from 'node:test';
 
 let musica = new Musica();
-const props = defineProps<{ compas: number, cancion: Cancion, contexto: Contexto }>()
+const props = defineProps<{ compas: number, cancion: Cancion }>()
 const mostrando_renglon = ref(-1);
 const mostrando_palabra = ref(-1);
 const letraDiv = ref<HTMLElement | null>(null); // Ref to the div

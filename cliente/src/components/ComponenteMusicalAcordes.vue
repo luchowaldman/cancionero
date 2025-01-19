@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { Cancion } from '../modelo/cancion';
-import { Contexto } from '../modelo/contexto';
 import { watch } from 'vue';
 
-const props = defineProps<{ compas: number, cancion: Cancion, contexto: Contexto }>()
+const props = defineProps<{ compas: number, cancion: Cancion }>()
 
 const mostrando_parte = ref(-1)
 const mostrando_compas_parte = ref(-1)
