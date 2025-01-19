@@ -35,6 +35,8 @@ const fil_can = ref("");
 const fil_ban = ref("");
 const max_registros = ref(3000);
 
+const con_buenaspropos = ref(false);
+
 
 function cancionesFiltradas() 
 {
@@ -46,6 +48,9 @@ function cancionesFiltradas()
         if (indice_disponible.value[indice].cancion.toLowerCase().includes(fil_can.value.toLowerCase())
          && indice_disponible.value[indice].banda.toLowerCase().includes(fil_ban.value.toLowerCase()))
         {
+
+
+            // con_buenaspropos
             if (muy_faciles.value)
             {
                 if (
@@ -80,6 +85,7 @@ cancionesFiltradas();
         </div>
         <div>
         Muy faciles: <input type="checkbox" v-on:change="cancionesFiltradas()" v-model="muy_faciles" />
+        Con buenas propos: <input type="checkbox" v-on:change="cancionesFiltradas()" v-model="con_buenaspropos" />
         </div>
         
         <div>

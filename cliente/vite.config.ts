@@ -13,5 +13,9 @@ export default defineConfig({
         config: resolve(__dirname, 'config.html'),
       }
     }
+  },
+  server: {
+    host: '0.0.0.0', // Permite que el servidor escuche en todas las interfaces
+    port: 5173 // Asegúrate de que el puerto coincida
   }
 })
