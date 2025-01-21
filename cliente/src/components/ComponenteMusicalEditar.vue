@@ -1,19 +1,19 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, watch } from 'vue';
 import { Cancion } from '../modelo/cancion';
-import { Contexto } from '../modelo/contexto';
 import { Musica } from '../modelo/musica';
 import { AnalisisArmonico } from '../modelo/analisis_armonico';
 import Acordedit from './acordedit.vue';
-import { todo } from 'node:test';
 
 let musica = new Musica();
-const props = defineProps<{ compas: number, cancion: Cancion }>()
+const props = defineProps<{ compas: number, cancion: Cancion, editando_cancion: boolean }>()
+
+const emit = defineEmits(['cerrar']);
 const mostrando_renglon = ref(-1);
 const mostrando_palabra = ref(-1);
 const letraDiv = ref<HTMLElement | null>(null); // Ref to the div
 const scrollTop = ref(0); // Ref to store the horizontal scroll position
-
+const toc_cancion = ref(props.cancion)
 
 
 // Watch for changes in the compas prop
@@ -93,21 +93,19 @@ function BuscaMusica(escala: string, cancion: Cancion) {
       
 }
 
-watch(() => props.cancion, (cancion: Cancion) => {
-  ConstruyeCancion(cancion);
-  const nota = cancion.acordes.partes[0].acordes[0];
-  nota_escala.value = nota; 
-  BuscaMusica(nota, cancion);
+watch(() => props.cancion, (micancion: Cancion) => {
+  toc_cancion.value = micancion;
+  reload_song();
 });
 
 
 watch(() => props.compas, (newCompas: number) => {
   
   let totalCompases = 0;
-  for (let i = 0; i < props.cancion.letra.renglones.length; i++) {
+  for (let i = 0; i < toc_cancion.letra.renglones.length; i++) {
     let compases_x_parte = 0;
-    if (props.cancion.letra.renglones[i])
-      compases_x_parte = props.cancion.letra.renglones[i].length;
+    if (toc_cancion.letra.renglones[i])
+      compases_x_parte = toc_cancion.letra.renglones[i].length;
 
     if (newCompas < totalCompases + compases_x_parte) {
       mostrando_renglon.value = i;
@@ -237,9 +235,43 @@ function getAnalisisArmonicoTry(reng_texto: number, parte_texto: number): Analis
 function compas_activo(reng_texto: number, parte_texto: number) {
   return reng_texto + parte_texto;
 }
+
+function reload_song() {
+  try {
+    ConstruyeCancion(toc_cancion.value);
+    const nota = toc_cancion.value.acordes.partes[0].acordes[0];
+    nota_escala.value = nota; 
+    BuscaMusica(nota, toc_cancion.value);
+  } catch (error) {
+    console.error("Error al procesar la canción:", error);
+  }
+}
+
+function cerrar_edicion() {
+  emit('cerrar');
+}
+
+defineExpose({  reload_song });
 </script>
 <template>
-  <div class="row">
+  <div>
+  <div v-if="editando_cancion" class="navbarEdit" >
+    <div class="marca">
+      Editando
+    </div>
+    
+    
+    
+    <div class="botoneraleft">
+      <button @click="reload_song()">Guardar</button>
+      <button @click="cerrar_edicion()">Cerrar</button>
+  </div>
+    
+
+  </div>
+
+
+  <div v-if="editando_cancion" class="row">
     <div class="col-8">
 
     <!-- CANCION COMPLETA LETRA Y ACORDES EDIT -->
@@ -292,7 +324,7 @@ function compas_activo(reng_texto: number, parte_texto: number) {
 
 </div>
     </div>
-  </div>
+  </div></div>
 </template>
 
 
@@ -306,4 +338,15 @@ function compas_activo(reng_texto: number, parte_texto: number) {
 .noesta_enscala {
   color: red;
 }
+
+
+.botoneraleft {
+  margin-left: auto
+}
+
+.navbarEdit {
+  display: flex;
+  border: 1px solid;
+}
+
 </style>

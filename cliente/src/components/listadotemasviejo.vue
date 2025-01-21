@@ -2,21 +2,19 @@
 import { ref, watch } from 'vue';
 import { item_lista } from '../modelo/item_lista';
 
-const emit = defineEmits(['click_ver', 'click_descargar', 'click_agregar', 'click_borrar']);
-const props = defineProps<{ indice: item_lista[], titulo: string, muestra_renglones: number
-    ,  btnVer: boolean, btnDescargar: boolean, btnAgregar: boolean, btnBorrar: boolean
- }>();
-
+const emit = defineEmits(['click_editar', 'click_descargar', 'click_agregar', 'click_borrar']);
+const props = defineProps<{ indice: item_lista[], titulo: string, muestra_renglones: number }>();
 const indice_disponible = ref(props.indice);
 const indice_disponible_filtro = ref([] as item_lista[]);
+const editando = ref(false);
 
 watch(() => props.indice, (newindice: item_lista[]) => {
   indice_disponible.value = newindice;
   cancionesFiltradas() 
 });
 
-function click_ver(item: item_lista) {
-    emit('click_ver', item);
+function click_editar(indice: item_lista) {
+    emit('click_editar', indice);
 }
 
 function click_descargar(indice: item_lista) {
@@ -127,30 +125,28 @@ cancionesFiltradas();
                 
             </thead>
             <tbody>
-                <tr v-for="(cancion, cancionid) in indice_disponible_filtro" :key="cancionid" >
-                    <td>{{ cancion.cancion }}</td>
-                    <td>{{ cancion.banda }}</td>
-                    <td>
-                                            
-                            <button v-if="btnVer" @click="click_ver(cancion)" class="btn btn-primary">
-                            <i class="bi bi-eye"></i>
-                            </button>
-                            <button v-if="btnAgregar" @click="click_agregar(cancion)" class="btn btn-success">
-                            <i class="bi bi-plus"></i>
-                            </button>
-                            <button v-if="btnDescargar" @click="click_descargar(cancion)" class="btn btn-warning">
-                            <i class="bi bi-download"></i>
-                            </button>
-                            <button v-if="btnBorrar" @click="click_borrar(cancion)" class="btn btn-danger">
-                            <i class="bi bi-trash"></i>
-                            </button>
-                        </td>
-                        <td> {{  cancion.escala }}</td>
-                        <td> {{  cancion.calidad }}</td>
-                    <td> {{  cancion.total_partes }} - {{ cancion.len_partes}} </td>
-                    <td> {{  cancion.total_orden_partes }}</td>
-                </tr>
-            
+                <template v-for="cancion in indice_disponible_filtro" :key="cancion.cancion">
+            <tr >
+                <td>{{ cancion.cancion }}</td>
+                <td>{{ cancion.banda }}</td>
+                <td>
+                        <button @click="click_editar(cancion)">Editar</button>
+                        <button @click="click_agregar(cancion)">Agregar</button>
+                        <button @click="click_descargar(cancion)">Descargar</button>
+                        <button @click="click_borrar(cancion)">Borrar</button>
+                        
+                    </td>
+                    <td> {{  cancion.escala }}</td>
+                    <td> {{  cancion.calidad }}</td>
+                <td> {{  cancion.total_partes }} - {{ cancion.len_partes}} </td>
+                <td> {{  cancion.total_orden_partes }}</td>
+            </tr>
+            <tr v-if="editando">
+                <td colspan="7">
+                    EDIT
+                </td>
+            </tr>
+        </template>
             </tbody>
         </table>
     </div>

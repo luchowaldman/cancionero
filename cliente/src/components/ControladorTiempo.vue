@@ -22,6 +22,7 @@ function play() {
 }
 
 function pause() {
+  console.log(metronomeRef.value);
   metronomeRef.value?.stopMetronome();
   emit('pause');
 }
