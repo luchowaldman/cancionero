@@ -19,23 +19,31 @@ if (props.viendo_vista == undefined)
 
 <template>
   <div class="navbarFogon">
-    <div class="marca">
-      <i class="bi bi-fire"></i>Fogon
-    </div>
     
     
-    
-    <div class="pagina_seleccionable" @click="acciono('tocar')"  :class="{active: viendo_vista == 'tocar'}" >
-        <p class="nombre-pagina" :class="{active: viendo_vista == 'tocar'}" aria-current="page">Tocar</p>	
+    <div class="pagina_seleccionable" :class="{active: viendo_vista == 'tocar'}" >
+        <p class="nombre-pagina " @click="acciono('tocar')"   :class="{active: viendo_vista == 'tocar'}" aria-current="page">
+          
+          <i class="bi bi-fire"></i>
+
+        </p>	
+        <div class="ctrl_menu">
           <ControladorTiempo :compas=compas :cancion="cancion">
         </ControladorTiempo> 
+      </div>
     </div>
 
 
     <div class="pagina_seleccionable" @click="acciono('listas')"  :class="{active: viendo_vista == 'listas'}" >
-        <p class="nombre-pagina"aria-current="page">Listas</p>	
+        <p class="nombre-pagina"aria-current="page">
+          
+          
+          <i class="bi bi-list"></i>
+        </p>	
+        <div class="ctrl_menu">
         <ControladorSesion :compas=compas :cancion="cancion" :cliente="cliente">
         </ControladorSesion>
+      </div>
     </div>
 
 
@@ -55,6 +63,15 @@ if (props.viendo_vista == undefined)
 .navbarFogon {
   display: flex;
   border: 1px solid;
+  margin: 10px 0px 10px 10px;
+  border-radius: 20px;
+}
+
+.ctrl_menu {
+  padding: 10px 0px 10px 10px;
+  border-radius: 20px;
+  border: 1px solid;
+
 }
 
 .pagina_seleccionable {

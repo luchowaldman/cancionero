@@ -20,7 +20,7 @@ const compas = ref(-1);
 const cancion  = ref(new Cancion("no song name", "no band name", new Acordes([], []), new Letra([])));
 const width = ref(window.innerWidth); 
 const height = ref(window.innerHeight);
-const viendo = ref("listas");
+const viendo = ref("tocar");
 let cliente = new Cliente("http://192.168.0.202:8080/")
 const updateDimensions = () => { width.value = window.innerWidth; height.value = window.innerHeight; };
 
