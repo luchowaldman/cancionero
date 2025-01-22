@@ -102,6 +102,9 @@ function click_agregar_viendolista(item: item_lista) {
 }
 
 function click_borrar_viendolista(item: item_lista) {
+    admin_indiceslista.BorrarCancion(reflista_actual.value, item);
+    canciones_Actual.value = admin_indiceslista.GetIndice(reflista_actual.value)
+    ctrlviendolista.value?.cancionesFiltradas();
 }
 
 function click_agregar_guardadas(item: item_lista) {
