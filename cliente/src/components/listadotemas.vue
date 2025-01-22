@@ -38,7 +38,7 @@ const fil_ban = ref("");
 const max_registros = ref(3000);
 
 const con_buenaspropos = ref(false);
-
+defineExpose({  cancionesFiltradas });
 
 function cancionesFiltradas() 
 {
@@ -93,6 +93,7 @@ cancionesFiltradas();
   
   <div >
     <h1>{{ titulo }}</h1>
+    {{  indice_disponible_filtro.length }} de {{ indice_disponible.length }}
     <div>
 
         <div>
@@ -135,11 +136,12 @@ cancionesFiltradas();
                             <button v-if="btnVer" @click="click_ver(cancion)" class="btn btn-primary">
                             <i class="bi bi-eye"></i>
                             </button>
-                            <button v-if="btnAgregar" @click="click_agregar(cancion)" class="btn btn-success">
-                            <i class="bi bi-plus"></i>
-                            </button>
+                            
                             <button v-if="btnDescargar" @click="click_descargar(cancion)" class="btn btn-warning">
                             <i class="bi bi-download"></i>
+                            </button>
+                            <button v-if="btnAgregar" @click="click_agregar(cancion)" class="btn btn-success">
+                            <i class="bi bi-plus"></i>
                             </button>
                             <button v-if="btnBorrar" @click="click_borrar(cancion)" class="btn btn-danger">
                             <i class="bi bi-trash"></i>

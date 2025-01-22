@@ -15,7 +15,7 @@ import { Acordes } from './modelo/acordes';
 import { Letra } from './modelo/letra';
 import { Almacenado } from './modelo/Almacenado';
 import { item_lista } from './modelo/item_lista';
-import { AdminListasTocables } from './modelo/AdminListasTocables';
+import { AdminListasTocables } from './modelo/AdminIndiceListas';
 
 const almacen = new Almacenado();
 const generadorlistasTocables = new AdminListasTocables(almacen);

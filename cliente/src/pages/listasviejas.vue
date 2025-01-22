@@ -6,7 +6,7 @@ import { Cancion } from '../modelo/cancion';
 import ListadoTemas from '../components/listadotemas.vue';
 import { AdminListasURL } from '../modelo/AdminListasURL';
 import { AdminListasLocalStorage } from '../modelo/AdminListasStorage';
-import { AdminListasTocables } from '../modelo/AdminListasTocables';
+import { AdminListasTocables } from '../modelo/AdminIndiceListas';
 
 
 const almacen = new Almacenado();

@@ -44,9 +44,9 @@ export class Almacenado {
     }
   
     // Método para devolver un listado de todas las canciones almacenadas
-    indice(nombre_indice: string): item_lista[] 
+    indice(): item_lista[] 
     {
-        const item = localStorage.getItem('indice_' + nombre_indice);
+        const item = localStorage.getItem('indice');
         if (item) {
             return JSON.parse(item)
 
@@ -54,8 +54,8 @@ export class Almacenado {
         return []
     }
 
-    guardarindice(nombre_indice: string, indice: item_lista[]) {
-        localStorage.setItem('indice_' + nombre_indice, JSON.stringify(indice));
+    guardarindice(indice: item_lista[]) {
+        localStorage.setItem('indice', JSON.stringify(indice));
     }
   
     // Método privado para obtener todas las canciones del localStorage

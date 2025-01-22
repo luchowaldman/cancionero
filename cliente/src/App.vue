@@ -12,14 +12,12 @@ import { Cancion } from './modelo/cancion';
 import { Acordes } from './modelo/acordes';
 import { Letra } from './modelo/letra';
 import { Cliente } from './modelo/client_socketio';
-
 import ComponenteMusicalAcordesEdit from './components/ComponenteMusicalAcordesEdit.vue';
 import { AdminListasURL } from './modelo/AdminListasURL';
 
 const nro_cancion = ref(0);
 const compas = ref(-1);
 const cancion  = ref(new Cancion("no song name", "no band name", new Acordes([], []), new Letra([])));
-
 const width = ref(window.innerWidth); 
 const height = ref(window.innerHeight);
 const viendo = ref("listas");
@@ -54,7 +52,7 @@ function acciono(valor: string) {
 
   <div class="pantalla">
     <Tocar v-if="viendo=='tocar'" :compas="compas" :cancion="cancion"></Tocar>
-    <Listas v-if="viendo=='listas'" :compas="compas" :cancion="cancion"></Listas>
+    <Listas v-if="viendo=='listas'" lista_actual="default" :compas="compas" :cancion="cancion"></Listas>
     <Configuracion v-if="viendo=='config'"></Configuracion>
 
     

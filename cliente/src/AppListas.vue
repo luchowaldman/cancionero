@@ -7,7 +7,7 @@ import Menu from './components/menu.vue';
 import ListadoTemas from './components/listadotemas.vue';
 import { AdminListasURL } from './modelo/AdminListasURL';
 import { AdminListasLocalStorage } from './modelo/AdminListasStorage';
-import { AdminListasTocables } from './modelo/AdminListasTocables';
+import { AdminListasTocables } from './modelo/AdminIndiceListas';
 
 
 const almacen = new Almacenado();
