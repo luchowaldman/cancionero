@@ -15,8 +15,6 @@ import { AdminListasLocalStorage } from './modelo/AdminListasStorage';
 import { AdminListasURL } from './modelo/AdminListasURL';
 import { Almacenado } from './modelo/Almacenado';
 
-import { MidiPlayer } from './modelo/MidiPlayer';
-
 
 
 function onPlay() {

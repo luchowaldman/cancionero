@@ -1,13 +1,13 @@
 import * as Tone from "tone";
 
 export class MidiPlayer {
-  private instrument: Tone.Synth;
+  private instrument: Tone.Sampler;
   private isReady: boolean = false;
   private conectadoHandler?: (resultado: string) => void;
 
-  constructor() {
-    this.instrument = new Tone.MembraneSynth().toDestination();
-    // Tone.Synth, Tone.Sampler, Tone.MembraneSynth, Tone.MetalSynth
+  constructor(samples: { [note: string]: string }) {
+    this.instrument = new Tone.Sampler(samples).toDestination();
+    this.instrument.toDestination();
   }
 
   public initialize(): void {

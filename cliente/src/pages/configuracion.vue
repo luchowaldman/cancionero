@@ -4,9 +4,11 @@ import Menu from '../components/menu.vue';
 import { Configuracion, Sesion }  from '../modelo/configuracion';
 import { Cliente }  from '../modelo/client_socketio';
 import ConfigSesion from '../components/configSesion.vue';
+import CompoMidiPlayer from '../components/compoMidiPlayer.vue';
+
 // Definir la canción y el contexto
 
-const viendo = ref("perfil")
+const viendo = ref("midis")
 
 
 let config_load: string | null = localStorage.getItem("configuracion")
@@ -38,10 +40,14 @@ const config_guardada = ref(configuracionObj)
     }
 
     function guardar_configuracion() {
-      console.log("guardar_configuracion")
-      
+      console.log("guardar_configuracion")      
         localStorage.setItem("configuracion", JSON.stringify(config_guardada.value))
     }
+
+
+
+
+
 
 </script>
 
@@ -93,6 +99,13 @@ const config_guardada = ref(configuracionObj)
           Datos
         </a>
       </li>
+      <li @click="click_opcion('midis')">
+        <a href="#" class="nav-link text-white"
+          :class="{ 'active': viendo==='midis' }" >
+          MIDIS
+        </a>
+      </li>
+      
       
       
     </ul>
@@ -140,6 +153,9 @@ const config_guardada = ref(configuracionObj)
       </div>
 
       
+      <div v-if="viendo=='midis'">
+        <CompoMidiPlayer ></CompoMidiPlayer>
+      </div>
       <div v-if="viendo=='acercade'">
         <div>
         Desarrollado por Luis Waldman para y gracias a:
