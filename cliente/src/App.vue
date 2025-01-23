@@ -47,7 +47,6 @@ function acciono(valor: string) {
        
 
   <Menu :viendo_vista="viendo" @acciono="acciono" :compas="compas" :cancion="cancion_ref" :cliente="cliente"></Menu>
-
   <div class="pantalla">
     <Tocar v-if="viendo=='tocar'" :compas="compas" :cancion="cancion_ref"></Tocar>
     <Listas v-if="viendo=='listas'" lista_actual="default" ></Listas>
@@ -55,8 +54,11 @@ function acciono(valor: string) {
 
     
   </div>
-  <div class="fixed-bottom-right"><p>Anchura: {{ width }} px</p> <p>Altura: {{ height }} px</p>
-  </div>
+
+  <h1><p>Anchura: {{ width }} px</p> <p>Altura: {{ height }} px</p>
+  </h1>
+  
+  
 </div>
 </template>
 

@@ -2,9 +2,10 @@
 import { ref, onMounted, onUnmounted, watch } from 'vue';
 import { Cancion } from '../modelo/cancion';
 import { Contexto } from '../modelo/contexto';
+import { VistaControl } from '../modelo/vista_control';
 import ComponenteAcordeYLetra from './ComponenteAcordeYLetra.vue';
 
-const props = defineProps<{ compas: number, cancion: Cancion  }>()
+const props = defineProps<{ compas: number, cancion: Cancion, vista: VistaControl  }>()
 const borrar: string = "borrar";
 const mostrando_renglon = ref(-1);
 const mostrando_palabra = ref(-1);
@@ -180,7 +181,7 @@ function compas_activo(reng_texto: number, parte_texto: number) {
 }
 </script>
 <template>
-  <div class="overflow-auto" ref="letraDiv" style="max-height: 500px;">
+  <div class="overflow-auto" ref="letraDiv" :style="{ 'max-height': vista.alto + 'px' }">
     <div v-for="(parte, letra_parte) in reng_letra" :key="letra_parte" class="col-12">
       <div style="display: flex; flex-wrap: wrap;">
         <div v-for="(p, id_p) in parte" :key="id_p" style="margin-right: 5px; display: flex; flex-direction: column; align-items: flex-start;"
@@ -188,7 +189,7 @@ function compas_activo(reng_texto: number, parte_texto: number) {
           <!-- Texto por encima del span -->
           <div>  {{ getAcorde(letra_parte, id_p)  }} &nbsp;</div>
           <!-- Texto del span -->
-          <div>{{ p }}</div>
+          <div :style="{ 'font-size' : vista.tamanio_referencia + 'px'}">{{ p }}</div>
         </div>
       </div>
     </div>
@@ -200,5 +201,6 @@ function compas_activo(reng_texto: number, parte_texto: number) {
 <style scoped>
 .read-the-docs {
   color: #888;
+  
 }
 </style>

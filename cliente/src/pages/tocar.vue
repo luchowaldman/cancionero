@@ -1,23 +1,19 @@
 <script setup lang="ts">
 
 import { Cancion } from '../modelo/cancion';
-import { Contexto } from '../modelo/contexto';
-import ComponenteMusicalLetraAcordes from '../components/ComponenteMusicalLetrayAcordes.vue';
-import ComponenteMusicalAcordes from '../components/ComponenteMusicalAcordes.vue';
+import { VistaControl } from '../modelo/vista_control';
 import { markRaw, ref } from 'vue';
 
 
 const props = defineProps<{ compas: number, cancion: Cancion }>()
 
 
-// Vector de componentes musicales
-const componentesMusicales = ref([
+const vist: VistaControl[] = [
+new VistaControl(window.innerHeight / 50, 12, 7, "letra_acordes", "col-9", (window.innerHeight / 1.7)),
+  new VistaControl(30, 12, 7, "acordes", "col-3 d-md-block", 1400)
 
-    markRaw(ComponenteMusicalLetraAcordes),
-    markRaw(ComponenteMusicalAcordes)
-]);
-
-
+];
+const ref_vista = ref(vist);
 
 </script>
 
@@ -25,15 +21,11 @@ const componentesMusicales = ref([
   
   <div class="pantalla">
 
-<h1>{{ cancion.cancion }}</h1>
-<h2>{{ cancion.banda }}</h2>
 <div class="row">
-<div v-for="(Componente, index) in componentesMusicales" :key="index" 
-:class="{ 'col-7': index == 0,
-         'col-3': index == 1
-} ">
-   <component :is="Componente" :compas="compas" :cancion="cancion"></component>
-</div>
+    <div v-for="(Componente, index) in ref_vista" :key="index" 
+    :class="Componente.clase">
+      <component :is="Componente.getMarkRaw()" :compas="compas" :vista="Componente" :cancion="cancion"></component>
+    </div>
 </div>
 
 
