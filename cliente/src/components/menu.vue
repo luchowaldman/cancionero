@@ -12,7 +12,7 @@ function acciono(valor: string) {
     emit('acciono', valor);
     
 }
-const props = defineProps<{ titulo: string, viendo_vista: string, compas: number, cancion: Cancion, cliente: Cliente  }>()
+const props = defineProps<{ viendo_vista: string, compas: number, cancion: Cancion, cliente: Cliente  }>()
 if (props.viendo_vista == undefined) 
   console.log("Viendo vista no definida")
 </script>

@@ -12,23 +12,21 @@ import { Cancion } from './modelo/cancion';
 import { Acordes } from './modelo/acordes';
 import { Letra } from './modelo/letra';
 import { Cliente } from './modelo/client_socketio';
-import ComponenteMusicalAcordesEdit from './components/ComponenteMusicalAcordesEdit.vue';
 import { AdminListasURL } from './modelo/AdminListasURL';
 
 const nro_cancion = ref(0);
 const compas = ref(-1);
-const cancion  = ref(new Cancion("no song name", "no band name", new Acordes([], []), new Letra([])));
+const cancion_ref  = ref(new Cancion("no song name", "no band name", new Acordes([], []), new Letra([])));
 const width = ref(window.innerWidth); 
 const height = ref(window.innerHeight);
-const viendo = ref("config");
+const viendo = ref("tocar");
 let cliente = new Cliente("http://192.168.0.202:8080/")
 const updateDimensions = () => { width.value = window.innerWidth; height.value = window.innerHeight; };
 
-const generadorlistasURL = new AdminListasURL('/data');
+const generadorlistasURL = new AdminListasURL('/data/canciones');
 generadorlistasURL.GetCancionxTema('intoxicados', 'casi-sin-pensar').then((cancion_obtenida) => {
-    cancion.value = cancion_obtenida;
-    
-    }); 
+  cancion_ref.value = cancion_obtenida;
+}); 
     
 
 onMounted(() => { 
@@ -48,11 +46,11 @@ function acciono(valor: string) {
 
        
 
-  <Menu :titulo="cancion.cancion" :viendo_vista="viendo" @acciono="acciono" :compas="compas" :cancion="cancion" :cliente="cliente"></Menu>
+  <Menu :viendo_vista="viendo" @acciono="acciono" :compas="compas" :cancion="cancion_ref" :cliente="cliente"></Menu>
 
   <div class="pantalla">
-    <Tocar v-if="viendo=='tocar'" :compas="compas" :cancion="cancion"></Tocar>
-    <Listas v-if="viendo=='listas'" lista_actual="default" :compas="compas" :cancion="cancion"></Listas>
+    <Tocar v-if="viendo=='tocar'" :compas="compas" :cancion="cancion_ref"></Tocar>
+    <Listas v-if="viendo=='listas'" lista_actual="default" ></Listas>
     <Configuracion v-if="viendo=='config'"></Configuracion>
 
     

@@ -37,7 +37,7 @@ export class AdminListasURL extends  AdminiListas {
 
     async GetCancion(item: item_lista): Promise<Cancion> {
     
-        const response = await fetch(`/data/${item.banda.replace(/\s+/g, '-')}_${item.cancion.replace(/\s+/g, '-')}.json`);
+        const response = await fetch(this.url + `/${item.banda.replace(/\s+/g, '-')}_${item.cancion.replace(/\s+/g, '-')}.json`);
         const data = await response.json();
         
         

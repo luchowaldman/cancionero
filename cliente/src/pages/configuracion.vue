@@ -15,8 +15,8 @@ let config_load: string | null = localStorage.getItem("configuracion")
 if (!config_load)
   config_load = ""
 
-//let configuracionObj: Configuracion | null = JSON.parse(config_load)
-let configuracionObj: Configuracion | null = null
+let configuracionObj: Configuracion | null = JSON.parse(config_load)
+//let configuracionObj: Configuracion | null = null
 if (!configuracionObj) {
   configuracionObj = new Configuracion()
   configuracionObj.sesion = new Sesion()
