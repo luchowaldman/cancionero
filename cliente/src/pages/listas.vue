@@ -30,7 +30,7 @@ const canciones_Storage = ref([] as item_lista[]);
 const canciones_Actual = ref([] as item_lista[]);
 let canciones_url = ref([] as item_lista[]);
 // INICIALIZA LAS LISTAS DE CANCIONES GENERADAS
-const generadorlistasURL = new AdminListasURL('/data');
+const generadorlistasURL = new AdminListasURL('/data/canciones');
 const almacen = new Almacenado();
 const generadorlistasLS = new AdminListasLocalStorage(almacen);
 

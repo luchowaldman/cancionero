@@ -13,9 +13,9 @@ import { AdminListasTocables } from './modelo/AdminIndiceListas';
 const almacen = new Almacenado();
 
 // INICIALIZA LAS LISTAS DE CANCIONES GENERADAS
-const generadorlistasURL = new AdminListasURL('/data');
+const generadorlistasURL = new AdminListasURL('/data/canciones');
 const generadorlistasLS = new AdminListasLocalStorage(almacen);
-const generadorlistasTocables = new AdminListasTocables(almacen);
+const generadorlistasTocables = new AdminListasTocables();
 const canciones_listaURL = ref([] as item_lista[]);
 const canciones_Storage = ref([] as item_lista[]);
 const canciones_tocables = ref([] as item_lista[]);
