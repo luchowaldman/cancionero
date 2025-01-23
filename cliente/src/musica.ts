@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import './style.css'
-import App from './AppListas.vue'
+import App from './Musica.vue'
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
