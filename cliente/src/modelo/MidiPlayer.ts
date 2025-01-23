@@ -34,6 +34,29 @@ export class MidiPlayer {
       console.error("MIDI Player is not ready");
     }
   }
+
+  
+
+
+
+public tocarNota(note: string): void {
+  if (this.isReady) {
+    this.instrument.triggerAttack(note);
+  } else {
+    console.error("MIDI Player is not ready");
+  }
+}
+
+public soltarNota(note: string): void {
+  if (this.isReady) {
+    this.instrument.triggerRelease(note);
+  } else {
+    console.error("MIDI Player is not ready");
+  }
+
+
+  
+}
 }
 
 export default MidiPlayer;

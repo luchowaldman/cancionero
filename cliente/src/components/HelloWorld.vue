@@ -5,7 +5,7 @@ defineProps<{ msg: string }>()
 </script>
 
 <template>
-
+<div>Hola</div>
 </template>
 
 <style scoped>
