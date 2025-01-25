@@ -38,7 +38,6 @@ const fil_ban = ref("");
 const max_registros = ref(3000);
 
 const con_buenaspropos = ref(false);
-defineExpose({  cancionesFiltradas });
 
 function cancionesFiltradas() 
 {
@@ -86,6 +85,9 @@ function cancionesFiltradas()
 
 }
 cancionesFiltradas();
+
+defineExpose({  cancionesFiltradas });
+
 </script>
 
 <template>

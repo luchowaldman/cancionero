@@ -64,10 +64,3 @@ function ver_lista(n: string) {
 
 
 
-
-
-
-
-function emit(arg0: string, value: string) {
-  throw new Error('Function not implemented.');
-}
