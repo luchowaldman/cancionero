@@ -24,7 +24,8 @@ let cliente = new Cliente("http://192.168.0.202:8080/")
 const updateDimensions = () => { width.value = window.innerWidth; height.value = window.innerHeight; };
 
 const generadorlistasURL = new AdminListasURL('/data/canciones');
-generadorlistasURL.GetCancionxTema('intoxicados', 'casi-sin-pensar').then((cancion_obtenida) => {
+//generadorlistasURL.GetCancionxTema('intoxicados', 'fuego').then((cancion_obtenida) => {
+  generadorlistasURL.GetCancionxTema('intoxicados', 'fuiste-lo-mejor').then((cancion_obtenida) => {
   cancion_ref.value = cancion_obtenida;
 }); 
     
