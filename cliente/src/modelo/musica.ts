@@ -1,5 +1,6 @@
 //* CLASE QUE SOLO DEVUELVE RESULTADOS TEORICOS */
 import { AnalisisArmonico } from '../modelo/analisis_armonico';
+import { Cancion } from './cancion';
 export class Musica {
     
     
@@ -37,7 +38,32 @@ export class Musica {
         this.modos_paraacorde['mayor'] = ['','m','m','','','m','dim'];
         this.modos_paraacorde['menor'] = ['m','dim','','m','m','',''];
      }
+
+
      
+     total_compases(cancion: Cancion): number 
+     {
+        let total = 0;
+        for (let i = 0; i < cancion.acordes.orden_partes.length; i++) {
+            const indice = cancion.acordes.orden_partes[i];
+            total += cancion.acordes.partes[indice].acordes.length;
+        }
+        return total;
+
+     }
+
+     duracion_cancion(cancion: Cancion): number 
+     {
+        return this.total_compases(cancion) * this.duracion_compas(cancion);
+
+     }
+
+     duracion_compas(cancion: Cancion): number 
+     {
+        return ((60 / cancion.tempo) * cancion.compas_cantidad);
+
+     }
+
     // Devuelve el numero de nota
     numeroNota(nota: string): number {
         const note_find = this.notas.indexOf(nota);

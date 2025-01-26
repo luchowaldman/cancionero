@@ -12,7 +12,8 @@ function acciono(valor: string) {
     emit('acciono', valor);
     
 }
-const props = defineProps<{ viendo_vista: string, compas: number, cancion: Cancion, cliente: Cliente  }>()
+const props = defineProps<{ viendo_vista: string, compas: number, cancion: Cancion, cliente: Cliente,  nro_cancion: number, total_canciones: number }>()
+
 if (props.viendo_vista == undefined) 
   console.log("Viendo vista no definida")
 </script>
@@ -28,7 +29,7 @@ if (props.viendo_vista == undefined)
 
         </p>	
         <div class="ctrl_menu">
-          <ControladorTiempo :compas=compas :cancion="cancion">
+          <ControladorTiempo :nro_cancion="nro_cancion" :total_canciones="total_canciones"  :compas=compas :cancion="cancion">
         </ControladorTiempo> 
       </div>
     </div>
