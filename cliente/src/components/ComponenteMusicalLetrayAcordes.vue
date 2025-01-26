@@ -71,7 +71,7 @@ watch(() => props.compas, (newCompas) => {
                 </div>
                 <div class="break" v-if="letras[index][index_aco].includes('/n')"></div>
                 <div v-if="letras[index][index_aco].includes('/n')">
-                  <div>{{ aco }}</div>
+                  <div>&nbsp;</div>
                   <div>{{ letras[index][index_aco].split('/n')[1] }}</div>
                 </div>
                 

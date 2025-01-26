@@ -2,6 +2,8 @@
 import { ref } from 'vue';
 import { Cancion } from '../modelo/cancion';
 import { Musica } from '../modelo/musica';
+import { Tiempo } from '../modelo/tiempo';
+
 import { Contexto } from '../modelo/contexto';
 import Metronomo from './metronomo.vue';
 
@@ -9,6 +11,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 const props = defineProps<{ compas: number, cancion: Cancion,  nro_cancion: number, total_canciones: number }>();
 const emit = defineEmits(['play', 'pause', 'stop', 'next', 'previous', 'update-compas']);
 const musica = new Musica();
+const tiempo = new Tiempo();
 const currentCompas = ref(0);
 const segundos_totales = ref(0);
 const segundos_actuales = ref(0);
@@ -73,7 +76,7 @@ function updateCompas(newCompas: number) {
 <template>
 
   <div>
-    {{ nro_cancion }} / {{ total_canciones }} {{ cancion.cancion }} - {{ cancion.banda }}
+    {{ nro_cancion + 1 }} / {{ total_canciones }} {{ cancion.cancion }} - {{ cancion.banda }}
     
     
     
@@ -93,7 +96,7 @@ function updateCompas(newCompas: number) {
             <button class="boton_controller" @click="next">
               <i class="bi bi-skip-forward-fill"></i>
             </button>
-            <span>{{ segundos_actuales }} / {{ segundos_totales }} </span>
+            <span>{{ tiempo.formatSegundos(segundos_actuales) }} / {{ tiempo.formatSegundos(segundos_totales) }} </span>
     </div>
     
     
