@@ -30,6 +30,21 @@ func (player *Player) SendReplica(nombre_usuario string, datos interface{}) erro
 	return player.emit("replica", nombre_usuario, datos)
 }
 
+func (player *Player) SendLista(bandas []string, temas []string) error {
+	return player.emit("lista", bandas, temas)
+}
+func (player *Player) SendCambioCompas(compas int) error {
+	return player.emit("compas", compas)
+}
+
+func (player *Player) IniciarCompas(compas int) error {
+	return player.emit("start_compas", compas)
+}
+
+func (player *Player) SendCambioCancion(cancion int) error {
+	return player.emit("cancion", cancion)
+}
+
 func (player *Player) SendInformacionSala(roomUUID string, mapName string, players []map[string]any) error {
 	return player.emit("informacionSala", roomUUID, mapName, players)
 }

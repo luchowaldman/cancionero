@@ -8,7 +8,7 @@ import CompoMidiPlayer from '../components/compoMidiPlayer.vue';
 
 // Definir la canción y el contexto
 
-const viendo = ref("midis")
+const viendo = ref("sesion")
 
 
 let config_load: string | null = localStorage.getItem("configuracion")

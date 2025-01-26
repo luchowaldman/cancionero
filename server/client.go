@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"strconv"
 
 	"github.com/zishang520/socket.io/v2/socket"
 )
@@ -109,6 +110,142 @@ func manageClientConnection(clients []any) {
 	})
 	if err != nil {
 		log.Println("failed to register on crearSala message", "err", err)
+		newClient.Disconnect(true)
+
+		return
+	}
+
+	err = newClient.On("get_director", func(datas ...any) {
+
+		log.Println(newPlayer.Name, "get_director:", datas)
+		if newPlayer.Room.director == "" {
+			newPlayer.Room.director = newPlayer.Name
+		}
+		newPlayer.emit("director", newPlayer.Room.director)
+	})
+	if err != nil {
+		log.Println("failed to register on get_director message", "err", err)
+		newClient.Disconnect(true)
+
+		return
+	}
+
+	err = newClient.On("set_cancion", func(datas ...any) {
+		log.Println(newPlayer.Name, "set_cancion:", datas)
+
+		if len(datas) > 0 {
+			valor := datas[0]
+			log.Println("Updated cancion:", valor)
+
+			switch v := valor.(type) {
+			case float64:
+				newPlayer.Room.nro_cancion = int(v)
+			case string:
+				if nroCancion, err := strconv.Atoi(v); err == nil {
+					newPlayer.Room.nro_cancion = nroCancion
+				} else {
+					log.Println("Failed to convert valor to int:", err)
+				}
+			default:
+				log.Println("Unexpected type for valor:", v)
+			}
+
+			newPlayer.Room.ComunicarCambioCancion()
+			log.Println("ComunicarCambioCancion called")
+		}
+	})
+	if err != nil {
+		log.Println("failed to register on set_cancion message", "err", err)
+		newClient.Disconnect(true)
+
+		return
+	}
+	err = newClient.On("setstart_compas", func(datas ...any) {
+		log.Println(newPlayer.Name, "setstart_compas:", datas)
+
+		if len(datas) > 0 {
+
+			valor := datas[0]
+			switch v := valor.(type) {
+			case float64:
+				newPlayer.Room.nro_compas = int(v)
+			case string:
+				if nroCancion, err := strconv.Atoi(v); err == nil {
+					newPlayer.Room.nro_compas = nroCancion
+				} else {
+					log.Println("Failed to convert valor to int:", err)
+				}
+			default:
+				log.Println("Unexpected type for valor:", v)
+			}
+
+			log.Println("Updated compas:", newPlayer.Room.nro_compas)
+			newPlayer.Room.IniciarCompas()
+			log.Println("IniciarCompas called")
+		}
+	})
+	if err != nil {
+		log.Println("failed to register on start_compas message", "err", err)
+		newClient.Disconnect(true)
+
+		return
+	}
+	err = newClient.On("set_compas", func(datas ...any) {
+		log.Println(newPlayer.Name, "set_compas:", datas)
+
+		if len(datas) > 0 {
+
+			valor := datas[0]
+			switch v := valor.(type) {
+			case float64:
+				newPlayer.Room.nro_compas = int(v)
+			case string:
+				if nroCancion, err := strconv.Atoi(v); err == nil {
+					newPlayer.Room.nro_compas = nroCancion
+				} else {
+					log.Println("Failed to convert valor to int:", err)
+				}
+			default:
+				log.Println("Unexpected type for valor:", v)
+			}
+
+			log.Println("Updated compas:", newPlayer.Room.nro_compas)
+			newPlayer.Room.ComunicarCambioCompas()
+			log.Println("ComunicarCambioCompas called")
+		}
+	})
+	if err != nil {
+		log.Println("failed to register on set_compas message", "err", err)
+		newClient.Disconnect(true)
+
+		return
+	}
+
+	err = newClient.On("set_lista", func(datas ...any) {
+
+		log.Println(newPlayer.Name, "set_lista:", datas)
+
+		log.Println(newPlayer.Name, "set_lista event received with:", datas)
+
+		listaBandas := make([]string, len(datas[0].([]interface{})))
+		for i, v := range datas[0].([]interface{}) {
+			listaBandas[i] = v.(string)
+		}
+		newPlayer.Room.listaBandas = listaBandas
+		log.Println("Updated listaBandas:", listaBandas)
+
+		listaCanciones := make([]string, len(datas[1].([]interface{})))
+		for i, v := range datas[1].([]interface{}) {
+			listaCanciones[i] = v.(string)
+		}
+		newPlayer.Room.listaCanciones = listaCanciones
+		log.Println("Updated listaCanciones:", listaCanciones)
+
+		newPlayer.Room.ComunicarCambioLista()
+		log.Println("ComunicarCambioLista called")
+	})
+	if err != nil {
+		log.Println("failed to register on get_director message", "err", err)
 		newClient.Disconnect(true)
 
 		return

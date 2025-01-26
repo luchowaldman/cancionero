@@ -17,7 +17,9 @@ type Room struct {
 	listaBandas    []string
 	listaCanciones []string
 	nro_cancion    int
+	nro_compas     int
 	director       string
+	NextPlayerID   int
 }
 
 func NewRoom(mapName string) *Room {
@@ -72,6 +74,47 @@ func (room *Room) Replicar(iduser int, user string, data interface{}) bool {
 			if err != nil {
 				log.Println("failed to send replica", "err", err)
 			}
+		}
+	}
+	return true
+}
+
+func (room *Room) ComunicarCambioLista() bool {
+
+	for _, player := range room.Players {
+		err := player.SendLista(room.listaBandas, room.listaCanciones)
+		if err != nil {
+			log.Println("failed to send replica", "err", err)
+		}
+	}
+	return true
+}
+
+func (room *Room) ComunicarCambioCompas() bool {
+	for _, player := range room.Players {
+		err := player.SendCambioCompas(room.nro_compas)
+		if err != nil {
+			log.Println("failed to send cambioCompas", "err", err)
+		}
+	}
+	return true
+}
+
+func (room *Room) IniciarCompas() bool {
+	for _, player := range room.Players {
+		err := player.IniciarCompas(room.nro_compas)
+		if err != nil {
+			log.Println("failed to send IniciarCompas", "err", err)
+		}
+	}
+	return true
+}
+
+func (room *Room) ComunicarCambioCancion() bool {
+	for _, player := range room.Players {
+		err := player.SendCambioCancion(room.nro_cancion)
+		if err != nil {
+			log.Println("failed to send cambioCancion", "err", err)
 		}
 	}
 	return true
