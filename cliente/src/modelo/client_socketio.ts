@@ -7,6 +7,9 @@ interface ServerToClientEvents {
 interface ClientToServerEvents {
     replicar: (sesion: string, usuario: string, datos: string[]) => void;
     unirme_sesion(sesion: string, usuario: string): void;
+    get_director(usuario: string): void;
+    get_datos_sesion(sesion: string);
+    
 }
 
 export class Cliente {

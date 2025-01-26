@@ -64,6 +64,7 @@ func manageClientConnection(clients []any) {
 		if len(datas) == 2 {
 			sesion := datas[0].(string)
 			usuario := datas[1].(string)
+			newPlayer.Name = usuario
 
 			log.Println("unirSala event received with:", sesion, usuario)
 
@@ -96,7 +97,8 @@ func manageClientConnection(clients []any) {
 	}
 
 	err = newClient.On("replicar", func(datas ...any) {
-		log.Println("replicar event received with:", datas)
+
+		log.Println(newPlayer.Name, "replicar event received with:", datas)
 		if len(datas) > 2 {
 			sesion := datas[0].(string)
 			usuario := datas[1].(string)

@@ -9,12 +9,15 @@ import (
 )
 
 type Room struct {
-	ID           string
-	Mutex        *sync.Mutex
-	Players      []*Player
-	GameStarted  atomic.Bool
-	MapName      string
-	NextPlayerID int
+	ID             string
+	Mutex          *sync.Mutex
+	Players        []*Player
+	GameStarted    atomic.Bool
+	MapName        string
+	listaBandas    []string
+	listaCanciones []string
+	nro_cancion    int
+	director       string
 }
 
 func NewRoom(mapName string) *Room {
