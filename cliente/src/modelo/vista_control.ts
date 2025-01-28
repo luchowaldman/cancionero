@@ -11,6 +11,7 @@ export class VistaControl {
     alto: number;
     tipo: string;
     clase: string;
+    componente = ref();
 
     constructor(tamanio_referencia: number, renglones_antes: number, renglones_despues: number, tipo: string, clase: string, alto: number) {
         this.tamanio_referencia = tamanio_referencia;
@@ -28,6 +29,8 @@ export class VistaControl {
         if (this.tipo === 'detalle') {
             return markRaw(ComponenteMusicalVerDetalles);
         }
+        
         return markRaw(ComponenteMusicalAcordes);
+        
     }
 }

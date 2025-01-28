@@ -22,10 +22,6 @@ import { GetCanciones } from './modelo/GetCanciones';
 import { dir } from 'console';
 
 
-// ENTORNO
-const width = ref(window.innerWidth); 
-const height = ref(window.innerHeight);
-const updateDimensions = () => { width.value = window.innerWidth; height.value = window.innerHeight; };
 const viendo = ref("tocar");
 
 // LISTAS
@@ -92,7 +88,6 @@ const director_ref = ref(director);
 
 onMounted(() => { 
     console.log("APP MONTADA")
-    window.addEventListener('resize', updateDimensions);
 });
 
 function acciono(valor: string) {
@@ -142,8 +137,6 @@ function acciono(valor: string) {
     
   </div>
 
-  <h1><p>Anchura: {{ width }} px</p> <p>Altura: {{ height }} px</p>
-  </h1>
 
   
 </div>

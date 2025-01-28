@@ -3,13 +3,14 @@ import { ref, onMounted, onUnmounted, watch } from 'vue';
 import { Cancion } from '../modelo/cancion';
 import { Contexto } from '../modelo/contexto';
 import { VistaControl } from '../modelo/vista_control';
-const props = defineProps<{ compas: number, cancion: Cancion, vista: VistaControl  }>()
+const props = defineProps<{ compas: number, cancion: Cancion, vista: VistaControl }>()
 
 
 const mostrando_parte = ref(-1)
 const mostrando_compas_parte = ref(-1)
 const currentCompas = ref(0);
 const letras = ref([] as string[][]);
+
 
 watch(() => props.cancion, (cancion: Cancion) => {
   actualizarLetras(cancion);
@@ -53,11 +54,23 @@ watch(() => props.compas, (newCompas) => {
 });
 
 
+function Actualizar() {
+  if (letras.value.length === 0) {
+    console.log('actualizar letras');
+ //   actualizarLetras(props.cancion);
+  }
+  return false;
+
+}
+
+
+defineExpose({  Actualizar });
+
 </script>
 <template>
   <div>
     
-    
+    <div v-if="Actualizar()"></div>
     <div style="display: flex; flex-wrap: wrap;">
       <template v-for="(parte, index) in cancion.acordes.orden_partes" :key="index" class="parte">
         
@@ -79,6 +92,7 @@ watch(() => props.compas, (newCompas) => {
         </template>
       </template>
     </div>
+    
 </div>
 </template>
 
