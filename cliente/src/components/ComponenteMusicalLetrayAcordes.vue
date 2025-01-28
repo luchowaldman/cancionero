@@ -61,19 +61,17 @@ watch(() => props.compas, (newCompas) => {
     <div style="display: flex; flex-wrap: wrap;">
       <template v-for="(parte, index) in cancion.acordes.orden_partes" :key="index" class="parte">
         
-        <template  v-for="(aco, index_aco) in cancion.acordes.partes[parte].acordes" :key="index_aco" 
-
-        :class="{ compas_actual: mostrando_parte === index && mostrando_compas_parte === index_aco }">
-                <div v-if="!letras[index][index_aco].includes('/n')">
+        <template  v-for="(aco, index_aco) in cancion.acordes.partes[parte].acordes" :key="index_aco">
+                <div v-if="!letras[index][index_aco].includes('/n')" :class="{ compas_actual: mostrando_parte === index && mostrando_compas_parte === index_aco }">
                   <div>{{ aco }}</div>
                   <div>{{ letras[index][index_aco] }}</div>
                 </div>
-                <div v-if="letras[index][index_aco].includes('/n')">
+                <div v-if="letras[index][index_aco].includes('/n')" :class="{ compas_actual: mostrando_parte === index && mostrando_compas_parte === index_aco }">
                   <div>{{ aco }}</div>
                   <div>{{ letras[index][index_aco].split('/n')[0] }}</div>
                 </div>
                 <div class="break" v-if="letras[index][index_aco].includes('/n')"></div>
-                <div v-if="letras[index][index_aco].includes('/n')">
+                <div v-if="letras[index][index_aco].includes('/n')" :class="{ compas_actual: mostrando_parte === index && mostrando_compas_parte === index_aco }">
                   <div>&nbsp;</div>
                   <div>{{ letras[index][index_aco].split('/n')[1] }}</div>
                 </div>

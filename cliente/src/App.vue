@@ -40,7 +40,7 @@ canciones_Actual.value = admin_indiceslista.GetIndice(ref_lista_actual.value);
 const compas = ref(-1);
 const cancion_ref  = ref(new Cancion("Cancion no cargada", "sin banda", new Acordes([], []), new Letra([])));
 const sesion_ref = ref(new EstadoSesion());
-const compas_ref = ref(0);
+const compas_ref = ref(-2);
 
 
 ///// LLEGO EL DIRECTOR

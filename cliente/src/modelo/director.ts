@@ -122,8 +122,6 @@ export class Director {
     onListaRecibida(listaBandas: string[], listaTemas: string[]) {
 
         console.log("Lista recibida", listaBandas, listaTemas);
-        let bandas = listaBandas.join(',');
-        let temas = listaTemas.join(',');
         this.lista = [];
         for (let i = 0; i < listaBandas.length; i++) {
             this.lista.push(new item_lista(listaTemas[i], listaBandas[i]));    
