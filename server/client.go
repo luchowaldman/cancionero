@@ -89,6 +89,9 @@ func manageClientConnection(clients []any) {
 			removeFromRoom(newPlayer)
 			newPlayer.Name = usuario
 			room.AddPlayer(newPlayer)
+
+			newPlayer.SendLista(room.listaBandas, room.listaCanciones)
+
 		} else {
 			log.Println("unirSala event received without correct params")
 		}

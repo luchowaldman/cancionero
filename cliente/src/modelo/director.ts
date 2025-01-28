@@ -86,9 +86,11 @@ export class Director {
         let temas = listaTemas.join(',');
         this.lista = [];
         for (let i = 0; i < listaBandas.length; i++) {
-            this.lista.push(new item_lista(temas[i], bandas[i]));    
+            this.lista.push(new item_lista(listaTemas[i], listaBandas[i]));    
 
         }
+        
+        this.obtenerCancion()
     }
 
     onNroCancionRecibido(nro: number) {
