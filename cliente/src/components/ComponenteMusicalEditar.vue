@@ -74,6 +74,7 @@ function actualizarLetras(cancion: Cancion) {
     {
 
       nuevo_renglon.push(cancion.letra.renglones[contador_renglon_texto][contador_renglon_parte_texto]);
+      
       contador_renglon_parte_texto++;
       if (contador_renglon_parte_texto >= cancion.letra.renglones[contador_renglon_texto].length) {
         contador_renglon_texto++;

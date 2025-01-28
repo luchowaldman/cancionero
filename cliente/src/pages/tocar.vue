@@ -10,6 +10,7 @@ const props = defineProps<{ compas: number, cancion: Cancion }>()
 
 const vist: VistaControl[] = [
  new VistaControl(window.innerHeight / 50, 12, 7, "letra_acordes", "col-9", (window.innerHeight / 1.7)),
+ //new VistaControl(window.innerHeight / 50, 12, 7, "detalle", "col-9", (window.innerHeight / 1.7)),
   new VistaControl(30, 12, 7, "acordes", "col-3 d-md-block", 1400)
 
 ];

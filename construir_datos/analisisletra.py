@@ -10,7 +10,7 @@ from Analizador  import Analizador
 
 # Define the directory where the pages will be saved
 SAVE_DIRECTORY = 'cifraclub_pages'
-DIRECTORIO_DATOS = '../cliente/public/data/'
+DIRECTORIO_DATOS = '../cliente/public/data/canciones/'
 DIRECTORIO_DATOS_GENERADA = 'data_generada/'
 
 
@@ -28,7 +28,7 @@ def get_JSON(directorio, archivo):
     
 def guardar_tema(banda, tema, data):
     try:
-        with open(f'{DIRECTORIO_DATOS}{banda}_{tema}.json', 'w') as f:
+        with open(f'{DIRECTORIO_DATOS}{banda}_{tema}.json'.lower(), 'w') as f:
             json.dump(data, f)
     except Exception as e:
         print(f"Error al guardar tema de banda {banda}, tema {tema}: {e}")
@@ -85,6 +85,7 @@ def subtexto(texto, desde, hasta):
         return texto[desde:hasta]
 
 def letra_separar(verso, acordes):
+    print("letra_separar", verso, acordes)
     intro = ""
     partes = []
     desde = 0
@@ -217,6 +218,10 @@ def procesar_renglonmusica(renglon, termino_secu, procesando_secu, indice_secu, 
 
 
         ini_letra, reng_letra = letra_separar(letra, acordesrenglon)
+        if not (renglon['conl']):
+            ini_letra, reng_letra = "", [""]
+            while len(reng_letra) < len(renglon['acordes']):
+                reng_letra.append("")
 
         if (ini_letra.strip != '')  and (len(letras_fin) > 0):
             try:
@@ -249,8 +254,12 @@ def procesar_renglontexto(renglon, renglones, id_renglon, acordes_originales_ren
         ind_texto = ind_texto + 1
 
     indice_reng  = 0
-                    
-    secuencia_aca, acordes_enrenglon = acordes_originales_renglones[indice_reng]
+    
+    if len(acordes_originales_renglones) < indice_reng:
+        secuencia_aca, acordes_enrenglon = acordes_originales_renglones[indice_reng]
+    else:
+        secuencia_aca = []
+        acordes_enrenglon = []
     for i in range(texto_desde, ind_texto):
         for secu_aca in secuencia_aca:
             secu_fin.append(secu_aca)

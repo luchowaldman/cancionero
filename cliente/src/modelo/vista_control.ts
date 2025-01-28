@@ -1,6 +1,7 @@
 import { markRaw, ref } from 'vue';
 import ComponenteMusicalLetraAcordes from '../components/ComponenteMusicalLetrayAcordes.vue';
 import ComponenteMusicalAcordes from '../components/ComponenteMusicalAcordes.vue';
+import ComponenteMusicalVerDetalles from '../components/ComponenteMusicalVerDetalles.vue';
 
 
 export class VistaControl {
@@ -23,6 +24,9 @@ export class VistaControl {
     getMarkRaw(): any {
         if (this.tipo === 'letra_acordes') {
             return markRaw(ComponenteMusicalLetraAcordes);
+        }
+        if (this.tipo === 'detalle') {
+            return markRaw(ComponenteMusicalVerDetalles);
         }
         return markRaw(ComponenteMusicalAcordes);
     }
