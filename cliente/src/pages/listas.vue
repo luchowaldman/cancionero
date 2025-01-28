@@ -41,6 +41,7 @@ const admin_indiceslista = new AdminListasTocables();
 canciones_Actual.value = admin_indiceslista.GetIndice(reflista_actual.value);
 ctrlviendolista.value?.cancionesFiltradas();
 
+
 generadorlistasURL.getIndice().then((indice: item_lista[]) => {
     canciones_url.value = indice;
 });

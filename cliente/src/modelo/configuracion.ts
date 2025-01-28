@@ -1,15 +1,5 @@
-// src/cancion.ts
-export class Sesion {
-    nombre: string = "";
-    estado: string = "";
-    usuario_sesion: string = "";
-    iniciar_alcomienzo: boolean = false;
-    
 
-    constructor() {
-    }
-}
-
+import { EstadoSesion } from './estadosesion';
 
 export class Configuracion {
 
@@ -17,7 +7,7 @@ export class Configuracion {
 
     nombre: string = "default";
     
-    sesion: Sesion = new Sesion();
+    sesion: EstadoSesion = new EstadoSesion();
     concecciones: string[] = [];
     datos: string[] = [];
 

@@ -75,11 +75,14 @@ func manageClientConnection(clients []any) {
 				log.Println("crearSala event received with:", sesion, usuario)
 				removeFromRoom(newPlayer)
 				newRoom := NewRoom(sesion)
+				newRoom.director = usuario
 				newRoom.ID = sesion
 				newPlayer.Name = usuario
 				newRoom.AddPlayer(newPlayer)
 				rooms[newRoom.ID] = newRoom
 				log.Println("Room ", newRoom.ID, " created, waiting for players")
+
+				newPlayer.emit("director", usuario)
 				return
 			}
 

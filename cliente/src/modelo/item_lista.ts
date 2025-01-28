@@ -25,6 +25,8 @@ export class item_lista {
         this.len_partes = [];
     }
 
+    
+
     setTemaJSON(temaJSON: any) {
         this.escala = temaJSON.partes[0].acordes[0];
         this.total_partes = temaJSON.partes.length;

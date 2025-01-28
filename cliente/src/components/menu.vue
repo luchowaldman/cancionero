@@ -3,16 +3,21 @@
 import { Cancion } from '../modelo/cancion';
 import ControladorTiempo from './ControladorTiempo.vue';
 import ControladorSesion from './ControladorSesion.vue';
-import { Cliente } from '../modelo/client_socketio';
+import { EstadoSesion } from '../modelo/estadosesion';
 
+import { ref, watch } from 'vue';
 
 
 const emit = defineEmits(['acciono']);
+
 function acciono(valor: string) {
     emit('acciono', valor);
     
 }
-const props = defineProps<{ viendo_vista: string, compas: number, cancion: Cancion, cliente: Cliente,  nro_cancion: number, total_canciones: number }>()
+const props = defineProps<{ viendo_vista: string, compas: number, cancion: Cancion
+  ,  nro_cancion: number, total_canciones: number, sesion: EstadoSesion }>()
+
+
 
 if (props.viendo_vista == undefined) 
   console.log("Viendo vista no definida")
@@ -41,11 +46,14 @@ if (props.viendo_vista == undefined)
           
           <i class="bi bi-list"></i>
         </p>	
-        <div class="ctrl_menu">
-        <ControladorSesion :compas=compas :cancion="cancion" :cliente="cliente">
+      </div>    <div class="ctrl_menu">
+        
+        <ControladorSesion :compas=compas :cancion="cancion"  :sesion="sesion"
+        @conectar="acciono('conectar')"> >
         </ControladorSesion>
       </div>
-    </div>
+      <div>{{  sesion  }}</div>
+    
 
 
           

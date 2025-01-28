@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import Menu from '../components/menu.vue';
-import { Configuracion, Sesion }  from '../modelo/configuracion';
+import { Configuracion }  from '../modelo/configuracion';
+
 import { Cliente }  from '../modelo/client_socketio';
 import ConfigSesion from '../components/configSesion.vue';
 import CompoMidiPlayer from '../components/compoMidiPlayer.vue';
+import { EstadoSesion } from '../modelo/estadosesion';
 
 // Definir la canción y el contexto
 
@@ -19,7 +21,7 @@ let configuracionObj: Configuracion | null = JSON.parse(config_load)
 //let configuracionObj: Configuracion | null = null
 if (!configuracionObj) {
   configuracionObj = new Configuracion()
-  configuracionObj.sesion = new Sesion()
+  configuracionObj.sesion = new EstadoSesion()
   configuracionObj.sesion.nombre = "default"
   configuracionObj.nombre = "default"
   localStorage.setItem("configuracion", JSON.stringify(configuracionObj))
