@@ -8,6 +8,10 @@ import { AdminListasTocables } from './AdminIndiceListas';
 import { Cancion } from './cancion';
 import { GetCanciones } from './GetCanciones';
 
+import { Reproductor } from '../modelo/reproductor';
+import { Musica } from './musica';
+
+
 export class Director {
     configuracion: ModeloConfiguracion;
     cliente: Cliente;
@@ -16,6 +20,8 @@ export class Director {
     lista: item_lista[];
     cancion_actual: Cancion;
     esDirector: boolean;
+    reproductor: Reproductor = new Reproductor(2200, 99999999);
+    musica: Musica = new Musica();
     
     private cambiosHandler?: (director: Director) => void;
 
@@ -29,6 +35,12 @@ export class Director {
     setcambiosCancionHandler(handler: (cancion: Cancion) => void) {
         this.cambiosCancionHandler = handler;
     }
+
+    private cambiosCompasHandler?: (compas: number) => void;
+
+    setcambiosCompasHandler(handler: (compas: number) => void) {
+        this.cambiosCompasHandler = handler;
+    }
     
     constructor(Configuracion: ModeloConfiguracion, Cliente: Cliente) {
         this.configuracion = Configuracion;
@@ -37,6 +49,7 @@ export class Director {
         this.nro_compas = 0;
         this.nro_cancion = 0;
         this.lista = [];
+        this.cancion_actual = new Cancion("Cancion no cargada", "sin banda");
         this.cliente.setconectadoHandler(this.handlerConectado.bind(this));
         this.cliente.setlistaHandler(this.onListaRecibida.bind(this));
         this.cliente.setcancionHandler(this.onNroCancionRecibido.bind(this));
@@ -53,17 +66,44 @@ export class Director {
     }
           
     click_siguiente() {
-        this.nro_cancion = (this.nro_cancion + 1) % this.total_canciones;
-        console.log("Siguiente", this.nro_cancion, this.total_canciones)
-        this.obtenerCancion()
+        const nuevo_track = (this.nro_cancion + 1) % this.total_canciones;
+        if (this.configuracion.sesion.estado == "conectado") {
+            this.cliente.set_cancion(nuevo_track);
+        } else {
+            this.onNroCancionRecibido(nuevo_track);
+        }
+
     }
      
       
     click_anterior() {
-        this.nro_cancion = (this.nro_cancion - 1 + this.total_canciones) % this.total_canciones;
-        console.log("Anterior", this.nro_cancion, this.total_canciones)
-        this.obtenerCancion()
+        const nuevo_track = (this.nro_cancion - 1) % this.total_canciones;
+        if (this.configuracion.sesion.estado == "conectado") {
+            this.cliente.set_cancion(nuevo_track);
+        } else {
+            this.onNroCancionRecibido(nuevo_track);
+        }
+
     }
+
+    click_play() {
+        let contar_tiempo: boolean = false;
+        
+        if (this.configuracion.sesion.estado != "conectado") 
+        {
+            console.log("Play", this.nro_compas);
+            this.reproductor = new Reproductor(this.musica.duracion_compas(this.cancion_actual) * 1000 , this.musica.total_compases(this.cancion_actual));
+            this.reproductor.setIniciaCompasHandler(this.onNroCompasRecibido.bind(this));
+            this.reproductor.iniciar();
+        }
+        else {
+            if ((this.configuracion.sesion.estado == "conectado") && (this.esDirector)) 
+                {
+                    contar_tiempo = true;
+                    
+                }
+        }
+    }   
           
   
   
@@ -95,11 +135,13 @@ export class Director {
 
     onNroCancionRecibido(nro: number) {
         this.nro_cancion  = nro;
+        this.obtenerCancion()
         console.log("Nro Cancion recibido", nro);
     }
   
    onNroCompasRecibido(nro: number) {
     this.nro_compas  = nro;
+    this.cambiosCompasHandler?.(nro);
     console.log("Nro Compas recibido", nro);
   }
   

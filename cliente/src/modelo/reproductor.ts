@@ -79,6 +79,7 @@ export class Reproductor  {
         }
 
         parar() {
+            console.log("Parandoooo!");
             if (this.intervalId) {
                 clearInterval(this.intervalId);
                 this.intervalId = null;

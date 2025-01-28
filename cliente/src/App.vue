@@ -38,9 +38,9 @@ const total_canciones = ref(0);
 const canciones_Actual = ref([] as item_lista[]);
 canciones_Actual.value = admin_indiceslista.GetIndice(ref_lista_actual.value);
 const compas = ref(-1);
-const cancion_ref  = ref(new Cancion("no song name", "no band name", new Acordes([], []), new Letra([])));
+const cancion_ref  = ref(new Cancion("Cancion no cargada", "sin banda", new Acordes([], []), new Letra([])));
 const sesion_ref = ref(new EstadoSesion());
-
+const compas_ref = ref(0);
 
 
 ///// LLEGO EL DIRECTOR
@@ -84,7 +84,11 @@ const director_ref = ref(director);
     console.log("cambios cancion", cancion.cancion)
     cancion_ref.value = cancion;
   });
-
+  director.setcambiosCompasHandler((compas: number) => {
+    console.log("cambios compas", compas)
+    compas_ref.value = compas;
+  });
+  
 
 onMounted(() => { 
     console.log("APP MONTADA")
@@ -93,25 +97,28 @@ onMounted(() => {
 
 function acciono(valor: string) {
 
-  
-  if (valor == 'next') {
-    director.click_siguiente();
+  switch (valor) {
+    case 'next':
+      director.click_siguiente();
+      break;
+    case 'previous':
+      director.click_anterior();
+      break;
+    case 'play':
+      director.click_play();
+      break;
+    case 'conectar':
+      console.log("conectar");
+      director_ref.value.Conectar();
+      break;
+    case 'tocar':
+    case 'listas':
+    case 'config':
+      viendo.value = valor;
+      break;
+    default:
+      console.warn(`Acción no reconocida: ${valor}`);
   }
-  else if (valor == 'previous') {
-    director.click_anterior();
-  }
-  else if (valor == 'conectar') {
-    console.log("conectar")
-    director_ref.value.Conectar();
-  }
-  else if (valor == 'tocar') {
-    viendo.value = valor;    
-  } else if (valor == 'listas') {
-    viendo.value = valor;
-  } else if (valor == 'config') {
-    viendo.value = valor;
-  } 
-    
   
 }
 
@@ -125,10 +132,10 @@ function acciono(valor: string) {
 
   <Menu :viendo_vista="viendo" :nro_cancion="director_ref.nro_cancion" :sesion="sesion_ref" 
   :total_canciones="director_ref.total_canciones" @acciono="acciono" 
-  :compas="director_ref.nro_compas" :cancion="cancion_ref" 
+  :compas="compas_ref" :cancion="cancion_ref" 
   ></Menu>
   <div class="pantalla">
-    <Tocar v-if="viendo=='tocar'" :compas="compas" :cancion="cancion_ref"></Tocar>
+    <Tocar v-if="viendo=='tocar'" :compas="compas_ref" :cancion="cancion_ref"></Tocar>
     <Listas v-if="viendo=='listas'" :lista_actual="ref_lista_actual" ></Listas>
     <Configuracion v-if="viendo=='config'"></Configuracion>
 

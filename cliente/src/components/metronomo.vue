@@ -22,7 +22,6 @@ function stopMetronome() {
 
 
 reproductor.setIniciaCompasHandler((newCompas: number) => {
-    console.log("Cambio compas  --Z", newCompas);
     activeBeat.value = (activeBeat.value + 1) % (props.cancion.compas_cantidad);
 });
 
