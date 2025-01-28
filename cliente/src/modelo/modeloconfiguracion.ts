@@ -1,7 +1,7 @@
 
 import { EstadoSesion } from './estadosesion';
 
-export class Configuracion {
+export class ModeloConfiguracion {
 
 
 

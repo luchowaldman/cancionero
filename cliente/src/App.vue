@@ -8,6 +8,7 @@ import Menu from './components/menu.vue';
 import Tocar from './pages/tocar.vue';
 import Listas from './pages/listas.vue';
 import Configuracion from './pages/configuracion.vue';
+import { ModeloConfiguracion  } from './modelo/modeloconfiguracion';
 import { Cancion } from './modelo/cancion';
 import { Letra } from './modelo/letra';
 import { Acordes } from './modelo/acordes';
@@ -18,6 +19,7 @@ import { AdminListasURL } from './modelo/AdminListasURL';
 import { item_lista } from './modelo/item_lista';
 import { AdminListasTocables } from './modelo/AdminIndiceListas';
 import { GetCanciones } from './modelo/GetCanciones';
+import { dir } from 'console';
 
 
 // ENTORNO
@@ -39,28 +41,49 @@ const compas = ref(-1);
 const cancion_ref  = ref(new Cancion("no song name", "no band name", new Acordes([], []), new Letra([])));
 const sesion_ref = ref(new EstadoSesion());
 
-GetCanciones.obtenerCancion(canciones_Actual.value[0]).then((cancion_get: Cancion) => {
-    cancion_ref.value = cancion_get;
-});
+
 
 ///// LLEGO EL DIRECTOR
+
 let cliente = new Cliente("http://192.168.0.202:8080/")
 
 let config_load: string | null = localStorage.getItem("configuracion")
 if (!config_load)
   config_load = ""
-let configuracionObj: Configuracion | null = JSON.parse(config_load)
+
+let configuracionObj: ModeloConfiguracion | null = null;
+
+try {
+  configuracionObj = JSON.parse(config_load);
+} catch (error) {
+}
+
 if (configuracionObj == null) {
   viendo.value = "config";
-} 
-sesion_ref.value = configuracionObj.sesion;
+  configuracionObj = new ModeloConfiguracion()
+  configuracionObj.sesion = new EstadoSesion()
+  configuracionObj.sesion.nombre = "default"
+  configuracionObj.nombre = "default"
+  localStorage.setItem("configuracion", JSON.stringify(configuracionObj))
+}
+
 let director = new Director(configuracionObj, cliente);
-director.Iniciar();
 const director_ref = ref(director);
-director.setcambiosHandler((directornuevo: Director) => {
-  console.log("cambios", directornuevo.configuracion.sesion.estado)
-  sesion_ref.value = directornuevo.configuracion.sesion;
-});
+
+
+
+
+  sesion_ref.value = configuracionObj.sesion;
+
+  director.Iniciar();
+  director.setcambiosHandler((directornuevo: Director) => {
+    console.log("cambios", directornuevo.configuracion.sesion.estado)
+    sesion_ref.value = directornuevo.configuracion.sesion;
+  });
+  director.setcambiosCancionHandler((cancion: Cancion) => {
+    console.log("cambios cancion", cancion.cancion)
+    cancion_ref.value = cancion;
+  });
 
 
 onMounted(() => { 
@@ -69,14 +92,27 @@ onMounted(() => {
 });
 
 function acciono(valor: string) {
-  if (valor == 'conectar') {
+
+  
+  if (valor == 'next') {
+    director.click_siguiente();
+  }
+  else if (valor == 'previous') {
+    director.click_anterior();
+  }
+  else if (valor == 'conectar') {
     console.log("conectar")
     director_ref.value.Conectar();
   }
-  else {
+  else if (valor == 'tocar') {
     viendo.value = valor;    
-  }
+  } else if (valor == 'listas') {
+    viendo.value = valor;
+  } else if (valor == 'config') {
+    viendo.value = valor;
+  } 
     
+  
 }
 
 

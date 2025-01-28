@@ -179,6 +179,7 @@ export class Cliente {
     }
 
     public set_lista(bandas: string[], temas: string[]): void {
+        console.log(bandas, temas);
         this.socket.emit('set_lista', bandas, temas);
     }
 

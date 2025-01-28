@@ -21,7 +21,10 @@ function actualizarLetras(cancion: Cancion) {
   let nueva_letra = [] as string[][];
   for (var i = 0; i < cancion.acordes.orden_partes.length; i++) {
     let nuevo_renglon = [] as string[];
-    for (var j = 0; j < cancion.acordes.partes[cancion.acordes.orden_partes[i]].acordes.length; j++) {
+    
+    for (var j = 0; j < cancion.acordes.partes[cancion.acordes.orden_partes[i]].acordes.length; j++) 
+    {
+
       nuevo_renglon.push(cancion.letra.renglones[contador_renglon_texto][contador_renglon_parte_texto]);
       contador_renglon_parte_texto++;
       if (contador_renglon_parte_texto >= cancion.letra.renglones[contador_renglon_texto].length) {

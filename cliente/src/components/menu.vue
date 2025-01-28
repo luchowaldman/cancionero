@@ -34,7 +34,9 @@ if (props.viendo_vista == undefined)
 
         </p>	
         <div class="ctrl_menu">
-          <ControladorTiempo :nro_cancion="nro_cancion" :total_canciones="total_canciones"  :compas=compas :cancion="cancion">
+          <ControladorTiempo :nro_cancion="nro_cancion" :total_canciones="total_canciones"  :compas=compas :cancion="cancion"
+          @play="acciono('play')" @pause="acciono('pause')" @stop="acciono('stop')" @next="acciono('next')" @previous="acciono('previous')"
+          >
         </ControladorTiempo> 
       </div>
     </div>

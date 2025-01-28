@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import Menu from '../components/menu.vue';
-import { Configuracion }  from '../modelo/configuracion';
+import { ModeloConfiguracion }  from '../modelo/modeloconfiguracion';
 
 import { Cliente }  from '../modelo/client_socketio';
 import ConfigSesion from '../components/configSesion.vue';
@@ -17,10 +17,10 @@ let config_load: string | null = localStorage.getItem("configuracion")
 if (!config_load)
   config_load = ""
 
-let configuracionObj: Configuracion | null = JSON.parse(config_load)
+let configuracionObj: ModeloConfiguracion | null = JSON.parse(config_load)
 //let configuracionObj: Configuracion | null = null
 if (!configuracionObj) {
-  configuracionObj = new Configuracion()
+  configuracionObj = new ModeloConfiguracion()
   configuracionObj.sesion = new EstadoSesion()
   configuracionObj.sesion.nombre = "default"
   configuracionObj.nombre = "default"
