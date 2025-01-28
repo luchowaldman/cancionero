@@ -54,7 +54,6 @@ if (props.viendo_vista == undefined)
         @conectar="acciono('conectar')"> >
         </ControladorSesion>
       </div>
-      <div>{{  sesion  }}</div>
     
 
 

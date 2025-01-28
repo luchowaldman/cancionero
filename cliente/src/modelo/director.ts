@@ -62,6 +62,7 @@ export class Director {
 
      onCliente_SendDirector(directorrec: string) {
             console.log("Soy el nuevo director", directorrec, this.lista)
+            this.esDirector = true;
             this.cliente.set_lista(this.lista.map(item => item.banda), this.lista.map(item => item.cancion));
     }
           
@@ -96,11 +97,15 @@ export class Director {
             this.reproductor.setIniciaCompasHandler(this.onNroCompasRecibido.bind(this));
             this.reproductor.iniciar();
         }
-        else {
+        else 
+        {
             if ((this.configuracion.sesion.estado == "conectado") && (this.esDirector)) 
                 {
-                    contar_tiempo = true;
                     
+            console.log("Play conectado", this.nro_compas);
+            this.reproductor = new Reproductor(this.musica.duracion_compas(this.cancion_actual) * 1000 , this.musica.total_compases(this.cancion_actual));
+            this.reproductor.setIniciaCompasHandler(this.iniciaCompasConectado.bind(this));
+            this.reproductor.iniciar();
                 }
         }
     }   
@@ -143,6 +148,12 @@ export class Director {
     console.log("Nro Compas recibido", nro);
   }
   
+  iniciaCompasConectado(nro: number) {
+    console.log("Inicia compas conectado", nro);
+    this.cliente.set_compas(nro);
+  }
+  
+
    onStartCompasRecibido(nro: number) {
     this.nro_compas  = nro;
     console.log("Star recibido", nro);
