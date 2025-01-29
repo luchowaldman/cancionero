@@ -25,6 +25,12 @@ function editarPalabra(renglonIndex: number, palabraIndex: number) {
   editando_parte.value = palabraIndex;
 }
 
+function reset_editPalabra() {
+  editando_renglon.value = -1;
+  editando_parte.value = -1;
+
+}
+
 function guardarPalabra(renglonIndex: number, palabraIndex: number) {
   console.log("guardarPalabra", renglonIndex, palabraIndex, props.cancion.letras.renglones[renglonIndex][palabraIndex]);
   editando_renglon.value = -1;
@@ -105,6 +111,39 @@ function borrar(renglonIndex: number, palabraIndex: number) {
     props.cancion.acordes.orden_partes.push(0);
   }
 
+  function agregarPalabra(renglonIndex: number, palabraIndex: number) {
+    props.cancion.letras.renglones[renglonIndex].splice(palabraIndex + 1, 0, '');
+  }
+
+  function click_enter(renglonIndex: number, palabraIndex: number) {
+    reset_editPalabra();
+
+    const palabrasRestantes = props.cancion.letras.renglones[renglonIndex].splice(palabraIndex + 1);
+    props.cancion.letras.renglones.splice(renglonIndex + 1, 0, palabrasRestantes);
+  }
+
+  function agregarRenglon(renglonIndex: number) {
+    reset_editPalabra();
+    props.cancion.letras.renglones.splice(renglonIndex + 1, 0, ['']);
+  }
+
+  function borrarRenglon(renglonIndex: number) {
+    props.cancion.letras.renglones.splice(renglonIndex, 1);
+  }
+
+  const renglonCopiado = ref<string[] | null>(null);
+
+  function copiarRenglon(renglonIndex: number) {
+    renglonCopiado.value = [...props.cancion.letras.renglones[renglonIndex]];
+  }
+
+  function pegarRenglon(renglonIndex: number) {
+    if (renglonCopiado.value) {
+      props.cancion.letras.renglones[renglonIndex] = [...renglonCopiado.value];
+      
+    }
+  }
+
 </script>
 <template>
 <div v-if="editando_cancion">
@@ -125,26 +164,53 @@ function borrar(renglonIndex: number, palabraIndex: number) {
 
 
   <div class="row">
-    <div class="col-8">
-      <div>
-        <div v-for="(renglon, renglonIndex) in cancion.letras.renglones" :key="renglonIndex" style="display: flex;">
-          <div v-for="(palabra, palabraIndex) in renglon" :key="palabraIndex" class="palabraedit">
-            <div @click="editarPalabra(renglonIndex, palabraIndex)" v-if="renglonIndex != editando_renglon || palabraIndex != editando_parte" >
-              <p v-if="palabra!=''"> {{ palabra }}</p>
-              <p v-if="palabra==''">
-                <i class="bi bi-music-note"></i>
-              </p>
-            </div>
-            <div v-if="renglonIndex == editando_renglon && palabraIndex == editando_parte">
-              <input  v-model="cancion.letras.renglones[renglonIndex][palabraIndex]" @blur="guardarPalabra(renglonIndex, palabraIndex)" />
-              <button>
-                <i class="bi bi-trash" @click="borrar(renglonIndex, palabraIndex)"></i>
-              </button>
-          </div> 
-          </div>
+    <div class="col-8" >
+      
+      <div >
+      <div v-for="(renglon, renglonIndex) in cancion.letras.renglones" :key="renglonIndex" style="display: flex;">
+        <div v-for="(palabra, palabraIndex) in renglon" :key="palabraIndex" class="palabraedit">
+        <div @click="editarPalabra(renglonIndex, palabraIndex)" v-if="renglonIndex != editando_renglon || palabraIndex != editando_parte"  >
+          <p v-if="palabra!=''"> {{ palabra }}</p>
+          <p v-if="palabra==''">
+          <i class="bi bi-music-note"></i>
+          </p>
+        </div>
+        <div v-if="renglonIndex == editando_renglon && palabraIndex == editando_parte">
+          <input  v-model="cancion.letras.renglones[renglonIndex][palabraIndex]" @blur="guardarPalabra(renglonIndex, palabraIndex)" />
+          <button @click="borrar(renglonIndex, palabraIndex)">
+          <i class="bi bi-trash"></i>
+          </button>
+          <button @click="agregarPalabra(renglonIndex, palabraIndex)">
+          <i class="bi bi-plus"></i>
+          </button>
+          <button @click="click_enter(renglonIndex, palabraIndex)">
+            <i class="bi bi-arrow-return-left"></i>
+          </button>
+        </div> 
+        </div>
+        <div>
+        <button @click="agregarRenglon(renglonIndex)">
+          <i class="bi bi-plus"></i> <i class="bi bi-arrow-return-left"></i>
+        </button>
+        <button @click="borrarRenglon(renglonIndex)">
+          <i class="bi bi-trash"></i> <i class="bi bi-arrow-return-left"></i>
+        </button>
+        <button @click="copiarRenglon(renglonIndex)">
+          <i class="bi bi-clipboard"></i> 
+        </button>
+        <button @click="pegarRenglon(renglonIndex)">
+          <i class="bi bi-clipboard-check"></i> 
+        </button>
         </div>
       </div>
+      </div>
 
+      
+  <div @click="reset_editPalabra">
+   Total Acordes: {{ musica.total_compases(cancion) }}
+  Total letra: {{ cancion.letras.renglones.flat().length }} 
+
+</div>
     </div>
     <div class="col-4">
 
@@ -259,6 +325,9 @@ function borrar(renglonIndex: number, palabraIndex: number) {
   color: white;
 }
 
-
+.palabraeditando {
+  border: 1px solid;
+  margin: 0px;
+}
 
 </style>
