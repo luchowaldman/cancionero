@@ -13,10 +13,10 @@ const scrollTop = ref(0); // Ref to store the horizontal scroll position
 watch(() => props.compas, (newCompas: number) => {
   
   let totalCompases = 0;
-  for (let i = 0; i < props.cancion.letra.renglones.length; i++) {
+  for (let i = 0; i < props.cancion.letras.renglones.length; i++) {
     let compases_x_parte = 0;
-    if (props.cancion.letra.renglones[i])
-      compases_x_parte = props.cancion.letra.renglones[i].length;
+    if (props.cancion.letras.renglones[i])
+      compases_x_parte = props.cancion.letras.renglones[i].length;
 
     if (newCompas < totalCompases + compases_x_parte) {
       mostrando_renglon.value = i;
@@ -72,7 +72,7 @@ function mover_scroll(posX: Number)
 <div class="row">
   <div>
     <div id="letra" ref="letraDiv" class="overflow-auto" style="max-height: 500px;">
-      <span v-for="(palabra, index_palabra) in props.cancion.letra.renglones.flat()" 
+      <span v-for="(palabra, index_palabra) in props.cancion.letras.renglones.flat()" 
           :key="index_palabra" 
           :class="{ compas_actual: props.compas === index_palabra }"
           v-html="palabra.replace(/\/n/g, '<br>')"></span>

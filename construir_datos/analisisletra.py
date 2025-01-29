@@ -219,9 +219,7 @@ def procesar_renglonmusica(renglon, termino_secu, procesando_secu, indice_secu, 
 
         ini_letra, reng_letra = letra_separar(letra, acordesrenglon)
         if not (renglon['conl']):
-            ini_letra, reng_letra = "", [""]
-            while len(reng_letra) < len(renglon['acordes']):
-                reng_letra.append("")
+            ini_letra, reng_letra = "", []
 
         if (ini_letra.strip != '')  and (len(letras_fin) > 0):
             try:
@@ -291,7 +289,6 @@ def generar_archivo(banda, tema, acordes_de_partes, secu_fin, letras_fin):
         'compas_cantidad': 4,
         'compas_unidad': 4,
         'acordes': acordes.toJson(),
-        'orden_partes': secu_fin,
         'letras': letras_fin,
     }
     return data

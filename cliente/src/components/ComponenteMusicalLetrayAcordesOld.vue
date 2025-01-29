@@ -38,9 +38,9 @@ watch(() => props.cancion, (cancion: Cancion) => {
   len_renglon = [] as number[];
   
   let falta: string = "";
-  for (let i = 0; i < cancion.letra.renglones.length; i++) {
+  for (let i = 0; i < cancion.letras.renglones.length; i++) {
     let tieneEnter = false;
-    let toAdd: string[] = cancion.letra.renglones[i];  
+    let toAdd: string[] = cancion.letras.renglones[i];  
     if (falta != "")
     {
       toAdd[0] = falta + toAdd[0];
@@ -69,10 +69,10 @@ watch(() => props.cancion, (cancion: Cancion) => {
 watch(() => props.compas, (newCompas: number) => {
   
   let totalCompases = 0;
-  for (let i = 0; i < props.cancion.letra.renglones.length; i++) {
+  for (let i = 0; i < props.cancion.letras.renglones.length; i++) {
     let compases_x_parte = 0;
-    if (props.cancion.letra.renglones[i])
-      compases_x_parte = props.cancion.letra.renglones[i].length;
+    if (props.cancion.letras.renglones[i])
+      compases_x_parte = props.cancion.letras.renglones[i].length;
 
     if (newCompas < totalCompases + compases_x_parte) {
       mostrando_renglon.value = i;

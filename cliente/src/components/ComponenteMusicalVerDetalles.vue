@@ -26,9 +26,9 @@ function actualizarLetras(cancion: Cancion) {
     for (var j = 0; j < cancion.acordes.partes[cancion.acordes.orden_partes[i]].acordes.length; j++) 
     {
 
-      nuevo_renglon.push(cancion.letra.renglones[contador_renglon_texto][contador_renglon_parte_texto]);
+      nuevo_renglon.push(cancion.letras.renglones[contador_renglon_texto][contador_renglon_parte_texto]);
       contador_renglon_parte_texto++;
-      if (contador_renglon_parte_texto >= cancion.letra.renglones[contador_renglon_texto].length) {
+      if (contador_renglon_parte_texto >= cancion.letras.renglones[contador_renglon_texto].length) {
         contador_renglon_texto++;
         contador_renglon_parte_texto = 0;
       }
@@ -58,7 +58,7 @@ watch(() => props.compas, (newCompas) => {
 <template>
   <div>
    Total Acordes: {{ musica.total_compases(cancion) }}
-  Total letra: {{ cancion.letra.renglones.flat().length }} 
+  Total letra: {{ cancion.letras.renglones.flat().length }} 
 </div>
 </template>
 
