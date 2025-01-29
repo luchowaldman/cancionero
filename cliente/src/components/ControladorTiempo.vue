@@ -109,7 +109,7 @@ function updateCompas(newCompas: number) {
         <input 
             type="range" 
             min="0" 
-            max="100" 
+            :max="musica.total_compases(cancion)" 
             v-model="currentCompas" 
             @input="updateCompas(currentCompas)" 
         />

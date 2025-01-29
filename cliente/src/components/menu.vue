@@ -10,8 +10,9 @@ import { ref, watch } from 'vue';
 
 const emit = defineEmits(['acciono']);
 
-function acciono(valor: string) {
-    emit('acciono', valor);
+function acciono(valor: string, compas: number = 0) {
+    console.log("Acciono--->", valor, compas);
+    emit('acciono', valor, compas);
     
 }
 const props = defineProps<{ viendo_vista: string, compas: number, cancion: Cancion
@@ -36,7 +37,7 @@ if (props.viendo_vista == undefined)
         <div class="ctrl_menu">
           <ControladorTiempo :nro_cancion="nro_cancion" :total_canciones="total_canciones"  :compas=compas :cancion="cancion"
           @play="acciono('play')" @pause="acciono('pause')" @stop="acciono('stop')" @next="acciono('next')" @previous="acciono('previous')"
-          >
+            @update-compas="(valor) => acciono('update-compas', valor)">
         </ControladorTiempo> 
       </div>
     </div>

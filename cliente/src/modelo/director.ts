@@ -87,6 +87,24 @@ export class Director {
 
     }
 
+    update_compas(nro: number) {
+        this.nro_compas = parseInt(nro.toString());
+        this.cambiosCompasHandler?.(nro);
+        console.log("Compas actualizado", nro);
+    }
+
+    click_pause() {
+        if (this.configuracion.sesion.estado != "conectado") {
+            console.log("Pause");
+            this.reproductor.pausar();
+        } else {
+            if ((this.configuracion.sesion.estado == "conectado") && (this.esDirector)) {
+                console.log("Pause conectado");
+                //this.reproductor.detener();
+            }
+        }
+    }
+
     click_play() {
         let contar_tiempo: boolean = false;
         

@@ -82,7 +82,7 @@ const director_ref = ref(director);
   });
   director.setcambiosCompasHandler((compas: number) => {
     console.log("cambios compas", compas)
-    compas_ref.value = compas;
+    compas_ref.value = parseInt(compas.toString());
   });
   
 
@@ -90,7 +90,7 @@ onMounted(() => {
     console.log("APP MONTADA")
 });
 
-function acciono(valor: string) {
+function acciono(valor: string, compas: number = 0) {
 
   switch (valor) {
     case 'next':
@@ -101,6 +101,12 @@ function acciono(valor: string) {
       break;
     case 'play':
       director.click_play();
+      break;
+    case 'pause':
+      director.click_pause();
+      break;
+    case 'update-compas':
+      director.update_compas(compas);
       break;
     case 'conectar':
       console.log("conectar");
