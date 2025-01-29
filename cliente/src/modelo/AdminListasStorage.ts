@@ -22,8 +22,8 @@ export class AdminListasLocalStorage  {
         let indice = this.almacen.indice();
         const index = indice.findIndex(i => i.banda === item.banda && i.cancion === item.cancion);
         let canciones = this.almacen.obtenerTodasLasCanciones()
+        item.origen = 'local';
         if (index === -1) {
-            item.origen = 'local';
             indice.push(item);
             canciones.push(cancion);
         } else {
@@ -32,6 +32,18 @@ export class AdminListasLocalStorage  {
         }
         this.almacen.guardarindice(indice);
             this.almacen.guardarTodasLasCanciones(canciones);
+    }
+
+    BorrarCancion(item: item_lista) {
+        let indice = this.almacen.indice();
+        const index = indice.findIndex(i => i.banda === item.banda && i.cancion === item.cancion);
+        let canciones = this.almacen.obtenerTodasLasCanciones()
+        if (index !== -1) {
+            indice.splice(index, 1);
+            canciones.splice(index, 1);
+            this.almacen.guardarindice(indice);
+            this.almacen.guardarTodasLasCanciones(canciones);
+        }
     }
 
     listas() : string[] {

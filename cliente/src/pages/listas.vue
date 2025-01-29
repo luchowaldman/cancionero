@@ -17,7 +17,7 @@ import { watch } from 'fs';
 const props = defineProps<{ lista_actual: string }>();
 
 const editref = ref();
-const ctrlcancionesguardadas = ref();
+const ctrlguardados = ref();
 const ctrlviendolista = ref();
 const editando_cancion = ref(false);
 const cancion_ver  = ref(new Cancion("no song name", "no band name", new Acordes([], []), new Letra([])));
@@ -108,8 +108,6 @@ function cerro_editar() {
 }
 
 
-function click_agregar_viendolista(item: item_lista) {
-}
 
 function click_borrar_viendolista(item: item_lista) {
     admin_indiceslista.BorrarCancion(reflista_actual.value, item);
@@ -117,28 +115,42 @@ function click_borrar_viendolista(item: item_lista) {
     ctrlviendolista.value?.cancionesFiltradas();
 }
 
+
 function click_agregar_guardadas(item: item_lista) {
     canciones_Actual.value = admin_indiceslista.GetIndice(reflista_actual.value)
     canciones_Actual.value.push(item);
     admin_indiceslista.SaveIndice(reflista_actual.value, canciones_Actual.value);
-    ctrlcancionesguardadas.value?.cancionesFiltradas();
+    ctrlguardados.value?.cancionesFiltradas();
+}
+
+function guardar_cancioneditada() { 
+    generadorlistasLS.GuardarCancion(itemindice_ref.value, cancion_ver.value);
+    ctrlviendolista.value?.cancionesFiltradas();
+    admin_indiceslista.SaveIndice(reflista_actual.value, canciones_Actual.value);
+    ctrlguardados.value?.cancionesFiltradas();
+    
 }
 
 function click_borrar_guardadas(item: item_lista) {
+    generadorlistasLS.BorrarCancion(item);
+    console.log(ctrlguardados.value)
+    ctrlguardados.value?.cancionesFiltradas();
+    
 }
+
 </script>
 
 <template>
     <div>
        <div>
-        <ComponenteMusicalEditar @cerrar="cerro_editar" :item_indice="itemindice_ref" :editando_cancion="editando_cancion" :compas="-1" :cancion="cancion_ver"  ref="editref"></ComponenteMusicalEditar>
+        <ComponenteMusicalEditar @cerrar="cerro_editar" @guardar="guardar_cancioneditada" :item_indice="itemindice_ref" :editando_cancion="editando_cancion" :compas="-1" :cancion="cancion_ver"  ref="editref"></ComponenteMusicalEditar>
     </div>
     <div v-if="!editando_cancion">
     
         <h1>{{  reflista_actual }}</h1>
     <ListadoTemas :ref="ctrlviendolista" titulo="" :indice="canciones_Actual" :muestra_renglones=10
     :btnVer=true v-on:click_ver="click_editar_URL" :btnDescargar=false :btnBorrar=true :btnAgregar=false
-    @click_agregar="click_agregar_viendolista" @click_borrar="click_borrar_viendolista"
+    @click_borrar="click_borrar_viendolista"
     ></ListadoTemas>
 
 
@@ -147,7 +159,7 @@ function click_borrar_guardadas(item: item_lista) {
 const  = ref();
 -->
 
-    <ListadoTemas :ref="ctrlcancionesguardadas" titulo="Guardadas" :indice="canciones_Storage" :muestra_renglones=10
+    <ListadoTemas :ref="ctrlguardados" titulo="Guardadas" :indice="canciones_Storage" :muestra_renglones=10
     :btnVer=true v-on:click_ver="click_editar_URL" :btnDescargar=false :btnAgregar=true :btnBorrar=true
     @click_agregar="click_agregar_guardadas" @click_borrar="click_borrar_guardadas"
     ></ListadoTemas>
