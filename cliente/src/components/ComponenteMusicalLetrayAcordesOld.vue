@@ -180,7 +180,7 @@ function compas_activo(reng_texto: number, parte_texto: number) {
 }
 </script>
 <template>
-  <div class="overflow-auto" ref="letraDiv" :style="{ 'max-height': vista.alto + 'px' }">
+  <div  ref="letraDiv" class="overflow-auto" :style="{ 'max-height': vista.alto + 'px' }">
     
     <div v-for="(parte, letra_parte) in reng_letra" :key="letra_parte" class="col-12">
       <div style="display: flex; flex-wrap: wrap;">

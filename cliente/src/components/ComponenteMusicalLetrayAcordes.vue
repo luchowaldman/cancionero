@@ -70,29 +70,29 @@ defineExpose({  Actualizar });
 <template>
   <div>
     
-    <div v-if="Actualizar()"></div>
-    <div style="display: flex; flex-wrap: wrap;">
+    <div  class="overflow-auto" :style="{ 'max-height': vista.alto + 'px' }"> 
+    <div style="display: flex; flex-wrap: wrap;"  :style="{ 'font-size' : vista.tamanio_referencia + 'px'}">
       <template v-for="(parte, index) in cancion.acordes.orden_partes" :key="index" class="parte">
         
         <template  v-for="(aco, index_aco) in cancion.acordes.partes[parte].acordes" :key="index_aco">
-                <div v-if="!letras[index][index_aco].includes('/n')" :class="{ compas_actual: mostrando_parte === index && mostrando_compas_parte === index_aco }">
-                  <div>{{ aco }}</div>
-                  <div>{{ letras[index][index_aco] }}</div>
+                <div v-if="!letras[index][index_aco].includes('/n')" :class="{ en_compas: mostrando_parte === index && mostrando_compas_parte === index_aco }">
+                  <div><div  class="acordediv"> {{ aco }}</div></div>
+                  <div class="divletra" >{{ letras[index][index_aco] }}&nbsp;</div>
                 </div>
-                <div v-if="letras[index][index_aco].includes('/n')" :class="{ compas_actual: mostrando_parte === index && mostrando_compas_parte === index_aco }">
-                  <div>{{ aco }}</div>
-                  <div>{{ letras[index][index_aco].split('/n')[0] }}</div>
+                <div v-if="letras[index][index_aco].includes('/n')" :class="{ en_compas: mostrando_parte === index && mostrando_compas_parte === index_aco }">
+                  <div><div  class="acordediv"> {{ aco }}</div></div>
+                  <div class="divletra">{{ letras[index][index_aco].split('/n')[0] }}</div>
                 </div>
                 <div class="break" v-if="letras[index][index_aco].includes('/n')"></div>
-                <div v-if="letras[index][index_aco].includes('/n')" :class="{ compas_actual: mostrando_parte === index && mostrando_compas_parte === index_aco }">
-                  <div>&nbsp;</div>
-                  <div>{{ letras[index][index_aco].split('/n')[1] }}</div>
+                <div v-if="letras[index][index_aco].includes('/n')" :class="{ en_compas: mostrando_parte === index && mostrando_compas_parte === index_aco }">
+                  <div><div  class="noacorde">  &nbsp; </div></div>
+                  <div class="divletra">{{ letras[index][index_aco].split('/n')[1] }}</div>
                 </div>
                 
         </template>
       </template>
     </div>
-    
+  </div>
 </div>
 </template>
 
@@ -110,17 +110,36 @@ defineExpose({  Actualizar });
 .parte {
   display: flex;
 }
-.acorde {
-  border: 1px solid #888;
-  width: 25%;
+.acordediv {
+  
+  margin: 1px;
+  padding: 5px;
+  color: blue;
+  
 }
+
+
+.noacorde {
+  margin: 1px;
+  padding: 5px;
+  
+}
+
 .ordenparte {
   border: 1px solid #888;
   width: 25%;
 }
 
-.compas_actual {
+.en_compas .acordediv {
   background-color: #00FF00;
   color: white;
+}
+
+.en_compas .acordediv {
+  background-color: #3954ee;
+  color: white;
+}
+.en_compas .divletra  {
+  color: red;
 }
 </style>

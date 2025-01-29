@@ -22,7 +22,11 @@ const ctrlviendolista = ref();
 const editando_cancion = ref(false);
 const cancion_ver  = ref(new Cancion("no song name", "no band name", new Acordes([], []), new Letra([])));
 
-
+editando_cancion.value = (localStorage.getItem("editando") == "si");
+if (editando_cancion.value) {
+    let item = JSON.parse(localStorage.getItem("editando_cancion") || "{}");
+    click_editar_URL(item);
+}
 
 
 const reflista_actual = ref(props.lista_actual);
@@ -70,6 +74,8 @@ generadorlistasLS.getIndice().then((indi_get: item_lista[]) => {
 
 
 function click_editar_URL(item: item_lista) {
+    localStorage.setItem("editando", "si");
+    localStorage.setItem("editando_cancion", JSON.stringify(item));
     
     GetCanciones.obtenerCancion(item).then((cancion_get: Cancion) => {
         editando_cancion.value = true;
@@ -95,6 +101,7 @@ function ev_ver_lista(newlista: string) {
 }
 
 function cerro_editar() {
+    localStorage.setItem("editando", "no");
     editando_cancion.value = false;
 }
 

@@ -28,6 +28,8 @@ const nota_escala = ref("");
 const mostrando_parte = ref(-1)
 const mostrando_compas_parte = ref(-1)
 
+
+
 const currentCompas = ref(0);
 let tiene_enters = [] as boolean[];
 let len_renglon = [] as number[];
@@ -74,7 +76,6 @@ function actualizarLetras(cancion: Cancion) {
     {
 
       nuevo_renglon.push(cancion.letra.renglones[contador_renglon_texto][contador_renglon_parte_texto]);
-      
       contador_renglon_parte_texto++;
       if (contador_renglon_parte_texto >= cancion.letra.renglones[contador_renglon_texto].length) {
         contador_renglon_texto++;

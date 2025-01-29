@@ -19,10 +19,10 @@ import { AdminListasURL } from './modelo/AdminListasURL';
 import { item_lista } from './modelo/item_lista';
 import { AdminListasTocables } from './modelo/AdminIndiceListas';
 import { GetCanciones } from './modelo/GetCanciones';
-import { dir } from 'console';
 
 
 const viendo = ref("tocar");
+viendo.value = localStorage.getItem("viendo") || "tocar";
 
 // LISTAS
 const ref_lista_actual = ref("default");
@@ -110,6 +110,7 @@ function acciono(valor: string) {
     case 'listas':
     case 'config':
       viendo.value = valor;
+      localStorage.setItem("viendo", valor);
       break;
     default:
       console.warn(`Acción no reconocida: ${valor}`);

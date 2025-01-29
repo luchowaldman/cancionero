@@ -8,7 +8,7 @@ from buscar_partes import buscar_partes
 
 # Define the directory where the pages will be saved
 SAVE_DIRECTORY = 'cifraclub_pages'
-DIRECTORIO_DATOS = '../cliente/public/data/'
+DIRECTORIO_DATOS = '../cliente/public/data/canciones/'
 
 def obtener_archivos_json(directorio):
     archivos = []
