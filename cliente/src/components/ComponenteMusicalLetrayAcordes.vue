@@ -4,7 +4,9 @@ import { Cancion } from '../modelo/cancion';
 import { Contexto } from '../modelo/contexto';
 import { VistaControl } from '../modelo/vista_control';
 const props = defineProps<{ compas: number, cancion: Cancion, vista: VistaControl }>()
+const scrollTop = ref(0); // Ref to store the horizontal scroll position
 
+const letraDiv = ref<HTMLElement | null>(null); // Ref to the div
 
 const mostrando_parte = ref(-1)
 const mostrando_compas_parte = ref(-1)
@@ -40,18 +42,31 @@ function actualizarLetras(cancion: Cancion) {
 
 watch(() => props.compas, (newCompas) => {
   let totalCompases = 0;
+  
   for (let i = 0; i < props.cancion.acordes.orden_partes.length; i++) 
   {
     let compases_x_parte = props.cancion.acordes.partes[props.cancion.acordes.orden_partes[i]].acordes.length; 
     if (newCompas < totalCompases + compases_x_parte) {
       mostrando_parte.value = i;
       mostrando_compas_parte.value = newCompas - totalCompases;
+      
+      
+      const mostrar_renglonen = Math.max((i * 137) - (100), 0);
+      mover_scroll(mostrar_renglonen)
       break;
     }
     totalCompases += compases_x_parte;
   }
   currentCompas.value = newCompas;
+  console.log('Compas actual', currentCompas.value);
 });
+
+
+function mover_scroll(posX: Number) 
+{
+  let prevPosX = posX as number;
+  letraDiv.value?.scrollTo({ top: prevPosX, behavior: 'smooth' });
+}
 
 
 function Actualizar() {
@@ -62,7 +77,27 @@ function Actualizar() {
   return false;
 
 }
+// Función para manejar el evento de scroll
+const handleScroll = () => {
+  
+  if (letraDiv.value) {
+    console.log('Scrolling', letraDiv.value.scrollTop);
+    scrollTop.value = letraDiv.value.scrollTop; // Actualiza la posición del scroll
+  }
+};
+// Añadir el evento de scroll cuando se monta el componente
+onMounted(() => {
+  if (letraDiv.value) {
+    letraDiv.value.addEventListener('scroll', handleScroll);
+  }
+});
 
+// Eliminar el evento de scroll cuando se desmonta el componente
+onUnmounted(() => {
+  if (letraDiv.value) {
+    letraDiv.value.removeEventListener('scroll', handleScroll);
+  }
+});
 
 defineExpose({  Actualizar });
 
@@ -70,7 +105,7 @@ defineExpose({  Actualizar });
 <template>
   <div>
     
-    <div  class="overflow-auto" :style="{ 'max-height': vista.alto + 'px' }"> 
+    <div ref="letraDiv"   class="overflow-auto" :style="{ 'max-height': vista.alto + 'px' }"> 
     <div style="display: flex; flex-wrap: wrap;"  :style="{ 'font-size' : vista.tamanio_referencia + 'px'}">
       <template v-for="(parte, index) in cancion.acordes.orden_partes" :key="index" class="parte">
         
