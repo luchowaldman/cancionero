@@ -120,6 +120,7 @@ defineExpose({  cancionesFiltradas });
                 <tr>
                     <th>Canción</th>
                     <th>Banda</th>
+                    <th>Origen</th>
                     <th>Acciones</th>
                        
                     <th>escala</th>
@@ -133,6 +134,7 @@ defineExpose({  cancionesFiltradas });
                 <tr v-for="(cancion, cancionid) in indice_disponible_filtro" :key="cancionid" >
                     <td>{{ cancion.cancion }}</td>
                     <td>{{ cancion.banda }}</td>
+                    <td>{{ cancion.origen }}</td>
                     <td>
                                             
                             <button v-if="btnVer" @click="click_ver(cancion)" class="btn btn-primary">

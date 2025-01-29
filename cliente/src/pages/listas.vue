@@ -21,6 +21,7 @@ const ctrlcancionesguardadas = ref();
 const ctrlviendolista = ref();
 const editando_cancion = ref(false);
 const cancion_ver  = ref(new Cancion("no song name", "no band name", new Acordes([], []), new Letra([])));
+const itemindice_ref = ref(new item_lista("no song name", "no band name"));
 
 editando_cancion.value = (localStorage.getItem("editando") == "si");
 if (editando_cancion.value) {
@@ -78,6 +79,7 @@ function click_editar_URL(item: item_lista) {
     localStorage.setItem("editando_cancion", JSON.stringify(item));
     
     GetCanciones.obtenerCancion(item).then((cancion_get: Cancion) => {
+        itemindice_ref.value = item;
         editando_cancion.value = true;
         cancion_ver.value = cancion_get;
         //editref.value?.reload_song();   
@@ -129,7 +131,7 @@ function click_borrar_guardadas(item: item_lista) {
 <template>
     <div>
        <div>
-        <ComponenteMusicalEditar @cerrar="cerro_editar" :editando_cancion="editando_cancion" :compas="-1" :cancion="cancion_ver"  ref="editref"></ComponenteMusicalEditar>
+        <ComponenteMusicalEditar @cerrar="cerro_editar" :item_indice="itemindice_ref" :editando_cancion="editando_cancion" :compas="-1" :cancion="cancion_ver"  ref="editref"></ComponenteMusicalEditar>
     </div>
     <div v-if="!editando_cancion">
     
@@ -152,8 +154,9 @@ const  = ref();
 
     <ListadoTemas titulo="En data generada por Luis Waldman" :indice="canciones_url" :muestra_renglones=10
     :btnVer=true v-on:click_ver="click_editar_URL" 
+    @click_agregar="click_agregar_guardadas"
     @click_descargar="click_descargar_URL"
-    :btnDescargar=true :btnAgregar=false :btnBorrar=false
+    :btnDescargar=true :btnAgregar=true :btnBorrar=false
     ></ListadoTemas>
   
 </div>

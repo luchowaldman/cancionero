@@ -28,6 +28,7 @@ export class AdminListasURL extends  AdminiListas {
             item.calidad = data[i].calidad;
             item.len_partes = data[i].len_partes;
             item.escala = data[i].escala;
+            item.origen = 'url|' + this.url;
             items_lista.push(item);
         }
         return items_lista;
@@ -37,7 +38,7 @@ export class AdminListasURL extends  AdminiListas {
 
     async GetCancion(item: item_lista): Promise<Cancion> {
         console.log("Buscar", item);
-        const archivo = (this.url + `/${item.banda.replace(/\s+/g, '-')}_${item.cancion.replace(/\s+/g, '-')}.json`).toLocaleLowerCase();
+        const archivo = this.url + `/${item.banda.replace(/\s+/g, '-')}_${item.cancion.replace(/\s+/g, '-')}.json`
         console.log(archivo)
         const response = await fetch(archivo);
         const data = await response.json();

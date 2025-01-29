@@ -4,9 +4,10 @@ import { Cancion } from '../modelo/cancion';
 import { Musica } from '../modelo/musica';
 import { AnalisisArmonico } from '../modelo/analisis_armonico';
 import Acordedit from './acordedit.vue';
+import { item_lista } from '../modelo/item_lista';
 
 let musica = new Musica();
-const props = defineProps<{ compas: number, cancion: Cancion, editando_cancion: boolean }>()
+const props = defineProps<{ compas: number, cancion: Cancion, item_indice: item_lista, editando_cancion: boolean }>()
 
 const emit = defineEmits(['cerrar']);
 
@@ -150,10 +151,10 @@ function borrar(renglonIndex: number, palabraIndex: number) {
 
   <div class="navbarEdit" >
     <div class="marca">
-      Editando
+      Editando: {{  cancion.banda }} - {{ cancion.cancion }} --Tempo: <input type="number" v-model="cancion.tempo" /> Origen: {{ item_indice?.origen }}
     </div>
     
-    
+    <div></div>
     
     <div class="botoneraleft">
       <button @click="guardar_cancion()" >Guardar</button>

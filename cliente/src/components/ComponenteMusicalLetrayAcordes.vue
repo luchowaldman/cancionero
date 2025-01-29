@@ -136,7 +136,7 @@ defineExpose({  Actualizar });
 }
 
 .en_compas .acordediv {
-  background-color: #3954ee;
+  background-color: red;
   color: white;
 }
 .en_compas .divletra  {

@@ -3,6 +3,7 @@
 
 export class item_lista {
     public estado: string;
+    public origen: string;
     public escala: string;
     public total_partes: number;
     public len_partes: number[];
@@ -16,6 +17,7 @@ export class item_lista {
         public banda: string
     ) {
         this.estado = 'nocargado';
+        this.origen = '';
         this.escala = '';
         this.total_partes = 0;
         this.total_orden_partes = 0;

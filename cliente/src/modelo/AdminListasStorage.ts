@@ -12,11 +12,18 @@ export class AdminListasLocalStorage  {
     
     }
 
+    
+        async GetCancion(item: item_lista): Promise<Cancion> {
+            return this.GetCancionxTema(item.banda, item.cancion);
+        }
+    
+
     GuardarCancion(item: item_lista, cancion: Cancion) {
         let indice = this.almacen.indice();
         const index = indice.findIndex(i => i.banda === item.banda && i.cancion === item.cancion);
         let canciones = this.almacen.obtenerTodasLasCanciones()
         if (index === -1) {
+            item.origen = 'local';
             indice.push(item);
             canciones.push(cancion);
         } else {
