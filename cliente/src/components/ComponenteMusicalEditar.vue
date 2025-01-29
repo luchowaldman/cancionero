@@ -62,7 +62,48 @@ function borrar(renglonIndex: number, palabraIndex: number) {
     a.click();
     URL.revokeObjectURL(url);
   }
+  const mostrando_compas_parte = ref(0);
+  const mostrando_parte = ref(0);
+  const editando_compas = ref(-1);
 
+  function agregarAcorde(index_parte: number) {
+    props.cancion.acordes.partes[index_parte].acordes.push('');
+  }
+
+  function eliminarAcorde(index_parte: number, index_acorde: number) {
+    props.cancion.acordes.partes[index_parte].acordes.splice(index_acorde, 1);
+  }
+
+  function agregarParte() {
+    props.cancion.acordes.partes.push({ nombre: 'Nueva Parte', acordes: [] });
+  }
+
+  function eliminarParte(index_parte: number) {
+    props.cancion.acordes.partes.splice(index_parte, 1);
+  }
+
+  function editarAcorde(index_parte: number, index_acorde: number) {
+    editando_compas.value = index_acorde;
+    editando_parte.value = index_parte;
+  }
+
+  function guardarAcorde(index_parte: number, index_acorde: number) {
+    editando_compas.value = -1;
+    editando_parte.value = -1;
+  }
+
+  function actualizarOrdenPartes(index: number) {
+    console.log(index, props.cancion.acordes.orden_partes[index])
+    if (props.cancion.acordes.orden_partes[index] === -1) {
+      console.log("Eliminar", index);
+      props.cancion.acordes.orden_partes.splice(index, 1);
+
+    }
+  }
+
+  function agregarOrdenParte() {
+    props.cancion.acordes.orden_partes.push(0);
+  }
 
 </script>
 <template>
@@ -106,13 +147,68 @@ function borrar(renglonIndex: number, palabraIndex: number) {
 
     </div>
     <div class="col-4">
-Acordes
+
       
+  <div class="row">
+  
+  <h2>Partes</h2>
+  <div v-for="(parte, index_parte) in cancion.acordes.partes" :key="parte.nombre" class="row">
+    <input type="text" v-model="parte.nombre" />
+    
+    <div class="parte">
+      <div v-for="(acorde, index) in parte.acordes" class="acorde" :key="acorde">
+        <div v-if="editando_parte === index_parte && editando_compas === index">
+          <input type="text" v-model="parte.acordes[index]" @blur="guardarAcorde(index_parte, index)" />
+          <button @click="eliminarAcorde(index_parte, index)" class="btn btn-danger btn-sm">
+            <i class="bi bi-trash"></i>
+          </button>
+        </div>
+        <div v-else :class="{ compas_actual: ((mostrando_compas_parte === index) && (index_parte === cancion.acordes.orden_partes[mostrando_parte])) }" @click="editarAcorde(index_parte, index)">
+            <span>
+            <span v-if="acorde">{{ acorde }}</span>
+            <i v-else class="bi bi-music-note"></i>
+            </span>
+        </div>
+      </div>
+      <div>
+      <button @click="agregarAcorde(index_parte)" class="btn btn-primary btn-sm">
+        <i class="bi bi-plus"></i>
+      </button>
+    </div>
+    </div>
+    <div>
+    <button @click="eliminarParte(index_parte)" class="btn btn-danger btn-sm">
+      <i class="bi bi-trash"></i>
+    </button>
+  </div>
+  </div>
+  <div>
+  <button @click="agregarParte" class="btn btn-primary btn-sm">
+    <i class="bi bi-plus"></i>
+  </button>
+</div>
+  <h1>&nbsp;</h1>
+  <h2>Orden</h2>
+<div style="display: flex; flex-wrap: wrap;">
+  <div v-for="(parte, index) in cancion.acordes.orden_partes" :key="index" class="col-2 acorde">
+    <select v-model="cancion.acordes.orden_partes[index]" @change="actualizarOrdenPartes(index)" class="form-select">
+      <option v-for="(parte, parteIndex) in cancion.acordes.partes" :key="parteIndex" :value="parteIndex">
+        {{ parte.nombre }}
+      </option>
+      <option :value="-1">Eliminar</option>
+    </select>
+  </div>
+  <button @click="agregarOrdenParte" class="btn btn-primary btn-sm">
+    <i class="bi bi-plus"></i> Agregar Parte al Orden
+  </button>
+</div>
+</div>
 </div>
       
-</div>
 </div>
 
+</div>
+      
 </template>
 
 
