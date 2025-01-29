@@ -161,7 +161,7 @@ function borrar(renglonIndex: number, palabraIndex: number) {
     <div></div>
     
     <div class="botoneraleft">
-      <button @click="guardar_cancion()" >Guardar</button>
+      <button @click="guardar_cancion()" >Descargar</button>
       <button @click="cerrar_edicion()">Cerrar</button>
   </div>
   </div>
