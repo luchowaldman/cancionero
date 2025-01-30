@@ -29,10 +29,10 @@ defineExpose({ startMetronome, stopMetronome });
 </script>
 
 <template>
-  <div>
+  <div class="metronono">
     
-<div class="row">
-  <div v-for="n in props.cancion.compas_cantidad" :key="n" class="col-3" :class="{ beat_activo: n - 1 === activeBeat }">
+<div style="display: flex;">
+  <div v-for="n in props.cancion.compas_cantidad" :key="n" class="beat" :class="{ beat_activo: n - 1 === activeBeat }">
     {{ n }}
   </div>
 </div>
@@ -45,8 +45,24 @@ defineExpose({ startMetronome, stopMetronome });
     
 }
 
+.metronono {
+  border: 1px solid #a9a8f6;
+  border-radius: 10px;
+  width: 100%;
+  font-size: 27px;
+  margin: 4px;
+}
+
+.beat {
+  border: 1px solid #a9a8f6;
+  border-radius: 10px;
+  margin: 4px;
+  padding-left: 14px;
+  padding-right: 14px;
+
+}
 .beat_activo {
-  background-color: greenyellow;
+  background-color: rgb(235, 67, 16);
 }
 </style>
 

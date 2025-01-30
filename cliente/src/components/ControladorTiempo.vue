@@ -116,8 +116,10 @@ function updateCompas(newCompas: number) {
             </button>
             
       </div>
-      <div>
+      <div style="margin-left: auto">
+        <div style="margin-right: 10px;">
         <Metronomo ref="metronomeRef" :cancion="cancion"></Metronomo>
+      </div>
       </div>
 
 

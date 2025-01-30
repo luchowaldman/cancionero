@@ -174,7 +174,7 @@ defineExpose({  cancionesFiltradas });
 }
 
 .beat_activo {
-  background-color: greenyellow;
+    background-color: rgb(235, 67, 16);
 }
 
 </style>
