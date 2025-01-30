@@ -51,7 +51,7 @@ watch(() => props.compas, (newCompas) => {
       mostrando_compas_parte.value = newCompas - totalCompases;
       
       
-      const mostrar_renglonen = Math.max((i * 137) - (100), 0);
+      const mostrar_renglonen = Math.max((i * 130) - (400), 0);
       mover_scroll(mostrar_renglonen)
       break;
     }

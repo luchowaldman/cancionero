@@ -145,6 +145,48 @@ function borrar(renglonIndex: number, palabraIndex: number) {
     }
   }
 
+
+  const renglonesResaltadas = ref<string[][]>([]);
+  renglonesResaltadas.value = [];
+
+  function ver_parte_deorden(index: number) {
+    
+    
+    let nRenglones: string[][] = [[]];
+    let contador_renglon_texto = 0;
+    let contador_renglon_parte_texto = 0;
+    for (var i = 0; i < props.cancion.acordes.orden_partes.length; i++) {
+      for (var j = 0; j < props.cancion.acordes.partes[props.cancion.acordes.orden_partes[i]].acordes.length; j++) 
+      {
+        if (index == i) 
+        {
+          
+          if (nRenglones[contador_renglon_texto] == undefined) {
+            nRenglones[contador_renglon_texto] = [];
+          }
+          nRenglones[contador_renglon_texto][contador_renglon_parte_texto] = "r";
+        }
+
+        contador_renglon_parte_texto++;
+        if (contador_renglon_parte_texto >= props.cancion.letras.renglones[contador_renglon_texto].length) {
+          contador_renglon_texto++;
+          contador_renglon_parte_texto = 0;
+        }
+      } 
+      
+    }
+
+
+
+
+
+    renglonesResaltadas.value = nRenglones;
+
+
+    
+  }
+  
+
 </script>
 <template>
 <div v-if="editando_cancion">
@@ -173,9 +215,12 @@ function borrar(renglonIndex: number, palabraIndex: number) {
       
       <div >
       <div v-for="(renglon, renglonIndex) in cancion.letras.renglones" :key="renglonIndex" style="display: flex;">
-        <div v-for="(palabra, palabraIndex) in renglon" :key="palabraIndex" class="palabraedit">
+        <div v-for="(palabra, palabraIndex) in renglon" :key="palabraIndex" 
+        :class="{ 'resaltada': renglonesResaltadas[renglonIndex] != undefined && renglonesResaltadas[renglonIndex][palabraIndex] == 'r' }" class="palabraedit">
+          
         <div @click="editarPalabra(renglonIndex, palabraIndex)" v-if="renglonIndex != editando_renglon || palabraIndex != editando_parte"  >
-          <p v-if="palabra!=''"> {{ palabra }}</p>
+          <p v-if="palabra!=''">{{ palabra }}</p>
+          
           <p v-if="palabra==''">
           <i class="bi bi-music-note"></i>
           </p>
@@ -268,6 +313,9 @@ function borrar(renglonIndex: number, palabraIndex: number) {
       </option>
       <option :value="-1">Eliminar</option>
     </select>
+    <button @click="ver_parte_deorden(index)" class="btn btn-info btn-sm">
+      <i class="bi bi-eye"></i>
+    </button>
   </div>
   <button @click="agregarOrdenParte" class="btn btn-primary btn-sm">
     <i class="bi bi-plus"></i> Agregar Parte al Orden
@@ -289,6 +337,9 @@ function borrar(renglonIndex: number, palabraIndex: number) {
   color: #888;
 }
 
+.resaltada {
+  background-color: hsl(211, 47%, 51%);
+}
 
 .noesta_enscala {
   color: red;
