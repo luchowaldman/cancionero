@@ -3,6 +3,7 @@ import { ref, onMounted, onUnmounted, watch } from 'vue';
 import { Cancion } from '../modelo/cancion';
 import { Contexto } from '../modelo/contexto';
 import { VistaControl } from '../modelo/vista_control';
+import { Musica } from '../modelo/musica';
 const props = defineProps<{ compas: number, cancion: Cancion, vista: VistaControl }>()
 const scrollTop = ref(0); // Ref to store the horizontal scroll position
 
@@ -12,7 +13,7 @@ const mostrando_parte = ref(-1)
 const mostrando_compas_parte = ref(-1)
 const currentCompas = ref(0);
 const letras = ref([] as string[][]);
-
+const musica = new Musica();
 
 watch(() => props.cancion, (cancion: Cancion) => {
   actualizarLetras(cancion);
@@ -49,23 +50,24 @@ watch(() => props.compas, (newCompas) => {
     if (newCompas < totalCompases + compases_x_parte) {
       mostrando_parte.value = i;
       mostrando_compas_parte.value = newCompas - totalCompases;
-      
-      
-      const mostrar_renglonen = Math.max((i * 130) - (400), 0);
-      mover_scroll(mostrar_renglonen)
       break;
     }
     totalCompases += compases_x_parte;
   }
   currentCompas.value = newCompas;
+
+  const ve = (musica.get_renglontexto_de_compas(props.cancion ,newCompas) * 53) - 150;
+  const nueva_pos = Math.max(ve, 0);
+  mover_scroll(nueva_pos)
+      
   console.log('Compas actual', currentCompas.value);
 });
 
 
-function mover_scroll(posX: Number) 
+function mover_scroll(posX: number) 
 {
-  let prevPosX = posX as number;
-  letraDiv.value?.scrollTo({ top: prevPosX, behavior: 'smooth' });
+  
+  letraDiv.value?.scrollTo({ top: posX, behavior: 'smooth' });
 }
 
 

@@ -8,8 +8,33 @@ import { item_lista } from '../modelo/item_lista';
 
 let musica = new Musica();
 const props = defineProps<{ compas: number, cancion: Cancion, item_indice: item_lista, editando_cancion: boolean }>()
-
+const texto_toadd = ref("");
+const texto_toadd_calculo = ref([] as string[][]);
 const emit = defineEmits(['cerrar', 'guardar']);
+function click_calcular_textotoadd() {
+  const nue_reng = texto_toadd.value.split("\n");
+  texto_toadd_calculo.value = nue_reng.map((reng) => {
+    return reng.split("|");
+  });
+}
+
+function click_ponerletraparaedit() {
+  click_calcular_textotoadd();
+  props.cancion.letras.renglones = texto_toadd_calculo.value;
+}
+
+function click_cargarletraparaedit() {
+  texto_toadd.value = props.cancion.letras.renglones.map((renglon) => {
+    return renglon.join("|");
+  }).join("\n");
+}
+
+function click_agregartextocalculado() {
+  
+texto_toadd_calculo.value.forEach((renglon) => {
+  props.cancion.letras.renglones.push(renglon);
+});
+}
 
 
 function cerrar_edicion() {
@@ -193,10 +218,13 @@ function borrar(renglonIndex: number, palabraIndex: number) {
 
   <div class="navbarEdit" >
     <div class="marca">
-      Editando: {{  cancion.banda }} - {{ cancion.cancion }} --Tempo: <input type="number" v-model="cancion.tempo" /> Origen: {{ item_indice.origen }}
+      Editando: {{  cancion.banda }} - {{ cancion.cancion }} --Tempo: <input type="number" v-model="cancion.tempo" /> Origen: {{ item_indice.origen }} 
       <button @click="emit('guardar')">
         <i class="bi bi-save"></i> Guardar
       </button>
+      -- Tipo compas  
+      <input type="number" v-model="cancion.compas_cantidad" /> /
+      <input type="number" v-model="cancion.compas_unidad" />
 
     </div>
     
@@ -261,6 +289,36 @@ function borrar(renglonIndex: number, palabraIndex: number) {
   Total letra: {{ cancion.letras.renglones.flat().length }} 
 
 </div>
+
+
+      
+<div @click="reset_editPalabra">
+  
+<div class="row">
+  <div class="col-9">
+
+    <button @click="click_calcular_textotoadd">Calcular</button>
+    <button @click="click_agregartextocalculado">Agregar</button>
+    <button @click="click_cargarletraparaedit">Cargar</button>
+    <button @click="click_ponerletraparaedit">Ponen nueva letra</button>
+
+  </div>
+</div>
+<div class="row">
+  <div class="col-9">
+  <textarea v-model="texto_toadd" style="width: 100%; height: 280px;"></textarea>
+</div>
+<div class="col-3">
+   {{ texto_toadd_calculo }}
+</div>
+</div>
+  
+
+</div>
+
+
+
+
     </div>
     <div class="col-4">
 
