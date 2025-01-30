@@ -29,27 +29,19 @@ if (props.viendo_vista == undefined)
     
     
     <div class="pagina_seleccionable" :class="{active: viendo_vista == 'tocar'}" >
-        <p class="nombre-pagina " @click="acciono('tocar')"   :class="{active: viendo_vista == 'tocar'}" aria-current="page">
+        <p class="nombre-pagina" @click="acciono('tocar')"   :class="{active: viendo_vista == 'tocar'}" aria-current="page">
           
-          <i class="bi bi-fire"></i>
+          <i class="bi bi-fire ilogo"></i>
 
         </p>	
-        <div class="ctrl_menu">
+      </div>
+        <div class="ctrl_menu"  style="width: 40%;">
           <ControladorTiempo :nro_cancion="nro_cancion" :total_canciones="total_canciones"  :compas=compas :cancion="cancion"
           @play="acciono('play')" @pause="acciono('pause')" @stop="acciono('stop')" @next="acciono('next')" @previous="acciono('previous')"
             @update-compas="(valor) => acciono('update-compas', valor)">
         </ControladorTiempo> 
       </div>
-    </div>
-
-
-    <div class="pagina_seleccionable" @click="acciono('listas')"  :class="{active: viendo_vista == 'listas'}" >
-        <p class="nombre-pagina"aria-current="page">
-          
-          
-          <i class="bi bi-list"></i>
-        </p>	
-      </div>    <div class="ctrl_menu">
+      <div class="ctrl_menu">
         
         <ControladorSesion :compas=compas :cancion="cancion"  :sesion="sesion"
         @conectar="acciono('conectar')"> >
@@ -58,8 +50,14 @@ if (props.viendo_vista == undefined)
     
 
 
+      <div class="pagina_seleccionable aladerecha" @click="acciono('listas')"  :class="{active: viendo_vista == 'listas'}" >
+        <p class="nombre-pagina"aria-current="page">
+          <i class="bi bi-list"></i>
+        </p>	
+      </div>    
+      
           
-          <div class="pagina_seleccionable config" @click="acciono('config')" :class="{active: viendo_vista == 'config'}" >
+          <div class="pagina_seleccionable aladerecha" @click="acciono('config')" :class="{active: viendo_vista == 'config'}" >
             <p class="nombre-pagina" aria-current="page">
               
               <i class="bi bi-gear-fill"></i>
@@ -74,11 +72,13 @@ if (props.viendo_vista == undefined)
 .navbarFogon {
   display: flex;
   border: 1px solid;
-  margin: 10px 0px 10px 10px;
+  margin: 5px 10px 5px 10px;
   border-radius: 20px;
+  color: #a9a8f6;
 }
 
 .ctrl_menu {
+  margin: 4px;
   padding: 10px 0px 10px 10px;
   border-radius: 20px;
   border: 1px solid;
@@ -96,24 +96,20 @@ if (props.viendo_vista == undefined)
 }
 
 .active {
-  color: blue
-}
-
-.marca {
-  font-size: 60px;
   color: red;
 }
+
+.ilogo {
+  margin: 14px;
+  padding-right: 12px;
+
+}
+
 .nombre-pagina {
   font-size: 60px;
 }
 
-body {
-  font-size: 20px; /* Hacer las letras más grandes */
-  background-color: #F5DEB3; /* Color claro, como un papel viejo */
-  color: #333; /* Color de texto gris oscuro para mejor contraste */
-  font-family: 'Arial', sans-serif; /* Cambiar a una fuente moderna */
-}
-.config {
+.aladerecha {
   margin-left: auto
 }
 
@@ -165,9 +161,4 @@ body {
   display: flex;
 }
 
-.dropdown-item {
-  padding: 5px 10px;
-  color: #8B4513;
-  text-decoration: none;
-}
 </style>

@@ -76,14 +76,32 @@ function updateCompas(newCompas: number) {
 <template>
 
   <div>
+    <div class="titulocontorltiempo">
     {{ nro_cancion + 1 }} / {{ total_canciones }} {{ cancion.cancion }} - {{ cancion.banda }}
+  </div>
     
+  <div>
+
+<div class="progress-bar">
+    <input 
+        type="range" 
+        min="0" 
+        :max="musica.total_compases(cancion)" 
+        v-model="currentCompas" 
+        @input="updateCompas(currentCompas)" 
+    />
     
+</div>
+
+</div>
     
     <div class="controls">
-            <button class="boton_controller" @click="play">
+      <div>
+          
+        <button style="font-size: larger;" class="boton_controller" @click="play">
               <i class="bi bi-play-fill"></i>
             </button>
+            <span class="spnTiempo">{{ tiempo.formatSegundos(segundos_actuales) }} / {{ tiempo.formatSegundos(segundos_totales) }} </span>
             <button class="boton_controller" @click="pause">
               <i class="bi bi-pause-fill"></i>
             </button>
@@ -96,27 +114,18 @@ function updateCompas(newCompas: number) {
             <button class="boton_controller" @click="next">
               <i class="bi bi-skip-forward-fill"></i>
             </button>
-            <span>{{ tiempo.formatSegundos(segundos_actuales) }} / {{ tiempo.formatSegundos(segundos_totales) }} </span>
+            
+      </div>
+      <div>
+        <Metronomo ref="metronomeRef" :cancion="cancion"></Metronomo>
+      </div>
+
+
     </div>
     
     
-    <Metronomo ref="metronomeRef" :cancion="cancion"></Metronomo>
 
     
-  <div>
-
-    <div class="progress-bar">
-        <input 
-            type="range" 
-            min="0" 
-            :max="musica.total_compases(cancion)" 
-            v-model="currentCompas" 
-            @input="updateCompas(currentCompas)" 
-        />
-        
-    </div>
-
-  </div>
 
     
 </div>
@@ -129,8 +138,27 @@ function updateCompas(newCompas: number) {
     
 }
 
+.titulocontorltiempo {
+  border: 1px solid;
+  font-size: 38px;
+  padding-left: 12px;
+  margin: 4px;
+  border-radius: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .boton_controller {
-  width: 50px;
-  height: 50px;
+  width: 36px;
+  height: 36px;
+}
+
+.spnTiempo {
+  border: 1px solid;
+  font-size: 27px;
+  margin: 4px;
+  border-radius: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>

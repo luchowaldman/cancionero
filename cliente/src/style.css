@@ -12,6 +12,11 @@
     
 }
 
+.bodyClass {
+  background-color: black;
+  color: white;
+}
+
 #app {
   
 }
