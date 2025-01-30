@@ -155,25 +155,25 @@ function borrar(renglonIndex: number, palabraIndex: number) {
     let nRenglones: string[][] = [[]];
     let contador_renglon_texto = 0;
     let contador_renglon_parte_texto = 0;
-    for (var i = 0; i < props.cancion.acordes.orden_partes.length; i++) {
-      for (var j = 0; j < props.cancion.acordes.partes[props.cancion.acordes.orden_partes[i]].acordes.length; j++) 
-      {
-        if (index == i) 
-        {
-          
-          if (nRenglones[contador_renglon_texto] == undefined) {
-            nRenglones[contador_renglon_texto] = [];
-          }
-          nRenglones[contador_renglon_texto][contador_renglon_parte_texto] = "r";
+    try {
+      for (var i = 0; i < props.cancion.acordes.orden_partes.length; i++) {
+      for (var j = 0; j < props.cancion.acordes.partes[props.cancion.acordes.orden_partes[i]].acordes.length; j++) {
+        if (index == i) {
+        if (nRenglones[contador_renglon_texto] == undefined) {
+          nRenglones[contador_renglon_texto] = [];
+        }
+        nRenglones[contador_renglon_texto][contador_renglon_parte_texto] = "r";
         }
 
         contador_renglon_parte_texto++;
         if (contador_renglon_parte_texto >= props.cancion.letras.renglones[contador_renglon_texto].length) {
-          contador_renglon_texto++;
-          contador_renglon_parte_texto = 0;
+        contador_renglon_texto++;
+        contador_renglon_parte_texto = 0;
         }
-      } 
-      
+      }
+      }
+    } catch (error) {
+      console.error("Error processing the song parts:", error);
     }
 
 
