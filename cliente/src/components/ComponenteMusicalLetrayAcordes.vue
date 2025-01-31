@@ -105,7 +105,7 @@ defineExpose({  Actualizar });
 
 </script>
 <template>
-  <div>
+  <div class="componenteMusical">
     
     <div ref="letraDiv"   class="overflow-auto" :style="{ 'max-height': vista.alto + 'px' }"> 
     <div style="display: flex; flex-wrap: wrap;"  :style="{ 'font-size' : vista.tamanio_referencia + 'px'}">
@@ -136,7 +136,12 @@ defineExpose({  Actualizar });
 
 
 <style scoped>
-
+.componenteMusical {
+  border: 1px solid;
+  border-radius: 5px;
+  color: white;
+  padding: 6px;
+}
 .read-the-docs {
   color: #888;
 }
@@ -148,17 +153,22 @@ defineExpose({  Actualizar });
   display: flex;
 }
 .acordediv {
-  
+  font-size: large;
   margin: 1px;
   padding: 5px;
-  color: blue;
+  border: 1px solid;
+  border-radius: 5px;
+  display: inline-block;
+  color: #a9a8f6;
+  margin-right: 10px;
   
 }
 
 
 .noacorde {
   margin: 1px;
-  padding: 5px;
+  padding: 6px;
+  font-size: large;
   
 }
 

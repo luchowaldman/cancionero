@@ -38,21 +38,20 @@ watch(() => props.compas, (newCompas) => {
 
   <div class="row">
   
-    <h2>Orden</h2>
-    <div class="row ">
-          <div v-for="(parte, index) in cancion.acordes.orden_partes" :key="index" class="col-2 acorde">
+    <h2 style="text-decoration: underline; margin-bottom: 2px;">Orden</h2>
+    <div style="display: flex; flex-wrap: wrap;">
+          <div v-for="(parte, index) in cancion.acordes.orden_partes" :key="index" class="ordendiv">
             <span :class="{ compas_actual: mostrando_parte === index }" >{{ cancion.acordes.partes[parte].nombre }}</span>
           </div>
           
     </div>
-    <h1>&nbsp;</h1>
 
-    <h2>Partes</h2>
+    <h2  style="text-decoration: underline; margin-bottom: 2px;">Partes</h2>
     <div v-for="(parte, index_parte) in cancion.acordes.partes" :key="parte.nombre" class="row" >
       
-        <h3>{{ parte.nombre }}</h3>
-        <div class="parte">
-          <div v-for="(acorde, index) in parte.acordes" class="acorde" :key="acorde">
+        <div>{{ parte.nombre }}</div>
+        <div class="partediv">
+          <div v-for="(acorde, index) in parte.acordes" class="acordediv" :key="acorde">
             <span  :class="{ compas_actual: ((  mostrando_compas_parte === index ) &&
                                              ( index_parte  === cancion.acordes.orden_partes[mostrando_parte]  ))
              }">{{ acorde }}</span>
@@ -67,5 +66,40 @@ watch(() => props.compas, (newCompas) => {
 .read-the-docs {
   color: #888;
 }
+
+.ordendiv  {
+  font-size: large;
+  margin: 1px;
+  padding: 5px;
+  border: 1px solid;
+  border-radius: 5px;
+  display: inline-block;
+  color: #a9a8f6;
+  margin-right: 10px;
+  
+}
+
+.partediv {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.compas_actual {
+  background-color: red;
+  color: white;
+  }
+
+.acordediv {
+  font-size: large;
+  margin: 1px;
+  padding: 5px;
+  border: 1px solid;
+  border-radius: 5px;
+  display: inline-block;
+  color: #a9a8f6;
+  margin-right: 10px;
+  
+}
+
 
 </style>
