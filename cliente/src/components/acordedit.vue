@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, watchEffect } from 'vue';
 import { AnalisisArmonico } from '../modelo/analisis_armonico';
 
-const props = defineProps<{ analisis: AnalisisArmonico  }>()
+defineProps<{ analisis: AnalisisArmonico  }>()
 </script>
 <template>
   <div :class="{ noesta_enscala: analisis.esta_enscala === false } ">

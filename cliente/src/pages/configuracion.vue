@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import Menu from '../components/menu.vue';
 import { ModeloConfiguracion }  from '../modelo/modeloconfiguracion';
 
 import { Cliente }  from '../modelo/client_socketio';

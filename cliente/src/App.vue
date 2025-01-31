@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 
-import { ref, markRaw, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 
 
 import Menu from './components/menu.vue';
@@ -15,10 +15,8 @@ import { Acordes } from './modelo/acordes';
 import { EstadoSesion } from './modelo/estadosesion';
 import { Cliente }  from './modelo/client_socketio';
 import { Director } from './modelo/director';
-import { AdminListasURL } from './modelo/AdminListasURL';
 import { item_lista } from './modelo/item_lista';
 import { AdminListasTocables } from './modelo/AdminIndiceListas';
-import { GetCanciones } from './modelo/GetCanciones';
 
 
 const viendo = ref("tocar");
@@ -29,11 +27,8 @@ const ref_lista_actual = ref("default");
 const admin_indiceslista = new AdminListasTocables();
 
 // CANCIONES
-const nro_cancion = ref(0);
-const total_canciones = ref(0);
 const canciones_Actual = ref([] as item_lista[]);
 canciones_Actual.value = admin_indiceslista.GetIndice(ref_lista_actual.value);
-const compas = ref(-1);
 const cancion_ref  = ref(new Cancion("Cancion no cargada", "sin banda", new Acordes([], []), new Letra([])));
 const sesion_ref = ref(new EstadoSesion());
 const compas_ref = ref(-2);

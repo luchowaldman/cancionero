@@ -12,7 +12,6 @@ import { AdminListasLocalStorage } from '../modelo/AdminListasStorage';
 import { GetCanciones } from '../modelo/GetCanciones';
 import { AdminListasTocables } from '../modelo/AdminIndiceListas';
 import ComponenteMusicalEditar from '../components/ComponenteMusicalEditar.vue';
-import { watch } from 'fs';
 
 const props = defineProps<{ lista_actual: string }>();
 
@@ -54,19 +53,10 @@ generadorlistasURL.getIndice().then((indice: item_lista[]) => {
 function click_descargar_URL(item: item_lista) {
     generadorlistasURL.GetCancion(item).then((canciondesc: Cancion) => {
         generadorlistasLS.GuardarCancion(item, canciondesc);
-        ctrlcancionesguardadas.value?.cancionesFiltradas();
+        ctrlguardados.value?.cancionesFiltradas();
         
     });
 }
-
-function click_cambiolista(new_lista: string) {
-    reflista_actual.value = new_lista;  
-    
-    canciones_Actual.value = admin_indiceslista.GetIndice(new_lista);
-    ctrlviendolista.value?.cancionesFiltradas();
-    
-}
-
 
 
 generadorlistasLS.getIndice().then((indi_get: item_lista[]) => {
@@ -90,7 +80,7 @@ function click_editar_URL(item: item_lista) {
 function ev_agrego_lista(newlista: string) {
     reflista_actual.value = newlista;
     canciones_Actual.value = admin_indiceslista.GetIndice(reflista_actual.value)
-    ctrlcancionesguardadas.value?.cancionesFiltradas();
+    ctrlguardados.value?.cancionesFiltradas();
 
 
 }

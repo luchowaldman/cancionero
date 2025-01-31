@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { Cancion } from '../modelo/cancion';
-import { Contexto } from '../modelo/contexto';
 import { watch } from 'vue';
 import { VistaControl } from '../modelo/vista_control';
 

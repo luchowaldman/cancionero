@@ -14,8 +14,6 @@ const currentCompas = ref(0);
 const letras = ref([] as string[][]);
 const musica = new Musica();
 
-watch(() => props.cancion, (cancion: Cancion) => {
-});
 
 
 watch(() => props.compas, (newCompas) => {

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, watch } from 'vue';
 import { Cancion } from '../modelo/cancion';
-import { Contexto } from '../modelo/contexto';
 import { VistaControl } from '../modelo/vista_control';
 import { Musica } from '../modelo/musica';
 const props = defineProps<{ compas: number, cancion: Cancion, vista: VistaControl }>()

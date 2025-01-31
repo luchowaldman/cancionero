@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, watch } from 'vue';
+import { ref } from 'vue';
 import { Cancion } from '../modelo/cancion';
 import { Musica } from '../modelo/musica';
-import { AnalisisArmonico } from '../modelo/analisis_armonico';
-import Acordedit from './acordedit.vue';
 import { item_lista } from '../modelo/item_lista';
 
 let musica = new Musica();
@@ -119,7 +117,7 @@ function borrar(renglonIndex: number, palabraIndex: number) {
     editando_parte.value = index_parte;
   }
 
-  function guardarAcorde(index_parte: number, index_acorde: number) {
+  function guardarAcorde() {
     editando_compas.value = -1;
     editando_parte.value = -1;
   }
@@ -336,7 +334,7 @@ function borrar(renglonIndex: number, palabraIndex: number) {
     <div class="parte">
       <div v-for="(acorde, index) in parte.acordes" class="acorde" :key="acorde">
         <div v-if="editando_parte === index_parte && editando_compas === index">
-          <input type="text" v-model="parte.acordes[index]" @blur="guardarAcorde(index_parte, index)" />
+          <input type="text" v-model="parte.acordes[index]" @blur="guardarAcorde()" />
           <button @click="eliminarAcorde(index_parte, index)" class="btn btn-danger btn-sm">
             <i class="bi bi-trash"></i>
           </button>
@@ -368,7 +366,7 @@ function borrar(renglonIndex: number, palabraIndex: number) {
   <h1>&nbsp;</h1>
   <h2>Orden</h2>
 <div style="display: flex; flex-wrap: wrap;">
-  <div v-for="(parte, index) in cancion.acordes.orden_partes" :key="index" class="col-2 acorde">
+  <div v-for="(index) in cancion.acordes.orden_partes" :key="index" class="col-2 acorde">
     <select v-model="cancion.acordes.orden_partes[index]" @change="actualizarOrdenPartes(index)" class="form-select">
       <option v-for="(parte, parteIndex) in cancion.acordes.partes" :key="parteIndex" :value="parteIndex">
         {{ parte.nombre }}

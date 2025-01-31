@@ -1,15 +1,14 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, watchEffect } from 'vue';
-import { AnalisisArmonico } from '../modelo/analisis_armonico';
+import { ref } from 'vue';
 import { MidiPlayer} from '../modelo/midiplayer';
 import Pianocontrol from './pianocontrol.vue';
-import Partituracontrol from './partituracontrol.vue';
 
 const ref_instrumentocargado = ref(false)
-let midiplayer: MidiPlayer = null;
+let midiplayer: MidiPlayer | null = null;
 let archivos_instrumentos = ['acordion', 'bateria', 'guitarra', 'guitarraelectrica', 'harmonica', 'piano', 'trompeta']
 let nombres_instrumentos = ['acordion', 'bateria', 'guitarra', 'guitarra electrica', 'harmonica', 'piano', 'trompeta']
-function iniciar_midi(id_instrumeto) {
+
+function iniciar_midi(id_instrumeto: number) {
   console.log("iniciar_midi") 
 
 fetch('data/notas_midi/' + archivos_instrumentos[id_instrumeto]  +'.json')
@@ -32,14 +31,14 @@ fetch('data/notas_midi/' + archivos_instrumentos[id_instrumeto]  +'.json')
   });
     }
 
-    function tocar_nota(nota) {
+    function tocar_nota(nota: string) {
       console.log("tocar_midi")
-      midiplayer.tocarNota(nota);
+      midiplayer?.tocarNota(nota);
     }
 
-    function soltar_nota(nota) {
+    function soltar_nota(nota: string) {
       console.log("tocar_midi")
-      midiplayer.soltarNota(nota);
+      midiplayer?.soltarNota(nota);
     }
 
 </script>

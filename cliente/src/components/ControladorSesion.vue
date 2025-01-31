@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Cancion } from '../modelo/cancion';
 import { watch } from 'vue';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { EstadoSesion } from '../modelo/estadosesion';
 const props = defineProps<{ sesion: EstadoSesion }>();
-const currentCompas = ref(0);
 const refSesion = ref(props.sesion.estado);
 
 

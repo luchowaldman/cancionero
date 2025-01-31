@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Cancion } from '../modelo/cancion';
-import { Contexto } from '../modelo/contexto';
 
 defineProps<{ compas: number, cancion: Cancion }>()
 

@@ -1,12 +1,11 @@
 <script setup lang="ts">
 
-import { on } from 'events';
 import { Cancion } from '../modelo/cancion';
 import { VistaControl } from '../modelo/vista_control';
-import { markRaw, onMounted, onUpdated, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 
-const props = defineProps<{ compas: number, cancion: Cancion }>()
+defineProps<{ compas: number, cancion: Cancion }>()
 
 
 const vist: VistaControl[] = [

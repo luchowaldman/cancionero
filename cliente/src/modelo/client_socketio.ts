@@ -110,8 +110,8 @@ export class Cliente {
             this.conectadoHandler?.("desconecado");
         });
             
-        socket.on("replica", (datos: string[]) => {
-            console.log("inicio_compas received with compas:", datos);
+        socket.on("replica", (usuario: string, datos: string[]) => {
+            console.log("replica received with usuario and datos:", usuario, datos);
             this.replicaHandler?.(datos);
         });
 

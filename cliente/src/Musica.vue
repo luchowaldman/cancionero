@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import Partituracontrol from './components/partituracontrol.vue';
 
-import { asserts, elements, MusicXML } from '@stringsync/musicxml';
-import { ref, markRaw, onMounted } from 'vue';
+import { MusicXML } from '@stringsync/musicxml';
 
 
 const xml = `<?xml version="1.0" encoding="UTF-8"?>

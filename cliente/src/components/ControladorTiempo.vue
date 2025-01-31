@@ -4,7 +4,6 @@ import { Cancion } from '../modelo/cancion';
 import { Musica } from '../modelo/musica';
 import { Tiempo } from '../modelo/tiempo';
 
-import { Contexto } from '../modelo/contexto';
 import Metronomo from './metronomo.vue';
 
 import 'bootstrap-icons/font/bootstrap-icons.css';
@@ -96,13 +95,14 @@ function updateCompas(newCompas: number) {
 </div>
     
     <div class="controls">
-      <div>
-          
-        <button style="font-size: larger;" class="boton_controller" @click="play">
+      <div style="display: flex; flex-wrap: wrap;">
+        <div style="display: flex; flex-wrap: wrap;"><button style="font-size: larger;" class="boton_controller" @click="play">
               <i class="bi bi-play-fill"></i>
             </button>
-            <span class="spnTiempo">{{ tiempo.formatSegundos(segundos_actuales) }} / {{ tiempo.formatSegundos(segundos_totales) }} </span>
-            
+            <div><span class="spnTiempo">{{ tiempo.formatSegundos(segundos_actuales) }} / {{ tiempo.formatSegundos(segundos_totales) }} </span></div>
+          </div>
+        
+        <div>
             <button class="boton_controller" @click="pause">
               <i class="bi bi-pause-fill"></i>
             </button>
@@ -114,7 +114,11 @@ function updateCompas(newCompas: number) {
             </button>
             <button class="boton_controller" @click="next">
               <i class="bi bi-skip-forward-fill"></i>
-            </button>
+            </button></div>
+          
+        
+            
+            
             
       </div>
       <div style="margin-left: auto">
@@ -152,8 +156,8 @@ function updateCompas(newCompas: number) {
   white-space: nowrap;
 }
 .boton_controller {
-  width: 35px;
-  height: 33px;
+  width: 36px;
+  height: 36px;
   
   border-radius: 3px;
   color: #a9a8f6;

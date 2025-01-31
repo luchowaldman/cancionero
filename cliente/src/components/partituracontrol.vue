@@ -4,7 +4,8 @@
 
 <script lang="ts">
 import { defineComponent, onMounted } from "vue";
-import { Renderer, Stave, StaveNote, Voice, Formatter, Vex } from "vexflow";
+//import { Renderer, Stave, StaveNote, Voice, Formatter, Vex } from "vexflow";
+import { StaveNote, Voice, Vex } from "vexflow";
 
 export default defineComponent({
   name: "Pentagram",
@@ -17,13 +18,13 @@ export default defineComponent({
   dibujar_partitura() {
 
   },
-  setup(props) {
+  setup() {
     onMounted(() => {
 
 
       //const div = document.getElementById("output");
       const vf = new Vex.Flow.Factory({ renderer: { elementId: 'output', width: 1500, height: 1200 } });
-      const score = vf.EasyScore();
+      //const score = vf.EasyScore();
       const system = vf.System();
 
           

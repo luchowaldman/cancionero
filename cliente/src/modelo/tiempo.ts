@@ -1,4 +1,3 @@
-import { parse } from "path";
 
 export class Tiempo {
     formatSegundos(segundos: number): string {

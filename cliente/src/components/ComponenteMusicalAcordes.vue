@@ -37,7 +37,7 @@ function color_x_index(index: number) {
   }
 }
 
-function estilo_acorde(acorde) 
+function estilo_acorde(acorde: string) 
 {
   if (compases_escala.length == 0 && props.cancion.escala != "") {
     compases_escala = musica.GetAcordesdeescala(props.cancion.escala);
@@ -54,9 +54,9 @@ function estilo_acorde(acorde)
   }
   else 
   {
-    const acordes = acorde.split(' ');
-    const primerAcorde = acordes[0];
-    const ultimoAcorde = acordes[acordes.length - 1];
+//    const acordes = acorde.split(' ');
+//    const primerAcorde = acordes[0];
+ //   const ultimoAcorde = acordes[acordes.length - 1];
 
   }
 }

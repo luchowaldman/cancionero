@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import { ref, onMounted, onUnmounted, watchEffect } from 'vue';
+import { ref } from 'vue';
 
 
 const emit = defineEmits(['toco', 'solto']);
@@ -16,10 +16,10 @@ function nota_sostenido(nota: string) {
 }
 
 
-let allnotas = []
+let allnotas: string[] = []
 
 escalas.forEach(element => {
-    notas.forEach((nota, index) => {
+    notas.forEach((nota) => {
         allnotas.push(nota + element)
     });
     

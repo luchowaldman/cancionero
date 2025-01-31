@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, watchEffect } from 'vue';
+import { ref  } from 'vue';
 import { Cliente } from '../modelo/client_socketio';
 import { ModeloConfiguracion } from '../modelo/modeloconfiguracion';
-import { dir } from 'console';
 
 const props = defineProps<{ cliente: Cliente, config_guardada: ModeloConfiguracion  }>()
 const replicas_recibidas = ref<string[][]>([])

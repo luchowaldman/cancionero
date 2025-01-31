@@ -5,11 +5,11 @@ import ControladorTiempo from './ControladorTiempo.vue';
 import ControladorSesion from './ControladorSesion.vue';
 import { EstadoSesion } from '../modelo/estadosesion';
 
-import { ref, watch } from 'vue';
+
 
 
 const emit = defineEmits(['acciono']);
-const refSesion = ref();
+
 function acciono(valor: string, compas: number = 0) {
     console.log("Acciono--->", valor, compas);
     emit('acciono', valor, compas);

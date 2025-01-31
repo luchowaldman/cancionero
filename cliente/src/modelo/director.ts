@@ -2,8 +2,6 @@
 import { ModeloConfiguracion } from './modeloconfiguracion';
 import { Cliente } from '../modelo/client_socketio';
 import { item_lista } from '../modelo/item_lista';
-import { Almacenado } from './Almacenado';
-import { AdminListasLocalStorage } from './AdminListasStorage';
 import { AdminListasTocables } from './AdminIndiceListas';
 import { Cancion } from './cancion';
 import { GetCanciones } from './GetCanciones';
@@ -106,7 +104,6 @@ export class Director {
     }
 
     click_play() {
-        let contar_tiempo: boolean = false;
         
         if (this.configuracion.sesion.estado != "conectado") 
         {
