@@ -59,19 +59,21 @@ const config_guardada = ref(configuracionObj)
         
         <div class="row">
           <div class="col-3">
-  <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px;">
+  
+  
+  <div class="" style="width: 280px;">
     <ul class="nav nav-pills flex-column mb-auto">
     
       
       <li @click="click_opcion('perfil')">
-        <a href="#" class="nav-link text-white"  :class="{ 'active': viendo==='perfil' }" >
+        <a href="#" class="nav-link text-white"  :class="{ 'activo': viendo==='perfil' }" >
           
            Perfil 
         </a>
       </li>
       
       <li @click="click_opcion('sesion')">
-        <a href="#" class="nav-link text-white" :class="{ 'active': viendo==='sesion' }" >
+        <a href="#" class="nav-link text-white" :class="{ 'activo': viendo==='sesion' }" >
           
           Sesion
         </a>
@@ -83,27 +85,27 @@ const config_guardada = ref(configuracionObj)
       
       <li @click="click_opcion('vistas')">
         <a href="#" class="nav-link text-white"
-        :class="{ 'active': viendo==='vistas' }" >
+        :class="{ 'activo': viendo==='vistas' }" >
           
           Vistas
         </a>
       </li>
       <li @click="click_opcion('conexiones')">
         <a href="#" class="nav-link text-white"
-        :class="{ 'active': viendo==='conexiones' }" >
+        :class="{ 'activo': viendo==='conexiones' }" >
           
           Conexiones
         </a>
       </li>
       <li @click="click_opcion('datos')">
         <a href="#" class="nav-link text-white"
-          :class="{ 'active': viendo==='datos' }" >
+          :class="{ 'activo': viendo==='datos' }" >
           Datos
         </a>
       </li>
       <li @click="click_opcion('midis')">
         <a href="#" class="nav-link text-white"
-          :class="{ 'active': viendo==='midis' }" >
+          :class="{ 'activo': viendo==='midis' }" >
           MIDIS
         </a>
       </li>
@@ -117,7 +119,7 @@ const config_guardada = ref(configuracionObj)
       
       <li @click="click_opcion('acercade')">
         <a href="#" class="nav-link text-white"
-        :class="{ 'active': viendo==='acercade' }" >
+        :class="{ 'activo': viendo==='acercade' }" >
           
           Acerca de ...
         </a>
@@ -197,6 +199,10 @@ const config_guardada = ref(configuracionObj)
   }
 
   .botoneraConfig {padding: 20px;
+  }
+  .activo {
+    color: white;
+    background-color: blueviolet;
   }
 
 </style>

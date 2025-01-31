@@ -102,6 +102,7 @@ function updateCompas(newCompas: number) {
               <i class="bi bi-play-fill"></i>
             </button>
             <span class="spnTiempo">{{ tiempo.formatSegundos(segundos_actuales) }} / {{ tiempo.formatSegundos(segundos_totales) }} </span>
+            
             <button class="boton_controller" @click="pause">
               <i class="bi bi-pause-fill"></i>
             </button>
@@ -151,8 +152,14 @@ function updateCompas(newCompas: number) {
   white-space: nowrap;
 }
 .boton_controller {
-  width: 36px;
-  height: 36px;
+  width: 35px;
+  height: 33px;
+  
+  border-radius: 3px;
+  color: #a9a8f6;
+  background-color: black;
+  font-size: x-large;
+  border: 1px solid #a9a8f6;
 }
 
 .spnTiempo {
