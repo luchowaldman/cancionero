@@ -141,13 +141,14 @@ function click_borrar_guardadas(item: item_lista) {
 </script>
 
 <template>
-    <div>
+    <div class="divListas">
        <div>
-        <ComponenteMusicalEditar @cerrar="cerro_editar" @guardar="guardar_cancioneditada" :item_indice="itemindice_ref" :editando_cancion="editando_cancion" :compas="-1" :cancion="cancion_ver"  ref="editref"></ComponenteMusicalEditar>
-    </div>
-    <div v-if="!editando_cancion">
+            <ComponenteMusicalEditar @cerrar="cerro_editar" @guardar="guardar_cancioneditada" :item_indice="itemindice_ref" :editando_cancion="editando_cancion" :compas="-1" :cancion="cancion_ver"  ref="editref"></ComponenteMusicalEditar>
+        </div>
+        
+        <div v-if="!editando_cancion">
     
-        <h1>{{  reflista_actual }}</h1>
+        <div style="font-size: xx-large;">Lista actual: {{  reflista_actual }}</div>
     <ListadoTemas :ref="ctrlviendolista" titulo="" :indice="canciones_Actual" :muestra_renglones=10
     :btnVer=true v-on:click_ver="click_editar_URL" :btnDescargar=false :btnBorrar=true :btnAgregar=false
     @click_borrar="click_borrar_viendolista"
@@ -187,5 +188,12 @@ const  = ref();
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-top: 20px;
+}
+
+.divListas {
+    border: 1px solid ;
+    padding: 15px;
+    margin: 10px;
+    border-radius: 8px;
 }
 </style>

@@ -30,9 +30,8 @@ function ver_lista(n: string) {
 </script>
 
 <template>
-  <div>
     
-<div class="row">
+<div class="listado">
   <div v-for="n in props.listas" :key="n" class="col-3" >
     {{ n }}
     <button @click="ver_lista(n)">
@@ -54,10 +53,16 @@ function ver_lista(n: string) {
   </div>
   
 </div>
-  </div>
 </template>
 
 <style scoped>
+.listado {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  
+  margin-top: 20px;
+}
 </style>
 
 

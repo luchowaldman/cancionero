@@ -94,13 +94,60 @@ defineExpose({  cancionesFiltradas });
   
   
   <div >
-    <h1>{{ titulo }}</h1>
-    {{  indice_disponible_filtro.length }} de {{ indice_disponible.length }}
-    <div>
+    <div class="overflow-auto" style="max-height: 300px;">
 
-        <div>
-        Maximo: <input type="text" v-on:change="cancionesFiltradas()" v-model="max_registros" />
-        </div>
+        <table class="tablaListas">
+            <thead>
+                <tr>
+                    <th>Canción</th>
+                    <th>Banda</th>
+                    <th>Duracion</th>
+                    <th>Origen</th>
+                    <th>Escala</th>
+                    <th>BPM</th>
+                    <th>compas</th>
+                    <th>calidad</th>
+                    <th>Acciones</th>  
+                </tr>
+                
+            </thead>
+            <tbody>
+                <tr v-for="(cancion, cancionid) in indice_disponible_filtro" :key="cancionid" >
+                    <td style="font-size: x-large;">{{ cancion.cancion }}</td>
+                    <td>{{ cancion.banda }}</td>
+                    <td>NN:CC</td>
+                    <td>{{ cancion.origen }}</td>
+
+                    <td> {{  cancion.escala }}</td>
+                        <td> {{  cancion.bpm }}</td>
+                        <td> {{  cancion.compases_tiempo }} / {{ cancion.compases_tiempo }}</td>
+                        <td> {{  cancion.calidad }}</td>
+                    
+                    <td>
+                                            
+                                            <button v-if="btnVer" @click="click_ver(cancion)" class="btn btn-primary">
+                                            <i class="bi bi-eye"></i>
+                                            </button>
+                                            
+                                            <button v-if="btnDescargar" @click="click_descargar(cancion)" class="btn btn-warning">
+                                            <i class="bi bi-download"></i>
+                                            </button>
+                                            <button v-if="btnAgregar" @click="click_agregar(cancion)" class="btn btn-success">
+                                            <i class="bi bi-plus"></i>
+                                            </button>
+                                            <button v-if="btnBorrar" @click="click_borrar(cancion)" class="btn btn-danger">
+                                            <i class="bi bi-trash"></i>
+                                            </button>
+                                        </td>
+                </tr>
+            
+            </tbody>
+        </table>
+    </div>
+    
+    
+    <div class="controls">
+        <div>{{  indice_disponible_filtro.length }} de <input type="text" v-on:change="cancionesFiltradas()" v-model="max_registros" /></div>
         <div>
         Muy faciles: <input type="checkbox" v-on:change="cancionesFiltradas()" v-model="muy_faciles" />
         Con buenas propos: <input type="checkbox" v-on:change="cancionesFiltradas()" v-model="con_buenaspropos" />
@@ -113,54 +160,6 @@ defineExpose({  cancionesFiltradas });
         </div>
                     
     </div>
-    <div class="overflow-auto" style="max-height: 300px;">
-
-        <table>
-            <thead>
-                <tr>
-                    <th>Canción</th>
-                    <th>Banda</th>
-                    <th>Origen</th>
-                    <th>Acciones</th>
-                       
-                    <th>escala</th>
-                    <th>calidad</th>
-                    <th>partes</th>                    
-                    <th>uso partes</th>     
-                </tr>
-                
-            </thead>
-            <tbody>
-                <tr v-for="(cancion, cancionid) in indice_disponible_filtro" :key="cancionid" >
-                    <td>{{ cancion.cancion }}</td>
-                    <td>{{ cancion.banda }}</td>
-                    <td>{{ cancion.origen }}</td>
-                    <td>
-                                            
-                            <button v-if="btnVer" @click="click_ver(cancion)" class="btn btn-primary">
-                            <i class="bi bi-eye"></i>
-                            </button>
-                            
-                            <button v-if="btnDescargar" @click="click_descargar(cancion)" class="btn btn-warning">
-                            <i class="bi bi-download"></i>
-                            </button>
-                            <button v-if="btnAgregar" @click="click_agregar(cancion)" class="btn btn-success">
-                            <i class="bi bi-plus"></i>
-                            </button>
-                            <button v-if="btnBorrar" @click="click_borrar(cancion)" class="btn btn-danger">
-                            <i class="bi bi-trash"></i>
-                            </button>
-                        </td>
-                        <td> {{  cancion.escala }}</td>
-                        <td> {{  cancion.calidad }}</td>
-                    <td> {{  cancion.total_partes }} - {{ cancion.len_partes}} </td>
-                    <td> {{  cancion.total_orden_partes }}</td>
-                </tr>
-            
-            </tbody>
-        </table>
-    </div>
-    
         
     </div>
 
@@ -176,6 +175,45 @@ defineExpose({  cancionesFiltradas });
 .beat_activo {
     background-color: rgb(235, 67, 16);
 }
+
+.controls {
+    display: flex; border: 1px solid;
+    padding: 3px;
+}
+
+
+.controls div {
+    border: 1px solid;
+    margin: 3px;
+    padding: 3px;
+}
+
+.tablaListas {
+    width: 100%;
+    font-size: large;
+    border-collapse: collapse;
+}
+
+.tablaListas th {
+    background-color: #a9a8f6;
+    color: white;
+    font-size: larger;
+    padding: 10px;
+}
+
+.tablaListas td {
+    padding: 10px;
+}
+
+.tablaListas tbody tr:nth-child(odd) {
+    background-color: #f0f8ff; /* Light blue */
+}
+
+.tablaListas tbody tr:nth-child(even) {
+    background-color: white;
+}
+
+
 
 </style>
 
