@@ -1,16 +1,28 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, watch } from 'vue';
 import { Cancion } from '../modelo/cancion';
-import { Contexto } from '../modelo/contexto';
-
-const props = defineProps<{ compas: number, cancion: Cancion }>()
-
-const mostrando_renglon = ref(-1);
-const mostrando_palabra = ref(-1);
-const letraDiv = ref<HTMLElement | null>(null); // Ref to the div
+import { VistaControl } from '../modelo/vista_control';
+import { Musica } from '../modelo/musica';
+const props = defineProps<{ compas: number, cancion: Cancion, vista: VistaControl }>()
 const scrollTop = ref(0); // Ref to store the horizontal scroll position
 
-watch(() => props.compas, (newCompas: number) => {
+const letraDiv = ref<HTMLElement | null>(null); // Ref to the div
+
+const mostrando_renglon = ref(-1)
+const mostrando_palabra = ref(-1)
+const currentCompas = ref(0);
+const letras = ref([] as string[][]);
+const musica = new Musica();
+
+watch(() => props.cancion, (cancion: Cancion) => {
+});
+
+
+watch(() => props.compas, (newCompas) => {
+
+  
+
+  
   
   let totalCompases = 0;
   for (let i = 0; i < props.cancion.letras.renglones.length; i++) {
@@ -23,7 +35,7 @@ watch(() => props.compas, (newCompas: number) => {
       mostrando_palabra.value = newCompas - totalCompases;
 
       const conti_prev = 3;
-      const mostrar_renglonen = Math.max((mostrando_renglon.value * 18) - (18 * conti_prev), 0);
+      const mostrar_renglonen = Math.max((mostrando_renglon.value * 10) - (18 * conti_prev), 0);
       
 
       mover_scroll(mostrar_renglonen);
@@ -32,12 +44,30 @@ watch(() => props.compas, (newCompas: number) => {
     totalCompases += compases_x_parte;
   }
 
-  if (newCompas >= totalCompases) {
-    mostrando_renglon.value = -1;
-    mostrando_palabra.value = -1;
-  }
+
+  const ve = (musica.get_renglontexto_de_compas(props.cancion ,newCompas) * 53) - 150;
+  const nueva_pos = Math.max(ve, 0);
+  mover_scroll(nueva_pos)
+      
+  console.log('Compas actual', currentCompas.value);
 });
 
+
+function mover_scroll(posX: number) 
+{
+  
+  letraDiv.value?.scrollTo({ top: posX, behavior: 'smooth' });
+}
+
+
+function Actualizar() {
+  if (letras.value.length === 0) {
+    console.log('actualizar letras');
+ //   actualizarLetras(props.cancion);
+  }
+  return false;
+
+}
 // Función para manejar el evento de scroll
 const handleScroll = () => {
   
@@ -46,7 +76,6 @@ const handleScroll = () => {
     scrollTop.value = letraDiv.value.scrollTop; // Actualiza la posición del scroll
   }
 };
-
 // Añadir el evento de scroll cuando se monta el componente
 onMounted(() => {
   if (letraDiv.value) {
@@ -61,29 +90,93 @@ onUnmounted(() => {
   }
 });
 
-function mover_scroll(posX: Number) 
-{
-  let prevPosX = posX as number;
-  letraDiv.value?.scrollTo({ top: prevPosX, behavior: 'smooth' });
-}
-</script>
+defineExpose({  Actualizar });
 
+</script>
 <template>
-<div class="row">
-  <div>
-    <div id="letra" ref="letraDiv" class="overflow-auto" style="max-height: 500px;">
-      <span v-for="(palabra, index_palabra) in props.cancion.letras.renglones.flat()" 
-          :key="index_palabra" 
-          :class="{ compas_actual: props.compas === index_palabra }"
-          v-html="palabra.replace(/\/n/g, '<br>')"></span>
+  <div class="componenteMusical">
+    
+    <div ref="letraDiv"   class="overflow-auto" :style="{ 'max-height': vista.alto + 'px' }"> 
+    <div style="display: flex; flex-wrap: wrap;"  :style="{ 'font-size' : vista.tamanio_referencia + 'px'}">
+      <template v-for="(renglon, index) in cancion.letras.renglones" :key="index" class="parte">
+        
+        <template  v-for="(letra, index_aco) in renglon" :key="index_aco">
+                
+                <div v-if="!letra.includes('/n')" :class="{ en_compas: mostrando_renglon === index && mostrando_palabra === index_aco }">
+                  <div class="divletra" >{{ letra }} <i v-if="letra.trim() === ''" class="bi bi-music-note"></i> </div>
+                </div>
+                <div v-if="letra.includes('/n')" :class="{ en_compas: mostrando_renglon === index && mostrando_palabra === index_aco }">
+                  <div class="divletra">{{ letra.split('/n')[0] }} <i v-if="letra.split('/n')[0].trim() === ''" class="bi bi-music-note"></i></div>
+                </div>
+                
+                  <div class="break" v-if="letra.includes('/n')"></div>
+                
+                
+                <div v-if="letra.includes('/n')" :class="{ en_compas: mostrando_renglon === index && mostrando_palabra === index_aco }">
+                  <div class="divletra">{{ letra.split('/n')[1] }}</div>
+                </div>
+                
+        </template>
+      </template>
     </div>
   </div>
-  
 </div>
 </template>
 
+
+
 <style scoped>
+.componenteMusical {
+  border: 1px solid;
+  border-radius: 5px;
+  color: #a9a8f6;
+  padding: 6px;
+}
 .read-the-docs {
   color: #888;
 }
+
+.break {
+    flex-basis: 100%;
+  }
+.parte {
+  display: flex;
+}
+.acordediv {
+  font-size: large;
+  margin: 1px;
+  padding: 5px;
+  border: 1px solid;
+  border-radius: 5px;
+  display: inline-block;
+  color: #a9a8f6;
+  margin-right: 10px;
+  
+}
+
+
+.noacorde {
+  margin: 1px;
+  padding: 6px;
+  font-size: large;
+  
+}
+
+.ordenparte {
+  border: 1px solid #888;
+  width: 25%;
+}
+
+
+.en_compas {
+  color: white;
+  background-color: red ;
+  margin: 1px;
+  padding: 5px;
+  border: 1px solid;
+  border-radius: 5px;
+  display: inline-block;
+  margin-right: 10px;
+}
+
 </style>

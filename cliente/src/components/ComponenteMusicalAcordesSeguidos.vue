@@ -3,8 +3,9 @@ import { ref } from 'vue'
 import { Cancion } from '../modelo/cancion';
 import { Contexto } from '../modelo/contexto';
 import { watch } from 'vue';
+import { VistaControl } from '../modelo/vista_control';
 
-const props = defineProps<{ compas: number, cancion: Cancion }>()
+const props = defineProps<{ compas: number, cancion: Cancion, vista: VistaControl  }>()
 
 const mostrando_parte = ref(-1)
 const mostrando_compas_parte = ref(-1)
@@ -32,12 +33,16 @@ watch(() => props.compas, (newCompas) => {
 
 <template>
     <div>
-      <div v-for="(parte, index) in cancion.acordes.orden_partes" :key="index" class="parte">
+      
+      <div v-for="(parte, index) in cancion.acordes.orden_partes" :key="index" style="display: flex;">
+        <div  class="parte">
         <div  v-for="(aco, index_aco) in cancion.acordes.partes[parte].acordes" :key="index_aco"
          class="acorde"
+         :style="{ 'max-height': vista.alto + 'px', 'width': (vista.tamanio_referencia * 7) + 'px'  }"
          :class="{ compas_actual: mostrando_parte === index && mostrando_compas_parte === index_aco }">
          {{ aco }}
         </div>
+      </div>
       </div>
     </div>
 </template>
@@ -49,10 +54,20 @@ watch(() => props.compas, (newCompas) => {
 
 .parte {
   display: flex;
+  margin: 1px;
+  padding: 5px;
+  border: 1px solid;
+  border-radius: 5px;
 }
-.acorde {
-  border: 1px solid #888;
-  width: 25%;
+.acorde  {
+  font-size: large;
+  margin: 1px;
+  padding: 5px;
+  border: 1px solid;
+  border-radius: 5px;
+  color: #a9a8f6;
+  margin-right: 10px;
+  
 }
 .ordenparte {
   border: 1px solid #888;
@@ -60,7 +75,9 @@ watch(() => props.compas, (newCompas) => {
 }
 
 .compas_actual {
-  background-color: #00FF00;
+  background-color: red;
   color: white;
 }
+
+
 </style>

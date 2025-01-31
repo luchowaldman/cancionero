@@ -25,17 +25,22 @@ function cambiar_vista(vista: number) {
       break;
     case 1:
     toCH = [
-        new VistaControl(window.innerHeight / 50, 12, 7, "detalle", "col-9", (window.innerHeight / 1.7)),
-        //new VistaControl(window.innerHeight / 50, 12, 7, "detalle", "col-9", (window.innerHeight / 1.7)),
-          new VistaControl(30, 12, 7, "acordes", "col-3 d-md-block", 1400)
+        new VistaControl(window.innerHeight / 30, 12, 7, "letra", "col-12", (window.innerHeight / 1.7)),
         ];
       break;
       case 2:
     toCH = [
-        new VistaControl(window.innerHeight / 50, 12, 7, "detalle", "col-9", (window.innerHeight / 1.7))
+        new VistaControl(window.innerHeight / 50, 12, 7, "acordes_seguidos", "col-9", (window.innerHeight / 1.7)),
+        
+        new VistaControl(30, 12, 7, "acordes", "col-3 d-md-block", 1400)
         ];
       break;
       case 3:
+    toCH = [
+    new VistaControl(window.innerHeight / 50, 12, 7, "detalle", "col-9", (window.innerHeight / 1.7))
+        ];
+      break;
+      case 4:
     toCH = [
     new VistaControl(window.innerHeight / 50, 12, 7, "detalle", "col-9", (window.innerHeight / 1.7))
         ];
@@ -72,10 +77,11 @@ onMounted(() => {
       <i class="bi bi-eye"></i>
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <li v-on:click="cambiar_vista(0)"><a class="dropdown-item" href="#">Mix 1</a></li>
+      <li v-on:click="cambiar_vista(0)"><a class="dropdown-item" href="#">Todos</a></li>
       <li v-on:click="cambiar_vista(1)"><a class="dropdown-item" href="#">Cantante</a></li>
       <li v-on:click="cambiar_vista(2)"><a class="dropdown-item" href="#">Guitarrista</a></li>
-      <li v-on:click="cambiar_vista(3)"><a class="dropdown-item" href="#">Solo detalles</a></li>
+      <li v-on:click="cambiar_vista(3)"><a class="dropdown-item" href="#">Pianista</a></li>
+      <li v-on:click="cambiar_vista(4)"><a class="dropdown-item" href="#">Solo detalles</a></li>
     </ul>
   </div>
 

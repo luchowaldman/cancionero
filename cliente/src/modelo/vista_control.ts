@@ -1,5 +1,8 @@
 import { markRaw, ref } from 'vue';
 import ComponenteMusicalLetraAcordes from '../components/ComponenteMusicalLetrayAcordes.vue';
+import ComponenteMusicalAcordesSeguidos from '../components/ComponenteMusicalAcordesSeguidos.vue';
+
+import ComponenteMusicalLetra  from '../components/ComponenteMusicalLetra.vue';
 import ComponenteMusicalAcordes from '../components/ComponenteMusicalAcordes.vue';
 import ComponenteMusicalVerDetalles from '../components/ComponenteMusicalVerDetalles.vue';
 
@@ -26,9 +29,20 @@ export class VistaControl {
         if (this.tipo === 'letra_acordes') {
             return markRaw(ComponenteMusicalLetraAcordes);
         }
+        if (this.tipo === 'letra') {
+            return markRaw(ComponenteMusicalLetra);
+        }
         if (this.tipo === 'detalle') {
             return markRaw(ComponenteMusicalVerDetalles);
         }
+        if (this.tipo === 'acordes_seguidos') {
+            return markRaw(ComponenteMusicalAcordesSeguidos);
+        }
+        
+        if (this.tipo === 'acordes') {
+            return markRaw(ComponenteMusicalAcordes);
+        }
+        
         
         return markRaw(ComponenteMusicalAcordes);
         

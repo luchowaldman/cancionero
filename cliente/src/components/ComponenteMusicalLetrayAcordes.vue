@@ -177,10 +177,6 @@ defineExpose({  Actualizar });
   width: 25%;
 }
 
-.en_compas .acordediv {
-  background-color: #00FF00;
-  color: white;
-}
 
 .en_compas .acordediv {
   background-color: red;
