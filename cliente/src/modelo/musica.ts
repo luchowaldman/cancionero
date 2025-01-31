@@ -108,6 +108,8 @@ export class Musica {
 
         if (escala == "")
             return [];
+        if (escala == undefined)
+            return [];
         let buscar = escala;
         let modo_escala = 'mayor';
         if (escala.includes('m')) {

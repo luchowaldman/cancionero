@@ -4,13 +4,10 @@ import { Cancion } from '../modelo/cancion';
 import { watch } from 'vue';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { EstadoSesion } from '../modelo/estadosesion';
-const props = defineProps<{ compas: number, cancion: Cancion, sesion: EstadoSesion }>();
+const props = defineProps<{ sesion: EstadoSesion }>();
 const currentCompas = ref(0);
 const refSesion = ref(props.sesion.estado);
 
-watch(() => props.compas, (newCompas) => {
-  currentCompas.value = newCompas;
-});
 
 watch(() => props.sesion.estado, (newSesion) => {
   refSesion.value = newSesion;
@@ -27,16 +24,21 @@ function conectar() {
 
 <template>
 
-  <div>
-      <div class="tit_estado">{{  refSesion }}</div>
-      <div v-if="refSesion=='Inic. s/conexion'">
-        <input type="text" v-model="sesion.nombre" />
-        
-        
-        <button @click="conectar">Conectarse</button>
-        <input v-model="sesion.iniciar_alcomienzo" type="checkbox">
-      Al Iniciar
+  <div class="controlador_session">
+      
+      <div class="iniciado" v-if="refSesion=='Inic. s/conexion'">
+        <select style="margin-right: 10px;" v-model="sesion.nombre">
+          <option value="default">default</option>
+          <option value="default2">default2</option>
+          <option value="default3">default3</option>
+          <option value="fogoneando">fogoneando</option>
+          <option value="juntada">juntada</option>
+          <option value="nuestra">nuestra</option>
+          <option value="aca vamos">aca vamos</option>
+        </select>
+        <button @click="conectar" class="btnconectar">Conectarse</button>
       </div>
+      <div v-if="refSesion!='Inic. s/conexion'">{{ refSesion }} </div>
      
 </div>
 
@@ -47,4 +49,25 @@ function conectar() {
     display: flex;
     
 }
+
+.iniciado {
+  border: 1px solid;
+  border-radius: 5%;
+  font-size: x-large;
+  padding: 20px;
+}
+
+.controlador_session {
+  padding: auto;
+}
+
+.btnconectar {
+  
+  color: #a9a8f6;
+  background-color: black;
+  padding: 10px;
+  font-size: x-large;
+  border: 2px solid #a9a8f6;
+}
 </style>
+

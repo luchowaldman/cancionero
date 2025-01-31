@@ -9,7 +9,7 @@ import { ref, watch } from 'vue';
 
 
 const emit = defineEmits(['acciono']);
-
+const refSesion = ref();
 function acciono(valor: string, compas: number = 0) {
     console.log("Acciono--->", valor, compas);
     emit('acciono', valor, compas);
@@ -44,7 +44,7 @@ if (props.viendo_vista == undefined)
       <div class="ctrl_menu">
         
         <ControladorSesion :compas=compas :cancion="cancion"  :sesion="sesion"
-        @conectar="acciono('conectar')"> >
+        @conectar="acciono('conectar')"> :ref="refSesion" >
         </ControladorSesion>
       </div>
     
