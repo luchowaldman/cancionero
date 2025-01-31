@@ -86,6 +86,11 @@ function cancionesFiltradas()
 }
 cancionesFiltradas();
 
+
+function FormatearNombre(nombre: string) {
+    return nombre.replace(/-/g, ' ').toLowerCase().replace(/^\w/, c => c.toUpperCase());
+}
+
 defineExpose({  cancionesFiltradas });
 
 </script>
@@ -113,8 +118,8 @@ defineExpose({  cancionesFiltradas });
             </thead>
             <tbody>
                 <tr v-for="(cancion, cancionid) in indice_disponible_filtro" :key="cancionid" >
-                    <td style="font-size: x-large;">{{ cancion.cancion }}</td>
-                    <td>{{ cancion.banda }}</td>
+                    <td style="font-size: x-large;">{{ FormatearNombre(cancion.cancion) }}</td>
+                    <td>{{ FormatearNombre(cancion.banda) }}</td>
                     <td>NN:CC</td>
                     <td>{{ cancion.origen }}</td>
 
