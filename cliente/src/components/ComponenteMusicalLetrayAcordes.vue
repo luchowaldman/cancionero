@@ -74,7 +74,7 @@ function mover_scroll(posX: number)
 function Actualizar() {
   if (letras.value.length === 0) {
     console.log('actualizar letras');
- //   actualizarLetras(props.cancion);
+    actualizarLetras(props.cancion);
   }
   return false;
 
@@ -105,8 +105,13 @@ defineExpose({  Actualizar });
 
 </script>
 <template>
-  <div class="componenteMusical">
-    
+<div> 
+<div v-if="letras.length == 0" @click="Actualizar">
+  .. No cargada ..
+    </div>  
+  <div class="componenteMusical" v-if="letras.length > 0">
+    <div v-if="letras.length == 0">
+    </div>  
     <div ref="letraDiv"   class="overflow-auto" :style="{ 'max-height': vista.alto + 'px' }"> 
     <div style="display: flex; flex-wrap: wrap;"  :style="{ 'font-size' : vista.tamanio_referencia + 'px'}">
       <template v-for="(parte, index) in cancion.acordes.orden_partes" :key="index" class="parte">
@@ -130,6 +135,8 @@ defineExpose({  Actualizar });
       </template>
     </div>
   </div>
+</div>
+
 </div>
 </template>
 
