@@ -226,6 +226,10 @@ function borrar(renglonIndex: number, palabraIndex: number) {
       <input type="number" v-model="cancion.compas_cantidad" /> /
       <input type="number" v-model="cancion.compas_unidad" />
 
+      -- Escala  
+      <input type="text" v-model="cancion.escala" /> /
+      
+
     </div>
     
     <div></div>

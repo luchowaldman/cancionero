@@ -73,15 +73,15 @@ const director_ref = ref(director);
 
   director.Iniciar();
   director.setcambiosHandler((directornuevo: Director) => {
-    console.log("cambios", directornuevo.configuracion.sesion.estado)
+    console.log("cambios", directornuevo.configuracion.sesion.estado);
     sesion_ref.value = directornuevo.configuracion.sesion;
   });
   director.setcambiosCancionHandler((cancion: Cancion) => {
-    console.log("cambios cancion", cancion.cancion)
+    console.log("cambios cancion", cancion.cancion);
     cancion_ref.value = cancion;
   });
   director.setcambiosCompasHandler((compas: number) => {
-    console.log("cambios compas", compas)
+    console.log("cambios compas", compas);
     compas_ref.value = parseInt(compas.toString());
   });
   

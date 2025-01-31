@@ -105,6 +105,9 @@ export class Musica {
     
     GetAcordesdeescala(escala: string) 
     {
+
+        if (escala == "")
+            return [];
         let buscar = escala;
         let modo_escala = 'mayor';
         if (escala.includes('m')) {

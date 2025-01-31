@@ -2,12 +2,68 @@
 import { ref } from 'vue'
 import { Cancion } from '../modelo/cancion';
 import { watch } from 'vue';
+import { Musica } from '../modelo/musica';
 
 const props = defineProps<{ compas: number, cancion: Cancion }>()
 
 const mostrando_parte = ref(-1)
 const mostrando_compas_parte = ref(-1)
 const currentCompas = ref(0);
+
+const musica = new Musica()
+console.log("que hay", props.cancion.escala)
+let compases_escala = musica.GetAcordesdeescala(props.cancion.escala)
+console.log(compases_escala)
+
+function color_x_index(index: number) {
+  switch (index) {
+    case 0:
+      return '#a9a8f6';
+    case 1:
+      return '#497aff';
+    case 2:
+      return '#a9a8g6';
+    case 3:
+      return '#497aff';      
+    case 4:
+      return 'orange';
+    case 5:
+      return '#497aff';
+    case 6:
+      return 'orange';    
+    default:
+      return 'green';
+
+  }
+}
+
+function estilo_acorde(acorde) 
+{
+  if (compases_escala.length == 0 && props.cancion.escala != "") {
+    compases_escala = musica.GetAcordesdeescala(props.cancion.escala);
+  }
+
+  if (!acorde.includes(' ')) {
+  const find_acord = acorde.replace(/7|5/g, '');
+  const index = compases_escala.indexOf(find_acord);
+  const color = color_x_index(index);
+  
+  console.log("color", acorde,  color)
+  return { 'border-color': color };
+  
+  }
+  else 
+  {
+    const acordes = acorde.split(' ');
+    const primerAcorde = acordes[0];
+    const ultimoAcorde = acordes[acordes.length - 1];
+
+  }
+}
+
+watch(() => props.cancion, (newCancion) => {
+  compases_escala = musica.GetAcordesdeescala(newCancion.escala);
+});
 
 watch(() => props.compas, (newCompas) => {
     
@@ -51,7 +107,7 @@ watch(() => props.compas, (newCompas) => {
       
         <div>{{ parte.nombre }}</div>
         <div class="partediv">
-          <div v-for="(acorde, index) in parte.acordes" class="acordediv" :key="acorde">
+          <div v-for="(acorde, index) in parte.acordes" class="acordediv" :key="acorde" :style="estilo_acorde(acorde)">
             <span  :class="{ compas_actual: ((  mostrando_compas_parte === index ) &&
                                              ( index_parte  === cancion.acordes.orden_partes[mostrando_parte]  ))
              }">{{ acorde }}</span>
@@ -97,9 +153,22 @@ watch(() => props.compas, (newCompas) => {
   border-radius: 5px;
   display: inline-block;
   color: #a9a8f6;
+
   margin-right: 10px;
   
 }
 
+.domi {
+  color: #497aff;
+}
+
+/*
+  Tonica
+  color: #a9a8f6;
+  Semi Dominante:
+  color: blue;
+  Dominante
+  background-color: red;
+*/
 
 </style>
