@@ -216,6 +216,39 @@ function editar_parte(parteid: number) {
   editando_parte.value = true;
   refiereedit_parteid.value = parteid
 }
+// DRAG AND DROP ACORDES
+const arrastrando_acordes = ref(false);
+const acorde_arrastrado = ref("");
+function inicio_arrastrar(acorde: string) {
+  arrastrando_acordes.value = true;
+  acorde_arrastrado.value = acorde;
+}
+
+
+function onDragOver(event: DragEvent) {
+      event.preventDefault();
+      
+}
+
+function dropeo_intervalo(id: number) {
+  console.log("Intervalo", acorde_arrastrado.value, id);
+  if (id === -1) {
+    props.cancion.acordes.partes[refiereedit_parteid.value].acordes.unshift(acorde_arrastrado.value);
+  } else {
+    props.cancion.acordes.partes[refiereedit_parteid.value].acordes.splice(id + 1, 0, acorde_arrastrado.value);
+  }
+  arrastrando_acordes.value = false;
+}
+
+function dropeo_nota(id: number) {
+  console.log("Nota", acorde_arrastrado.value, id);
+  arrastrando_acordes.value = false;
+  props.cancion.acordes.partes[refiereedit_parteid.value].acordes[id] = acorde_arrastrado.value;
+}
+
+
+
+/// PARTES
 
 function combinar_parte(parteid: number) {
   combinando_parte.value = true;
@@ -235,6 +268,9 @@ function click_barra(acordeid: number) {
     click_separar(acordeid);
   }
 }
+
+
+
 function click_borraracordeparte(acordeid: number) {
   if (editando_parte.value) {
     props.cancion.acordes.partes[refiereedit_parteid.value].acordes.splice(acordeid, 1);
@@ -401,7 +437,7 @@ function click_separar(acordeid: number) {
           
 
           <button @click="guardar_texto_editado(index)">Guardar</button>
-          <button @click="editando_texto = false">Cancelar</button>
+          <button @click="editando_texto = false">Listo</button>
         </div>
           <textarea v-model="texto_editado" :rows="texto_editado.split('\n').length" style="width: 100%;">
 
@@ -487,13 +523,17 @@ function click_separar(acordeid: number) {
     <h2  style="text-decoration: underline; margin-bottom: 2px;">Acordes</h2>
     
     <div class="partediv">
-          <div v-for="(acorde, index) in ref_escala" class="acordediv" :key="acorde" :style="estilo_acorde(acorde)">
+          <div v-for="(acorde, index) in ref_escala" :draggable="editando_parte" 
+            @dragstart="inicio_arrastrar(acorde)" 
+            @dragend="arrastrando_acordes = false"
+            :class="{acorde_paraarrastrar: editando_parte }" class="acordediv" :key="acorde" :style="estilo_acorde(acorde)">
             <span  >{{ acorde }}</span>
           </div>
-          <div class="acordediv"  :style="estilo_acorde('')">
+          <div class="acordediv" :draggable="editando_parte"  
+              :style="estilo_acorde('')"   :class="{acorde_paraarrastrar: editando_parte }" >
             &nbsp;
           </div>
-          <div v-for="(acorde, index) in ref_noescala" class="acordediv" :key="acorde" :style="estilo_acorde(acorde)">
+          <div v-for="(acorde, index) in ref_noescala" :draggable="editando_parte" :class="{acorde_paraarrastrar: editando_parte }"  class="acordediv" :key="acorde" :style="estilo_acorde(acorde)">
             <span  >{{ acorde }}</span>
           </div>
           
@@ -508,14 +548,21 @@ function click_separar(acordeid: number) {
         <div class="ctrlEditSecuencia"  @click="combinar_parte(index_parte)">Combinar</div>
         <div  class="ctrlEditSecuencia" v-if="mostrando_separadores || editando_parte || combinando_parte" @click="cancelar_parte(index_parte)">Cancelar</div>
         </div>
+
         <div class="partediv">
-          <template v-for="(acorde, index) in parte.acordes" :key="index" >
           
-            <div class="acordediv acordediv_parte" :style="estilo_acorde(acorde)"
-           v-if="( editando_parte) && refiereedit_parteid == index_parte" 
-           @click="click_barra(index)">
+          <div class="acordediv acordediv_parte" 
+
+           v-if="( arrastrando_acordes) && refiereedit_parteid == index_parte" 
+           @click="click_barra(-1)"
+           :class="{divacoarrastrando_acordes: arrastrando_acordes }"
+           @drop="dropeo_intervalo(-1)"
+      @dragover="onDragOver($event)"
+           >
             <span  > | </span>
           </div>
+          <template v-for="(acorde, index) in parte.acordes" :key="index" >
+          
           
             <div style="display: inline-block; border: 1px solid red; padding: 4px; "
             v-if="(editando_parte) && refiereedit_parteid == index_parte"
@@ -523,13 +570,18 @@ function click_separar(acordeid: number) {
           
           
           
-            <div class="acordediv acordediv_parte" :style="estilo_acorde(acorde)">
+            <div class="acordediv acordediv_parte" :style="estilo_acorde(acorde)"
+                        @drop="dropeo_nota(index_parte)"
+                  @dragover="onDragOver($event)"
+            >
             <span  >{{ acorde }}</span>
           </div>
           
           <div class="acordediv acordediv_parte" :style="estilo_acorde(acorde)"
            v-if="((mostrando_separadores) || (editando_parte)) && refiereedit_parteid == index_parte" 
-           @click="click_barra(index)">
+            @drop="dropeo_intervalo(index)"
+            @dragover="onDragOver($event)"
+            @click="click_barra(index)">
             <span  > | </span>
           </div>
 
@@ -706,5 +758,13 @@ textarea, input, select {
 
 .acordediv_parte {
   font-size: xx-large !important;
+}
+
+.acorde_paraarrastrar {
+  
+}
+
+.divacoarrastrando_acordes {
+  border: 2px solid;
 }
 </style>

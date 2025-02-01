@@ -33,6 +33,8 @@ def guardar_tema(banda, tema, data):
     except Exception as e:
         print(f"Error al guardar tema de banda {banda}, tema {tema}: {e}")
 
+def existe_tema(banda, tema):
+    return os.path.isfile(f'{DIRECTORIO_DATOS}{banda}_{tema}.json'.lower())
 
 def renglon_valido(renglon):
     if renglon['tipo'] == 'l':
@@ -85,7 +87,6 @@ def subtexto(texto, desde, hasta):
         return texto[desde:hasta]
 
 def letra_separar(verso, acordes):
-    print("letra_separar", verso, acordes)
     intro = ""
     partes = []
     desde = 0

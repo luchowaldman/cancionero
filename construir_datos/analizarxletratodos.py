@@ -1,4 +1,4 @@
-from analisisletra  import analizarxletra
+from analisisletra  import analizarxletra, existe_tema
 import os
 import json
 
@@ -34,13 +34,13 @@ def obtener_archivos_json(directorio):
 
         
 resultados = []
-
+print("Obteniendo archivos")
 arch = obtener_archivos_json(DIRECTORIO_DATOS_GENERADA)
 for ar in arch:
     sp = ar.split('_')
     if (len(sp) == 2):
         try:
-            if (sp[0] == 'the-beatles'):
+            if not (existe_tema(sp[0], sp[1])):
                 resultados.append(analizarxletra(sp[0], sp[1]))
         except Exception as e:
             #print(f"Error al archivo {ar}: {e}")
