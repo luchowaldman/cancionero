@@ -244,10 +244,52 @@ function click_borraracordeparte(acordeid: number) {
 }
 
 
+
+
+
+function texto_combino_editado(parte: number, acordeid: number) {
+  const texto_nuevo = [];
+  let contado_renglon = 0;
+  let contador_renglon_pal = 0;
+
+  for (var i = 0; i < props.cancion.acordes.orden_partes.length; i++) 
+  {
+    if (props.cancion.acordes.orden_partes[i] == parte) 
+    {
+      let contado_palabra = 0;
+      for (var j = 0; j < textos_parte(i).length; j++) 
+      {
+        if (contado_palabra == acordeid) 
+        {
+          texto_nuevo.push(textos_parte(i)[j] + ' ' + textos_parte(i)[j + 1]);
+          j++;
+        }
+        else 
+        {
+          texto_nuevo.push(textos_parte(i)[j]);
+        }
+
+      }
+    }
+    else 
+    {
+      // COPIA IGUAL
+      for (var j = 0; j < textos_parte(i).length; j++) {
+        texto_nuevo.push(textos_parte(i)[j]);
+      }
+    }
+  }
+
+  props.cancion.letras.renglones = [texto_nuevo];
+  editando_texto.value = false;
+}
+
 function click_combinaracorde(acordeid: number) {
   
     
-  if (acordeid < props.cancion.acordes.partes[refiereedit_parteid.value].acordes.length) {
+  if (acordeid < props.cancion.acordes.partes[refiereedit_parteid.value].acordes.length) 
+  {
+    texto_combino_editado(refiereedit_parteid.value, acordeid);
     const siguienteAcorde = props.cancion.acordes.partes[refiereedit_parteid.value].acordes[acordeid + 1];
     props.cancion.acordes.partes[refiereedit_parteid.value].acordes[acordeid] += ' ' + siguienteAcorde;
     props.cancion.acordes.partes[refiereedit_parteid.value].acordes.splice(acordeid + 1, 1);
@@ -469,6 +511,11 @@ function click_separar(acordeid: number) {
         <div class="partediv">
           <template v-for="(acorde, index) in parte.acordes" :key="index" >
           
+            <div class="acordediv acordediv_parte" :style="estilo_acorde(acorde)"
+           v-if="( editando_parte) && refiereedit_parteid == index_parte" 
+           @click="click_barra(index)">
+            <span  > | </span>
+          </div>
           
             <div style="display: inline-block; border: 1px solid red; padding: 4px; "
             v-if="(editando_parte) && refiereedit_parteid == index_parte"
