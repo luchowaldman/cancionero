@@ -71,7 +71,7 @@ def obtener_caracteristicas_track(id_track):
     print(data)
     # Verificar que todos los campos estén presentes en los datos
     escala = data.get('key', 'N/A')
-    bpm = data.get('tempo', 'N/A')
+    bpm = data.get('bpm', 'N/A')
     modo = 'Mayor' if data.get('mode') == 1 else 'Menor'
     energia = data.get('energy', 'N/A')
     danzabilidad = data.get('danceability', 'N/A')

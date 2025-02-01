@@ -5,6 +5,7 @@ import { Musica } from '../modelo/musica';
 import { item_lista } from '../modelo/item_lista';
 import { text } from 'stream/consumers';
 import { Parte } from '../modelo/acordes';
+import { escape } from 'querystring';
 
 let musica = new Musica();
 const props = defineProps<{ compas: number, cancion: Cancion, item_indice: item_lista, editando_cancion: boolean }>()
@@ -393,6 +394,37 @@ function click_separar(acordeid: number) {
   mostrando_separadores.value = false;
   refiereedit_parteid.value = -1
 }
+
+
+function DescargarJSON() {
+    const cancionJSON = JSON.stringify({
+      cancion: props.cancion.cancion,
+      banda: props.cancion.banda,
+      acordes: {
+        partes: props.cancion.acordes.partes.map(parte => ({
+          nombre: parte.nombre,
+          acordes: parte.acordes
+        })),
+        orden_partes: props.cancion.acordes.orden_partes
+      },
+      escala: props.cancion.escala,
+      letras: props.cancion.letras.renglones,
+      bpm: props.cancion.bpm,
+      calidad: props.cancion.calidad,
+      compas_cantidad: props.cancion.compas_cantidad,
+      compas_unidad: props.cancion.compas_unidad,
+    });
+
+
+    const blob = new Blob([cancionJSON], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    const nombreArchivo = `${props.cancion.banda.replace(/\s+/g, '-')}_${props.cancion.cancion.replace(/\s+/g, '-')}.json`.toLocaleLowerCase();
+    a.download = nombreArchivo;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
 </script>
 
 
@@ -401,7 +433,7 @@ function click_separar(acordeid: number) {
 
   <div class="navbarEdit" >
     <div class="marca">
-      <input type="text" v-model="cancion.banda" /> - <input type="text" v-model="cancion.cancion" /> --Tempo: <input type="number" v-model="cancion.bpm" /> Origen: <input type="text" v-model="item_indice.origen" />
+      <input type="text" v-model="cancion.banda" /> - <input type="text" v-model="cancion.cancion" /> --BPM: <input type="number" v-model="cancion.bpm" /> Origen: <input type="text" v-model="item_indice.origen" />
       <button @click="emit('guardar')">
         <i class="bi bi-save"></i> Guardar
       </button>
@@ -414,7 +446,7 @@ function click_separar(acordeid: number) {
     <div></div>
     
     <div class="botoneraleft">
-      <button @click="descargar()" >Descargar</button>
+      <button @click="DescargarJSON()" >Descargar</button>
       <button @click="emit('cerrar')">Cerrar</button>
   </div>
   </div>

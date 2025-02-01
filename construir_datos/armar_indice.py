@@ -56,7 +56,7 @@ def obtenerItemIndice(banda, tema):
 
         tema_nuevo['compases'] = compases
         tema_nuevo['compas_unidad'] = data.get('compas_unidad', 4) if data else 4
-        tema_nuevo['compases_tiempo'] = data.get('compases_tiempo', 4) if data else 4
+        tema_nuevo['compas_cantidad'] = data.get('compas_cantidad', 4) if data else 4
         tema_nuevo['bpm'] = data.get('bpm', 60) if data else 60
         tema_nuevo['calidad'] = data.get('calidad', 1) if data else 1
     except Exception as e:
@@ -101,6 +101,6 @@ def procesar_todos_los_archivos():
         print(f"Error al guardar indice: {e}")
 
 #procesar_todos_los_archivos()
-ind = obtenerItemIndice('intoxicados', 'homero')
+ind = obtenerItemIndice('intoxicados', 'casi-sin-pensar')
 print(ind)
 

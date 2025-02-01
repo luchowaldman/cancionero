@@ -21,12 +21,11 @@ export class AdminListasURL extends  AdminiListas {
         let items_lista = []
         for (let i = 0; i < data.length; i++) {
             const item = new item_lista(data[i].cancion, data[i].banda);
-            item.total_partes = data[i].total_partes;
-            item.total_orden_partes = data[i].total_orden_partes;
             item.compases_tiempo = data[i].compases_tiempo;
+            item.compas_cantidad = data[i].compas_cantidad;
+
             item.bpm = data[i].bpm;
             item.calidad = data[i].calidad;
-            item.len_partes = data[i].len_partes;
             item.escala = data[i].escala;
             item.origen = 'url|' + this.url;
             items_lista.push(item);
@@ -57,7 +56,7 @@ export class AdminListasURL extends  AdminiListas {
             data.banda,
             acordes,
             new Letra(data.letras),
-            data.tempo, data.calidad, data.compas_cantidad, data.compases_tiempo, data.escala
+            data.bpm, data.calidad, data.compas_cantidad, data.compases_tiempo, data.escala
         );
     }
 

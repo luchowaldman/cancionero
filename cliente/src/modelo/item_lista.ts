@@ -6,7 +6,7 @@ export class item_lista {
     public escala: string;
     public compases: number;
     public compas_unidad: number;
-    public compases_tiempo: number;
+    public compas_cantidad: number;
     public bpm: number;
     public calidad: number;
 
@@ -18,7 +18,7 @@ export class item_lista {
         this.escala = '';
         this.compases = 0;
         this.compas_unidad = 0;
-        this.compases_tiempo = 4;
+        this.compas_cantidad = 4;
         this.bpm = 60;
         this.calidad = 1;
         this.origen = '';

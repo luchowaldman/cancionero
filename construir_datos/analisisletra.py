@@ -286,7 +286,7 @@ def generar_archivo(banda, tema, acordes_de_partes, secu_fin, letras_fin):
         'cancion': tema,
         'banda': banda,
         'escala': acordes_de_partes[0][0],
-        'tempo': 60,        
+        'bpm': 60,        
         'compas_cantidad': 4,
         'compas_unidad': 4,
         'acordes': acordes.toJson(),
@@ -298,9 +298,9 @@ def generar_archivo(banda, tema, acordes_de_partes, secu_fin, letras_fin):
 def tempo_conocido(archivo):
     print("cancion", archivo['cancion'], "banda", archivo['banda'])
     if (archivo['cancion'] == 'fuego' and archivo['banda'] == 'intoxicados'): 
-        archivo['tempo'] = 120
+        archivo['bpm'] = 120
     if (archivo['cancion'] == 'casi-sin-pensar' and archivo['banda'] == 'intoxicados'): 
-        archivo['tempo'] = 120
+        archivo['bpm'] = 120
     return archivo
 
 
