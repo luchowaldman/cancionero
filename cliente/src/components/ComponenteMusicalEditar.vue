@@ -13,15 +13,10 @@ const editando_partecombo = ref(-1);
 watch(() => props.cancion, () => {
 }, { deep: true });
 
-function actualizar_letrar() {
-  
-  props.cancion.letras.renglones = [ ["Un"]]; 
-
-  
-}
 
 function click_editarpartetexto(index: number) {
   editando_partecombo.value = index;
+  editando_texto.value = false;
 }
 
 function textos_parte(index: number) {
@@ -74,6 +69,107 @@ function actualizarOrdenPartes(index: number) {
     editando_partecombo.value = -1;
   }
 
+
+  
+function color_x_index(index: number) {
+  switch (index) {
+    case 0:
+      return '#a9a8f6';
+    case 1:
+      return '#497aff';
+    case 2:
+      return '#a9a8g6';
+    case 3:
+      return '#497aff';      
+    case 4:
+      return 'orange';
+    case 5:
+      return '#497aff';
+    case 6:
+      return 'orange';    
+    default:
+      return 'green';
+
+  }
+}
+
+let compases_escala = musica.GetAcordesdeescala(props.cancion.escala)
+function forsarcompases_escala() {
+  compases_escala = musica.GetAcordesdeescala(props.cancion.escala);
+  console.log(compases_escala)
+}
+function estilo_acorde(acorde: string) 
+{
+  if (compases_escala.length == 0 && props.cancion.escala != "") {
+    compases_escala = musica.GetAcordesdeescala(props.cancion.escala);
+  }
+
+  if (!acorde.includes(' ')) {
+  const find_acord = acorde.replace(/7|5/g, '');
+  const index = compases_escala.indexOf(find_acord);
+  const color = color_x_index(index);
+  return { 'border-color': color };
+  
+  }
+  else 
+  {
+//    const acordes = acorde.split(' ');
+//    const primerAcorde = acordes[0];
+ //   const ultimoAcorde = acordes[acordes.length - 1];
+
+  }
+}
+
+
+
+const editando_texto = ref(false);
+const editando_parteordendid = ref(-1);
+const texto_editado = ref("");
+
+const acordes_iniciales = ref (-1 as number);
+const acordes_actuales = ref (-1 as number);
+const accion_completar = ref ("" as string);
+
+
+function click_editartexto(parteorden: number) {
+  editando_parteordendid.value = parteorden;
+  editando_texto.value = true;
+  let newEdit = "";
+  textos_parte(parteorden).forEach((texto) => {
+    newEdit  += texto.replace('/n','\n') + "|";
+  });
+  if (newEdit.endsWith("|")) {
+    newEdit = newEdit.slice(0, -1);
+  }
+  texto_editado.value = newEdit;
+  acordes_iniciales.value = texto_editado.value.split('|').length;
+  console.log("Textos", texto_editado.value.split('|'))
+}
+
+
+function guardar_texto_editado() {
+  const texto_nuevo = [];
+  let contado_renglon = 0;
+  let contador_renglon_pal = 0;
+
+  for (var i = 0; i < props.cancion.acordes.orden_partes.length; i++) {
+    if (i == editando_parteordendid.value) {
+      const texto = texto_editado.value.split('|');
+      for (var j = 0; j < texto.length; j++) {
+        texto_nuevo.push(texto[j]);
+      }
+    }
+    else {
+      for (var j = 0; j < textos_parte(i).length; j++) {
+        texto_nuevo.push(textos_parte(i)[j]);
+      }
+    }
+  }
+
+  props.cancion.letras.renglones = [texto_nuevo];
+  editando_texto.value = false;
+
+}
 </script>
 <template>
 <div v-if="editando_cancion" class="recuadro">
@@ -85,11 +181,11 @@ function actualizarOrdenPartes(index: number) {
         <i class="bi bi-save"></i> Guardar
       </button>
       -- Tipo compas  
-      <input type="number" v-model="cancion.compas_cantidad" /> /
+      <input type="number" v-model="cancioncompas_cantidad" /> /
       <input type="number" v-model="cancion.compas_unidad" />
 
       -- Escala  
-      <input type="text" v-model="cancion.escala" /> /
+      <input type="text" v-model="cancion.escala" @change="forsarcompases_escala" /> /
       
 
     </div>
@@ -111,53 +207,68 @@ function actualizarOrdenPartes(index: number) {
       <div  style="display: flex; flex-wrap: wrap;"  :style="{ 'font-size' : 30 + 'px'}">
 
       <template v-for="(parte, index) in cancion.acordes.orden_partes">
-      
-        <template v-for="(texto, textoid) in textos_parte(index)" v-if="parte != -1">
+      <!--- TEXT AREAAA -->
+      <!--- TEXT AREAAA -->
+      <!--- TEXT AREAAA -->
+      <!--- TEXT AREAAA -->
+      <!--- TEXT AREAAA -->
+      <!--- TEXT AREAAA -->
+      <div v-if="editando_texto && editando_partecombo == index" style="width: 100%;"> 
+        <div style="display: flex;">
+            <div class="parte_secuencia"> {{   cancion.acordes.partes[cancion.acordes.orden_partes[index]].nombre }} </div>
+            <div>
+              
+              Acordes : <div v-for="(acorde) in cancion.acordes.partes[cancion.acordes.orden_partes[index]].acordes" class="acordediv" :key="acorde" :style="estilo_acorde(acorde)">
+            <span  >{{ acorde }}</span>
+          </div>
+          
+            </div>
+
+            <div v-if="acordes_iniciales < texto_editado.split('|').length">Agregas compaces</div>
+          <div v-if="acordes_iniciales > texto_editado.split('|').length">
+            
+            Quitas compaces
+          </div>
+          
+
+          <button @click="guardar_texto_editado(index)">Guardar</button>
+          <button @click="editando_texto = false">Cancelar</button>
+        </div>
+          <textarea v-model="texto_editado" :rows="texto_editado.split('\n').length" style="width: 100%;">
+
+          </textarea>
+         
+        </div>
+        <template v-for="(texto, textoid) in textos_parte(index)" v-if="((parte != -1) && (!editando_texto || ( editando_parteordendid != index) ))">
 
       
         <div >
           
           <div style="display: flex;">
 
-            <div
+            <div 
               class="acorde"
               :style="{ 'max-height': 70 + 'px', 'width': (44) + 'px'  }">
               {{  cancion.acordes.partes[parte].acordes[textoid] }}
           </div>
           
-          <div v-if="textoid==0  && editando_partecombo != index" @click="click_editarpartetexto(index)" >-- {{  cancion.acordes.partes[parte].nombre }}</div>
-          <select v-model="cancion.acordes.orden_partes[index]" @change="actualizarOrdenPartes(index)" class="form-select"
+          <div v-if="textoid==0  && editando_partecombo != index" @click="click_editarpartetexto(index)" class="parte_secuencia" > {{  cancion.acordes.partes[parte].nombre }}</div>
+          <select v-model="cancion.acordes.orden_partes[index]" @change="actualizarOrdenPartes(index)" class="selectParteEnOrden"
            v-if="textoid==0 && editando_partecombo == index" >
             <option v-for="(parte, parteIndex) in cancion.acordes.partes" :key="parteIndex" :value="parteIndex">
                 {{ parte.nombre }}
             </option>
             <option :value="-1">Eliminar</option>
           </select>
+          <button v-if="textoid == 0 && editando_partecombo == index" @click="click_editartexto(index)">
+            <i class="bi bi-pencil"></i>
+          </button>
         </div>
           <div class="divletra">
             <b v-if="texto.trim() === ''"><i class="bi bi-music-note"></i></b>
             {{ texto.split('/n')[0] }}
           </div>
         </div>
-
-        
-        <!--
-          <select v-model="cancion.acordes.orden_partes[index]" @change="actualizarOrdenPartes(index)" class="form-select"
-           v-if="textoid==0">
-            <option v-for="(parte, parteIndex) in cancion.acordes.partes" :key="parteIndex" :value="parteIndex">
-                {{ parte.nombre }}
-            </option>
-            <option :value="-1">Eliminar</option>
-          </select>
--->
-          
-
-
-
-        
-        
-
-        
         <div class="break" v-if="texto.includes('/n')"></div>
         <div v-if="texto.includes('/n')" >
             <div>
@@ -194,7 +305,40 @@ function actualizarOrdenPartes(index: number) {
 
       
   <div class="row">
-  QUITADO ACORDES
+  
+    
+
+
+    
+    <h2  style="text-decoration: underline; margin-bottom: 2px;">Partes</h2>
+    <div v-for="(parte, index_parte) in cancion.acordes.partes" :key="parte.nombre" class="row" >
+      <div style="display: flex;">
+        <div class="parte_secuencia" >{{ parte.nombre }}</div>
+        <div>Editar</div>
+        </div>
+        <div class="partediv">
+          <div v-for="(acorde, index) in parte.acordes" class="acordediv" :key="acorde" :style="estilo_acorde(acorde)">
+            <span  >{{ acorde }}</span>
+          </div>
+        </div>
+    </div>
+    <h2 style="text-decoration: underline; margin-bottom: 2px;"> Secuencia </h2>
+    <div style="display: flex; flex-wrap: wrap;">
+          <div v-for="(parte, index) in cancion.acordes.orden_partes" :key="index" class="ordendiv">
+            
+            <select v-model="cancion.acordes.orden_partes[index]" @change="actualizarOrdenPartes(index)" class="selectParteEnOrden">
+            <option v-for="(parte, parteIndex) in cancion.acordes.partes" :key="parteIndex" :value="parteIndex">
+                {{ parte.nombre }}
+            </option>
+            <option :value="-1">Eliminar</option>
+          </select>
+
+          </div>
+  </div>
+
+
+
+
 </div>
 </div>
       
@@ -306,11 +450,27 @@ function actualizarOrdenPartes(index: number) {
   border-radius: 5px;
   color: #a9a8f6;
   margin-right: 10px;
+ 
+}
+
+.parte_secuencia {
+  font-size: large;
+  margin: 1px;
+  padding: 5px;
+  border: 1px solid;
+  border-radius: 5px;
+  color: #30a0d3;
+  margin-right: 10px;
   
 }
 .ordenparte {
   border: 1px solid #888;
   width: 25%;
+}
+
+textarea, input, select {
+  color: #a9a8f6;
+  background-color: black;
 }
 
 .compas_actual {
