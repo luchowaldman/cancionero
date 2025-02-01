@@ -2,24 +2,6 @@
 
 import { ref } from 'vue';
 
-const props = defineProps<{
-  escala: string;
-  acorde: string;
-}>();
-
-
-import { watch } from 'vue';
-
-watch(() => props.escala, (newVal, oldVal) => {
-  console.log(`Escala changed from ${oldVal} to ${newVal}`);
-  // Add your logic here to handle changes in escala
-});
-
-watch(() => props.acorde, (newVal, oldVal) => {
-  console.log(`Acorde changed from ${oldVal} to ${newVal}`);
-  // Add your logic here to handle changes in acorde
-});
-
 
 const emit = defineEmits(['toco', 'solto']);
 const ref_Notas = ref([] as string[])
@@ -65,9 +47,9 @@ function solto_nota(nota: string) {
 
 
     <li v-for="(nota, nota_id) in ref_Notas" :key="nota_id" class="key">
-      <span class="white-key" @mousedown="toco_nota(nota)" @mouseup="solto_nota(nota)" ></span>
+      <span class="white-key" @mousedown="toco_nota(nota)" @mouseup="solto_nota(nota)" >{{ nota }} </span>
       <span v-if="tiene_sostendio(nota)" @mousedown="toco_nota(nota_sostenido(nota))" @mouseup="solto_nota(nota_sostenido(nota))"
-        class="black-key" > </span>
+        class="black-key" >{{ nota_sostenido(nota) }} # </span>
       <br>
     </li> 
 

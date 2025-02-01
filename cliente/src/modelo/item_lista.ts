@@ -25,6 +25,7 @@ export class item_lista {
         this.bpm = 60;
         this.calidad = 1;
         this.len_partes = [];
+        this.origen = '';
     }
 
     

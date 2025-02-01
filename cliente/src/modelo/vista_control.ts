@@ -5,6 +5,7 @@ import ComponenteMusicalAcordesSeguidos from '../components/ComponenteMusicalAco
 import ComponenteMusicalLetra  from '../components/ComponenteMusicalLetra.vue';
 import ComponenteMusicalAcordes from '../components/ComponenteMusicalAcordes.vue';
 import ComponenteMusicalVerDetalles from '../components/ComponenteMusicalVerDetalles.vue';
+import ComponenteMusicalTocar from '../components/ComponenteMusicalTocar.vue';
 
 
 export class VistaControl {
@@ -29,6 +30,10 @@ export class VistaControl {
         if (this.tipo === 'letra_acordes') {
             return markRaw(ComponenteMusicalLetraAcordes);
         }
+        if (this.tipo === 'tocar') {
+            return markRaw(ComponenteMusicalTocar);
+        }
+        
         if (this.tipo === 'letra') {
             return markRaw(ComponenteMusicalLetra);
         }

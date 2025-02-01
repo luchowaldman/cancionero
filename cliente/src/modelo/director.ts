@@ -46,7 +46,7 @@ export class Director {
         this.configuracion.sesion.usuario_sesion = this.configuracion.nombre + "-" + Math.random()
         this.nro_compas = 0;
         this.nro_cancion = 0;
-        this.lista = [];
+        this.lista = [new item_lista("intoxicados", "fuego") ];
         this.cancion_actual = new Cancion("Cancion no cargada", "sin banda");
         this.cliente.setconectadoHandler(this.handlerConectado.bind(this));
         this.cliente.setlistaHandler(this.onListaRecibida.bind(this));
@@ -199,6 +199,9 @@ export class Director {
         this.configuracion.sesion.estado = 'iniciando...';
         const admin_indiceslista = new AdminListasTocables();
         this.lista = admin_indiceslista.GetIndice("default");
+        if (this.lista.length == 0) {
+            this.lista = [new item_lista("fuego", "intoxicados")];
+        }
 
         if (this.configuracion.sesion.iniciar_alcomienzo) 
         {

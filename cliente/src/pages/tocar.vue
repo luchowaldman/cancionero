@@ -29,8 +29,7 @@ function cambiar_vista(vista: number) {
       break;
       case 2:
     toCH = [
-        new VistaControl(window.innerHeight / 50, 12, 7, "acordes_seguidos", "col-9", (window.innerHeight / 1.7)),
-        
+        new VistaControl(window.innerHeight / 50, 12, 7, "acordes_seguidos", "col-9", (window.innerHeight / 1.7)),        
         new VistaControl(30, 12, 7, "acordes", "col-3 d-md-block", 1400)
         ];
       break;
@@ -42,6 +41,12 @@ function cambiar_vista(vista: number) {
       case 4:
     toCH = [
     new VistaControl(window.innerHeight / 50, 12, 7, "detalle", "col-9", (window.innerHeight / 1.7))
+        ];
+      break;
+      case 5:
+    toCH = [
+        new VistaControl(window.innerHeight / 50, 12, 7, "tocar", "col-9", (window.innerHeight / 1.7)),        
+        new VistaControl(30, 12, 7, "acordes", "col-3 d-md-block", 1400)
         ];
       break;
 
@@ -81,6 +86,7 @@ onMounted(() => {
       <li v-on:click="cambiar_vista(2)"><a class="dropdown-item" href="#">Guitarrista</a></li>
       <li v-on:click="cambiar_vista(3)"><a class="dropdown-item" href="#">Pianista</a></li>
       <li v-on:click="cambiar_vista(4)"><a class="dropdown-item" href="#">Solo detalles</a></li>
+      <li v-on:click="cambiar_vista(5)"><a class="dropdown-item" href="#">Tocar</a></li>
     </ul>
   </div>
 
