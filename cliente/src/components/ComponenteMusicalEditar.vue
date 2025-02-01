@@ -156,7 +156,7 @@ function guardar_texto_editado() {
     if (i == editando_parteordendid.value) {
       const texto = texto_editado.value.split('|');
       for (var j = 0; j < texto.length; j++) {
-        texto_nuevo.push(texto[j]);
+        texto_nuevo.push(texto[j].replace('\n', '/n') );
       }
     }
     else {
