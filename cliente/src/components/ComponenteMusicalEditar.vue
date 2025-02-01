@@ -530,10 +530,13 @@ function click_separar(acordeid: number) {
             <span  >{{ acorde }}</span>
           </div>
           <div class="acordediv" :draggable="editando_parte"  
+          @dragstart="inicio_arrastrar('')" 
               :style="estilo_acorde('')"   :class="{acorde_paraarrastrar: editando_parte }" >
             &nbsp;
           </div>
-          <div v-for="(acorde, index) in ref_noescala" :draggable="editando_parte" :class="{acorde_paraarrastrar: editando_parte }"  class="acordediv" :key="acorde" :style="estilo_acorde(acorde)">
+          <div v-for="(acorde, index) in ref_noescala" 
+            @dragstart="inicio_arrastrar(acorde)" 
+            :draggable="editando_parte" :class="{acorde_paraarrastrar: editando_parte }"  class="acordediv" :key="acorde" :style="estilo_acorde(acorde)">
             <span  >{{ acorde }}</span>
           </div>
           
@@ -546,7 +549,7 @@ function click_separar(acordeid: number) {
         <div class="ctrlEditSecuencia" @click="editar_parte(index_parte)">Editar</div>
         <div  class="ctrlEditSecuencia" @click="separar_parte(index_parte)">Separar</div>
         <div class="ctrlEditSecuencia"  @click="combinar_parte(index_parte)">Combinar</div>
-        <div  class="ctrlEditSecuencia" v-if="mostrando_separadores || editando_parte || combinando_parte" @click="cancelar_parte(index_parte)">Cancelar</div>
+        <div  class="ctrlEditSecuencia" v-if="(mostrando_separadores || editando_parte || combinando_parte) && (refiereedit_parteid == index_parte)" @click="cancelar_parte(index_parte)">Listo</div>
         </div>
 
         <div class="partediv">
