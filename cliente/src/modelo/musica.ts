@@ -127,7 +127,7 @@ export class Musica {
             nota_ind += modo_susecion[i];
             acordes.push(this.notas[nota_ind % (this.notas.length)] + modo_paraacorde[i+1]);
         }
-        
+        console.log(acordes);
         
         return acordes;
     }

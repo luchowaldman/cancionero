@@ -93,20 +93,46 @@ function color_x_index(index: number) {
   }
 }
 
-let compases_escala = musica.GetAcordesdeescala(props.cancion.escala)
+const ref_escala = ref([] as string[]);
+const ref_noescala = ref([] as string[]);
+//ref_escala.value = musica.GetAcordesdeescala(props.cancion.escala)
+
 function forsarcompases_escala() {
-  compases_escala = musica.GetAcordesdeescala(props.cancion.escala);
-  console.log(compases_escala)
+  ref_escala.value = musica.GetAcordesdeescala(props.cancion.escala);
+  let nuev_noescala: string[] = [];
+  props.cancion.acordes.partes.forEach((parte) => {
+    parte.acordes.forEach((acorde) => {
+      if (!ref_escala.value.includes(acorde)) {
+        nuev_noescala.push(acorde);
+      }
+    });
+  });
+  ref_noescala.value = nuev_noescala;
+
+  
 }
 function estilo_acorde(acorde: string) 
 {
-  if (compases_escala.length == 0 && props.cancion.escala != "") {
-    compases_escala = musica.GetAcordesdeescala(props.cancion.escala);
+  if (ref_escala.value.length == 0 && props.cancion.escala != "") {
+    ref_escala.value = musica.GetAcordesdeescala(props.cancion.escala);
+
+    let nuev_noescala: string[] = [];
+  props.cancion.acordes.partes.forEach((parte) => {
+    parte.acordes.forEach((acorde) => {
+      if (!ref_escala.value.includes(acorde)) {
+        if (!nuev_noescala.includes(acorde))
+        { 
+        nuev_noescala.push(acorde);
+      }
+    }
+    });
+  });
+  ref_noescala.value = nuev_noescala;
   }
 
   if (!acorde.includes(' ')) {
   const find_acord = acorde.replace(/7|5/g, '');
-  const index = compases_escala.indexOf(find_acord);
+  const index = ref_escala.value.indexOf(find_acord);
   const color = color_x_index(index);
   return { 'border-color': color };
   
@@ -181,7 +207,7 @@ function guardar_texto_editado() {
         <i class="bi bi-save"></i> Guardar
       </button>
       -- Tipo compas  
-      <input type="number" v-model="cancioncompas_cantidad" /> /
+      <input type="number" v-model="cancion.compas_cantidad" /> /
       <input type="number" v-model="cancion.compas_unidad" />
 
       -- Escala  
@@ -193,7 +219,7 @@ function guardar_texto_editado() {
     <div></div>
     
     <div class="botoneraleft">
-      <button @click="guardar_cancion()" >Descargar</button>
+      <button @click="descargar()" >Descargar</button>
       <button @click="emit('cerrar')">Cerrar</button>
   </div>
   </div>
@@ -310,6 +336,21 @@ function guardar_texto_editado() {
 
 
     
+    <h2  style="text-decoration: underline; margin-bottom: 2px;">Acordes</h2>
+    
+    <div class="partediv">
+          <div v-for="(acorde, index) in ref_escala" class="acordediv" :key="acorde" :style="estilo_acorde(acorde)">
+            <span  >{{ acorde }}</span>
+          </div>
+          <div class="acordediv"  :style="estilo_acorde('')">
+            &nbsp;
+          </div>
+          <div v-for="(acorde, index) in ref_noescala" class="acordediv" :key="acorde" :style="estilo_acorde(acorde)">
+            <span  >{{ acorde }}</span>
+          </div>
+          
+        </div>
+        
     <h2  style="text-decoration: underline; margin-bottom: 2px;">Partes</h2>
     <div v-for="(parte, index_parte) in cancion.acordes.partes" :key="parte.nombre" class="row" >
       <div style="display: flex;">
