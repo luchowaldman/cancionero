@@ -54,8 +54,23 @@ def download_cifraclub_artista(band_name):
 
 
 
-# Alejandro sans - https://www.cifraclub.com/alejandro-sanz/
 
+download_cifraclub_artista("led-zeppelin")
+download_cifraclub_artista("michael-jackson")
+download_cifraclub_artista("gilda")
+download_cifraclub_artista("supertramp")
+download_cifraclub_artista("rodrigo")
+download_cifraclub_artista("damas-gratis")
+download_cifraclub_artista("aerosmith")
+download_cifraclub_artista("los-palmeras")
+download_cifraclub_artista("calle-13")
+download_cifraclub_artista("silvio-rodriguez")
+download_cifraclub_artista("pablo-milanes")
+download_cifraclub_artista("fabiana-cantilo")
+download_cifraclub_artista("ac-dc")
+download_cifraclub_artista("the-smiths")
+download_cifraclub_artista("leo-garcia")
+exit()
 download_cifraclub_artista('zambayonny')
 exit()
 download_cifraclub_artista('la renga')

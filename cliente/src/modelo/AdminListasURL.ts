@@ -57,7 +57,7 @@ export class AdminListasURL extends  AdminiListas {
             data.banda,
             acordes,
             new Letra(data.letras),
-            data.tempo
+            data.tempo, data.calidad, data.compas_cantidad, data.compases_tiempo, data.escala
         );
     }
 

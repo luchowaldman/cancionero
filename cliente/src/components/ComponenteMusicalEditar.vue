@@ -4,6 +4,7 @@ import { Cancion } from '../modelo/cancion';
 import { Musica } from '../modelo/musica';
 import { item_lista } from '../modelo/item_lista';
 import { text } from 'stream/consumers';
+import { Parte } from '../modelo/acordes';
 
 let musica = new Musica();
 const props = defineProps<{ compas: number, cancion: Cancion, item_indice: item_lista, editando_cancion: boolean }>()
@@ -78,7 +79,7 @@ function color_x_index(index: number) {
     case 1:
       return '#497aff';
     case 2:
-      return '#a9a8g6';
+    return '#a9a8f6';
     case 3:
       return '#497aff';      
     case 4:
@@ -103,7 +104,10 @@ function forsarcompases_escala() {
   props.cancion.acordes.partes.forEach((parte) => {
     parte.acordes.forEach((acorde) => {
       if (!ref_escala.value.includes(acorde)) {
+        if (!nuev_noescala.includes(acorde))
+        {
         nuev_noescala.push(acorde);
+        }
       }
     });
   });
@@ -194,9 +198,106 @@ function guardar_texto_editado() {
 
   props.cancion.letras.renglones = [texto_nuevo];
   editando_texto.value = false;
+  
+}
 
+// EDICION POR ACORDES
+const refiereedit_parteid = ref(0);
+const mostrando_separadores = ref(false);
+const editando_parte = ref(false);
+const combinando_parte = ref(false);
+
+function separar_parte(parteid: number) {
+  mostrando_separadores.value = true;
+  refiereedit_parteid.value = parteid
+}
+
+function editar_parte(parteid: number) {
+  editando_parte.value = true;
+  refiereedit_parteid.value = parteid
+}
+
+function combinar_parte(parteid: number) {
+  combinando_parte.value = true;
+  refiereedit_parteid.value = parteid
+}
+
+function cancelar_parte(parteid: number) {
+  combinando_parte.value = false;
+  editando_parte.value = false;
+  mostrando_separadores.value = false;
+  refiereedit_parteid.value = -1
+}
+function click_barra(acordeid: number) {
+  if (editando_parte.value) {
+    click_combinaracorde(acordeid);
+  } else if (mostrando_separadores.value) {
+    click_separar(acordeid);
+  }
+}
+function click_borraracordeparte(acordeid: number) {
+  if (editando_parte.value) {
+    props.cancion.acordes.partes[refiereedit_parteid.value].acordes.splice(acordeid, 1);
+  }
+  
+  forsarcompases_escala();
+}
+
+
+function click_combinaracorde(acordeid: number) {
+  
+    
+  if (acordeid < props.cancion.acordes.partes[refiereedit_parteid.value].acordes.length) {
+    const siguienteAcorde = props.cancion.acordes.partes[refiereedit_parteid.value].acordes[acordeid + 1];
+    props.cancion.acordes.partes[refiereedit_parteid.value].acordes[acordeid] += ' ' + siguienteAcorde;
+    props.cancion.acordes.partes[refiereedit_parteid.value].acordes.splice(acordeid + 1, 1);
+  }
+  forsarcompases_escala();
+  
+}
+function click_separar(acordeid: number) {
+    
+    let nueva_parte_id = props.cancion.acordes.partes.length;
+    let nuevaSecuencia = [];
+    let viejos_acordes = [];
+    let nuevos_acordes = [];
+    const acor = props.cancion.acordes.partes[refiereedit_parteid.value].acordes;
+    for (var i = 0; i < acor.length; i++){
+      if (i <= acordeid) {
+        viejos_acordes.push(acor[i])
+      }
+      else {
+        nuevos_acordes.push(acor[i])
+      }
+    }
+
+    if (nuevos_acordes.length > 0) {
+      props.cancion.acordes.partes[refiereedit_parteid.value].acordes = viejos_acordes;
+      let nueva_parte = new Parte(props.cancion.acordes.partes[refiereedit_parteid.value].nombre + "BIS", nuevos_acordes);
+      console.log("Nueva parte", nueva_parte);
+      props.cancion.acordes.partes.push(nueva_parte);
+    }
+
+    for (var i = 0; i < props.cancion.acordes.orden_partes.length; i++) 
+    {
+      if (props.cancion.acordes.orden_partes[i] == refiereedit_parteid.value) {
+        nuevaSecuencia.push(refiereedit_parteid.value);
+        nuevaSecuencia.push(nueva_parte_id);
+      }
+      else {
+        nuevaSecuencia.push(props.cancion.acordes.orden_partes[i]);
+      }
+    }
+    
+    props.cancion.acordes.orden_partes = nuevaSecuencia;
+
+    
+  mostrando_separadores.value = false;
+  refiereedit_parteid.value = -1
 }
 </script>
+
+
 <template>
 <div v-if="editando_cancion" class="recuadro">
 
@@ -335,7 +436,12 @@ function guardar_texto_editado() {
     
 
 
-    
+    <!-- PARTES  -->
+    <!-- PARTES  -->
+    <!-- PARTES  -->
+    <!-- PARTES  -->
+    <!-- PARTES  -->
+    <!-- PARTES  -->
     <h2  style="text-decoration: underline; margin-bottom: 2px;">Acordes</h2>
     
     <div class="partediv">
@@ -355,12 +461,33 @@ function guardar_texto_editado() {
     <div v-for="(parte, index_parte) in cancion.acordes.partes" :key="parte.nombre" class="row" >
       <div style="display: flex;">
         <div class="parte_secuencia" >{{ parte.nombre }}</div>
-        <div>Editar</div>
+        <div class="ctrlEditSecuencia" @click="editar_parte(index_parte)">Editar</div>
+        <div  class="ctrlEditSecuencia" @click="separar_parte(index_parte)">Separar</div>
+        <div class="ctrlEditSecuencia"  @click="combinar_parte(index_parte)">Combinar</div>
+        <div  class="ctrlEditSecuencia" v-if="mostrando_separadores || editando_parte || combinando_parte" @click="cancelar_parte(index_parte)">Cancelar</div>
         </div>
         <div class="partediv">
-          <div v-for="(acorde, index) in parte.acordes" class="acordediv" :key="acorde" :style="estilo_acorde(acorde)">
+          <template v-for="(acorde, index) in parte.acordes" :key="index" >
+          
+          
+            <div style="display: inline-block; border: 1px solid red; padding: 4px; "
+            v-if="(editando_parte) && refiereedit_parteid == index_parte"
+            @click="click_borraracordeparte(index)"  >x</div>
+          
+          
+          
+            <div class="acordediv acordediv_parte" :style="estilo_acorde(acorde)">
             <span  >{{ acorde }}</span>
           </div>
+          
+          <div class="acordediv acordediv_parte" :style="estilo_acorde(acorde)"
+           v-if="((mostrando_separadores) || (editando_parte)) && refiereedit_parteid == index_parte" 
+           @click="click_barra(index)">
+            <span  > | </span>
+          </div>
+
+        </template>
+
         </div>
     </div>
     <h2 style="text-decoration: underline; margin-bottom: 2px;"> Secuencia </h2>
@@ -396,7 +523,12 @@ function guardar_texto_editado() {
   color: #888;
 }
 
+.ctrlEditSecuencia {
+  border: 1px solid;
+  padding: 4px;
+  margin: 3px;
 
+}
 .recuadro {
   border: 1px solid;
   border-radius: 5px;
@@ -439,7 +571,7 @@ function guardar_texto_editado() {
   display: flex;
 }
 .acordediv {
-  font-size: large;
+  font-size: xx-large;
   margin: 1px;
   padding: 5px;
   border: 1px solid;
@@ -525,4 +657,7 @@ textarea, input, select {
   margin: 0px;
 }
 
+.acordediv_parte {
+  font-size: xx-large !important;
+}
 </style>

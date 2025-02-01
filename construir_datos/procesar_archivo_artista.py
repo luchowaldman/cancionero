@@ -54,6 +54,22 @@ def procesar_html_artista(band_name):
 
 
 
+procesar_html_artista("led-zeppelin")
+procesar_html_artista("michael-jackson")
+procesar_html_artista("gilda")
+procesar_html_artista("supertramp")
+procesar_html_artista("rodrigo")
+procesar_html_artista("damas-gratis")
+procesar_html_artista("aerosmith")
+procesar_html_artista("los-palmeras")
+procesar_html_artista("calle-13")
+procesar_html_artista("silvio-rodriguez")
+procesar_html_artista("pablo-milanes")
+procesar_html_artista("fabiana-cantilo")
+procesar_html_artista("ac-dc")
+procesar_html_artista("the-smiths")
+procesar_html_artista("leo-garcia")
+exit()
 
 procesar_html_artista("zambayonny")
 exit()

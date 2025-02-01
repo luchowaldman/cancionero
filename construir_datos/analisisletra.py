@@ -284,7 +284,7 @@ def generar_archivo(banda, tema, acordes_de_partes, secu_fin, letras_fin):
     data = {
         'cancion': tema,
         'banda': banda,
-        'tono': 'X',
+        'escala': acordes_de_partes[0][0],
         'tempo': 60,        
         'compas_cantidad': 4,
         'compas_unidad': 4,

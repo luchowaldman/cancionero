@@ -28,6 +28,25 @@ def getartista_page(band_name):
     else:
         print(f'Failed to download page: {url} (Status code: {response.status_code})')
 
+
+
+
+getartista_page("led-zeppelin")
+getartista_page("michael-jackson")
+getartista_page("gilda")
+getartista_page("supertramp")
+getartista_page("rodrigo")
+getartista_page("damas-gratis")
+getartista_page("aerosmith")
+getartista_page("los-palmeras")
+getartista_page("calle-13")
+getartista_page("silvio-rodriguez")
+getartista_page("pablo-milanes")
+getartista_page("fabiana-cantilo")
+getartista_page("ac-dc")
+getartista_page("the-smiths")
+getartista_page("leo-garcia")
+getartista_page
 # Example usage
 # download_cifraclub_page('intoxicados', 'fuiste lo mejor')
 # download_cifraclub_page('intoxicados', 'fuego')Nah
@@ -39,7 +58,7 @@ def getartista_page(band_name):
 #download_cifraclub_page('andres calamaro', 'flaca')
 #download_cifraclub_page('andres calamaro', 'la parte de adelante')
 
-getartista_page("zambayonny")
+#getartista_page("zambayonny")
 exit()
 
 getartista_page("arjona-ricardo")

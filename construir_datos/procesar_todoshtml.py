@@ -96,11 +96,6 @@ for archivo in arch:
         
     
     spl = archivo.split('_')
-    if (spl[0] !='zambayonny'):
-        cont = cont  + 1
-        continue
-    print(cont, archivo)
-    
     if (len(spl)==2):
         try:       
             if (not existe_preprocesado(spl[0],spl[1])):

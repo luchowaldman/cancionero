@@ -40,7 +40,8 @@ for ar in arch:
     sp = ar.split('_')
     if (len(sp) == 2):
         try:
-            resultados.append(analizarxletra(sp[0], sp[1]))
+            if (sp[0] == 'the-beatles'):
+                resultados.append(analizarxletra(sp[0], sp[1]))
         except Exception as e:
             #print(f"Error al archivo {ar}: {e}")
             resultados.append({ 'generado': 0 })
