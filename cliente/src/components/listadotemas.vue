@@ -106,7 +106,6 @@ defineExpose({  cancionesFiltradas });
                 <tr>
                     <th>Canción</th>
                     <th>Banda</th>
-                    <th>Duracion</th>
                     <th>Origen</th>
                     <th>Escala</th>
                     <th>BPM</th>
@@ -120,7 +119,6 @@ defineExpose({  cancionesFiltradas });
                 <tr v-for="(cancion, cancionid) in indice_disponible_filtro" :key="cancionid" >
                     <td style="font-size: x-large;">{{ FormatearNombre(cancion.cancion) }}</td>
                     <td>{{ FormatearNombre(cancion.banda) }}</td>
-                    <td>NN:CC</td>
                     <td>{{ cancion.origen }}</td>
 
                     <td> {{  cancion.escala }}</td>

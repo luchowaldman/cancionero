@@ -23,6 +23,9 @@ export class AdminListasLocalStorage  {
         const index = indice.findIndex(i => i.banda === item.banda && i.cancion === item.cancion);
         let canciones = this.almacen.obtenerTodasLasCanciones()
         item.origen = 'local';
+        item.calidad = cancion.calidad;
+        item.banda = cancion.banda;
+        item.cancion = cancion.cancion;
         if (index === -1) {
             indice.push(item);
             canciones.push(cancion);

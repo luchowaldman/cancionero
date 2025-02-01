@@ -79,7 +79,7 @@ function borrar(renglonIndex: number, palabraIndex: number) {
         orden_partes: props.cancion.acordes.orden_partes
       },
       letras: props.cancion.letras.renglones,
-      tempo: props.cancion.tempo
+      tempo: props.cancion.bpm
     });
 
 
@@ -216,7 +216,7 @@ function borrar(renglonIndex: number, palabraIndex: number) {
 
   <div class="navbarEdit" >
     <div class="marca">
-      Editando: {{  cancion.banda }} - {{ cancion.cancion }} --Tempo: <input type="number" v-model="cancion.tempo" /> Origen: {{ item_indice.origen }} 
+      Editando: {{  cancion.banda }} - {{ cancion.cancion }} --Tempo: <input type="number" v-model="cancion.bpm" /> Origen: {{ item_indice.origen }} 
       <button @click="emit('guardar')">
         <i class="bi bi-save"></i> Guardar
       </button>

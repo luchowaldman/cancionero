@@ -51,12 +51,23 @@ if (props.viendo_vista == undefined)
         @conectar="acciono('conectar')"> :ref="refSesion" >
         </ControladorSesion>
       </div>
-    
-
-
+       
       <div class="pagina_seleccionable aladerecha" @click="acciono('listas')"  :class="{active: viendo_vista == 'listas'}" >
         <p class="nombre-pagina"aria-current="page">
           <i class="bi bi-list"></i>
+        </p>	
+      </div>    
+      
+
+
+      <div class="pagina_seleccionable aladerecha" @click="acciono('editar')"  :class="{active: viendo_vista == 'editar'}" >
+        <p class="nombre-pagina"aria-current="page">
+            <i class="bi bi-pencil"></i>
+        </p>	
+      </div> 
+      <div class="pagina_seleccionable aladerecha" @click="acciono('buscar')"  :class="{active: viendo_vista == 'buscar'}" >
+        <p class="nombre-pagina"aria-current="page">
+            <i class="bi bi-globe"></i>
         </p>	
       </div>    
       

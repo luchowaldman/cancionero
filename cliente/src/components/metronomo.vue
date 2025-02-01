@@ -8,7 +8,7 @@ import { Reproductor } from '../modelo/reproductor';
 let reproductor = new Reproductor(2200, 99999999);
 
 function startMetronome() {
-   const seg = 60 / props.cancion.tempo;
+   const seg = 60 / props.cancion.bpm;
    console.log("Duracion:", seg);
    reproductor.setDuracion(seg * 1000);
    reproductor.iniciar();

@@ -401,17 +401,13 @@ function click_separar(acordeid: number) {
 
   <div class="navbarEdit" >
     <div class="marca">
-      Editando: {{  cancion.banda }} - {{ cancion.cancion }} --Tempo: <input type="number" v-model="cancion.tempo" /> Origen: {{ item_indice.origen }} 
+      <input type="text" v-model="cancion.banda" /> - <input type="text" v-model="cancion.cancion" /> --Tempo: <input type="number" v-model="cancion.bpm" /> Origen: <input type="text" v-model="item_indice.origen" />
       <button @click="emit('guardar')">
         <i class="bi bi-save"></i> Guardar
       </button>
-      -- Tipo compas  
-      <input type="number" v-model="cancion.compas_cantidad" /> /
-      <input type="number" v-model="cancion.compas_unidad" />
-
-      -- Escala  
-      <input type="text" v-model="cancion.escala" @change="forsarcompases_escala" /> /
-      
+      Compas: <input type="number" v-model="cancion.compas_cantidad" /> / <input type="number" v-model="cancion.compas_unidad" /> - Escala  
+      <input type="text" v-model="cancion.escala" @change="forsarcompases_escala" />
+      Calidad: <input type="text" v-model="cancion.calidad" />
 
     </div>
     
@@ -564,8 +560,10 @@ function click_separar(acordeid: number) {
         
     <h2  style="text-decoration: underline; margin-bottom: 2px;">Partes</h2>
     <div v-for="(parte, index_parte) in cancion.acordes.partes" :key="parte.nombre" class="row" >
+      <h2  v-if="!editando_parte || (refiereedit_parteid != index_parte)" >{{ parte.nombre }}</h2>
+      <input v-model="parte.nombre" v-if="editando_parte && (refiereedit_parteid == index_parte)" />
+        
       <div style="display: flex;">
-        <div class="parte_secuencia" >{{ parte.nombre }}</div>
         <div class="ctrlEditSecuencia" @click="editar_parte(index_parte)">Editar</div>
         <div  class="ctrlEditSecuencia" @click="separar_parte(index_parte)">Separar</div>
         <div class="ctrlEditSecuencia"  @click="combinar_parte(index_parte)">Combinar</div>

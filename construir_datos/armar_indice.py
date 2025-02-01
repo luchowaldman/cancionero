@@ -42,27 +42,30 @@ def guardar_tema(banda, tema, data):
 def obtenerItemIndice(banda, tema):
     tema_nuevo = {}
     try:
-        tema_nuevo = { 'banda': banda, 'cancion': tema, 'estado': 'nocargado' }
-        temaJSON = gettemaJSON(banda, tema)
+        tema_nuevo = {}
+        tema_nuevo = { 'banda': banda, 'cancion': tema }
+        data = get_tema(banda, tema)
+        acordesJSON = getAcordes(data)
         
-        tema_nuevo['escala'] = temaJSON.partes[0].acordes[0]
-        tema_nuevo['total_partes'] = len(temaJSON.partes)
+        tema_nuevo['escala'] = acordesJSON.partes[0].acordes[0] if acordesJSON and acordesJSON.partes and acordesJSON.partes[0].acordes else ''
+        
+        
+        compases = 0
+        for parte in acordesJSON.orden_partes:
+            compases += len(acordesJSON.partes[parte].acordes)
 
-        tema_nuevo['len_partes'] = [ len(parte.acordes) for parte in temaJSON.partes ]
-        tema_nuevo['total_orden_partes'] = len(temaJSON.orden_partes)
-        tema_nuevo['estado'] = 'ok'
-        tema_nuevo['compases_tiempo'] = 4
-        tema_nuevo['bpm'] = 60
-        tema_nuevo['calidad'] = 1
+        tema_nuevo['compases'] = compases
+        tema_nuevo['compas_unidad'] = data.get('compas_unidad', 4) if data else 4
+        tema_nuevo['compases_tiempo'] = data.get('compases_tiempo', 4) if data else 4
+        tema_nuevo['bpm'] = data.get('bpm', 60) if data else 60
+        tema_nuevo['calidad'] = data.get('calidad', 1) if data else 1
     except Exception as e:
         tema_nuevo = { 'banda': banda, 'cancion': tema, 'error': str(e), 'calidad': 0,  'estado': 'error' }
         #print(f"Error al procesar banda para el indice {banda}, tema {tema}: {e}")
     return tema_nuevo
     
 
-
-def gettemaJSON(banda, tema):
-    data = get_tema(banda, tema)
+def getAcordes(data):
     if data:
             #print("data", data)
             acordes_data = data['acordes']
@@ -97,5 +100,7 @@ def procesar_todos_los_archivos():
     except Exception as e:
         print(f"Error al guardar indice: {e}")
 
-procesar_todos_los_archivos()
-#obtenerItemIndice('intoxicados', 'homero')
+#procesar_todos_los_archivos()
+ind = obtenerItemIndice('intoxicados', 'homero')
+print(ind)
+

@@ -73,7 +73,7 @@ export class Musica {
 
      duracion_compas(cancion: Cancion): number 
      {
-        return ((60 / cancion.tempo) * cancion.compas_cantidad);
+        return ((60 / cancion.bpm) * cancion.compas_cantidad);
 
      }
 

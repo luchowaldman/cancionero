@@ -7,6 +7,9 @@ import { ref, onMounted } from 'vue';
 import Menu from './components/menu.vue';
 import Tocar from './pages/tocar.vue';
 import Listas from './pages/listas.vue';
+import Editar from './pages/editar.vue';
+import Buscar from './pages/buscar.vue';
+import Bus from './pages/listas.vue';
 import Configuracion from './pages/configuracion.vue';
 import { ModeloConfiguracion  } from './modelo/modeloconfiguracion';
 import { Cancion } from './modelo/cancion';
@@ -110,6 +113,8 @@ function acciono(valor: string, compas: number = 0) {
     case 'tocar':
     case 'listas':
     case 'config':
+    case 'editar':
+    case 'buscar':
       viendo.value = valor;
       localStorage.setItem("viendo", valor);
       break;
@@ -135,6 +140,8 @@ function acciono(valor: string, compas: number = 0) {
     <Tocar v-if="viendo=='tocar'" :compas="compas_ref" :cancion="cancion_ref"></Tocar>
     <Listas v-if="viendo=='listas'" :lista_actual="ref_lista_actual" ></Listas>
     <Configuracion v-if="viendo=='config'"></Configuracion>
+    <Editar v-if="viendo=='editar'" :lista_actual="ref_lista_actual" ></Editar>
+    <Buscar v-if="viendo=='buscar'" :lista_actual="ref_lista_actual" ></Buscar>
 
     
   </div>

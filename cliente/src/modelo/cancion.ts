@@ -9,7 +9,7 @@ export class Cancion {
         public banda: string,
         public acordes: Acordes = new Acordes([], []),
         public letras: Letra =  new Letra([]),
-        public tempo: number = 12,
+        public bpm: number = 12,
         public calidad: number = 0,
         public compas_cantidad: number = 4,
         public compas_unidad: number = 4,
