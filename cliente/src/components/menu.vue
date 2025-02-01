@@ -31,7 +31,11 @@ if (props.viendo_vista == undefined)
     <div class="pagina_seleccionable" :class="{active: viendo_vista == 'tocar'}" >
         <p class="nombre-pagina" @click="acciono('tocar')"   :class="{active: viendo_vista == 'tocar'}" aria-current="page">
           
-          <i class="bi bi-fire ilogo"></i>
+          <i class="bi bi-fire ilogo">
+
+            
+          </i>
+          
 
         </p>	
       </div>
