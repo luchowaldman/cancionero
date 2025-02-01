@@ -255,6 +255,26 @@ function combinar_parte(parteid: number) {
   refiereedit_parteid.value = parteid
 }
 
+function borrar_parte(parteid: number) {
+  
+  let nuevaSecuencia = [];
+  for (var i = 0; i < props.cancion.acordes.orden_partes.length; i++) {
+    if (props.cancion.acordes.orden_partes[i] != parteid) 
+    {
+      if (props.cancion.acordes.orden_partes[i] > parteid) {
+        nuevaSecuencia.push(props.cancion.acordes.orden_partes[i] - 1);
+      }
+      else {
+        nuevaSecuencia.push(props.cancion.acordes.orden_partes[i]);
+      }
+    }
+  }
+  props.cancion.acordes.orden_partes = nuevaSecuencia;
+  forsarcompases_escala();
+  props.cancion.acordes.partes.splice(parteid, 1);
+
+
+}
 function cancelar_parte(parteid: number) {
   combinando_parte.value = false;
   editando_parte.value = false;
@@ -549,6 +569,7 @@ function click_separar(acordeid: number) {
         <div class="ctrlEditSecuencia" @click="editar_parte(index_parte)">Editar</div>
         <div  class="ctrlEditSecuencia" @click="separar_parte(index_parte)">Separar</div>
         <div class="ctrlEditSecuencia"  @click="combinar_parte(index_parte)">Combinar</div>
+        <div class="ctrlEditSecuencia"  @click="borrar_parte(index_parte)">Borrar</div>
         <div  class="ctrlEditSecuencia" v-if="(mostrando_separadores || editando_parte || combinando_parte) && (refiereedit_parteid == index_parte)" @click="cancelar_parte(index_parte)">Listo</div>
         </div>
 
