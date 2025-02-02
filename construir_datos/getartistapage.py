@@ -28,8 +28,14 @@ def getartista_page(band_name):
     else:
         print(f'Failed to download page: {url} (Status code: {response.status_code})')
 
-
+getartista_page("the-ramones")
 getartista_page("bob-marley")
+/*
+Autenticos decadentes
+Fabulosos cadillacs
+rem
+los pericos
+*/
 exit()
 getartista_page("led-zeppelin")
 getartista_page("michael-jackson")

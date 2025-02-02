@@ -146,9 +146,7 @@ function click_borrar_guardadas(item: item_lista) {
 
 
         <ListadoListas :listas="listas" @agrego_lista="ev_agrego_lista" @ver_lista="ev_ver_lista"></ListadoListas>
-    <!-- 
-const  = ref();
--->
+
 
     <ListadoTemas :ref="ctrlguardados" titulo="Guardadas" :indice="canciones_Storage" :muestra_renglones=10
     :btnVer=true v-on:click_ver="click_editar_URL" :btnDescargar=false :btnAgregar=true :btnBorrar=true

@@ -250,13 +250,43 @@ function dropeo_nota(id: number) {
 
 
 /// PARTES
+function agregar_parte() {
+  const nueva_parte = new Parte("Nueva Parte", []);
+  props.cancion.acordes.partes.push(nueva_parte);
+  
+}
+function borrar_partesrepetidas() 
+{
+  console.log("Borrar repetidas");
+  let partes = props.cancion.acordes.partes;
+  let orden = props.cancion.acordes.orden_partes;
+  let partes_nuevas = [];
+  let orden_nuevo: number[] = [];
+  let partes_incluidas: string[] = [];
+  console.log("Orden", orden);
+  for (var i = 0; i < orden.length; i++) 
+  {
+    const parte = partes[orden[i]].acordes.join('|');
+    if (!partes_incluidas.includes(parte)) {
+      partes_incluidas.push(parte);
+      partes_nuevas.push(partes[orden[i]]);
+      
+      orden_nuevo.push(partes_nuevas.length - 1);
+    }
+    else {
+      orden_nuevo.push(partes_incluidas.indexOf(parte));
+    }
+  }
+  console.log("Orden nuevo", orden_nuevo);
+  props.cancion.acordes.partes = partes_nuevas;
+  props.cancion.acordes.orden_partes = orden_nuevo;
+}
 
 function combinar_parte(parteid: number) {
 
   
     let nueva_parte_id = props.cancion.acordes.partes.length;
     let nuevaSecuencia = [];
-
     let buscando_secuencia = false;
     
     
@@ -293,9 +323,9 @@ function combinar_parte(parteid: number) {
   if (!props.cancion.acordes.orden_partes.includes(refiereedit_parteid.value)) {
     click_borraracordeparte(refiereedit_parteid.value);
   }
+
   mostrando_separadores.value = false;
   refiereedit_parteid.value = -1
-
 
 
 }
@@ -433,7 +463,7 @@ function click_separar(acordeid: number) {
     }
     
     props.cancion.acordes.orden_partes = nuevaSecuencia;
-
+  borrar_partesrepetidas();
     
   mostrando_separadores.value = false;
   refiereedit_parteid.value = -1
@@ -469,6 +499,12 @@ function DescargarJSON() {
     a.click();
     URL.revokeObjectURL(url);
   }
+
+function agregar_a_secuencia() 
+{
+  props.cancion.acordes.orden_partes.push(0);
+}
+
 </script>
 
 
@@ -499,18 +535,13 @@ function DescargarJSON() {
 
   <div class="row">
     <div class="col-8" >
-      
-    <div class="recuadro overflow-auto" :style="{ 'max-height': 800 + 'px' }">
+ <!--- CANCION COMPLETA -->      
+ <!--- CANCION COMPLETA -->      
+ <div class="recuadro overflow-auto" :style="{ 'max-height': 800 + 'px' }">
       <div  style="display: flex; flex-wrap: wrap;"  :style="{ 'font-size' : 30 + 'px'}">
-
       <template v-for="(parte, index) in cancion.acordes.orden_partes">
-      <!--- TEXT AREAAA -->
-      <!--- TEXT AREAAA -->
-      <!--- TEXT AREAAA -->
-      <!--- TEXT AREAAA -->
-      <!--- TEXT AREAAA -->
-      <!--- TEXT AREAAA -->
-      <div v-if="editando_texto && editando_partecombo == index" style="width: 100%;"> 
+        <div v-if="editando_texto && editando_partecombo == index" style="width: 100%;"> 
+          
         <div style="display: flex;">
             <div class="parte_secuencia"> {{   cancion.acordes.partes[cancion.acordes.orden_partes[index]].nombre }} </div>
             <div>
@@ -613,7 +644,6 @@ function DescargarJSON() {
     <!-- PARTES  -->
     <!-- PARTES  -->
     <h2  style="text-decoration: underline; margin-bottom: 2px;">Acordes</h2>
-    
     <div class="partediv">
           <div v-for="(acorde, index) in ref_escala" :draggable="editando_parte" 
             @dragstart="inicio_arrastrar(acorde)" 
@@ -635,6 +665,8 @@ function DescargarJSON() {
         </div>
         
     <h2  style="text-decoration: underline; margin-bottom: 2px;">Partes</h2>
+    <button @click="agregar_parte">Agregar Parte</button>
+
     <div v-for="(parte, index_parte) in cancion.acordes.partes" :key="parte.nombre" class="row" >
       <h2  v-if="!editando_parte || (refiereedit_parteid != index_parte)" >{{ parte.nombre }}</h2>
       <input v-model="parte.nombre" v-if="editando_parte && (refiereedit_parteid == index_parte)" />
@@ -662,9 +694,7 @@ function DescargarJSON() {
           <template v-for="(acorde, index) in parte.acordes" :key="index" >
           
           
-            <div style="display: inline-block; border: 1px solid red; padding: 4px; "
-            v-if="(editando_parte) && refiereedit_parteid == index_parte"
-            @click="click_borraracordeparte(index)"  >x</div>
+            
           
           
           
@@ -682,7 +712,9 @@ function DescargarJSON() {
             @click="click_barra(index)">
             <span  > | </span>
           </div>
-
+          <div style="display: inline-block; border: 1px solid red; padding: 4px; margin-right: 14px; margin-left: -10px; "
+            v-if="(editando_parte) && refiereedit_parteid == index_parte"
+            @click="click_borraracordeparte(index)">x</div>
         </template>
 
         </div>
@@ -699,6 +731,9 @@ function DescargarJSON() {
           </select>
 
           </div>
+          <div style="border: 1px solid; padding: 2px;" @click="agregar_a_secuencia"> + </div>
+            
+          </div>
   </div>
 
 
@@ -708,9 +743,7 @@ function DescargarJSON() {
 </div>
       
 </div>
-
-</div>
-      
+  
 </template>
 
 
