@@ -252,8 +252,47 @@ function dropeo_nota(id: number) {
 /// PARTES
 
 function combinar_parte(parteid: number) {
-  combinando_parte.value = true;
-  refiereedit_parteid.value = parteid
+
+  
+    let nueva_parte_id = props.cancion.acordes.partes.length;
+    let nuevaSecuencia = [];
+
+    let buscando_secuencia = false;
+    
+    
+    for (var i = 0; i < props.cancion.acordes.orden_partes.length; i++) 
+    {
+      
+      if (props.cancion.acordes.orden_partes[i] == parteid) 
+      {
+        if (buscando_secuencia) {
+            nuevaSecuencia[nuevaSecuencia.length - 1] = nueva_parte_id;
+        }
+        else {
+          nuevaSecuencia.push(props.cancion.acordes.orden_partes[i]);
+        }
+      }
+      else 
+      {
+        
+        nuevaSecuencia.push(props.cancion.acordes.orden_partes[i]);
+      }
+      buscando_secuencia = props.cancion.acordes.orden_partes[i] == refiereedit_parteid.value;
+
+    }
+    
+
+    const acor1 = props.cancion.acordes.partes[refiereedit_parteid.value].acordes;
+    const acor2 = props.cancion.acordes.partes[parteid].acordes;
+    const nombre = props.cancion.acordes.partes[refiereedit_parteid.value].nombre + " + " + props.cancion.acordes.partes[parteid].nombre; 
+    let nueva_parte = new Parte(nombre, acor1.concat(acor2));
+    props.cancion.acordes.partes.push(nueva_parte);
+
+    props.cancion.acordes.orden_partes = nuevaSecuencia;
+
+    
+  mostrando_separadores.value = false;
+  refiereedit_parteid.value = -1
 }
 
 function borrar_parte(parteid: number) {
@@ -598,7 +637,7 @@ function DescargarJSON() {
       <div style="display: flex;">
         <div class="ctrlEditSecuencia" @click="editar_parte(index_parte)">Editar</div>
         <div  class="ctrlEditSecuencia" @click="separar_parte(index_parte)">Separar</div>
-        <div class="ctrlEditSecuencia"  @click="combinar_parte(index_parte)">Combinar</div>
+        <div class="ctrlEditSecuencia" v-if="(editando_parte) && (refiereedit_parteid != index_parte)"  @click="combinar_parte(index_parte)">Combinar</div>
         <div class="ctrlEditSecuencia"  @click="borrar_parte(index_parte)">Borrar</div>
         <div  class="ctrlEditSecuencia" v-if="(mostrando_separadores || editando_parte || combinando_parte) && (refiereedit_parteid == index_parte)" @click="cancelar_parte(index_parte)">Listo</div>
         </div>

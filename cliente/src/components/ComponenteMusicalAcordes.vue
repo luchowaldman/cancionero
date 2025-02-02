@@ -47,8 +47,6 @@ function estilo_acorde(acorde: string)
   const find_acord = acorde.replace(/7|5/g, '');
   const index = compases_escala.indexOf(find_acord);
   const color = color_x_index(index);
-  
-  console.log("color", acorde,  color)
   return { 'border-color': color };
   
   }
