@@ -29,8 +29,8 @@ def getartista_page(band_name):
         print(f'Failed to download page: {url} (Status code: {response.status_code})')
 
 
-
-
+getartista_page("bob-marley")
+exit()
 getartista_page("led-zeppelin")
 getartista_page("michael-jackson")
 getartista_page("gilda")
