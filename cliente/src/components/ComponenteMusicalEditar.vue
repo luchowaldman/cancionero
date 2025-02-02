@@ -290,9 +290,14 @@ function combinar_parte(parteid: number) {
 
     props.cancion.acordes.orden_partes = nuevaSecuencia;
 
-    
+  if (!props.cancion.acordes.orden_partes.includes(refiereedit_parteid.value)) {
+    click_borraracordeparte(refiereedit_parteid.value);
+  }
   mostrando_separadores.value = false;
   refiereedit_parteid.value = -1
+
+
+
 }
 
 function borrar_parte(parteid: number) {
