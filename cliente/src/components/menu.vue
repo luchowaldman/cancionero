@@ -11,7 +11,7 @@ import { EstadoSesion } from '../modelo/estadosesion';
 const emit = defineEmits(['acciono']);
 
 function acciono(valor: string, compas: number = 0) {
-    console.log("Acciono--->", valor, compas);
+    //console.log("Acciono--->", valor, compas);
     emit('acciono', valor, compas);
     
 }

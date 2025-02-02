@@ -43,11 +43,14 @@ watch(() => props.compas, (newCompas) => {
   }
 
 
-  const ve = (musica.get_renglontexto_de_compas(props.cancion ,newCompas) * 53) - 150;
+  let ve = (musica.get_renglontexto_de_compas(props.cancion ,newCompas) * props.vista.tamanio_referencia * 2);
+  //ve = ve - (props.vista.alto * 0.45)
+  console.log("VEEEE" ,ve);
   const nueva_pos = Math.max(ve, 0);
+  console.log('Nueva pos', nueva_pos);
+  
   mover_scroll(nueva_pos)
       
-  console.log('Compas actual', currentCompas.value);
 });
 
 

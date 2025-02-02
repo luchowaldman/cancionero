@@ -3,16 +3,10 @@ import { AnalisisArmonico } from '../modelo/analisis_armonico';
 import { Cancion } from './cancion';
 export class Musica {
 
-  get_renglontexto_de_compas(cancion: Cancion, newCompas: number): number {
-    let cont = 0;
-    for (let i = 0; i < cancion.letras.renglones.length; i++) 
-    {
-        cont += cancion.letras.renglones[i].length;
-        if (cont >= newCompas) {
-            return i;
-        }
-    }
-    return cancion.letras.renglones.length;
+  get_renglontexto_de_compas(cancion: Cancion, nro_compas: number): number {
+    const renglones = cancion.letras.renglones.flat().slice(0, nro_compas).join('');
+    return renglones.split('/n').length;
+    
 
   }
     

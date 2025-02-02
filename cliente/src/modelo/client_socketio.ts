@@ -132,7 +132,7 @@ export class Cliente {
         });
 
         socket.on("compas", (nro: number) => {
-            console.log("compas received with nro:", nro);
+            //console.log("compas received with nro:", nro);
             this.compasHandler?.(nro);
         });
 

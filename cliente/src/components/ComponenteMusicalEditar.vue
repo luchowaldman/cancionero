@@ -9,7 +9,7 @@ import { escape } from 'querystring';
 
 let musica = new Musica();
 const props = defineProps<{ compas: number, cancion: Cancion, item_indice: item_lista, editando_cancion: boolean }>()
-const emit = defineEmits(['cerrar', 'guardar']);
+const emit = defineEmits(['cerrar', 'guardar', 'nuevo']);
 const letras_porparte = ref([] as string[][]);
 const editando_partecombo = ref(-1);
 watch(() => props.cancion, () => {
@@ -509,26 +509,46 @@ function agregar_a_secuencia()
 
 
 <template>
-<div v-if="editando_cancion" class="recuadro">
+<div v-if="editando_cancion" class="componenteMusical">
 
-  <div class="navbarEdit" >
+  <div class="menuEditar" >
     <div class="marca">
-      <input type="text" v-model="cancion.banda" /> - <input type="text" v-model="cancion.cancion" /> --BPM: <input type="number" v-model="cancion.bpm" /> Origen: <input type="text" v-model="item_indice.origen" />
+      <input type="text" v-model="cancion.banda" :style="{ width: (cancion.banda.length + 1) + 'ch' }" /> - 
+      <input type="text" v-model="cancion.cancion" :style="{ width: (cancion.cancion.length + 1) + 'ch' }" />
+        BPM: <input type="range" v-model="cancion.bpm" min="30" max="240" /> {{ cancion.bpm }} - 
+     
+        <span v-if="cancion.bpm < 40">No cargada o menos que lenta</span>
+        <span v-if="cancion.bpm >= 40 && cancion.bpm <= 60">Largo</span>
+<span v-if="cancion.bpm > 60 && cancion.bpm <= 66">Largo a Adagio</span>
+<span v-if="cancion.bpm > 66 && cancion.bpm <= 76">Adagio</span>
+<span v-if="cancion.bpm > 76 && cancion.bpm <= 108">Andante</span>
+<span v-if="cancion.bpm > 108 && cancion.bpm <= 120">Moderato</span>
+<span v-if="cancion.bpm > 120 && cancion.bpm <= 168">Allegro</span>
+<span v-if="cancion.bpm > 168 && cancion.bpm <= 176">Vivace</span>
+<span v-if="cancion.bpm > 176 && cancion.bpm <= 200">Presto</span>
+<span v-if="cancion.bpm > 200">Prestissimo</span>
+
+      
+        Compas: <input type="text" v-model="cancion.compas_cantidad" maxlength="1" :style="{ width: '3ch' }" /> / 
+        <input type="text" v-model="cancion.compas_unidad" maxlength="1" :style="{ width: '3ch' }" /> - Escala  
+        <input type="text" v-model="cancion.escala" @change="forsarcompases_escala" maxlength="1" :style="{ width: '3ch' }" />
+        Calidad: <input type="text" v-model="cancion.calidad" maxlength="1" :style="{ width: '3ch' }" />
+
+
+
+        
       <button @click="emit('guardar')">
         <i class="bi bi-save"></i> Guardar
       </button>
-      Compas: <input type="number" v-model="cancion.compas_cantidad" /> / <input type="number" v-model="cancion.compas_unidad" /> - Escala  
-      <input type="text" v-model="cancion.escala" @change="forsarcompases_escala" />
-      Calidad: <input type="text" v-model="cancion.calidad" />
-
-    </div>
-    
-    <div></div>
-    
-    <div class="botoneraleft">
+      <button @click="emit('nuevo')">Nuevo</button>
       <button @click="DescargarJSON()" >Descargar</button>
       <button @click="emit('cerrar')">Cerrar</button>
-  </div>
+    </div>
+    
+    
+    
+  
+  
   </div>
     
 
@@ -537,7 +557,7 @@ function agregar_a_secuencia()
     <div class="col-8" >
  <!--- CANCION COMPLETA -->      
  <!--- CANCION COMPLETA -->      
- <div class="recuadro overflow-auto" :style="{ 'max-height': 800 + 'px' }">
+ <div class="componenteMusical overflow-auto" :style="{ 'max-height': 800 + 'px' }">
       <div  style="display: flex; flex-wrap: wrap;"  :style="{ 'font-size' : 30 + 'px'}">
       <template v-for="(parte, index) in cancion.acordes.orden_partes">
         <div v-if="editando_texto && editando_partecombo == index" style="width: 100%;"> 
@@ -759,10 +779,21 @@ function agregar_a_secuencia()
   margin: 3px;
 
 }
-.recuadro {
+.menuEditar {
+  border: 2px solid;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: xx-large;
+  border: 1px solid;
+  margin-bottom: 10px;
+}
+
+.componenteMusical {
   border: 1px solid;
   border-radius: 5px;
+  color: #a9a8f6;
   padding: 6px;
+  height: 100%;
 }
 
 .pTexto {

@@ -55,8 +55,11 @@ watch(() => props.compas, (newCompas) => {
   }
   currentCompas.value = newCompas;
 
-  const ve = (musica.get_renglontexto_de_compas(props.cancion ,newCompas) * 53) - 150;
+  let ve = ((musica.get_renglontexto_de_compas(props.cancion ,newCompas) - 1) * props.vista.tamanio_referencia * 4);
+  ve -= props.vista.alto * 0.4;
   const nueva_pos = Math.max(ve, 0);
+  console.log('Nueva pos', nueva_pos);
+  
   mover_scroll(nueva_pos)
       
   console.log('Compas actual', currentCompas.value);
@@ -147,6 +150,7 @@ defineExpose({  Actualizar });
   border-radius: 5px;
   color: white;
   padding: 6px;
+  height: 100%;
 }
 .read-the-docs {
   color: #888;
@@ -159,7 +163,6 @@ defineExpose({  Actualizar });
   display: flex;
 }
 .acordediv {
-  font-size: large;
   margin: 1px;
   padding: 5px;
   border: 1px solid;

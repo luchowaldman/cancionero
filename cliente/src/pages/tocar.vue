@@ -15,41 +15,42 @@ const ref_cont = ref(0);
 
 function cambiar_vista(vista: number) {
   let toCH: VistaControl[] = [];
+  const ancho = window.innerWidth;
+  const alto = window.innerHeight;
   switch (vista) {
     case 0:
       toCH = [
-        new VistaControl(window.innerHeight / 50, 12, 7, "letra_acordes", "col-9", (window.innerHeight / 1.7)),
-        new VistaControl(30, 12, 7, "acordes", "col-3 d-md-block", 1400)
-        ];
+        new VistaControl(alto / 40, 12, 7, "letra_acordes", "col-9", alto - 300),
+        new VistaControl(ancho / 30, 12, 7, "acordes", "col-3 d-md-block", ancho)
+      ];
       break;
     case 1:
-    toCH = [
-        new VistaControl(window.innerHeight / 30, 12, 7, "letra", "col-12", (window.innerHeight / 1.7)),
-        ];
+      toCH = [
+        new VistaControl(ancho / 30, 12, 7, "letra", "col-12", (alto / 1.7)),
+      ];
       break;
-      case 2:
-    toCH = [
-        new VistaControl(window.innerHeight / 50, 12, 7, "acordes_seguidos", "col-9", (window.innerHeight / 1.7)),        
-        new VistaControl(30, 12, 7, "acordes", "col-3 d-md-block", 1400)
-        ];
+    case 2:
+      toCH = [
+        new VistaControl(ancho / 50, 12, 7, "acordes_seguidos", "col-9", (alto / 1.7)),
+        new VistaControl(ancho / 30, 12, 7, "acordes", "col-3 d-md-block", ancho)
+      ];
       break;
-      case 3:
-    toCH = [
-    new VistaControl(window.innerHeight / 50, 12, 7, "detalle", "col-9", (window.innerHeight / 1.7))
-        ];
+    case 3:
+      toCH = [
+        new VistaControl(ancho / 50, 12, 7, "detalle", "col-9", (alto / 1.7))
+      ];
       break;
-      case 4:
-    toCH = [
-    new VistaControl(window.innerHeight / 50, 12, 7, "detalle", "col-9", (window.innerHeight / 1.7))
-        ];
+    case 4:
+      toCH = [
+        new VistaControl(ancho / 50, 12, 7, "detalle", "col-9", (alto / 1.7))
+      ];
       break;
-      case 5:
-    toCH = [
-        new VistaControl(window.innerHeight / 50, 12, 7, "tocar", "col-9", (window.innerHeight / 1.7)),        
-        new VistaControl(30, 12, 7, "acordes", "col-3 d-md-block", 1400)
-        ];
+    case 5:
+      toCH = [
+        new VistaControl(ancho / 50, 12, 7, "tocar", "col-9", (alto / 1.7)),
+        new VistaControl(ancho / 30, 12, 7, "acordes", "col-3 d-md-block", ancho)
+      ];
       break;
-
   }
   ref_vista.value = toCH;
   ref_cont.value = ref_cont.value + 1;
@@ -91,7 +92,7 @@ onMounted(() => {
   </div>
 
     </div>
-<div class="row">
+<div class="row" :style="{height: height * 0.9 + 'px'}">
     <div v-for="(Componente, index) in ref_vista" :key="index" 
     :class="Componente.clase">
       <component :is="Componente.getMarkRaw()" :compas="compas" :key="index" :ref="Componente.componente" :vista="Componente" :cancion="cancion" val="ref_cont"></component>
