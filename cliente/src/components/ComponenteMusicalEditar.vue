@@ -531,29 +531,33 @@ function agregar_a_secuencia()
       
         Compas: <input type="text" v-model="cancion.compas_cantidad" maxlength="1" :style="{ width: '3ch' }" /> / 
         <input type="text" v-model="cancion.compas_unidad" maxlength="1" :style="{ width: '3ch' }" /> - Escala  
-        <input type="text" v-model="cancion.escala" @change="forsarcompases_escala" maxlength="1" :style="{ width: '3ch' }" />
-        Calidad: <input type="text" v-model="cancion.calidad" maxlength="1" :style="{ width: '3ch' }" />
+        <input type="text" v-model="cancion.escala" @change="forsarcompases_escala" maxlength="4" :style="{ width: '6ch' }" />
+        Calidad: <input type="range" v-model="cancion.calidad" min="0" max="10" />
 
-
-
+        <div style="display: inline; float: right;">
+            <button @click="emit('guardar')">
+        <i class="bi bi-save"></i> 
+            </button>
+            <button @click="emit('nuevo')">
+              <i class="bi bi-file-earmark-plus"></i>
+            </button>
+            <button @click="DescargarJSON()">
+              <i class="bi bi-download"></i>
+            </button>
+            <button @click="emit('cerrar')">
+              <i class="bi bi-x-circle"></i>
+            </button>
+          </div>
+        </div>
+          
+          
         
-      <button @click="emit('guardar')">
-        <i class="bi bi-save"></i> Guardar
-      </button>
-      <button @click="emit('nuevo')">Nuevo</button>
-      <button @click="DescargarJSON()" >Descargar</button>
-      <button @click="emit('cerrar')">Cerrar</button>
-    </div>
-    
-    
-    
-  
-  
-  </div>
-    
+        
+        </div>
+          
 
 
-  <div class="row">
+        <div class="row">
     <div class="col-8" >
  <!--- CANCION COMPLETA -->      
  <!--- CANCION COMPLETA -->      

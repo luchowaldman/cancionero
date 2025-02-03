@@ -29,7 +29,7 @@ if (props.viendo_vista == undefined)
     
     
     <div class="pagina_seleccionable" :class="{active: viendo_vista == 'tocar'}" >
-        <p class="nombre-pagina" @click="acciono('tocar')"   :class="{active: viendo_vista == 'tocar'}" aria-current="page">
+        <p class="clase_tocar" @click="acciono('tocar')"   :class="{active: viendo_vista == 'tocar'}" aria-current="page">
           
           <i class="bi bi-fire ilogo">
 
@@ -52,38 +52,62 @@ if (props.viendo_vista == undefined)
         </ControladorSesion>
       </div>
        
-      <div class="pagina_seleccionable aladerecha" @click="acciono('listas')"  :class="{active: viendo_vista == 'listas'}" >
-        <p class="nombre-pagina"aria-current="page">
+      <div class="otras_paginas">
+      <div class="otra_paginas" @click="acciono('listas')"  :class="{active: viendo_vista == 'listas'}" >
+        
           <i class="bi bi-list"></i>
-        </p>	
+        
       </div>    
       
 
 
-      <div class="pagina_seleccionable aladerecha" @click="acciono('editar')"  :class="{active: viendo_vista == 'editar'}" >
-        <p class="nombre-pagina"aria-current="page">
+      <div class="otra_paginas" @click="acciono('editar')"  :class="{active: viendo_vista == 'editar'}" >
+        
             <i class="bi bi-pencil"></i>
-        </p>	
+        
       </div> 
-      <div class="pagina_seleccionable aladerecha" @click="acciono('buscar')"  :class="{active: viendo_vista == 'buscar'}" >
-        <p class="nombre-pagina"aria-current="page">
+      <div class="otra_paginas" @click="acciono('buscar')"  :class="{active: viendo_vista == 'buscar'}" >
+        
             <i class="bi bi-globe"></i>
-        </p>	
+        
       </div>    
       
           
-          <div class="pagina_seleccionable aladerecha" @click="acciono('config')" :class="{active: viendo_vista == 'config'}" >
-            <p class="nombre-pagina" aria-current="page">
-              
+          <div class="otra_paginas" @click="acciono('config')" :class="{active: viendo_vista == 'config'}" >
+            
               <i class="bi bi-gear-fill"></i>
 
-            </p>
+            
           </div>
-    
+        </div>
+
+        
     </div>
 </template>
 
 <style scoped>
+
+.otras_paginas {
+  font-size: 50px ;
+  display: flex;
+  border: 1px solid;
+  margin: 10px 10px 15px 10px;
+  right: 0 auto;
+  border-radius: 20px;
+  color: #a9a8f6;
+  height: 44%;
+  margin-left: auto
+}
+
+
+.otra_paginas {
+  margin-left: auto;
+  border: 1px solid;
+  margin: 5px 10px 5px 10px;
+  border-radius: 20px;
+  color: #a9a8f6;
+}
+
 .navbarFogon {
   display: flex;
   border: 1px solid;
@@ -118,10 +142,6 @@ if (props.viendo_vista == undefined)
   margin: 14px;
   padding-right: 12px;
 
-}
-
-.nombre-pagina {
-  font-size: 60px;
 }
 
 .aladerecha {
@@ -174,6 +194,11 @@ if (props.viendo_vista == undefined)
 
 .nav-item.dropdown:hover .dropdown-menu {
   display: flex;
+}
+
+.clase_tocar {
+  font-size: 80px;
+  padding: 10px;
 }
 
 </style>

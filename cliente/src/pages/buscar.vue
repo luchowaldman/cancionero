@@ -13,11 +13,6 @@ import { AdminListasTocables } from '../modelo/AdminIndiceListas';
 
 
 
-
-
-const props = defineProps<{ lista_actual: string }>();
-
-
 const emit = defineEmits(['acciono']);
 
 const BandasFavoritasref = ref([] as string[]);
@@ -98,9 +93,8 @@ const editando_cancion = ref(false);
 const cancion_ver  = ref(new Cancion("no song name", "no band name", new Acordes([], []), new Letra([])));
 const itemindice_ref = ref(new item_lista("no song name", "no band name"));
 
-const reflista_actual = ref(props.lista_actual);
-const canciones_Storage = ref([] as item_lista[]);
-const canciones_Actual = ref([] as item_lista[]);
+
+
 let canciones_url = ref([] as item_lista[]);
 let canciones_filtradas = ref([] as item_lista[]);
 // INICIALIZA LAS LISTAS DE CANCIONES GENERADAS
@@ -112,8 +106,6 @@ const listas = ref([] as string[]);
 listas.value = generadorlistasLS.listas();
 const admin_indiceslista = new AdminListasTocables();
 
-canciones_Actual.value = admin_indiceslista.GetIndice(reflista_actual.value);
-ctrlviendolista.value?.cancionesFiltradas();
 
 
 generadorlistasURL.getIndice().then((indice: item_lista[]) => {
@@ -125,15 +117,11 @@ generadorlistasURL.getIndice().then((indice: item_lista[]) => {
 function click_descargar_URL(item: item_lista) {
     generadorlistasURL.GetCancion(item).then((canciondesc: Cancion) => {
         generadorlistasLS.GuardarCancion(item, canciondesc);
-        ctrlguardados.value?.cancionesFiltradas();
         
     });
 }
 
 
-generadorlistasLS.getIndice().then((indi_get: item_lista[]) => {
-    canciones_Storage.value = indi_get;
-});
 
 
 function click_editar_URL(item: item_lista) {
@@ -144,10 +132,10 @@ function click_editar_URL(item: item_lista) {
 
 
 function click_agregar_guardadas(item: item_lista) {
-    canciones_Actual.value = admin_indiceslista.GetIndice(reflista_actual.value)
-    canciones_Actual.value.push(item);
-    admin_indiceslista.SaveIndice(reflista_actual.value, canciones_Actual.value);
-    ctrlguardados.value?.cancionesFiltradas();
+    let indice = admin_indiceslista.GetIndice("default");
+    indice.push(item);
+    admin_indiceslista.SaveIndice("default", indice);
+    emit('acciono', 'add_cancion');
 }
 
 
