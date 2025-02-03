@@ -81,7 +81,6 @@ const director_ref = ref(director);
     sesion_ref.value = directornuevo.configuracion.sesion;
   });
   director.setcambiosCancionHandler((cancion: Cancion) => {
-    console.log("cambios cancion", cancion.cancion);
     cancion_ref.value = cancion;
   });
   director.setcambiosCompasHandler((compas: number) => {
@@ -157,11 +156,11 @@ if (viendo.value == 'editar') {
   :compas="compas_ref" :cancion="cancion_ref" 
   ></Menu>
   <div class="pantalla">
-    <Tocar v-if="viendo=='tocar'" :compas="compas_ref" :cancion="cancion_ref"></Tocar>
-    <Listas v-if="viendo=='listas'" :lista_actual="ref_lista_actual" ></Listas>
+    <Tocar v-if="viendo=='tocar'"  @acciono="acciono" :compas="compas_ref" :cancion="cancion_ref"></Tocar>
+    <Listas v-if="viendo=='listas'"  @acciono="acciono" :lista_actual="ref_lista_actual" ></Listas>
     <Configuracion v-if="viendo=='config'"></Configuracion>
-    <Editar v-if="viendo=='editar'" :cancion="editando_cancion" :item="editando_item" :lista_actual="ref_lista_actual" ></Editar>
-    <Buscar v-if="viendo=='buscar'" :lista_actual="ref_lista_actual" ></Buscar>
+    <Editar v-if="viendo=='editar'"  @acciono="acciono" :cancion="editando_cancion" :item="editando_item" :lista_actual="ref_lista_actual" ></Editar>
+    <Buscar v-if="viendo=='buscar'"  @acciono="acciono" :lista_actual="ref_lista_actual" ></Buscar>
 
     
   </div>

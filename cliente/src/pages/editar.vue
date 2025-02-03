@@ -12,6 +12,7 @@ import { Letra } from '../modelo/letra';
 import { Cancion } from '../modelo/cancion';
 
 defineProps<{ cancion: Cancion, item: item_lista }>()
+const emit = defineEmits(['acciono']);
 const almacen = new Almacenado();
 
 

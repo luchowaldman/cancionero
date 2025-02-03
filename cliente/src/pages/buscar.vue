@@ -18,6 +18,7 @@ import { AdminListasTocables } from '../modelo/AdminIndiceListas';
 const props = defineProps<{ lista_actual: string }>();
 
 
+const emit = defineEmits(['acciono']);
 
 const BandasFavoritasref = ref([] as string[]);
 const bandas_seleccionadas = ref("" as string);
@@ -136,15 +137,9 @@ generadorlistasLS.getIndice().then((indi_get: item_lista[]) => {
 
 
 function click_editar_URL(item: item_lista) {
-    localStorage.setItem("editando", "si");
     localStorage.setItem("editando_cancion", JSON.stringify(item));
+    emit('acciono', 'editar');
     
-    GetCanciones.obtenerCancion(item).then((cancion_get: Cancion) => {
-        itemindice_ref.value = item;
-        editando_cancion.value = true;
-        cancion_ver.value = cancion_get;
-        //editref.value?.reload_song();   
-    });
 }
 
 
