@@ -53,8 +53,18 @@ def obtenerItemIndice(banda, tema):
         compases = 0
         for parte in acordesJSON.orden_partes:
             compases += len(acordesJSON.partes[parte].acordes)
+        acordes = []
+        for parte in acordesJSON.partes:
+            acordes += parte.acordes
+        acordes = set(acordes)
 
         tema_nuevo['compases'] = compases
+        tema_nuevo['len_secuencia'] = len(acordesJSON.orden_partes)
+        tema_nuevo['acordes'] = '.'.join(list(acordes)[:6] + (['+'] if len(acordes) > 6 else []))
+        tema_nuevo['len_partes'] = [len(parte.acordes) for parte in acordesJSON.partes]
+
+
+
         tema_nuevo['compas_unidad'] = data.get('compas_unidad', 4) if data else 4
         tema_nuevo['compas_cantidad'] = data.get('compas_cantidad', 4) if data else 4
         tema_nuevo['bpm'] = data.get('bpm', 60) if data else 60
@@ -100,7 +110,10 @@ def procesar_todos_los_archivos():
     except Exception as e:
         print(f"Error al guardar indice: {e}")
 
-#procesar_todos_los_archivos()
 
-ind = obtenerItemIndice('elvis-presley', 'fool-fool-fool')
-print(ind)
+##procesar_todos_los_archivos()
+#exit()
+indice = []
+indice.append(obtenerItemIndice('elvis-presley', 'fool-fool-fool'))
+with open(f'{DIRECTORIO_DATOS}indice.json', 'w') as f:
+            json.dump(indice, f)

@@ -110,7 +110,8 @@ defineExpose({  cancionesFiltradas });
                     <th>Escala</th>
                     <th>BPM</th>
                     <th>compas</th>
-                    <th>calidad</th>
+                    <th>Calidad</th>
+                    <th>Detalles</th>
                     <th>Acciones</th>  
                 </tr>
                 
@@ -125,7 +126,14 @@ defineExpose({  cancionesFiltradas });
                         <td> {{  cancion.bpm }}</td>
                         <td> {{  cancion.compas_cantidad }} / {{ cancion.compas_unidad }}</td>
                         <td> {{  cancion.calidad }}</td>
-                    
+                    <td>
+                        <div>
+                            <div>Compases: {{ cancion.compases }}</div>
+                            <div>Longitud de Secuencia: {{ cancion.len_secuencia }}</div>
+                            <div>Acordes: {{ cancion.acordes }}</div>
+                            <div>Longitud de Partes: {{ cancion.len_partes }}</div>
+                        </div>
+                    </td>
                     <td>
                                             
                                             <button v-if="btnVer" @click="click_ver(cancion)" class="btn btn-primary">

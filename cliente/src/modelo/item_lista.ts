@@ -10,6 +10,10 @@ export class item_lista {
     public bpm: number;
     public calidad: number;
 
+    public len_secuencia: number;
+    public acordes: string;
+    public len_partes: number[];
+
     constructor(
         public cancion: string,
         public banda: string
@@ -22,6 +26,10 @@ export class item_lista {
         this.bpm = 60;
         this.calidad = 1;
         this.origen = '';
+        this.escala = '';
+        this.len_secuencia = 0;
+        this.acordes = '';
+        this.len_partes = [];
     }
 
     

@@ -25,10 +25,16 @@ export class AdminListasURL extends  AdminiListas {
             item.compas_cantidad = data[i].compas_cantidad;
 
             item.compases = data[i].compases;
+            item.len_secuencia = data[i].len_secuencia;
+            item.acordes = data[i].acordes;
+            item.len_partes = data[i].len_partes;
             item.bpm = data[i].bpm;
             item.calidad = data[i].calidad;
             item.escala = data[i].escala;
             item.origen = 'url|' + this.url;
+            item.len_secuencia = data[i].len_secuencia;
+            item.acordes = data[i].acordes;
+            item.len_partes = data[i].len_partes;
             items_lista.push(item);
         }
         return items_lista;
