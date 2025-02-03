@@ -33,9 +33,23 @@ function selecciono_banda(banda: string) {
         bandas_seleccionadas.value += `|${banda}`.trim();
     }
     console.log("bandas_seleccionadas", bandas_seleccionadas.value);
+    buscar_cancion();
     localStorage.setItem(bandasFavoritasSeleccionadaKey, bandas_seleccionadas.value);
     ctrlListaURL.value?.cancionesFiltradas();
 
+}
+
+
+function buscar_cancion() {
+    let filtro_canciones = bandas_seleccionadas.value.split('|').filter((banda) => banda.length > 0);
+    console.log("filtro_canciones", filtro_canciones);
+    if (filtro_canciones.length == 0) {
+        canciones_filtradas.value = canciones_url.value;
+        return;
+    }
+    canciones_filtradas.value = canciones_url.value.filter((item) => {
+        return filtro_canciones.some((banda) => item.banda.toLowerCase().includes(banda));
+    });
 }
 
 function loadBandasFavoritas() {
@@ -79,17 +93,11 @@ const editando_cancion = ref(false);
 const cancion_ver  = ref(new Cancion("no song name", "no band name", new Acordes([], []), new Letra([])));
 const itemindice_ref = ref(new item_lista("no song name", "no band name"));
 
-editando_cancion.value = (localStorage.getItem("editando") == "si");
-if (editando_cancion.value) {
-    let item = JSON.parse(localStorage.getItem("editando_cancion") || "{}");
-    click_editar_URL(item);
-}
-
-
 const reflista_actual = ref(props.lista_actual);
 const canciones_Storage = ref([] as item_lista[]);
 const canciones_Actual = ref([] as item_lista[]);
 let canciones_url = ref([] as item_lista[]);
+let canciones_filtradas = ref([] as item_lista[]);
 // INICIALIZA LAS LISTAS DE CANCIONES GENERADAS
 const generadorlistasURL = new AdminListasURL('/data/canciones');
 const almacen = new Almacenado();
@@ -105,6 +113,8 @@ ctrlviendolista.value?.cancionesFiltradas();
 
 generadorlistasURL.getIndice().then((indice: item_lista[]) => {
     canciones_url.value = indice;
+    buscar_cancion();
+
 });
 
 function click_descargar_URL(item: item_lista) {
@@ -134,35 +144,6 @@ function click_editar_URL(item: item_lista) {
 }
 
 
-function ev_agrego_lista(newlista: string) {
-    reflista_actual.value = newlista;
-    canciones_Actual.value = admin_indiceslista.GetIndice(reflista_actual.value)
-    ctrlguardados.value?.cancionesFiltradas();
-
-
-}
-
-
-function ev_ver_lista(newlista: string) {
-    canciones_Actual.value = admin_indiceslista.GetIndice(newlista);
-    ctrlviendolista.value?.cancionesFiltradas();
-    
-}
-
-function cerro_editar() {
-    localStorage.setItem("editando", "no");
-    editando_cancion.value = false;
-}
-
-
-
-function click_borrar_viendolista(item: item_lista) {
-    admin_indiceslista.BorrarCancion(reflista_actual.value, item);
-    canciones_Actual.value = admin_indiceslista.GetIndice(reflista_actual.value)
-    ctrlviendolista.value?.cancionesFiltradas();
-}
-
-
 function click_agregar_guardadas(item: item_lista) {
     canciones_Actual.value = admin_indiceslista.GetIndice(reflista_actual.value)
     canciones_Actual.value.push(item);
@@ -170,20 +151,6 @@ function click_agregar_guardadas(item: item_lista) {
     ctrlguardados.value?.cancionesFiltradas();
 }
 
-function guardar_cancioneditada() { 
-    generadorlistasLS.GuardarCancion(itemindice_ref.value, cancion_ver.value);
-    ctrlviendolista.value?.cancionesFiltradas();
-    admin_indiceslista.SaveIndice(reflista_actual.value, canciones_Actual.value);
-    ctrlguardados.value?.cancionesFiltradas();
-    
-}
-
-function click_borrar_guardadas(item: item_lista) {
-    generadorlistasLS.BorrarCancion(item);
-    console.log(ctrlguardados.value)
-    ctrlguardados.value?.cancionesFiltradas();
-    
-}
 
 </script>
 
@@ -207,7 +174,7 @@ function click_borrar_guardadas(item: item_lista) {
         <div >
     
 
-    <ListadoTemas titulo="En data generada por Luis Waldman" :indice="canciones_url" :muestra_renglones=15
+    <ListadoTemas titulo="En data generada por Luis Waldman" :indice="canciones_filtradas" :muestra_renglones=15
     :btnVer=true v-on:click_ver="click_editar_URL" 
     @click_agregar="click_agregar_guardadas"
     @click_descargar="click_descargar_URL"
