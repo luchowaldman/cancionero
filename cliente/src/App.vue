@@ -128,11 +128,20 @@ function acciono(valor: string, compas: number = 0) {
     case 'config':
     case 'editar':
     case 'buscar':
-      viendo.value = valor;
-      localStorage.setItem("viendo", valor);
-      if (valor == 'editar') {
+
+      if (valor == 'editar') 
+      {
+        if (viendo.value == 'tocar') 
+        {
+          localStorage.setItem("editando_cancion", JSON.stringify(cancion_ref.value));
+        }
+        
         cargar_edit();
       }
+
+      viendo.value = valor;
+      localStorage.setItem("viendo", valor);
+      
       break;
     default:
       console.warn(`Acción no reconocida: ${valor}`);
