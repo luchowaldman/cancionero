@@ -17,6 +17,7 @@ const emit = defineEmits(['acciono']);
 
 const BandasFavoritasref = ref([] as string[]);
 const bandas_seleccionadas = ref("" as string);
+const filtros_seleccionados = ref("" as string);
 const bandasFavoritasKey = 'bandas_favoritas';
 const bandasFavoritasSeleccionadaKey = 'bandas_favoritas_seleccionadas';
 const ctrlListaURL = ref();
@@ -35,6 +36,17 @@ function selecciono_banda(banda: string) {
 
 }
 
+function selecciono_filtro(filtro: string) {
+    if (filtros_seleccionados.value.includes('|' + filtro)) {
+        filtros_seleccionados.value = filtros_seleccionados.value.replace('|' + filtro, '').trim();
+    } else {
+        filtros_seleccionados.value += `|${filtro}`.trim();
+    }
+    console.log("filtros_seleccionados", filtros_seleccionados.value);
+    buscar_cancion();
+    localStorage.setItem('filtros_seleccionados', filtros_seleccionados.value);
+    ctrlListaURL.value?.cancionesFiltradas();
+}
 function borrar_filtros() {
     bandas_seleccionadas.value = "";
     localStorage.setItem(bandasFavoritasSeleccionadaKey, bandas_seleccionadas.value);
@@ -42,14 +54,44 @@ function borrar_filtros() {
 }
 function buscar_cancion() {
     let filtro_canciones = bandas_seleccionadas.value.split('|').filter((banda) => banda.length > 0);
-    console.log("filtro_canciones", filtro_canciones);
-    if (filtro_canciones.length == 0) {
+    let filtros = filtros_seleccionados.value.split('|').filter((filtro) => filtro.length > 0);
+    if (filtro_canciones.length == 0 &&  filtros.length == 0) {
         canciones_filtradas.value = canciones_url.value;
         return;
     }
-    canciones_filtradas.value = canciones_url.value.filter((item) => {
-        return filtro_canciones.some((banda) => item.banda.toLowerCase().includes(banda));
-    });
+    console.log("filtros", filtros);
+    console.log("filtro_canciones", filtro_canciones);
+
+    let nuevas_canciones = [] as item_lista[];
+    if (filtro_canciones.length > 0) 
+    {
+        console.log("filtro_canciones", filtro_canciones);
+        nuevas_canciones = canciones_url.value.filter((item) => {
+            return filtro_canciones.some((banda) => item.banda.toLowerCase().includes(banda));
+        });
+    }
+    else {
+        nuevas_canciones = canciones_url.value;
+    }
+
+    if (filtros.length > 0) {
+        nuevas_canciones = nuevas_canciones.filter((item) => {
+            return filtros.some((filtro) => {
+                if (filtro == '4acordes') {
+                    return item.acordes.split('.').length == 4;
+                }
+                if (filtro == '6acordes') {
+                    return item.acordes.split('.').length == 6;
+                }
+                if (filtro == '+Acordes') {
+                    return item.acordes.split('.').length > 6;
+                }
+                return false;
+            });
+        });
+    }
+    canciones_filtradas.value = nuevas_canciones;
+    
 }
 
 function loadBandasFavoritas() {
@@ -153,10 +195,28 @@ function click_agregar_guardadas(item: item_lista) {
                     <button @click="quitarBandaPorIndice(index)">x</button>
                 
             </div>
-            <div class="bandas">
+            <div class="banda">
                 <input type="text" v-model="banda_nombre_agregar" :style="{ width: banda_nombre_agregar.length + 3 + 'ch' }" />
                 <button @click="agregarBanda()">Agregar</button>
                 <button @click="borrar_filtros()">Borrar Filtros</button>
+            </div>
+        </div>
+        
+        <div class="bandas">
+            <div class="titulobandas">FILTROS</div>
+            <div @click="selecciono_filtro('4acordes')"
+            class="banda"
+            :class="{ banda_seleccionada: filtros_seleccionados.includes('4acordes') }">
+                    <span>De 4 Acordes</span>
+            </div>
+            <div @click="selecciono_filtro('6acordes')"
+            class="banda"
+            :class="{ banda_seleccionada: filtros_seleccionados.includes('6acordes') }">
+                    <span>A 6 Acordes</span>
+            </div><div @click="selecciono_filtro('+Acordes')"
+            class="banda"
+            :class="{ banda_seleccionada: filtros_seleccionados.includes('+Acordes') }">
+                    <span>+ Acordes</span>
             </div>
         </div>
         <div >
