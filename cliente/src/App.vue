@@ -133,7 +133,9 @@ function acciono(valor: string, compas: number = 0) {
       {
         if (viendo.value == 'tocar') 
         {
-          localStorage.setItem("editando_cancion", JSON.stringify(cancion_ref.value));
+          editando_item.value = director.getitemActual();
+          localStorage.setItem("editando_cancion", JSON.stringify(editando_item.value));
+          
         }
         
         cargar_edit();

@@ -11,7 +11,17 @@ const props = defineProps<{ indice: item_lista[], titulo: string, muestra_renglo
 const musica = new Musica();
 const tiempo = new Tiempo();
 const indice_disponible = ref(props.indice);
+const viendo_detalles = ref([] as number[]);
 const indice_disponible_filtro = ref([] as item_lista[]);
+
+
+function VerDetalle(indice: number) {
+    if (viendo_detalles.value.includes(indice)) {
+        viendo_detalles.value = viendo_detalles.value.filter((item) => item != indice);
+    } else {
+        viendo_detalles.value.push(indice);
+    }
+}
 
 watch(() => props.indice, (newindice: item_lista[]) => {
   indice_disponible.value = newindice;
@@ -82,6 +92,7 @@ function cancionesFiltradas()
     }
     indice_disponible_filtro.value = indices_ret;
 
+    viendo_detalles.value = [];
 }
 cancionesFiltradas();
 
@@ -104,54 +115,110 @@ defineExpose({  cancionesFiltradas });
             <thead>
                 <tr>
                     <th>Canción</th>
-                    <th>Banda</th>
                     <th>Origen</th>
                     <th>Duracion</th>
-                    <th>Escala</th>
-                    <th>BPM</th>
-                    <th>compas</th>
-                    <th>Calidad</th>
-                    <th>Detalles</th>
+                    <th style="width: 3ch;">Escala</th>
                     <th>Acciones</th>  
                 </tr>
                 
             </thead>
             <tbody>
-                <tr v-for="(cancion, cancionid) in indice_disponible_filtro" :key="cancionid" >
-                    <td style="font-size: 30px;">{{ FormatearNombre(cancion.cancion) }}</td>
-                    <td>{{ FormatearNombre(cancion.banda) }}</td>
-                    <td>{{ cancion.origen }}</td>
-                    <td> {{ tiempo.formatSegundos(musica.duracion_cancion_indice(cancion))  }}</td>
-                    <td> {{  cancion.escala }}</td>
-                        <td> {{  cancion.bpm }}</td>
-                        <td> {{  cancion.compas_cantidad }} / {{ cancion.compas_unidad }}</td>
-                        <td> {{  cancion.calidad }}</td>
+
+                <template v-for="(cancion, cancionid) in indice_disponible_filtro" :key="cancionid" >
+                <tr >
+                    <td >
+                        <p style="font-size: 30px;">{{ FormatearNombre(cancion.cancion) }}</p>
+                        <p style="font-size: 20px;">{{ FormatearNombre(cancion.banda) }}</p>
+                    </td>
+                    
                     <td>
-                        <div>
-                            <div>Compases: {{ cancion.compases }}</div>
-                            <div>Longitud de Secuencia: {{ cancion.len_secuencia }}</div>
-                            <div>Acordes: {{ cancion.acordes }}</div>
-                            <div>Longitud de Partes: {{ cancion.len_partes }}</div>
-                        </div>
+                        <div class="origen" v-if="cancion.origen.startsWith('url')">{{ cancion.origen }}</div>
+                        
+
+                    </td>
+                    <td> 
+                        <div class="duracion">  {{ tiempo.formatSegundos(musica.duracion_cancion_indice(cancion))  }} </div>
+                        
                     </td>
                     <td>
-                                            
-                                            <button v-if="btnVer" @click="click_ver(cancion)" class="btn btn-primary">
+                        
+                        <div class="escala">  {{   cancion.escala  }} </div>
+                        
+
+                    </td>
+             
+                    
+                    <td>
+                                    
+                        
+                                            <div class="btnGrilla" v-if="btnVer" @click="click_ver(cancion)">
+                                            <i class="bi bi-fire"></i>
+                                            </div>
+
+                                            <div class="btnGrilla" v-if="btnVer" @click="VerDetalle(cancionid)"
+                                            :class="{viendodetalles: viendo_detalles.includes(cancionid)}"
+                                            >
                                             <i class="bi bi-eye"></i>
-                                            </button>
-                                            
-                                            <button v-if="btnDescargar" @click="click_descargar(cancion)" class="btn btn-warning">
-                                            <i class="bi bi-download"></i>
-                                            </button>
-                                            <button v-if="btnAgregar" @click="click_agregar(cancion)" class="btn btn-success">
+                                            </div>
+
+
+                                                                                        
+                                            <div class="btnGrilla" v-if="btnDescargar" @click="click_descargar(cancion)">
+                                            <i class="bi bi-save"></i>
+                                            </div>
+                                            <div class="btnGrilla" v-if="btnVer" @click="click_ver(cancion)">
+                                            <i class="bi bi-pencil"></i>
+                                            </div>
+
+                                            <div class="btnGrilla" v-if="btnAgregar" @click="click_agregar(cancion)">
                                             <i class="bi bi-plus"></i>
-                                            </button>
-                                            <button v-if="btnBorrar" @click="click_borrar(cancion)" class="btn btn-danger">
+                                            </div>
+                                            <div class="btnGrilla" v-if="btnBorrar" @click="click_borrar(cancion)">
                                             <i class="bi bi-trash"></i>
-                                            </button>
+                                            </div>
                                         </td>
                 </tr>
-            
+                <tr v-if="viendo_detalles.includes(cancionid)">
+                    <td colspan="6">
+                        
+                        <table style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th colspan="4">Detalles</th>
+                                </tr>
+                            </thead>
+                            <tr>
+                                <td>Compás:</td>
+                                <td><strong>{{ cancion.compas_cantidad }} / {{ cancion.compas_unidad }}</strong></td>
+          
+                                <td>BPM:</td>
+                                <td><strong>{{ cancion.bpm }}</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Calidad:</td>
+                                <td><strong>{{ cancion.calidad }}</strong></td>
+                                <td>Compases:</td>
+                                <td><strong>{{ cancion.compases }}</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Longitud de Secuencia:</td>
+                                <td><strong>{{ cancion.len_secuencia }}</strong></td>
+                                <td>Longitud de Partes:</td>
+                                <td><strong>{{ cancion.len_partes }}</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Acordes:</td>
+                                <td colspan="3">
+                                    <div class="acordes">
+                                    <div v-for="(c, i) in cancion.acordes.split('.')" class="acorde"> {{  c }}</div>
+                                </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+
+                </tr>
+            </template>
             </tbody>
         </table>
     </div>
@@ -188,6 +255,50 @@ defineExpose({  cancionesFiltradas });
 .controls {
     display: flex;
     
+}
+
+.acordes {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.acorde {
+    font-size: 40px;
+    border: 4px solid;
+    padding: 6px;
+    border-radius: 5px;
+    margin: 3px;
+    width: fit-content;
+
+}
+
+.viendodetalles {
+    background-color: #d2ab46;
+    color: white;
+}
+
+.origen {
+    font-size: 20px;
+    border: 4px solid;
+    padding: 6px;
+    border-radius: 5px;
+}
+
+
+.duracion {
+    font-size: 40px;
+    padding: 6px;
+    border-radius: 5px;
+}
+
+
+.escala {
+    font-size: 40px;
+    padding: 6px;
+    border-radius: 5px;
+    border: 4px solid;
+    padding: 6px;
+    border-radius: 5px;
 }
 
 .beat_activo {
@@ -231,7 +342,14 @@ defineExpose({  cancionesFiltradas });
     background-color: white;
 }
 
-
+.btnGrilla {
+    display: inline-block;
+    border: 1px solid;
+    font-size: xx-large;
+    padding: 10px;
+    margin: 3px;
+    cursor: pointer;
+}
 
 </style>
 

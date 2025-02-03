@@ -221,6 +221,10 @@ export class Director {
         
 
     }
+
+    getitemActual() {
+        return this.lista[this.nro_cancion];
+    }
     
 
 

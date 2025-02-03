@@ -111,8 +111,8 @@ def procesar_todos_los_archivos():
         print(f"Error al guardar indice: {e}")
 
 
-##procesar_todos_los_archivos()
-#exit()
+procesar_todos_los_archivos()
+exit()
 indice = []
 indice.append(obtenerItemIndice('elvis-presley', 'fool-fool-fool'))
 with open(f'{DIRECTORIO_DATOS}indice.json', 'w') as f:

@@ -10,16 +10,18 @@ import { AdminListasURL } from '../modelo/AdminListasURL';
 import { AdminListasLocalStorage } from '../modelo/AdminListasStorage';
 import { GetCanciones } from '../modelo/GetCanciones';
 import { AdminListasTocables } from '../modelo/AdminIndiceListas';
+import { Musica } from '../modelo/musica';
 
 
 
 const emit = defineEmits(['acciono']);
-
+const musica = new Musica()
 const BandasFavoritasref = ref([] as string[]);
 const bandas_seleccionadas = ref("" as string);
 const filtros_seleccionados = ref("" as string);
 const bandasFavoritasKey = 'bandas_favoritas';
 const bandasFavoritasSeleccionadaKey = 'bandas_favoritas_seleccionadas';
+const filtrosSeleccionadaKey = 'filtros_seleccionadas';
 const ctrlListaURL = ref();
 const defaultBandas = ['viejas-locas', 'intoxicados', 'sabina', 'beatles'];
 
@@ -42,14 +44,15 @@ function selecciono_filtro(filtro: string) {
     } else {
         filtros_seleccionados.value += `|${filtro}`.trim();
     }
-    console.log("filtros_seleccionados", filtros_seleccionados.value);
+    localStorage.setItem(filtrosSeleccionadaKey, filtros_seleccionados.value);
     buscar_cancion();
-    localStorage.setItem('filtros_seleccionados', filtros_seleccionados.value);
     ctrlListaURL.value?.cancionesFiltradas();
 }
 function borrar_filtros() {
     bandas_seleccionadas.value = "";
+    filtros_seleccionados.value = "";
     localStorage.setItem(bandasFavoritasSeleccionadaKey, bandas_seleccionadas.value);
+    localStorage.setItem(filtrosSeleccionadaKey, filtros_seleccionados.value);
     buscar_cancion();
 }
 function buscar_cancion() {
@@ -59,8 +62,6 @@ function buscar_cancion() {
         canciones_filtradas.value = canciones_url.value;
         return;
     }
-    console.log("filtros", filtros);
-    console.log("filtro_canciones", filtro_canciones);
 
     let nuevas_canciones = [] as item_lista[];
     if (filtro_canciones.length > 0) 
@@ -75,6 +76,10 @@ function buscar_cancion() {
     }
 
     if (filtros.length > 0) {
+        
+        const filtros_x_acordes = ['4acordes', '6acordes', '+Acordes'];
+        if (filtros.some(filtro => filtros_x_acordes.includes(filtro))) {
+         
         nuevas_canciones = nuevas_canciones.filter((item) => {
             return filtros.some((filtro) => {
                 if (filtro == '4acordes') {
@@ -89,6 +94,51 @@ function buscar_cancion() {
                 return false;
             });
         });
+   
+        }
+
+        const filtros_x_modo = ['mayores', 'menores'];
+        if (filtros.some(filtro => filtros_x_modo.includes(filtro))) {
+        const notas = musica.notas;
+        nuevas_canciones = nuevas_canciones.filter((item) => {
+            return filtros.some((filtro) => {
+                    
+                if (filtro == 'mayores') {
+                    return notas.includes(item.escala);
+                }
+                if (filtro == 'menores') {
+                    let esMenor = item.escala;
+                    if (!esMenor.includes('m')) 
+                    {
+                        return false;
+                    }
+                    esMenor = esMenor.replace('m', '');
+                    return notas.includes(esMenor);
+                    
+                }
+                return false;
+            });
+        });
+   
+        }
+
+
+/*
+if (filtro == 'mayores') {
+                return musica.notas.includes(item.escala);
+            }
+            if (filtro == 'menores') {
+                let esMenor = item.escala;
+                if (!esMenor.includes('m')) {
+                    return false;
+                }
+                return musica.notas.includes(item.escala);
+                
+            }
+*/ 
+
+
+
     }
     canciones_filtradas.value = nuevas_canciones;
     
@@ -103,6 +153,8 @@ function loadBandasFavoritas() {
         console.log("storedSeleccionados", storedSeleccionados);
         if (storedSeleccionados) {
             bandas_seleccionadas.value = storedSeleccionados;
+            filtros_seleccionados.value = localStorage.getItem(filtrosSeleccionadaKey) || "";
+            console.log("filtros_seleccionados", filtros_seleccionados.value);
         }
         
     } else {
@@ -217,7 +269,18 @@ function click_agregar_guardadas(item: item_lista) {
             class="banda"
             :class="{ banda_seleccionada: filtros_seleccionados.includes('+Acordes') }">
                     <span>+ Acordes</span>
-            </div>
+            </div> -- 
+
+            <div @click="selecciono_filtro('mayores')"
+            class="banda"
+            :class="{ banda_seleccionada: filtros_seleccionados.includes('mayores') }">
+                    <span>Mayores</span>
+            </div><div @click="selecciono_filtro('menores')"
+            class="banda"
+            :class="{ banda_seleccionada: filtros_seleccionados.includes('menores') }">
+                    <span>Menores</span>
+            </div> 
+
         </div>
         <div >
     
