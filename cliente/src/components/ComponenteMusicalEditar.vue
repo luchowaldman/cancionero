@@ -513,8 +513,9 @@ function agregar_a_secuencia()
 
   <div class="menuEditar" >
     <div class="marca">
-      <input type="text" v-model="cancion.banda" :style="{ width: (cancion.banda.length + 1) + 'ch' }" /> - 
-      <input type="text" v-model="cancion.cancion" :style="{ width: (cancion.cancion.length + 1) + 'ch' }" />
+      <input type="text" v-model="cancion.cancion" :style="{ width: (cancion.cancion.length + 1) + 'ch' }" /> -
+      <input type="text" v-model="cancion.banda" :style="{ width: (cancion.banda.length + 1) + 'ch' }" /> 
+      
         BPM: <input type="range" v-model="cancion.bpm" min="30" max="240" /> {{ cancion.bpm }} - 
      
         <span v-if="cancion.bpm < 40">No cargada o menos que lenta</span>
