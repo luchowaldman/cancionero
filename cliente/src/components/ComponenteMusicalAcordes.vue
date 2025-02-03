@@ -3,8 +3,9 @@ import { ref } from 'vue'
 import { Cancion } from '../modelo/cancion';
 import { watch } from 'vue';
 import { Musica } from '../modelo/musica';
+import { VistaControl } from '../modelo/vista_control';
 
-const props = defineProps<{ compas: number, cancion: Cancion }>()
+const props = defineProps<{ compas: number, cancion: Cancion, vista: VistaControl  }>()
 
 const mostrando_parte = ref(-1)
 const mostrando_compas_parte = ref(-1)
@@ -95,7 +96,9 @@ watch(() => props.compas, (newCompas) => {
     <h2 style="text-decoration: underline; margin-bottom: 2px;">Orden</h2>
     <div style="display: flex; flex-wrap: wrap;">
           <div v-for="(parte, index) in cancion.acordes.orden_partes" :key="index" class="ordendiv">
-            <span :class="{ compas_actual: mostrando_parte === index }" >{{ cancion.acordes.partes[parte].nombre }}</span>
+            <span :class="{ compas_actual: mostrando_parte === index }"
+            :style="{ 'font-size' : (vista.tamanio_referencia / 2 ) + 'px'}"
+            >{{ cancion.acordes.partes[parte].nombre }}</span>
           </div>
           
     </div>
@@ -103,12 +106,16 @@ watch(() => props.compas, (newCompas) => {
     <h2  style="text-decoration: underline; margin-bottom: 2px;">Partes</h2>
     <div v-for="(parte, index_parte) in cancion.acordes.partes" :key="parte.nombre" class="row" >
       
-        <div>{{ parte.nombre }}</div>
+        <div :style="{ 'font-size' : (vista.tamanio_referencia / 1.7 ) + 'px'}">{{ parte.nombre }}</div>
         <div class="partediv">
           <div v-for="(acorde, index) in parte.acordes" class="acordediv" :key="acorde" :style="estilo_acorde(acorde)">
-            <span  :class="{ compas_actual: ((  mostrando_compas_parte === index ) &&
+            <span  
+             :style="{ 'font-size' : vista.tamanio_referencia + 'px'}"
+            :class="{ compas_actual: ((  mostrando_compas_parte === index ) &&
                                              ( index_parte  === cancion.acordes.orden_partes[mostrando_parte]  ))
-             }">{{ acorde }}</span>
+             }
+             
+             ">{{ acorde }}</span>
           </div>
         </div>
     </div>

@@ -21,7 +21,7 @@ function cambiar_vista(vista: number) {
     case 0:
       toCH = [
         new VistaControl(alto / 40, 12, 7, "letra_acordes", "col-9", alto - 300),
-        new VistaControl(ancho / 30, 12, 7, "acordes", "col-3 d-md-block", ancho)
+        new VistaControl(alto / 20, 12, 7, "acordes", "col-3 d-md-block", ancho)
       ];
       break;
     case 1:
