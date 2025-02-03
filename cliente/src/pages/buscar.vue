@@ -39,7 +39,11 @@ function selecciono_banda(banda: string) {
 
 }
 
-
+function borrar_filtros() {
+    bandas_seleccionadas.value = "";
+    localStorage.setItem(bandasFavoritasSeleccionadaKey, bandas_seleccionadas.value);
+    buscar_cancion();
+}
 function buscar_cancion() {
     let filtro_canciones = bandas_seleccionadas.value.split('|').filter((banda) => banda.length > 0);
     console.log("filtro_canciones", filtro_canciones);
@@ -169,6 +173,7 @@ function click_agregar_guardadas(item: item_lista) {
             <div class="bandas">
                 <input type="text" v-model="banda_nombre_agregar" :style="{ width: banda_nombre_agregar.length + 3 + 'ch' }" />
                 <button @click="agregarBanda()">Agregar</button>
+                <button @click="borrar_filtros()">Borrar Filtros</button>
             </div>
         </div>
         <div >

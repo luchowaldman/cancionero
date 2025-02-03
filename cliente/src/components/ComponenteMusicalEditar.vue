@@ -580,7 +580,7 @@ function agregar_a_secuencia()
           
 
           <button @click="guardar_texto_editado(index)">Guardar</button>
-          <button @click="editando_texto = false">Listo</button>
+          <button @click="editando_texto = false">Cancelar</button>
         </div>
           <textarea v-model="texto_editado" :rows="texto_editado.split('\n').length" style="width: 100%;">
 

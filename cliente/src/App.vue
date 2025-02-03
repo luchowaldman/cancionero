@@ -14,12 +14,19 @@ import Configuracion from './pages/configuracion.vue';
 import { ModeloConfiguracion  } from './modelo/modeloconfiguracion';
 import { Cancion } from './modelo/cancion';
 import { Letra } from './modelo/letra';
-import { Acordes } from './modelo/acordes';
+import { Acordes, Parte } from './modelo/acordes';
 import { EstadoSesion } from './modelo/estadosesion';
 import { Cliente }  from './modelo/client_socketio';
 import { Director } from './modelo/director';
 import { item_lista } from './modelo/item_lista';
 import { AdminListasTocables } from './modelo/AdminIndiceListas';
+import { findSourceMap } from 'module';
+import { GetCanciones } from './modelo/GetCanciones';
+
+// EDITAR
+const editando_item = ref(new item_lista("no song name", "no band name"));
+const editando_cancion = ref(new Cancion("no song name", "no band name", new Acordes([new Parte("p1", ["C"])], [0]), new Letra([[""]]), 120, 4, 4, 4, "C"));
+//editando_cancion.value = JSON.parse(localStorage.getItem("editando_cancion") || "{}");
 
 
 const viendo = ref("tocar");
@@ -68,7 +75,6 @@ const director_ref = ref(director);
 
 
   sesion_ref.value = configuracionObj.sesion;
-
   director.Iniciar();
   director.setcambiosHandler((directornuevo: Director) => {
     console.log("cambios", directornuevo.configuracion.sesion.estado);
@@ -80,12 +86,21 @@ const director_ref = ref(director);
   });
   director.setcambiosCompasHandler((compas: number) => {
     compas_ref.value = parseInt(compas.toString());
-  });
+});
   
 
 onMounted(() => { 
     console.log("APP MONTADA")
 });
+
+function cargar_edit() {
+  let item = JSON.parse(localStorage.getItem("editando_cancion") || "{}");
+  
+  GetCanciones.obtenerCancion(item).then((cancion_get: Cancion) => {
+      editando_cancion.value = cancion_get;
+      
+    });
+}
 
 function acciono(valor: string, compas: number = 0) {
 
@@ -116,11 +131,17 @@ function acciono(valor: string, compas: number = 0) {
     case 'buscar':
       viendo.value = valor;
       localStorage.setItem("viendo", valor);
+      if (valor == 'editar') {
+        cargar_edit();
+      }
       break;
     default:
       console.warn(`Acción no reconocida: ${valor}`);
   }
   
+}
+if (viendo.value == 'editar') {
+  cargar_edit();
 }
 
 
@@ -139,7 +160,7 @@ function acciono(valor: string, compas: number = 0) {
     <Tocar v-if="viendo=='tocar'" :compas="compas_ref" :cancion="cancion_ref"></Tocar>
     <Listas v-if="viendo=='listas'" :lista_actual="ref_lista_actual" ></Listas>
     <Configuracion v-if="viendo=='config'"></Configuracion>
-    <Editar v-if="viendo=='editar'" :lista_actual="ref_lista_actual" ></Editar>
+    <Editar v-if="viendo=='editar'" :cancion="editando_cancion" :item="editando_item" :lista_actual="ref_lista_actual" ></Editar>
     <Buscar v-if="viendo=='buscar'" :lista_actual="ref_lista_actual" ></Buscar>
 
     
