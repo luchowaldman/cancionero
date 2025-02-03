@@ -96,7 +96,7 @@ function updateCompas(newCompas: number) {
     
     <div class="controls">
       <div style="display: flex; flex-wrap: wrap;">
-        <div style="display: flex; flex-wrap: wrap;"><button style="font-size: larger;" class="boton_controller" @click="play">
+        <div style="display: flex; flex-wrap: wrap;"><button style="font-size: larger;" class="boton_controller boton_controllerplay" @click="play">
               <i class="bi bi-play-fill"></i>
             </button>
             <div><span class="spnTiempo">{{ tiempo.formatSegundos(segundos_actuales) }} / {{ tiempo.formatSegundos(segundos_totales) }} </span></div>
@@ -156,20 +156,26 @@ function updateCompas(newCompas: number) {
   white-space: nowrap;
 }
 .boton_controller {
-  width: 36px;
-  height: 36px;
+  width: 46px;
+  height: 46px;
   
   border-radius: 3px;
   color: #a9a8f6;
   background-color: black;
-  font-size: x-large;
+  font-size: 20px;
   border: 1px solid #a9a8f6;
+  width: 56px;
+  height: 56px;
+}
+
+.boton_controllerplay {
+  font-size: 30px !important;
 }
 
 .spnTiempo {
   border: 1px solid;
-  font-size: 27px;
-  margin: 4px;
+  font-size: 40px;
+  margin: 14px;
   border-radius: 8px;
   overflow: hidden;
   text-overflow: ellipsis;

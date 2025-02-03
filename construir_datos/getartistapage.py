@@ -31,10 +31,20 @@ def getartista_page(band_name):
 getartista_page("the-ramones")
 getartista_page("bob-marley")
 /*
-Autenticos decadentes
-Fabulosos cadillacs
+los-autenticos-decadentes
+los-fabulosos-cadillacs
 rem
-los pericos
+los-pericos
+Caballeros de la quema
+mom laferte
+bizarrap
+dillom
+nathy-peluso
+los-caballeros-de-la-quema
+ivan-noble
+bee-gees
+l-gante
+
 */
 exit()
 getartista_page("led-zeppelin")
