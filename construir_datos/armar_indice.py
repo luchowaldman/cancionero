@@ -101,6 +101,6 @@ def procesar_todos_los_archivos():
         print(f"Error al guardar indice: {e}")
 
 #procesar_todos_los_archivos()
-ind = obtenerItemIndice('intoxicados', 'casi-sin-pensar')
-print(ind)
 
+ind = obtenerItemIndice('elvis-presley', 'fool-fool-fool')
+print(ind)

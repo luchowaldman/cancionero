@@ -1,6 +1,7 @@
 //* CLASE QUE SOLO DEVUELVE RESULTADOS TEORICOS */
 import { AnalisisArmonico } from '../modelo/analisis_armonico';
 import { Cancion } from './cancion';
+import { item_lista } from './item_lista';
 export class Musica {
 
   get_renglontexto_de_compas(cancion: Cancion, nro_compas: number): number {
@@ -62,7 +63,11 @@ export class Musica {
      duracion_cancion(cancion: Cancion): number 
      {
         return this.total_compases(cancion) * this.duracion_compas(cancion);
+     }
 
+     duracion_cancion_indice(cancion: item_lista): number 
+     {
+        return cancion.compases * ((60 / cancion.bpm) * cancion.compas_cantidad)
      }
 
      duracion_compas(cancion: Cancion): number 

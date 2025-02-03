@@ -4,18 +4,75 @@ import { Almacenado } from '../modelo/Almacenado';
 import { item_lista } from '../modelo/item_lista';
 import { Cancion } from '../modelo/cancion';
 import ListadoTemas from '../components/listadotemas.vue';
-import ListadoListas from '../components/listadodelistas.vue';
 import { Acordes } from '../modelo/acordes';
 import { Letra } from '../modelo/letra';
 import { AdminListasURL } from '../modelo/AdminListasURL';
 import { AdminListasLocalStorage } from '../modelo/AdminListasStorage';
 import { GetCanciones } from '../modelo/GetCanciones';
 import { AdminListasTocables } from '../modelo/AdminIndiceListas';
-import ComponenteMusicalEditar from '../components/ComponenteMusicalEditar.vue';
+
+
+
+
 
 const props = defineProps<{ lista_actual: string }>();
 
-const editref = ref();
+
+
+const BandasFavoritasref = ref([] as string[]);
+const bandas_seleccionadas = ref("" as string);
+const bandasFavoritasKey = 'bandas_favoritas';
+const bandasFavoritasSeleccionadaKey = 'bandas_favoritas_seleccionadas';
+const ctrlListaURL = ref();
+const defaultBandas = ['viejas-locas', 'intoxicados', 'sabina', 'beatles'];
+
+function selecciono_banda(banda: string) {
+    if (bandas_seleccionadas.value.includes('|' +banda)) {
+        bandas_seleccionadas.value = bandas_seleccionadas.value.replace('|' + banda, '').trim();
+    } else {
+        bandas_seleccionadas.value += `|${banda}`.trim();
+    }
+    console.log("bandas_seleccionadas", bandas_seleccionadas.value);
+    localStorage.setItem(bandasFavoritasSeleccionadaKey, bandas_seleccionadas.value);
+    ctrlListaURL.value?.cancionesFiltradas();
+
+}
+
+function loadBandasFavoritas() {
+    const storedBandas = localStorage.getItem(bandasFavoritasKey);
+    
+    if (storedBandas) {
+        BandasFavoritasref.value = JSON.parse(storedBandas);
+        const storedSeleccionados = localStorage.getItem(bandasFavoritasSeleccionadaKey);
+        console.log("storedSeleccionados", storedSeleccionados);
+        if (storedSeleccionados) {
+            bandas_seleccionadas.value = storedSeleccionados;
+        }
+        
+    } else {
+        BandasFavoritasref.value = defaultBandas;
+        bandas_seleccionadas.value = "";
+    }
+}
+const banda_nombre_agregar = ref('');
+function agregarBanda() {
+    if (!BandasFavoritasref.value.includes(banda_nombre_agregar.value)) {
+        BandasFavoritasref.value.push(banda_nombre_agregar.value);
+        localStorage.setItem(bandasFavoritasKey, JSON.stringify(BandasFavoritasref.value));
+    }
+}
+
+function quitarBandaPorIndice(indice: number) {
+    if (indice >= 0 && indice < BandasFavoritasref.value.length) {
+        BandasFavoritasref.value.splice(indice, 1);
+        localStorage.setItem(bandasFavoritasKey, JSON.stringify(BandasFavoritasref.value));
+    }
+}
+
+loadBandasFavoritas();
+
+
+
 const ctrlguardados = ref();
 const ctrlviendolista = ref();
 const editando_cancion = ref(false);
@@ -132,13 +189,31 @@ function click_borrar_guardadas(item: item_lista) {
 
 <template>
     <div class="divListas">
+        <div class="bandas">
+            <div class="titulobandas">BANDAS</div>
+            <div v-for="(banda, index) in BandasFavoritasref" class="banda"  :key="index" @click="selecciono_banda(banda)"
+            :class="{ banda_seleccionada: bandas_seleccionadas.includes(banda) }" 
+            >
+                
+                    <span>{{ banda }}</span>
+                    <button @click="quitarBandaPorIndice(index)">x</button>
+                
+            </div>
+            <div class="bandas">
+                <input type="text" v-model="banda_nombre_agregar" :style="{ width: banda_nombre_agregar.length + 3 + 'ch' }" />
+                <button @click="agregarBanda()">Agregar</button>
+            </div>
+        </div>
         <div >
     
 
-    <ListadoTemas titulo="En data generada por Luis Waldman" :indice="canciones_url" :muestra_renglones=10
+    <ListadoTemas titulo="En data generada por Luis Waldman" :indice="canciones_url" :muestra_renglones=15
     :btnVer=true v-on:click_ver="click_editar_URL" 
     @click_agregar="click_agregar_guardadas"
     @click_descargar="click_descargar_URL"
+    :filtro_banda="bandas_seleccionadas"
+    ref="ctrlListaURL"
+
     :btnDescargar=true :btnAgregar=true :btnBorrar=false
     ></ListadoTemas>
   
@@ -148,6 +223,11 @@ function click_borrar_guardadas(item: item_lista) {
 </template>
 
 <style scoped>
+.bandas {
+    display: flex;
+    font-size: 40px;
+    margin: 3px;
+}
 #contenedor-musical {
     display: flex;
     flex-direction: column;
@@ -160,10 +240,25 @@ function click_borrar_guardadas(item: item_lista) {
     margin-top: 20px;
 }
 
+.banda_seleccionada {
+    background-color: rgb(219, 169, 42);
+    color: white;
+}
 .divListas {
     border: 1px solid ;
     padding: 15px;
     margin: 10px;
+    border-radius: 8px;
+}
+.titulobandas {
+    padding: 5px;
+    margin: 5px;
+    border-radius: 8px;
+}
+.banda {
+    border: 1px solid   ;
+    padding: 5px;
+    margin: 5px;
     border-radius: 8px;
 }
 </style>

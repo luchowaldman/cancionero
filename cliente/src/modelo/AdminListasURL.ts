@@ -21,9 +21,10 @@ export class AdminListasURL extends  AdminiListas {
         let items_lista = []
         for (let i = 0; i < data.length; i++) {
             const item = new item_lista(data[i].cancion, data[i].banda);
-            item.compases_tiempo = data[i].compases_tiempo;
+            item.compas_unidad = data[i].compas_unidad;
             item.compas_cantidad = data[i].compas_cantidad;
 
+            item.compases = data[i].compases;
             item.bpm = data[i].bpm;
             item.calidad = data[i].calidad;
             item.escala = data[i].escala;

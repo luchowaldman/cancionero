@@ -79,7 +79,6 @@ const director_ref = ref(director);
     cancion_ref.value = cancion;
   });
   director.setcambiosCompasHandler((compas: number) => {
-    console.log("cambios compas", compas);
     compas_ref.value = parseInt(compas.toString());
   });
   

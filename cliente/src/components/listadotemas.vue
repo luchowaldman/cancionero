@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 import { item_lista } from '../modelo/item_lista';
+import { Musica } from '../modelo/musica';
+import { Tiempo } from '../modelo/tiempo';
 
 const emit = defineEmits(['click_ver', 'click_descargar', 'click_agregar', 'click_borrar']);
 const props = defineProps<{ indice: item_lista[], titulo: string, muestra_renglones: number
     ,  btnVer: boolean, btnDescargar: boolean, btnAgregar: boolean, btnBorrar: boolean
  }>();
-
+const musica = new Musica();
+const tiempo = new Tiempo();
 const indice_disponible = ref(props.indice);
 const indice_disponible_filtro = ref([] as item_lista[]);
 
@@ -35,7 +38,9 @@ function click_borrar(indice: item_lista) {
 const muy_faciles = ref(false);
 const fil_can = ref("");
 const fil_ban = ref("");
-const max_registros = ref(3000);
+const max_registros = ref(100);
+const calidad_min = ref(0);
+const calidad_max = ref(10);
 
 const con_buenaspropos = ref(false);
 
@@ -60,21 +65,15 @@ function cancionesFiltradas()
                 incluye = false;
             }
         }
-        
-        
-            if (muy_faciles.value)
-            {
-                if (!((indice_disponible.value[indice].total_partes < 3)
-                    && (indice_disponible.value[indice].total_orden_partes > 3)))
-                {
-                    
-                    incluye = false;
-                }
-            }
-            if (con_buenaspropos.value)
-            {
-            }
 
+        if (calidad_min.value >= indice_disponible.value[indice].calidad) {
+            incluye = false;
+        }
+        if (calidad_max.value <= indice_disponible.value[indice].calidad) {
+            incluye = false;
+        }
+        
+        
 
             if (incluye) {
                 indices_ret.push(indice_disponible.value[indice]);
@@ -99,7 +98,7 @@ defineExpose({  cancionesFiltradas });
   
   
   <div >
-    <div class="overflow-auto" style="max-height: 300px;">
+    <div class="overflow-auto" :style="{'max-height': muestra_renglones * 40 + 'px'}">
 
         <table class="tablaListas">
             <thead>
@@ -107,6 +106,7 @@ defineExpose({  cancionesFiltradas });
                     <th>Canción</th>
                     <th>Banda</th>
                     <th>Origen</th>
+                    <th>Duracion</th>
                     <th>Escala</th>
                     <th>BPM</th>
                     <th>compas</th>
@@ -117,13 +117,13 @@ defineExpose({  cancionesFiltradas });
             </thead>
             <tbody>
                 <tr v-for="(cancion, cancionid) in indice_disponible_filtro" :key="cancionid" >
-                    <td style="font-size: x-large;">{{ FormatearNombre(cancion.cancion) }}</td>
+                    <td style="font-size: 30px;">{{ FormatearNombre(cancion.cancion) }}</td>
                     <td>{{ FormatearNombre(cancion.banda) }}</td>
                     <td>{{ cancion.origen }}</td>
-
+                    <td> {{ tiempo.formatSegundos(musica.duracion_cancion_indice(cancion))  }}</td>
                     <td> {{  cancion.escala }}</td>
                         <td> {{  cancion.bpm }}</td>
-                        <td> {{  cancion.compases_tiempo }} / {{ cancion.compases_tiempo }}</td>
+                        <td> {{  cancion.compas_cantidad }} / {{ cancion.compas_unidad }}</td>
                         <td> {{  cancion.calidad }}</td>
                     
                     <td>
@@ -161,7 +161,14 @@ defineExpose({  cancionesFiltradas });
              Cancion <input type="text" v-on:change="cancionesFiltradas()" v-model="fil_can" />
              Banda <input type="text" v-on:change="cancionesFiltradas()" v-model="fil_ban" />
         </div>
-                    
+        <div>
+            Rango de calidad: 
+            <input type="range" min="0" max="10" v-model="calidad_min" @change="cancionesFiltradas()" />
+            <span>{{ calidad_min }}</span>
+            -
+            <input type="range" min="0" max="10" v-model="calidad_max" @change="cancionesFiltradas()" />
+            <span>{{ calidad_max }}</span>
+        </div>
     </div>
         
     </div>
