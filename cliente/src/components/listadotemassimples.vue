@@ -92,7 +92,7 @@ function cancionesFiltradas()
     }
     indice_disponible_filtro.value = indices_ret;
 
-    viendo_detalles.value = [];
+    
 }
 cancionesFiltradas();
 
@@ -124,8 +124,8 @@ defineExpose({  cancionesFiltradas });
             </thead>
             <tbody>
 
-                <template v-for="(cancion, cancionid) in indice_disponible_filtro" :key="cancionid" >
-                <tr >
+                
+                <tr  v-for="(cancion, cancionid) in indice" :key="cancionid" >
                     <td >
                         <p style="font-size: 30px;">{{ FormatearNombre(cancion.cancion) }}</p>
                         <p style="font-size: 20px;">{{ FormatearNombre(cancion.banda) }}</p>
@@ -155,11 +155,6 @@ defineExpose({  cancionesFiltradas });
                                             <i class="bi bi-fire"></i>
                                             </div>
 
-                                            <div class="btnGrilla" v-if="btnVer" @click="VerDetalle(cancionid)"
-                                            :class="{viendodetalles: viendo_detalles.includes(cancionid)}"
-                                            >
-                                            <i class="bi bi-eye"></i>
-                                            </div>
 
 
                                                                                         
@@ -178,74 +173,12 @@ defineExpose({  cancionesFiltradas });
                                             </div>
                                         </td>
                 </tr>
-                <tr v-if="viendo_detalles.includes(cancionid)">
-                    <td colspan="6">
-                        
-                        <table style="width: 100%;">
-                            <thead>
-                                <tr>
-                                    <th colspan="4">Detalles</th>
-                                </tr>
-                            </thead>
-                            <tr>
-                                <td>Compás:</td>
-                                <td><strong>{{ cancion.compas_cantidad }} / {{ cancion.compas_unidad }}</strong></td>
-          
-                                <td>BPM:</td>
-                                <td><strong>{{ cancion.bpm }}</strong></td>
-                            </tr>
-                            <tr>
-                                <td>Calidad:</td>
-                                <td><strong>{{ cancion.calidad }}</strong></td>
-                                <td>Compases:</td>
-                                <td><strong>{{ cancion.compases }}</strong></td>
-                            </tr>
-                            <tr>
-                                <td>Longitud de Secuencia:</td>
-                                <td><strong>{{ cancion.len_secuencia }}</strong></td>
-                                <td>Longitud de Partes:</td>
-                                <td><strong>{{ cancion.len_partes }}</strong></td>
-                            </tr>
-                            <tr>
-                                <td>Acordes:</td>
-                                <td colspan="3">
-                                    <div class="acordes">
-                                    <div v-for="(c, i) in cancion.acordes.split('.')" class="acorde"> {{  c }}</div>
-                                </div>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-
-                </tr>
-            </template>
+            
             </tbody>
         </table>
     </div>
     
     
-    <div class="controls">
-        <div>{{  indice_disponible_filtro.length }} de <input type="text" v-on:change="cancionesFiltradas()" v-model="max_registros" /></div>
-        <div>
-        Muy faciles: <input type="checkbox" v-on:change="cancionesFiltradas()" v-model="muy_faciles" />
-        Con buenas propos: <input type="checkbox" v-on:change="cancionesFiltradas()" v-model="con_buenaspropos" />
-        </div>
-        
-        <div>
-            
-             Cancion <input type="text" v-on:change="cancionesFiltradas()" v-model="fil_can" />
-             Banda <input type="text" v-on:change="cancionesFiltradas()" v-model="fil_ban" />
-        </div>
-        <div>
-            Rango de calidad: 
-            <input type="range" min="0" max="10" v-model="calidad_min" @change="cancionesFiltradas()" />
-            <span>{{ calidad_min }}</span>
-            -
-            <input type="range" min="0" max="10" v-model="calidad_max" @change="cancionesFiltradas()" />
-            <span>{{ calidad_max }}</span>
-        </div>
-    </div>
-        
     </div>
 
 

@@ -57,7 +57,7 @@ def armar_vector(vector):
     else:
         toret = []
         for patrones in vector:
-            for i in range(1, 9):
+            for i in range(3, 9):
                 copia = patrones.copy()
                 copia.append(i)
                 toret.append(copia)
@@ -337,7 +337,7 @@ def analizarxletra(banda, tema):
             secu_fin, letras_fin = procesar_renglontexto(renglon, renglones, id_renglon, acordes_originales_renglones, secu_fin, letras_fin)
     #print("Cancion Completa", acordes_de_partes, secu_fin, letras_fin)
     archivo = generar_archivo(banda, tema, acordes_de_partes, secu_fin, letras_fin)
-    archivo = post_procesar(archivo)
+    
     guardar_tema(banda, tema, archivo)
     print("Se puede generar completa" , tema)
     return { 'generado': 1 }

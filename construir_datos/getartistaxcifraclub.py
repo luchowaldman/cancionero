@@ -54,6 +54,26 @@ def download_cifraclub_artista(band_name):
 
 
 
+download_cifraclub_artista("bizarrap")
+download_cifraclub_artista("dillom")
+download_cifraclub_artista("nathy-peluso")
+download_cifraclub_artista("los-caballeros-de-la-quema")
+download_cifraclub_artista("ivan-noble")
+download_cifraclub_artista("bee-gees")
+download_cifraclub_artista("l-gante")
+download_cifraclub_artista("bob-marley")
+download_cifraclub_artista("queen")
+download_cifraclub_artista("the-police")
+download_cifraclub_artista("the-clash")
+download_cifraclub_artista("the-cranberries")
+download_cifraclub_artista("the-doors")
+download_cifraclub_artista("los-autenticos-decadentes")
+download_cifraclub_artista("rem")
+download_cifraclub_artista("los-pericos")
+download_cifraclub_artista("los-piojos")
+download_cifraclub_artista("vilma-palma-e-vampiros")
+download_cifraclub_artista("bersuit-vergarabat")
+exit()
 
 download_cifraclub_artista("led-zeppelin")
 download_cifraclub_artista("michael-jackson")

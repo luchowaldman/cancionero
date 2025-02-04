@@ -33,7 +33,8 @@ defineExpose({ startMetronome, stopMetronome });
   <div class="metronono">
     
 <div style="display: flex;">
-  <div v-for="n in props.cancion.compas_cantidad" :key="n" class="beat" :class="{ beat_activo: n - 1 === activeBeat }">
+<div v-for="n in parseInt(props.cancion.compas_cantidad)" :key="n" class="beat" :class="{ beat_activo: n - 1 === activeBeat }">
+    
     {{ n }}
   </div>
 </div>

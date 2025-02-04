@@ -28,24 +28,31 @@ def getartista_page(band_name):
     else:
         print(f'Failed to download page: {url} (Status code: {response.status_code})')
 
+
+getartista_page("los-piojos")
+getartista_page("vilma-palma-e-vampiros")
+getartista_page("bersuit-vergarabat")
 getartista_page("the-ramones")
 getartista_page("bob-marley")
-/*
-los-autenticos-decadentes
-los-fabulosos-cadillacs
-rem
-los-pericos
-Caballeros de la quema
-mom laferte
-bizarrap
-dillom
-nathy-peluso
-los-caballeros-de-la-quema
-ivan-noble
-bee-gees
-l-gante
+getartista_page("queen")
+getartista_page("the-police")
+getartista_page("the-clash")
+getartista_page("the-cranberries")
+getartista_page("the-doors")
+getartista_page("los-autenticos-decadentes")
+getartista_page("rem")
+getartista_page("los-pericos")
+getartista_page("caballeros-de-la-quema")
+getartista_page("mom-laferte")
+getartista_page("bizarrap")
+getartista_page("dillom")
+getartista_page("nathy-peluso")
+getartista_page("los-caballeros-de-la-quema")
+getartista_page("ivan-noble")
+getartista_page("bee-gees")
+getartista_page("l-gante")
+exit()
 
-*/
 exit()
 getartista_page("led-zeppelin")
 getartista_page("michael-jackson")

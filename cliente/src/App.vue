@@ -46,7 +46,7 @@ const compas_ref = ref(-2);
 
 ///// LLEGO EL DIRECTOR
 
-let cliente = new Cliente("http://192.168.0.202:8080/")
+let cliente = new Cliente("http://10.31.129.71:8080/")
 
 let config_load: string | null = localStorage.getItem("configuracion")
 if (!config_load)

@@ -53,6 +53,25 @@ def procesar_html_artista(band_name):
 # Ejemplo de uso
 
 
+procesar_html_artista("bizarrap")
+procesar_html_artista("dillom")
+procesar_html_artista("nathy-peluso")
+procesar_html_artista("los-caballeros-de-la-quema")
+procesar_html_artista("ivan-noble")
+procesar_html_artista("bee-gees")
+procesar_html_artista("l-gante")
+procesar_html_artista("bob-marley")
+procesar_html_artista("queen")
+procesar_html_artista("the-police")
+procesar_html_artista("the-clash")
+procesar_html_artista("the-cranberries")
+procesar_html_artista("the-doors")
+procesar_html_artista("los-autenticos-decadentes")
+procesar_html_artista("rem")
+procesar_html_artista("los-pericos")
+procesar_html_artista("los-piojos")
+procesar_html_artista("vilma-palma-e-vampiros")
+procesar_html_artista("bersuit-vergarabat")
 
 procesar_html_artista("led-zeppelin")
 procesar_html_artista("michael-jackson")

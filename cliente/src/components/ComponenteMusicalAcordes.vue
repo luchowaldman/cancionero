@@ -12,9 +12,9 @@ const mostrando_compas_parte = ref(-1)
 const currentCompas = ref(0);
 
 const musica = new Musica()
-console.log("que hay", props.cancion.escala)
-let compases_escala = musica.GetAcordesdeescala(props.cancion.escala)
-console.log(compases_escala)
+const compases_escala = ref(musica.GetAcordesdeescala(props.cancion.escala))
+
+
 
 function color_x_index(index: number) {
   switch (index) {
@@ -40,13 +40,13 @@ function color_x_index(index: number) {
 
 function estilo_acorde(acorde: string) 
 {
-  if (compases_escala.length == 0 && props.cancion.escala != "") {
-    compases_escala = musica.GetAcordesdeescala(props.cancion.escala);
+  if (compases_escala.value.length == 0 && props.cancion.escala != "") {
+    compases_escala.value = musica.GetAcordesdeescala(props.cancion.escala);
   }
 
   if (!acorde.includes(' ')) {
   const find_acord = acorde.replace(/7|5/g, '');
-  const index = compases_escala.indexOf(find_acord);
+  const index = compases_escala.value.indexOf(find_acord);
   const color = color_x_index(index);
   return { 'border-color': color };
   
@@ -61,7 +61,8 @@ function estilo_acorde(acorde: string)
 }
 
 watch(() => props.cancion, (newCancion) => {
-  compases_escala = musica.GetAcordesdeescala(newCancion.escala);
+  compases_escala.value = musica.GetAcordesdeescala(newCancion.escala);
+  
 });
 
 watch(() => props.compas, (newCompas) => {
@@ -92,7 +93,6 @@ watch(() => props.compas, (newCompas) => {
 <template>
 
   <div class="row">
-  
     <h2 style="text-decoration: underline; margin-bottom: 2px;">Orden</h2>
     <div style="display: flex; flex-wrap: wrap;">
           <div v-for="(parte, index) in cancion.acordes.orden_partes" :key="index" class="ordendiv">

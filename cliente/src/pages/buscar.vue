@@ -319,7 +319,7 @@ function click_agregar_guardadas(item: item_lista) {
 }
 
 .banda_seleccionada {
-    background-color: rgb(219, 169, 42);
+    background-color: rgb(206, 145, 4);
     color: white;
 }
 .divListas {

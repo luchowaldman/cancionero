@@ -19,6 +19,8 @@ export class AdminListasLocalStorage  {
     
 
     GuardarCancion(item: item_lista, cancion: Cancion) {
+
+        
         let indice = this.almacen.indice();
         const index = indice.findIndex(i => i.banda === item.banda && i.cancion === item.cancion);
         let canciones = this.almacen.obtenerTodasLasCanciones()
@@ -33,8 +35,9 @@ export class AdminListasLocalStorage  {
             indice[index] = item;
             canciones[index] = cancion;
         }
+        console.log("AMinistrador Guarda sesion", indice)
         this.almacen.guardarindice(indice);
-            this.almacen.guardarTodasLasCanciones(canciones);
+        this.almacen.guardarTodasLasCanciones(canciones);
     }
 
     BorrarCancion(item: item_lista) {

@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { Almacenado } from '../modelo/Almacenado';
 import { item_lista } from '../modelo/item_lista';
 import { Cancion } from '../modelo/cancion';
-import ListadoTemas from '../components/listadotemas.vue';
+import ListadoTemas from '../components/listadotemassimples.vue';
 import ListadoListas from '../components/listadodelistas.vue';
 import { Acordes } from '../modelo/acordes';
 import { Letra } from '../modelo/letra';
@@ -14,7 +14,9 @@ import { AdminListasTocables } from '../modelo/AdminIndiceListas';
 import ComponenteMusicalEditar from '../components/ComponenteMusicalEditar.vue';
 
 const props = defineProps<{ lista_actual: string }>();
-
+const emit = defineEmits<{
+    (e: 'acciono', action: string): void;
+}>();
 const editref = ref();
 const ctrlguardados = ref();
 const ctrlviendolista = ref();
@@ -25,18 +27,22 @@ const itemindice_ref = ref(new item_lista("no song name", "no band name"));
 editando_cancion.value = (localStorage.getItem("editando") == "si");
 if (editando_cancion.value) {
     let item = JSON.parse(localStorage.getItem("editando_cancion") || "{}");
-    click_editar_URL(item);
+    click_editar_item(item);
 }
 
 
 const reflista_actual = ref(props.lista_actual);
-const canciones_Storage = ref([] as item_lista[]);
+
+
+
 const canciones_Actual = ref([] as item_lista[]);
 let canciones_url = ref([] as item_lista[]);
 // INICIALIZA LAS LISTAS DE CANCIONES GENERADAS
 const generadorlistasURL = new AdminListasURL('/data/canciones');
 const almacen = new Almacenado();
 const generadorlistasLS = new AdminListasLocalStorage(almacen);
+
+const canciones_Storage = ref(almacen.indice());
 
 const listas = ref([] as string[]);
 listas.value = generadorlistasLS.listas();
@@ -45,35 +51,20 @@ const admin_indiceslista = new AdminListasTocables();
 canciones_Actual.value = admin_indiceslista.GetIndice(reflista_actual.value);
 ctrlviendolista.value?.cancionesFiltradas();
 
+ctrlguardados.value?.cancionesFiltradas();
 
 generadorlistasURL.getIndice().then((indice: item_lista[]) => {
     canciones_url.value = indice;
 });
 
-function click_descargar_URL(item: item_lista) {
-    generadorlistasURL.GetCancion(item).then((canciondesc: Cancion) => {
-        generadorlistasLS.GuardarCancion(item, canciondesc);
-        ctrlguardados.value?.cancionesFiltradas();
-        
-    });
-}
 
 
-generadorlistasLS.getIndice().then((indi_get: item_lista[]) => {
-    canciones_Storage.value = indi_get;
-});
 
 
-function click_editar_URL(item: item_lista) {
-    localStorage.setItem("editando", "si");
-    localStorage.setItem("editando_cancion", JSON.stringify(item));
+function click_editar_item(item: item_lista) {
     
-    GetCanciones.obtenerCancion(item).then((cancion_get: Cancion) => {
-        itemindice_ref.value = item;
-        editando_cancion.value = true;
-        cancion_ver.value = cancion_get;
-        //editref.value?.reload_song();   
-    });
+    localStorage.setItem("editando_cancion", JSON.stringify(item));
+    emit('acciono', 'editar');
 }
 
 
@@ -132,15 +123,12 @@ function click_borrar_guardadas(item: item_lista) {
 
 <template>
     <div class="divListas">
-       <div>
-            <ComponenteMusicalEditar @cerrar="cerro_editar" @guardar="guardar_cancioneditada" :item_indice="itemindice_ref" :editando_cancion="editando_cancion" :compas="-1" :cancion="cancion_ver"  ref="editref"></ComponenteMusicalEditar>
-        </div>
         
-        <div v-if="!editando_cancion">
+
     
         <div style="font-size: xx-large;">Lista actual: {{  reflista_actual }}</div>
     <ListadoTemas :ref="ctrlviendolista" titulo="" :indice="canciones_Actual" :muestra_renglones=10
-    :btnVer=true v-on:click_ver="click_editar_URL" :btnDescargar=false :btnBorrar=true :btnAgregar=false
+    :btnVer=true v-on:click_ver="click_editar_item" :btnDescargar=false :btnBorrar=true :btnAgregar=false
     @click_borrar="click_borrar_viendolista"
     ></ListadoTemas>
 
@@ -148,19 +136,12 @@ function click_borrar_guardadas(item: item_lista) {
         <ListadoListas :listas="listas" @agrego_lista="ev_agrego_lista" @ver_lista="ev_ver_lista"></ListadoListas>
 
 
+        <h1>Guardadas</h1>
     <ListadoTemas :ref="ctrlguardados" titulo="Guardadas" :indice="canciones_Storage" :muestra_renglones=10
-    :btnVer=true v-on:click_ver="click_editar_URL" :btnDescargar=false :btnAgregar=true :btnBorrar=true
+    :btnVer=true v-on:click_ver="click_editar_item" :btnDescargar=false :btnAgregar=true :btnBorrar=true
     @click_agregar="click_agregar_guardadas" @click_borrar="click_borrar_guardadas"
     ></ListadoTemas>
 
-    <ListadoTemas titulo="En data generada por Luis Waldman" :indice="canciones_url" :muestra_renglones=10
-    :btnVer=true v-on:click_ver="click_editar_URL" 
-    @click_agregar="click_agregar_guardadas"
-    @click_descargar="click_descargar_URL"
-    :btnDescargar=true :btnAgregar=true :btnBorrar=false
-    ></ListadoTemas>
-  
-</div>
 </div>
 
 </template>
