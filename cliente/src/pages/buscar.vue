@@ -211,7 +211,6 @@ generadorlistasURL.getIndice().then((indice: item_lista[]) => {
 function click_descargar_URL(item: item_lista) {
     generadorlistasURL.GetCancion(item).then((canciondesc: Cancion) => {
         generadorlistasLS.GuardarCancion(item, canciondesc);
-        
     });
 }
 
@@ -224,12 +223,19 @@ function click_editar_URL(item: item_lista) {
     
 }
 
+function click_tocar(item: item_lista) {
+    let indice = admin_indiceslista.GetIndice("default");
+    indice.push(item);
+    admin_indiceslista.SaveIndice("default", indice);
+    
+    emit('acciono', 'tocar_cancion', indice.length);
+    emit('acciono', 'tocar');
+}
 
 function click_agregar_listadefault(item: item_lista) {
     let indice = admin_indiceslista.GetIndice("default");
     indice.push(item);
     admin_indiceslista.SaveIndice("default", indice);
-    emit('acciono', 'add_cancion');
 }
 
 
@@ -287,6 +293,7 @@ function click_agregar_listadefault(item: item_lista) {
 
     <ListadoTemas titulo="En data generada por Luis Waldman" :indice="canciones_filtradas" :muestra_renglones=15
     :btnVer=true v-on:click_ver="click_editar_URL" 
+    @click_tocar="click_tocar"
     @click_agregar="click_agregar_listadefault"
     @click_descargar="click_descargar_URL"
     :filtro_banda="bandas_seleccionadas"

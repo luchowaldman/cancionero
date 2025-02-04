@@ -69,34 +69,29 @@ function click_tocar_item(nro: number) {
     emit('acciono', 'tocar_cancion', nro);
 }
 
-function click_tocar_guardada(item: number) {
-    
-    let indice = admin_indiceslista.GetIndice("default");
-    indice.push(canciones_Storage.value[item]);
-    const nvo_nro = indice.length - 1;
-    admin_indiceslista.SaveIndice("default", indice);
-    
-    emit('acciono', 'tocar_cancion', nvo_nro);
-}
-
 
 
 
 
 function click_borrar_viendolista(item: item_lista) {
     admin_indiceslista.BorrarCancion("default", item);
-    canciones_Actual.value = admin_indiceslista.GetIndice(reflista_actual.value)
+    canciones_Actual.value = admin_indiceslista.GetIndice("default");
     ctrlviendolista.value?.cancionesFiltradas();
 }
 
 
 
 function click_agregar_guardadas(item: item_lista) {
-    canciones_Actual.value = admin_indiceslista.GetIndice(reflista_actual.value)
-    canciones_Actual.value.push(item);
-    admin_indiceslista.SaveIndice(reflista_actual.value, canciones_Actual.value);
-    ctrlguardados.value?.cancionesFiltradas();
+    
+    let indice = admin_indiceslista.GetIndice("default");
+    indice.push(item);
+    canciones_Actual.value = indice;
+    admin_indiceslista.SaveIndice("default", indice);
+    ctrlviendolista.value?.cancionesFiltradas();
+
 }
+
+
 
 
 function click_borrar_guardadas(item: item_lista) {
@@ -105,7 +100,6 @@ function click_borrar_guardadas(item: item_lista) {
     ctrlguardados.value?.cancionesFiltradas();
     
 }
-
 </script>
 
 <template>
@@ -116,16 +110,20 @@ function click_borrar_guardadas(item: item_lista) {
         <div style="font-size: xx-large;">Reproduciendo</div>
     <ListadoTemas :ref="ctrlviendolista" titulo="" :indice="canciones_Actual" :muestra_renglones=10
     :nro_cancion="props.nro_cancion"
+    :btnTocar="true"
     :btnVer=true v-on:click_ver="click_editar_item" :btnDescargar=false :btnBorrar=true :btnAgregar=false
     @click_borrar="click_borrar_viendolista"
     @click_tocar="click_tocar_item"
+    
     ></ListadoTemas>
 
     <div style="font-size: xx-large;">Guardadas</div>
+
     <ListadoTemas :ref="ctrlguardados" titulo="Guardadas" :indice="canciones_Storage" :muestra_renglones=10
     :btnVer=true v-on:click_ver="click_editar_item" :btnDescargar=false :btnAgregar=true :btnBorrar=true
-    @click_agregar="click_agregar_guardadas" @click_borrar="click_borrar_guardadas"
-    @click_tocar="click_tocar_guardada"
+    :btnTocar=false
+    @click_agregar="click_agregar_guardadas" @click_borrar="click_borrar_guardadas"    
+    :nro_cancion="-1"
     ></ListadoTemas>
 
 </div>

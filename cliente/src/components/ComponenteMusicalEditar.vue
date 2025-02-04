@@ -635,16 +635,16 @@ function agregar_a_secuencia()
 
       </template></template>
 
-          
 
 
       </div>
+      
     </div>
     
+    <div class="faltan faltaletra"  v-if="musica.total_compases(cancion) > cancion.letras.renglones.flat().length">Falta letra</div>
+          <div  class="faltan" v-if="musica.total_compases(cancion) < cancion.letras.renglones.flat().length">Faltan Acordes</div>
   <div>
-   Total Acordes: {{ musica.total_compases(cancion) }}
-  Total letra: {{ cancion.letras.renglones.flat().length }} 
-
+    
 </div>
 
 
@@ -847,7 +847,17 @@ function agregar_a_secuencia()
   margin-right: 10px;
   
 }
-
+.faltan {
+  font-size: xx-large;
+  margin: 1px;
+  padding: 5px;
+  border: 1px solid;
+  border-radius: 5px;
+  display: inline-block;
+  color: #a9a8f6;
+  margin-right: 10px;
+  
+}
 
 .noacorde {
   margin: 1px;

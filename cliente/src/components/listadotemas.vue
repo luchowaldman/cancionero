@@ -194,6 +194,7 @@ defineExpose({  cancionesFiltradas });
                                     <th colspan="4">Detalles</th>
                                 </tr>
                             </thead>
+                            <tbody>
                             <tr>
                                 <td>Compás:</td>
                                 <td><strong>{{ cancion.compas_cantidad }} / {{ cancion.compas_unidad }}</strong></td>
@@ -217,14 +218,14 @@ defineExpose({  cancionesFiltradas });
                                 <td>Acordes:</td>
                                 <td colspan="3">
                                     <div class="acordes">
-                                    <div v-for="(c, i) in cancion.acordes.split('.')" class="acorde"> {{  c }}</div>
+                                    <div v-for="(c) in cancion.acordes.split('.')" class="acorde"> {{  c }}</div>
                                 </div>
                                 </td>
-                            </tr>
+                            </tr></tbody>
                         </table>
                     </td>
 
-                </tr>
+                </tr> 
             </template>
             </tbody>
         </table>

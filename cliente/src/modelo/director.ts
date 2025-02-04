@@ -204,14 +204,20 @@ export class Director {
         this.cambiosHandler?.(this);
     }
 
-     Iniciar() 
-    {
-        this.configuracion.sesion.estado = 'iniciando...';
+    CargarLista() {
+        
         const admin_indiceslista = new AdminListasTocables();
         this.lista = admin_indiceslista.GetIndice("default");
         if (this.lista.length == 0) {
             this.lista = [new item_lista("fuego", "intoxicados")];
         }
+    }
+    
+    Iniciar() 
+    {
+        this.configuracion.sesion.estado = 'iniciando...';
+        this.CargarLista();
+
 
         if (this.configuracion.sesion.iniciar_alcomienzo) 
         {

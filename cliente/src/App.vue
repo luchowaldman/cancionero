@@ -94,7 +94,6 @@ onMounted(() => {
 
 function cargar_edit() {
   let item = JSON.parse(localStorage.getItem("editando_cancion") || "{}");
-  
   GetCanciones.obtenerCancion(item).then((cancion_get: Cancion) => {
       editando_cancion.value = cancion_get;
       
@@ -146,6 +145,12 @@ function acciono(valor: string, compas: number = 0) {
         }
         
         cargar_edit();
+      }
+      
+      if (valor == 'tocar') 
+      {
+        director.CargarLista();
+
       }
 
       viendo.value = valor;

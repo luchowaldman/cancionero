@@ -8,7 +8,7 @@ import { Tiempo } from '../modelo/tiempo';
 const emit = defineEmits(['click_ver', 'click_descargar', 'click_agregar', 'click_borrar', 'click_tocar' ]);
 
 const props = defineProps<{ indice: item_lista[], titulo: string, muestra_renglones: number
-    ,  btnVer: boolean, btnDescargar: boolean, btnAgregar: boolean, btnBorrar: boolean, nro_cancion: number
+    ,  btnVer: boolean, btnDescargar: boolean, btnAgregar: boolean, btnBorrar: boolean, nro_cancion: number, btnTocar: boolean
  }>();
 const musica = new Musica();
 const tiempo = new Tiempo();
@@ -156,7 +156,7 @@ defineExpose({  cancionesFiltradas });
                     <td>
                                     
                         
-                                            <div class="btnGrilla" v-if="btnVer" @click="click_tocar(cancionid)">
+                                            <div class="btnGrilla" v-if="btnTocar" @click="click_tocar(cancionid)">
                                             <i class="bi bi-fire"></i>
                                             </div>
 
