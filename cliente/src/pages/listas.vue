@@ -64,6 +64,12 @@ function click_editar_item(item: item_lista) {
 
 
 
+function click_tocar_item(item: item_lista) {
+    console.log("tocar item", item);
+    emit('acciono', 'tocar_cancion', item);
+}
+
+
 function click_borrar_viendolista(item: item_lista) {
     admin_indiceslista.BorrarCancion("default", item);
     canciones_Actual.value = admin_indiceslista.GetIndice(reflista_actual.value)
@@ -98,6 +104,7 @@ function click_borrar_guardadas(item: item_lista) {
     :nro_cancion="props.nro_cancion"
     :btnVer=true v-on:click_ver="click_editar_item" :btnDescargar=false :btnBorrar=true :btnAgregar=false
     @click_borrar="click_borrar_viendolista"
+    @click_tocar="click_tocar_item"
     ></ListadoTemas>
 
     <div style="font-size: xx-large;">Guardadas</div>

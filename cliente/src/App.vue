@@ -127,6 +127,9 @@ function acciono(valor: string, compas: number = 0) {
       console.log("conectar");
       director_ref.value.Conectar();
       break;
+    case 'tocar_cancion':
+      director.set_nro_cancion(compas);
+      break;
     case 'tocar':
     case 'listas':
     case 'config':

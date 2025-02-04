@@ -4,7 +4,9 @@ import { item_lista } from '../modelo/item_lista';
 import { Musica } from '../modelo/musica';
 import { Tiempo } from '../modelo/tiempo';
 
-const emit = defineEmits(['click_ver', 'click_descargar', 'click_agregar', 'click_borrar']);
+    
+const emit = defineEmits(['click_ver', 'click_descargar', 'click_agregar', 'click_borrar', 'click_tocar' ]);
+
 const props = defineProps<{ indice: item_lista[], titulo: string, muestra_renglones: number
     ,  btnVer: boolean, btnDescargar: boolean, btnAgregar: boolean, btnBorrar: boolean, nro_cancion: number
  }>();
@@ -30,6 +32,11 @@ watch(() => props.indice, (newindice: item_lista[]) => {
 
 function click_ver(item: item_lista) {
     emit('click_ver', item);
+}
+
+function click_tocar(nro_cancion: number) {
+    console.log("tocar", nro_cancion);
+    emit('click_tocar', nro_cancion);
 }
 
 function click_descargar(indice: item_lista) {
@@ -125,17 +132,14 @@ defineExpose({  cancionesFiltradas });
             <tbody>
 
                 
-                <tr v-for="(cancion, cancionid) in indice" :key="cancionid" :class="{ 'tocando-cancion': nro_cancion === cancionid }">
-
-                
+                <tr v-for="(cancion, cancionid) in indice" :key="cancionid" :class="{ 'tocando_cancion': nro_cancion === cancionid }">
                    <td >
-                      <span style="font-size: 24px;">{{ FormatearNombre(cancion.cancion) }}</span> -                        <span style="font-size: 15px;">{{ FormatearNombre(cancion.banda) }}</span>
+                    
+                      <span style="font-size: 24px;">{{ FormatearNombre(cancion.cancion) }}</span> - <span style="font-size: 15px;">{{ FormatearNombre(cancion.banda) }}</span>
                     </td>
                     
                     <td>
                         <div class="origen" v-if="cancion.origen.startsWith('url')">{{ cancion.origen }}</div>
-                        
-
                     </td>
                     <td> 
                         <div class="duracion">  {{ tiempo.formatSegundos(musica.duracion_cancion_indice(cancion))  }} </div>
@@ -152,7 +156,7 @@ defineExpose({  cancionesFiltradas });
                     <td>
                                     
                         
-                                            <div class="btnGrilla" v-if="btnVer" @click="click_ver(cancion)">
+                                            <div class="btnGrilla" v-if="btnVer" @click="click_tocar(cancionid)">
                                             <i class="bi bi-fire"></i>
                                             </div>
 
@@ -206,8 +210,8 @@ defineExpose({  cancionesFiltradas });
 
 }
 
-.tocando-cancion {
-    color: #d2ab46;
+.tocando_cancion {
+    color: #d2ab46 !important;
 }
 
 .viendodetalles {
