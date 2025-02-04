@@ -13,11 +13,9 @@ import { GetCanciones } from '../modelo/GetCanciones';
 import { AdminListasTocables } from '../modelo/AdminIndiceListas';
 import ComponenteMusicalEditar from '../components/ComponenteMusicalEditar.vue';
 
-const props = defineProps<{  }>();
-const emit = defineEmits<{
-    (e: 'acciono', action: string): void;
-}>();
-const editref = ref();
+const props = defineProps<{ nro_cancion: number }>();
+
+const emit = defineEmits(['acciono']);
 const ctrlguardados = ref();
 const ctrlviendolista = ref();
 const editando_cancion = ref(false);
@@ -65,24 +63,6 @@ function click_editar_item(item: item_lista) {
 }
 
 
-function ev_agrego_lista(newlista: string) {
-    
-
-}
-
-
-function ev_ver_lista(newlista: string) {
-    canciones_Actual.value = admin_indiceslista.GetIndice(newlista);
-    ctrlviendolista.value?.cancionesFiltradas();
-    
-}
-
-function cerro_editar() {
-    localStorage.setItem("editando", "no");
-    editando_cancion.value = false;
-}
-
-
 
 function click_borrar_viendolista(item: item_lista) {
     admin_indiceslista.BorrarCancion("default", item);
@@ -98,13 +78,6 @@ function click_agregar_guardadas(item: item_lista) {
     ctrlguardados.value?.cancionesFiltradas();
 }
 
-function guardar_cancioneditada() { 
-    generadorlistasLS.GuardarCancion(itemindice_ref.value, cancion_ver.value);
-    ctrlviendolista.value?.cancionesFiltradas();
-    admin_indiceslista.SaveIndice(reflista_actual.value, canciones_Actual.value);
-    ctrlguardados.value?.cancionesFiltradas();
-    
-}
 
 function click_borrar_guardadas(item: item_lista) {
     generadorlistasLS.BorrarCancion(item);
@@ -122,6 +95,7 @@ function click_borrar_guardadas(item: item_lista) {
     
         <div style="font-size: xx-large;">Reproduciendo</div>
     <ListadoTemas :ref="ctrlviendolista" titulo="" :indice="canciones_Actual" :muestra_renglones=10
+    :nro_cancion="props.nro_cancion"
     :btnVer=true v-on:click_ver="click_editar_item" :btnDescargar=false :btnBorrar=true :btnAgregar=false
     @click_borrar="click_borrar_viendolista"
     ></ListadoTemas>

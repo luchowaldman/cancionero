@@ -82,6 +82,16 @@ export class Director {
         } else {
             this.onNroCancionRecibido(nuevo_track);
         }
+    }
+
+    
+    set_nro_cancion(nro_cancion: number) {
+        const nuevo_track = nro_cancion % this.total_canciones;
+        if (this.configuracion.sesion.estado == "conectado") {
+            this.cliente.set_cancion(nuevo_track);
+        } else {
+            this.onNroCancionRecibido(nuevo_track);
+        }
 
     }
 

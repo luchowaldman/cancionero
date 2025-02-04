@@ -110,6 +110,10 @@ function acciono(valor: string, compas: number = 0) {
     case 'previous':
       director.click_anterior();
       break;
+      
+    case 'setcancion':
+      director.set_nro_cancion(compas);
+      break;
     case 'play':
       director.click_play();
       break;
@@ -168,7 +172,7 @@ if (viendo.value == 'editar') {
   ></Menu>
   <div class="pantalla">
     <Tocar v-if="viendo=='tocar'"  @acciono="acciono" :compas="compas_ref" :cancion="cancion_ref"></Tocar>
-    <Listas v-if="viendo=='listas'"  @acciono="acciono"></Listas>
+    <Listas v-if="viendo=='listas'" :nro_cancion="director.nro_cancion"  @acciono="acciono"></Listas>
     <Configuracion v-if="viendo=='config'"></Configuracion>
     <Editar v-if="viendo=='editar'"  @acciono="acciono" :cancion="editando_cancion" :item="editando_item"></Editar>
     <Buscar v-if="viendo=='buscar'"  @acciono="acciono"></Buscar>

@@ -6,7 +6,7 @@ import { Tiempo } from '../modelo/tiempo';
 
 const emit = defineEmits(['click_ver', 'click_descargar', 'click_agregar', 'click_borrar']);
 const props = defineProps<{ indice: item_lista[], titulo: string, muestra_renglones: number
-    ,  btnVer: boolean, btnDescargar: boolean, btnAgregar: boolean, btnBorrar: boolean
+    ,  btnVer: boolean, btnDescargar: boolean, btnAgregar: boolean, btnBorrar: boolean, nro_cancion: number
  }>();
 const musica = new Musica();
 const tiempo = new Tiempo();
@@ -125,9 +125,11 @@ defineExpose({  cancionesFiltradas });
             <tbody>
 
                 
-                <tr  v-for="(cancion, cancionid) in indice" :key="cancionid" >
-                    <td >
-                        <span style="font-size: 24px;">{{ FormatearNombre(cancion.cancion) }}</span> -                        <span style="font-size: 15px;">{{ FormatearNombre(cancion.banda) }}</span>
+                <tr v-for="(cancion, cancionid) in indice" :key="cancionid" :class="{ 'tocando-cancion': nro_cancion === cancionid }">
+
+                
+                   <td >
+                      <span style="font-size: 24px;">{{ FormatearNombre(cancion.cancion) }}</span> -                        <span style="font-size: 15px;">{{ FormatearNombre(cancion.banda) }}</span>
                     </td>
                     
                     <td>
@@ -202,6 +204,10 @@ defineExpose({  cancionesFiltradas });
     margin: 3px;
     width: fit-content;
 
+}
+
+.tocando-cancion {
+    color: #d2ab46;
 }
 
 .viendodetalles {
