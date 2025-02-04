@@ -32,13 +32,13 @@ function ver_lista(n: string) {
 <template>
     
 <div class="listado">
-  <div v-for="n in props.listas" :key="n" class="col-3" >
+  <div v-for="n in props.listas" :key="n"  >
     {{ n }}
     <button @click="ver_lista(n)">
       <i class="bi bi-eye"></i>
     </button>
   </div>
-  <div class="col-3">
+  <div>
     
     <button @click="click_agregar">
     <i class="bi bi-plus" ></i>
@@ -62,6 +62,7 @@ function ver_lista(n: string) {
   justify-content: space-around;
   
   margin-top: 20px;
+  font-size: 50px;
 }
 </style>
 

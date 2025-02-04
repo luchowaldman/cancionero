@@ -33,12 +33,12 @@ const viendo = ref("tocar");
 viendo.value = localStorage.getItem("viendo") || "tocar";
 
 // LISTAS
-const ref_lista_actual = ref("default");
+
 const admin_indiceslista = new AdminListasTocables();
 
 // CANCIONES
 const canciones_Actual = ref([] as item_lista[]);
-canciones_Actual.value = admin_indiceslista.GetIndice(ref_lista_actual.value);
+canciones_Actual.value = admin_indiceslista.GetIndice("default");
 const cancion_ref  = ref(new Cancion("Cancion no cargada", "sin banda", new Acordes([], []), new Letra([])));
 const sesion_ref = ref(new EstadoSesion());
 const compas_ref = ref(-2);
@@ -168,9 +168,9 @@ if (viendo.value == 'editar') {
   ></Menu>
   <div class="pantalla">
     <Tocar v-if="viendo=='tocar'"  @acciono="acciono" :compas="compas_ref" :cancion="cancion_ref"></Tocar>
-    <Listas v-if="viendo=='listas'"  @acciono="acciono" :lista_actual="ref_lista_actual" ></Listas>
+    <Listas v-if="viendo=='listas'"  @acciono="acciono"></Listas>
     <Configuracion v-if="viendo=='config'"></Configuracion>
-    <Editar v-if="viendo=='editar'"  @acciono="acciono" :cancion="editando_cancion" :item="editando_item" :lista_actual="ref_lista_actual" ></Editar>
+    <Editar v-if="viendo=='editar'"  @acciono="acciono" :cancion="editando_cancion" :item="editando_item"></Editar>
     <Buscar v-if="viendo=='buscar'"  @acciono="acciono"></Buscar>
 
     

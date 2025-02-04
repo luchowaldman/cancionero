@@ -127,8 +127,7 @@ defineExpose({  cancionesFiltradas });
                 
                 <tr  v-for="(cancion, cancionid) in indice" :key="cancionid" >
                     <td >
-                        <p style="font-size: 30px;">{{ FormatearNombre(cancion.cancion) }}</p>
-                        <p style="font-size: 20px;">{{ FormatearNombre(cancion.banda) }}</p>
+                        <span style="font-size: 24px;">{{ FormatearNombre(cancion.cancion) }}</span> -                        <span style="font-size: 15px;">{{ FormatearNombre(cancion.banda) }}</span>
                     </td>
                     
                     <td>
@@ -211,7 +210,7 @@ defineExpose({  cancionesFiltradas });
 }
 
 .origen {
-    font-size: 20px;
+    font-size: 14px;
     border: 4px solid;
     padding: 6px;
     border-radius: 5px;
@@ -219,14 +218,14 @@ defineExpose({  cancionesFiltradas });
 
 
 .duracion {
-    font-size: 40px;
+    font-size: 20px;
     padding: 6px;
     border-radius: 5px;
 }
 
 
 .escala {
-    font-size: 40px;
+    font-size: 20px;
     padding: 6px;
     border-radius: 5px;
     border: 4px solid;
@@ -260,11 +259,11 @@ defineExpose({  cancionesFiltradas });
     background-color: #a9a8f6;
     color: white;
     font-size: larger;
-    padding: 10px;
+    padding: 1px;
 }
 
 .tablaListas td {
-    padding: 10px;
+    padding: 1px;
 }
 
 .tablaListas tbody tr:nth-child(odd) {
@@ -280,8 +279,8 @@ defineExpose({  cancionesFiltradas });
     display: inline-block;
     border: 1px solid;
     font-size: xx-large;
-    padding: 10px;
-    margin: 3px;
+    padding: 3px;
+    margin: 5px;
     cursor: pointer;
 }
 

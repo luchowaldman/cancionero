@@ -13,7 +13,7 @@ import { GetCanciones } from '../modelo/GetCanciones';
 import { AdminListasTocables } from '../modelo/AdminIndiceListas';
 import ComponenteMusicalEditar from '../components/ComponenteMusicalEditar.vue';
 
-const props = defineProps<{ lista_actual: string }>();
+const props = defineProps<{  }>();
 const emit = defineEmits<{
     (e: 'acciono', action: string): void;
 }>();
@@ -31,8 +31,6 @@ if (editando_cancion.value) {
 }
 
 
-const reflista_actual = ref(props.lista_actual);
-
 
 
 const canciones_Actual = ref([] as item_lista[]);
@@ -48,9 +46,8 @@ const listas = ref([] as string[]);
 listas.value = generadorlistasLS.listas();
 const admin_indiceslista = new AdminListasTocables();
 
-canciones_Actual.value = admin_indiceslista.GetIndice(reflista_actual.value);
+canciones_Actual.value = admin_indiceslista.GetIndice("default");
 ctrlviendolista.value?.cancionesFiltradas();
-
 ctrlguardados.value?.cancionesFiltradas();
 
 generadorlistasURL.getIndice().then((indice: item_lista[]) => {
@@ -69,10 +66,7 @@ function click_editar_item(item: item_lista) {
 
 
 function ev_agrego_lista(newlista: string) {
-    reflista_actual.value = newlista;
-    canciones_Actual.value = admin_indiceslista.GetIndice(reflista_actual.value)
-    ctrlguardados.value?.cancionesFiltradas();
-
+    
 
 }
 
@@ -91,7 +85,7 @@ function cerro_editar() {
 
 
 function click_borrar_viendolista(item: item_lista) {
-    admin_indiceslista.BorrarCancion(reflista_actual.value, item);
+    admin_indiceslista.BorrarCancion("default", item);
     canciones_Actual.value = admin_indiceslista.GetIndice(reflista_actual.value)
     ctrlviendolista.value?.cancionesFiltradas();
 }
@@ -126,17 +120,13 @@ function click_borrar_guardadas(item: item_lista) {
         
 
     
-        <div style="font-size: xx-large;">Lista actual: {{  reflista_actual }}</div>
+        <div style="font-size: xx-large;">Reproduciendo</div>
     <ListadoTemas :ref="ctrlviendolista" titulo="" :indice="canciones_Actual" :muestra_renglones=10
     :btnVer=true v-on:click_ver="click_editar_item" :btnDescargar=false :btnBorrar=true :btnAgregar=false
     @click_borrar="click_borrar_viendolista"
     ></ListadoTemas>
 
-
-        <ListadoListas :listas="listas" @agrego_lista="ev_agrego_lista" @ver_lista="ev_ver_lista"></ListadoListas>
-
-
-        <h1>Guardadas</h1>
+    <div style="font-size: xx-large;">Guardadas</div>
     <ListadoTemas :ref="ctrlguardados" titulo="Guardadas" :indice="canciones_Storage" :muestra_renglones=10
     :btnVer=true v-on:click_ver="click_editar_item" :btnDescargar=false :btnAgregar=true :btnBorrar=true
     @click_agregar="click_agregar_guardadas" @click_borrar="click_borrar_guardadas"
