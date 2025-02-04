@@ -15,9 +15,6 @@ const currentCompas = ref(0);
 const secu_resu = ref([] as number[]);
 const repe_resu = ref([] as number[]);
 
-const mostrando_resumen_parte_index = ref(-1);
-const mostrando_resumen_parte = ref(-1);
-
 
 const musica = new Musica()
 const compases_escala = ref(musica.GetAcordesdeescala(props.cancion.escala))
@@ -71,6 +68,8 @@ function estilo_acorde(acorde: string)
 
 watch(() => props.cancion, (newCancion) => {
   compases_escala.value = musica.GetAcordesdeescala(newCancion.escala);
+  let partes_resu = newCancion.acordes.orden_partes;
+
   let new_resu: number[] = [];
   let newpartes_resu: number[] = [];
   let metiendo  = -1;
@@ -83,7 +82,10 @@ watch(() => props.cancion, (newCancion) => {
      else {
        newpartes_resu[newpartes_resu.length - 1] += 1;
      }
-  });  
+  });
+
+
+  
   secu_resu.value = new_resu;
   repe_resu.value = newpartes_resu;
 });
@@ -95,6 +97,8 @@ watch(() => props.compas, (newCompas) => {
   {
 
     let compases_x_parte = props.cancion.acordes.partes[props.cancion.acordes.orden_partes[i]].acordes.length; 
+
+
     if (newCompas < totalCompases + compases_x_parte) {
       mostrando_parte.value = i;
       mostrando_compas_parte.value = newCompas - totalCompases;
@@ -103,34 +107,10 @@ watch(() => props.compas, (newCompas) => {
     totalCompases += compases_x_parte;
   }
   currentCompas.value = newCompas;
-  calcular_resumen_parte();
+
 
 });
 
-function calcular_resumen_parte() 
-{
-  
-  if (repe_resu.value.length == 0) {
-    return;
-  }
-
-  
-  let cont = repe_resu.value[0];
-  let i = 0;
-  while (cont <= mostrando_parte.value) {
-    
-    i++;
-    cont += repe_resu.value[i];
-  }
-  
-  
-  mostrando_resumen_parte_index.value = i;
-  mostrando_resumen_parte.value = repe_resu.value[i] - (cont - mostrando_parte.value);
-  
-
-
-
-}
 
 
 </script>
@@ -138,9 +118,8 @@ function calcular_resumen_parte()
 <template>
 <div>
   <div class="row">
-
-    <div v-if="repe_resu.length == 0">
     <h2 style="text-decoration: underline; margin-bottom: 2px;">Secuencia</h2>
+
     <div style="display: flex; flex-wrap: wrap;">
           <div v-for="(parte, index) in cancion.acordes.orden_partes" :key="index" class="ordendiv">
             <span :class="{ compas_actual: mostrando_parte === index }"
@@ -149,28 +128,20 @@ function calcular_resumen_parte()
           </div>
           
     </div>
-    
-  </div>
-    
-    
-    <div v-if="repe_resu.length > 0">
-    <h2 style="text-decoration: underline; margin-bottom: 2px;">Secuencia</h2>
+
+    <h2 style="text-decoration: underline; margin-bottom: 2px;">Secuencia en plan resumen</h2>
     <div style="display: flex; flex-wrap: wrap;">
           <div v-for="(parte, index) in secu_resu" :key="index">
             <div  class="ordendiv">
-            <span :class="{ compas_actual: mostrando_resumen_parte_index === index }"
+            <span :class="{ compas_actual: mostrando_parte === index }"
             :style="{ 'font-size' : (vista.tamanio_referencia / 2 ) + 'px'}"
             >{{ cancion.acordes.partes[parte].nombre }}</span> 
           </div>
-          <div class="repeticion" v-if="repe_resu[index] > 1">
-              <span v-if="mostrando_resumen_parte_index != index">x {{ repe_resu[index] }}</span>
-              <span v-if="mostrando_resumen_parte_index == index">{{ mostrando_resumen_parte + 1  }} / {{ repe_resu[index] }}</span>
-          </div>
+          <span>x {{ repe_resu[index] }}</span>
           </div>
           
     </div>
-  </div>
-  
+
     <h2  style="text-decoration: underline; margin-bottom: 2px;">Partes</h2>
     <div v-for="(parte, index_parte) in cancion.acordes.partes" :key="parte.nombre" class="row" >
       
@@ -244,8 +215,5 @@ function calcular_resumen_parte()
   Dominante
   background-color: red;
 */
-.repeticion {
-  display: inline-block;
-  margin: 4px;
-}
+
 </style>
