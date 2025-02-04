@@ -4,7 +4,9 @@ import { item_lista } from '../modelo/item_lista';
 import { Musica } from '../modelo/musica';
 import { Tiempo } from '../modelo/tiempo';
 
-const emit = defineEmits(['click_ver', 'click_descargar', 'click_agregar', 'click_borrar']);
+const emit = defineEmits(['click_ver', 'click_descargar', 'click_agregar', 'click_borrar', 'click_tocar']);
+
+
 const props = defineProps<{ indice: item_lista[], titulo: string, muestra_renglones: number
     ,  btnVer: boolean, btnDescargar: boolean, btnAgregar: boolean, btnBorrar: boolean
  }>();
@@ -31,6 +33,11 @@ watch(() => props.indice, (newindice: item_lista[]) => {
 function click_ver(item: item_lista) {
     emit('click_ver', item);
 }
+
+function click_tocar(item: item_lista) {
+    emit('click_tocar', item);
+}
+
 
 function click_descargar(indice: item_lista) {
     emit('click_descargar', indice);
@@ -151,7 +158,7 @@ defineExpose({  cancionesFiltradas });
                     <td>
                                     
                         
-                                            <div class="btnGrilla" v-if="btnVer" @click="click_ver(cancion)">
+                                            <div class="btnGrilla" v-if="btnVer" @click="click_tocar(cancion)">
                                             <i class="bi bi-fire"></i>
                                             </div>
 

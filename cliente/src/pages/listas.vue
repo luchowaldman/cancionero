@@ -64,10 +64,23 @@ function click_editar_item(item: item_lista) {
 
 
 
-function click_tocar_item(item: item_lista) {
-    console.log("tocar item", item);
-    emit('acciono', 'tocar_cancion', item);
+function click_tocar_item(nro: number) {
+    console.log("tocar nro lista",  nro);
+    emit('acciono', 'tocar_cancion', nro);
 }
+
+function click_tocar_guardada(item: number) {
+    
+    let indice = admin_indiceslista.GetIndice("default");
+    indice.push(canciones_Storage.value[item]);
+    const nvo_nro = indice.length - 1;
+    admin_indiceslista.SaveIndice("default", indice);
+    
+    emit('acciono', 'tocar_cancion', nvo_nro);
+}
+
+
+
 
 
 function click_borrar_viendolista(item: item_lista) {
@@ -75,6 +88,7 @@ function click_borrar_viendolista(item: item_lista) {
     canciones_Actual.value = admin_indiceslista.GetIndice(reflista_actual.value)
     ctrlviendolista.value?.cancionesFiltradas();
 }
+
 
 
 function click_agregar_guardadas(item: item_lista) {
@@ -111,6 +125,7 @@ function click_borrar_guardadas(item: item_lista) {
     <ListadoTemas :ref="ctrlguardados" titulo="Guardadas" :indice="canciones_Storage" :muestra_renglones=10
     :btnVer=true v-on:click_ver="click_editar_item" :btnDescargar=false :btnAgregar=true :btnBorrar=true
     @click_agregar="click_agregar_guardadas" @click_borrar="click_borrar_guardadas"
+    @click_tocar="click_tocar_guardada"
     ></ListadoTemas>
 
 </div>

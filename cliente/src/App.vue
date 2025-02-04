@@ -77,7 +77,7 @@ const director_ref = ref(director);
   sesion_ref.value = configuracionObj.sesion;
   director.Iniciar();
   director.setcambiosHandler((directornuevo: Director) => {
-    console.log("cambios", directornuevo.configuracion.sesion.estado);
+    //console.log("cambios", directornuevo.configuracion.sesion.estado);
     sesion_ref.value = directornuevo.configuracion.sesion;
   });
   director.setcambiosCancionHandler((cancion: Cancion) => {

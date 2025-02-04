@@ -225,7 +225,7 @@ function click_editar_URL(item: item_lista) {
 }
 
 
-function click_agregar_guardadas(item: item_lista) {
+function click_agregar_listadefault(item: item_lista) {
     let indice = admin_indiceslista.GetIndice("default");
     indice.push(item);
     admin_indiceslista.SaveIndice("default", indice);
@@ -287,7 +287,7 @@ function click_agregar_guardadas(item: item_lista) {
 
     <ListadoTemas titulo="En data generada por Luis Waldman" :indice="canciones_filtradas" :muestra_renglones=15
     :btnVer=true v-on:click_ver="click_editar_URL" 
-    @click_agregar="click_agregar_guardadas"
+    @click_agregar="click_agregar_listadefault"
     @click_descargar="click_descargar_URL"
     :filtro_banda="bandas_seleccionadas"
     ref="ctrlListaURL"
