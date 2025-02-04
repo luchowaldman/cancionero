@@ -21,9 +21,17 @@ function conectar() {
 </script>
 
 <template>
-
+<div>
   <div class="controlador_session">
+     
+    
+    <div class="iniciado" v-if="refSesion!='Inic. s/conexion'">
+        <i class="bi bi-wifi"></i>
+        <span>{{refSesion}}</span>
+        <i class="bi bi-magic"></i>
+      </div>
       
+    
       <div class="iniciado" v-if="refSesion=='Inic. s/conexion'">
         <select style="margin-right: 10px;" v-model="sesion.nombre">
           <option value="default">default</option>
@@ -36,10 +44,13 @@ function conectar() {
         </select>
         <button @click="conectar" class="btnconectar">Conectarse</button>
       </div>
-      <div v-if="refSesion!='Inic. s/conexion'">{{ refSesion }} </div>
+      
      
 </div>
 
+
+
+</div>
 </template>
 
 <style scoped>
@@ -56,7 +67,7 @@ function conectar() {
 }
 
 .controlador_session {
-  padding: auto;
+  border-color: blue;
 }
 
 .btnconectar {
