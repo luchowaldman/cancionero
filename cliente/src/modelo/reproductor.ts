@@ -4,7 +4,7 @@
 export class Reproductor  {
     private duracion_compas: number;
     private total_compases: number;
-    private current_compas: number;
+    public current_compas: number;
 
     private intervalId: any;
 

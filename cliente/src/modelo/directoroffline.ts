@@ -69,6 +69,7 @@ export class DirectorOffline extends Director {
     update_compas(nro: number) {
         this.nro_compas = parseInt(nro.toString());
         this.cambiosCompasHandler?.(nro);
+        this.reproductor.current_compas = this.nro_compas;
         //console.log("Compas actualizado", nro);
     }
 
@@ -79,25 +80,14 @@ export class DirectorOffline extends Director {
     }
 
     click_play() {
+
         
-        if (this.configuracion.sesion.estado != "conectado") 
-        {
             console.log("Play", this.nro_compas);
             this.reproductor = new Reproductor(this.musica.duracion_compas(this.cancion_actual) * 1000 , this.musica.total_compases(this.cancion_actual));
+            this.reproductor.current_compas = this.nro_compas;
             this.reproductor.setIniciaCompasHandler(this.onNroCompasRecibido.bind(this));
             this.reproductor.iniciar();
-        }
-        else 
-        {
-            if ((this.configuracion.sesion.estado == "conectado") && (this.esDirector)) 
-                {
-                    
-            console.log("Play conectado", this.nro_compas);
-            this.reproductor = new Reproductor(this.musica.duracion_compas(this.cancion_actual) * 1000 , this.musica.total_compases(this.cancion_actual));
-            this.reproductor.setIniciaCompasHandler(this.iniciaCompasConectado.bind(this));
-            this.reproductor.iniciar();
-                }
-        }
+        
     }   
           
   
@@ -139,6 +129,8 @@ export class DirectorOffline extends Director {
   }
   
   iniciaCompasConectado(nro: number) {
+    this.nro_compas  = nro;
+    this.cambiosCompasHandler?.(nro);
     console.log("Inicia compas conectado", nro);
   }
   
