@@ -4,11 +4,13 @@ import { Cancion } from '../modelo/cancion';
 import ControladorTiempo from './ControladorTiempo.vue';
 import ControladorSesion from './ControladorSesion.vue';
 import { EstadoSesion } from '../modelo/estadosesion';
+import { ref } from 'vue';
 
 
 
 
 const emit = defineEmits(['acciono']);
+const ctrlSesion = ref();
 
 function acciono(valor: string, compas: number = 0) {
     //console.log("Acciono--->", valor, compas);
@@ -19,9 +21,14 @@ const props = defineProps<{ viendo_vista: string, compas: number, cancion: Canci
   ,  nro_cancion: number, total_canciones: number, sesion: EstadoSesion }>()
 
 
+  function actualizar_vista() {
+    ctrlSesion?.value.actualizar_vista();
+  }
 
-if (props.viendo_vista == undefined) 
-  console.log("Viendo vista no definida")
+  defineExpose ({ actualizar_vista  });
+
+
+
 </script>
 
 <template>
@@ -45,10 +52,12 @@ if (props.viendo_vista == undefined)
             @update-compas="(valor) => acciono('update-compas', valor)">
         </ControladorTiempo> 
       </div>
+
       <div class="ctrl_menu">
         
-        <ControladorSesion :compas=compas :cancion="cancion"  :sesion="sesion"
-        @conectar="acciono('conectar')"> :ref="refSesion" >
+        <ControladorSesion :sesion="sesion"
+          
+          @conectar="acciono('conectar')">
         </ControladorSesion>
       </div>
        

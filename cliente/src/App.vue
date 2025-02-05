@@ -9,8 +9,8 @@ import Tocar from './pages/tocar.vue';
 import Listas from './pages/listas.vue';
 import Editar from './pages/editar.vue';
 import Buscar from './pages/buscar.vue';
-import Bus from './pages/listas.vue';
 import Configuracion from './pages/configuracion.vue';
+
 import { ModeloConfiguracion  } from './modelo/modeloconfiguracion';
 import { Cancion } from './modelo/cancion';
 import { Letra } from './modelo/letra';
@@ -20,34 +20,12 @@ import { Cliente }  from './modelo/client_socketio';
 import { Director } from './modelo/director';
 import { item_lista } from './modelo/item_lista';
 import { AdminListasTocables } from './modelo/AdminIndiceListas';
-import { findSourceMap } from 'module';
 import { GetCanciones } from './modelo/GetCanciones';
-
-// EDITAR
-const editando_item = ref(new item_lista("no song name", "no band name"));
-const editando_cancion = ref(new Cancion("no song name", "no band name", new Acordes([new Parte("p1", ["C"])], [0]), new Letra([[""]]), 120, 4, 4, 4, "C"));
-//editando_cancion.value = JSON.parse(localStorage.getItem("editando_cancion") || "{}");
+import { DirectorOffline } from './modelo/directoroffline';
+import { DirectorOnline } from './modelo/directoronline';
 
 
-const viendo = ref("tocar");
-viendo.value = localStorage.getItem("viendo") || "tocar";
-
-// LISTAS
-
-const admin_indiceslista = new AdminListasTocables();
-
-// CANCIONES
-const canciones_Actual = ref([] as item_lista[]);
-canciones_Actual.value = admin_indiceslista.GetIndice("default");
-const cancion_ref  = ref(new Cancion("Cancion no cargada", "sin banda", new Acordes([], []), new Letra([])));
-const sesion_ref = ref(new EstadoSesion());
-const compas_ref = ref(-2);
-
-
-///// LLEGO EL DIRECTOR
-
-let cliente = new Cliente("http://10.31.129.71:8080/")
-
+// VEO LA CONFIGURACION
 let config_load: string | null = localStorage.getItem("configuracion")
 if (!config_load)
   config_load = ""
@@ -56,7 +34,8 @@ let configuracionObj: ModeloConfiguracion | null = null;
 
 try {
   configuracionObj = JSON.parse(config_load);
-} catch (error) {
+} catch (error) 
+{
 }
 
 if (configuracionObj == null) {
@@ -68,25 +47,53 @@ if (configuracionObj == null) {
   localStorage.setItem("configuracion", JSON.stringify(configuracionObj))
 }
 
-let director = new Director(configuracionObj, cliente);
+// VISTA
+const cancion_ref  = ref(new Cancion("Cancion no cargada", "sin banda", new Acordes([], []), new Letra([])));
+const sesion_ref = ref(new EstadoSesion());
+const compas_ref = ref(-2);
+const editando_item = ref(new item_lista("no song name", "no band name"));
+const editando_cancion = ref(new Cancion("no song name", "no band name", new Acordes([new Parte("p1", ["C"])], [0]), new Letra([[""]]), 120, 4, 4, 4, "C"));
+const viendo = ref("tocar");
+
+// CONTROLES
+const ctrlMenu = ref();
+
+
+viendo.value = localStorage.getItem("viendo") || "tocar";
+let director: Director = new DirectorOffline(configuracionObj);
 const director_ref = ref(director);
+const conectado = localStorage.getItem("conectado") || "no";
 
 
+function Conectar() {
 
-
-  sesion_ref.value = configuracionObj.sesion;
-  director.Iniciar();
+  director = new DirectorOnline(configuracionObj);
   director.setcambiosHandler((directornuevo: Director) => {
-    //console.log("cambios", directornuevo.configuracion.sesion.estado);
     sesion_ref.value = directornuevo.configuracion.sesion;
+    ctrlMenu.value?.actualizar_vista();
   });
+
+  director.Iniciar();
+  director.Conectar();
+  vincular_director();
+}
+
+
+function vincular_director() {
+  director_ref.value = director;
+  sesion_ref.value = director.configuracion.sesion;
+
   director.setcambiosCancionHandler((cancion: Cancion) => {
-    cancion_ref.value = cancion;
+      cancion_ref.value = cancion;
   });
+
   director.setcambiosCompasHandler((compas: number) => {
     compas_ref.value = parseInt(compas.toString());
-});
-  
+    });
+  }
+
+  director.Iniciar();
+  vincular_director();
 
 onMounted(() => { 
     console.log("APP MONTADA")
@@ -99,6 +106,8 @@ function cargar_edit() {
       
     });
 }
+
+
 
 function acciono(valor: string, compas: number = 0) {
 
@@ -124,7 +133,7 @@ function acciono(valor: string, compas: number = 0) {
       break;
     case 'conectar':
       console.log("conectar");
-      director_ref.value.Conectar();
+      Conectar();
       break;
     case 'tocar_cancion':
       director.set_nro_cancion(compas);
@@ -174,9 +183,10 @@ if (viendo.value == 'editar') {
 
        
 
-  <Menu :viendo_vista="viendo" :nro_cancion="director_ref.nro_cancion" :sesion="sesion_ref" 
+  <Menu 
+  :viendo_vista="viendo" :nro_cancion="director_ref.nro_cancion" :sesion="sesion_ref" 
   :total_canciones="director_ref.total_canciones" @acciono="acciono" 
-  :compas="compas_ref" :cancion="cancion_ref" 
+  :compas="compas_ref" :cancion="cancion_ref" :ref="ctrlMenu"
   ></Menu>
   <div class="pantalla">
     <Tocar v-if="viendo=='tocar'"  @acciono="acciono" :compas="compas_ref" :cancion="cancion_ref"></Tocar>
