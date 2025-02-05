@@ -53,9 +53,10 @@ const props = defineProps<{ viendo_vista: string, compas: number, cancion: Canci
         </ControladorTiempo> 
       </div>
 
-      <div class="ctrl_menu">
+      <div class="ctrl_menu" :class="{conectado: sesion.estado == 'conectado'}" >
         
         <ControladorSesion :sesion="sesion"
+        @desconectar="acciono('desconectar')"
           
           @conectar="acciono('conectar')">
         </ControladorSesion>
@@ -208,6 +209,9 @@ const props = defineProps<{ viendo_vista: string, compas: number, cancion: Canci
 .clase_tocar {
   font-size: 80px;
   padding: 10px;
+}
+.conectado {
+  border-color: #f5da09;
 }
 
 </style>

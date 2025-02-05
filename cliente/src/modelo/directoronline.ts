@@ -250,10 +250,13 @@ export class DirectorOnline extends Director {
     {
         this.configuracion.sesion.estado = 'Conectando..';
         this.cliente.connect();
-        
-
-        
-
     }
 
+    
+    Desconectar()
+    {
+        this.configuracion.sesion.estado = 'Desconectando..';
+        this.cliente.disconnect();
+    }
+    
 }

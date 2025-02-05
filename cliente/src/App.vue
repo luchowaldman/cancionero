@@ -77,7 +77,12 @@ function Conectar() {
   director.Conectar();
   vincular_director();
 }
-
+function Desconectar() {
+  director.Desconectar();
+  director = new DirectorOffline(configuracionObj);
+  director.Iniciar();
+  vincular_director();
+}
 
 function vincular_director() {
   director_ref.value = director;
@@ -135,6 +140,11 @@ function acciono(valor: string, compas: number = 0) {
       console.log("conectar");
       Conectar();
       break;
+    case 'desconectar':
+      console.log("conectar");
+      Desconectar();
+      break;
+      
     case 'tocar_cancion':
       director.set_nro_cancion(compas);
       break;
