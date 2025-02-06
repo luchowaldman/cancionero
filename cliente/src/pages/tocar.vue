@@ -14,48 +14,73 @@ const ref_vista = ref(vist);
 const ref_cont = ref(0);
 
 function cambiar_vista(vista: number) {
+  localStorage.setItem('viendo_vista', vista.toString());
   let toCH: VistaControl[] = [];
   const ancho = window.innerWidth;
   const alto = window.innerHeight;
-  switch (vista) {
-    case 0:
-      toCH = [
-        new VistaControl(alto / 40, 12, 7, "letra_acordes", "col-9", alto - 300),
-        new VistaControl(alto / 20, 12, 7, "acordes", "col-3 d-md-block", ancho)
-      ];
-      break;
-    case 1:
-      toCH = [
-        new VistaControl(ancho / 30, 12, 7, "letra", "col-12", (alto / 1.7)),
-      ];
-      break;
-    case 2:
-      toCH = [
-        new VistaControl(ancho / 50, 12, 7, "acordes_seguidos", "col-9", (alto / 1.7)),
-        new VistaControl(ancho / 30, 12, 7, "acordes", "col-3 d-md-block", ancho)
-      ];
-      break;
-    case 3:
-      toCH = [
-        new VistaControl(ancho / 50, 12, 7, "detalle", "col-9", (alto / 1.7))
-      ];
-      break;
-    case 4:
-      toCH = [
-        new VistaControl(ancho / 50, 12, 7, "detalle", "col-9", (alto / 1.7))
-      ];
-      break;
-    case 5:
-      toCH = [
-        new VistaControl(ancho / 50, 12, 7, "tocar", "col-9", (alto / 1.7)),
-        new VistaControl(ancho / 30, 12, 7, "acordes", "col-3 d-md-block", ancho)
-      ];
-      break;
-  }
+  
+  if (ancho > 1500) {
+    const alto_controles = alto - 250;
+  const paraPC = [
+    [
+      new VistaControl(alto / 40, 12, 7, "letra_acordes", "col-9", alto_controles),
+      new VistaControl(alto / 20, 12, 7, "acordes", "col-3 d-md-block", alto_controles)
+    ],
+    [
+      new VistaControl(ancho / 50, 12, 7, "letra", "col-12", alto_controles),
+    ],
+    [
+      new VistaControl(ancho / 50, 12, 7, "acordes_seguidos", "col-9", alto_controles),
+      new VistaControl(ancho / 30, 12, 7, "acordes", "col-3 d-md-block", alto_controles)
+    ],
+    [
+      new VistaControl(ancho / 50, 12, 7, "detalle", "col-9", alto_controles)
+    ],
+    [
+      new VistaControl(ancho / 50, 12, 7, "detalle", "col-9", alto_controles)
+    ],
+    [
+      new VistaControl(ancho / 50, 12, 7, "tocar", "col-9", alto_controles),
+      new VistaControl(ancho / 30, 12, 7, "acordes", "col-3 d-md-block", alto_controles)
+    ]
+  ];
+  toCH = paraPC[vista];
+
+} else {
+  
+  const alto_controles = alto - 360;
+  const paraPC = [
+    [
+      new VistaControl(alto / 40, 12, 7, "letra_acordes", "col-10  d-md-block", alto_controles),
+      new VistaControl(alto / 35, 12, 7, "acordes", "col-2 d-md-block", alto_controles)
+    ],
+    [
+      new VistaControl(ancho / 20, 12, 7, "letra", "col-12", alto_controles),
+    ],
+    [
+      new VistaControl(ancho / 50, 12, 7, "acordes_seguidos", "col-9", alto_controles),
+      new VistaControl(ancho / 30, 12, 7, "acordes", "col-3 d-md-block", alto_controles)
+    ],
+    [
+      new VistaControl(ancho / 50, 12, 7, "detalle", "col-9", alto_controles)
+    ],
+    [
+      new VistaControl(ancho / 50, 12, 7, "detalle", "col-9", alto_controles)
+    ],
+    [
+      new VistaControl(ancho / 50, 12, 7, "tocar", "col-9", alto_controles),
+      new VistaControl(ancho / 30, 12, 7, "acordes", "col-3 d-md-block", alto_controles)
+    ]
+  ];
+  toCH = paraPC[vista];
+
+}
   ref_vista.value = toCH;
   ref_cont.value = ref_cont.value + 1;
 }
-cambiar_vista(0);
+
+const viendo_vista = parseInt(localStorage.getItem('viendo_vista') || '0');
+cambiar_vista(viendo_vista);
 
 // ENTORNO
 const width = ref(window.innerWidth); 
@@ -73,8 +98,8 @@ onMounted(() => {
 
 <template>
   
-  <div class="pantalla">
-    <div class="cabecera_tocar" style="display: flex ;float: right;;">
+  <div :style="{ width: width > 1500 ? '100%' : '120%' }">
+    <div style="display: flex ;float: right;;">
 
 
       <div class="dropdown" >
@@ -92,15 +117,15 @@ onMounted(() => {
   </div>
 
     </div>
-<div class="row" :style="{height: height * 0.9 + 'px'}">
-    <div v-for="(Componente, index) in ref_vista" :key="index" 
-    :class="Componente.clase">
-      <component :is="Componente.getMarkRaw()" :compas="compas" :key="index" :ref="Componente.componente" :vista="Componente" :cancion="cancion" val="ref_cont"></component>
-    </div>
-</div>
+  <div class="row" :style="{height: height * 0.9 + 'px'}">
+      <div v-for="(Componente, index) in ref_vista" :key="index" 
+      :class="Componente.clase">
+        <component :is="Componente.getMarkRaw()" :compas="compas" :key="index" :ref="Componente.componente" :vista="Componente" :cancion="cancion" val="ref_cont"></component>
+      </div>
+  </div>
 
 
-<p>Anchura: {{ width }} px - Altura: {{ height }} px</p>
+  <p>Anchura: {{ width }} px - Altura: {{ height }} px</p>
   
 
  </div>
@@ -117,6 +142,6 @@ onMounted(() => {
     border: 1px solid black;
     border-radius: 10px;
     height: 100%;
-    
+    width: 100%;
 }
 </style>

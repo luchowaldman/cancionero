@@ -19,6 +19,13 @@ const musica = new Musica();
 watch(() => props.compas, (newCompas) => {
 
   
+  
+  const renglon = musica.get_renglontexto_de_compas(props.cancion ,newCompas);
+  let ve = renglon * props.vista.tamanio_referencia * 1.6;
+  console.log('ve', ve, newCompas, renglon);
+   ve -= props.vista.alto * 0.4;
+  const nueva_pos = Math.max(ve, 0);
+  mover_scroll(nueva_pos)
 
   
   
@@ -32,24 +39,12 @@ watch(() => props.compas, (newCompas) => {
       mostrando_renglon.value = i;
       mostrando_palabra.value = newCompas - totalCompases;
 
-      const conti_prev = 3;
-      const mostrar_renglonen = Math.max((mostrando_renglon.value * 10) - (18 * conti_prev), 0);
-      
-
-      mover_scroll(mostrar_renglonen);
       break;
     }
     totalCompases += compases_x_parte;
   }
 
 
-  let ve = (musica.get_renglontexto_de_compas(props.cancion ,newCompas) * props.vista.tamanio_referencia * 2);
-  //ve = ve - (props.vista.alto * 0.45)
-  console.log("VEEEE" ,ve);
-  const nueva_pos = Math.max(ve, 0);
-  console.log('Nueva pos', nueva_pos);
-  
-  mover_scroll(nueva_pos)
       
 });
 
@@ -73,7 +68,7 @@ function Actualizar() {
 const handleScroll = () => {
   
   if (letraDiv.value) {
-    console.log('Scrolling', letraDiv.value.scrollTop);
+    
     scrollTop.value = letraDiv.value.scrollTop; // Actualiza la posición del scroll
   }
 };

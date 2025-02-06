@@ -46,7 +46,7 @@ const props = defineProps<{ viendo_vista: string, compas: number, cancion: Canci
 
         </p>	
       </div>
-        <div class="ctrl_menu"  style="width: 40%;">
+        <div class="ctrl_menu"  style="width: 80%;">
           <ControladorTiempo :nro_cancion="nro_cancion" :total_canciones="total_canciones"  :compas=compas :cancion="cancion"
           @play="acciono('play')" @pause="acciono('pause')" @stop="acciono('stop')" @next="acciono('next')" @previous="acciono('previous')"
             @update-compas="(valor) => acciono('update-compas', valor)">

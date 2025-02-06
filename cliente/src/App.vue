@@ -189,7 +189,11 @@ if (viendo.value == 'editar') {
 </script>
 
 <template>
-    <div>
+
+
+
+
+<div>
 
        
 
@@ -198,15 +202,13 @@ if (viendo.value == 'editar') {
   :total_canciones="director_ref.total_canciones" @acciono="acciono" 
   :compas="compas_ref" :cancion="cancion_ref" :ref="ctrlMenu"
   ></Menu>
-  <div class="pantalla">
+
     <Tocar v-if="viendo=='tocar'"  @acciono="acciono" :compas="compas_ref" :cancion="cancion_ref"></Tocar>
     <Listas v-if="viendo=='listas'" :nro_cancion="director.nro_cancion"  @acciono="acciono"></Listas>
     <Configuracion v-if="viendo=='config'"></Configuracion>
     <Editar v-if="viendo=='editar'"  @acciono="acciono" :cancion="editando_cancion" :item="editando_item"></Editar>
     <Buscar v-if="viendo=='buscar'"  @acciono="acciono"></Buscar>
 
-    
-  </div>
 
 
   
@@ -214,7 +216,9 @@ if (viendo.value == 'editar') {
 </template>
 
 <style scoped>
-
+.pantalla {
+  width: 100%;
+}
 #contenedor-musical {
     display: flex;
     flex-direction: column;

@@ -19,6 +19,7 @@ watch(() => props.cancion, (cancion: Cancion) => {
 });
 
 function actualizarLetras(cancion: Cancion) {
+  console.log('Actualizando letras', cancion.cancion);
   let contador_renglon_texto = 0;
   let contador_renglon_parte_texto = 0;
   let nueva_letra = [] as string[][];
@@ -55,8 +56,9 @@ watch(() => props.compas, (newCompas) => {
   }
   currentCompas.value = newCompas;
 
-  let ve = ((musica.get_renglontexto_de_compas(props.cancion ,newCompas) - 1) * props.vista.tamanio_referencia * 4);
-  ve -= props.vista.alto * 0.4;
+  const renglon = musica.get_renglontexto_de_compas(props.cancion ,newCompas);
+  let ve = renglon * props.vista.tamanio_referencia * 3.5;
+   ve -= props.vista.alto * 0.4;
   const nueva_pos = Math.max(ve, 0);
   console.log('Nueva pos', nueva_pos);
   
@@ -85,7 +87,7 @@ function Actualizar() {
 const handleScroll = () => {
   
   if (letraDiv.value) {
-    console.log('Scrolling', letraDiv.value.scrollTop);
+    
     scrollTop.value = letraDiv.value.scrollTop; // Actualiza la posición del scroll
   }
 };
@@ -108,10 +110,11 @@ defineExpose({  Actualizar });
 </script>
 <template>
 <div> 
-<div v-if="letras.length == 0" @click="Actualizar">
+<div v-if="letras.length == 0 && cancion.letras.renglones.length > 0" @click="Actualizar">
   .. No cargada ..
+  
     </div>  
-  <div class="componenteMusical" v-if="letras.length > 0">
+  <div class="componenteMusical" v-if="letras.length > 0 && cancion.letras.renglones.length > 0">
     <div v-if="letras.length == 0">
     </div>  
     <div ref="letraDiv"   class="overflow-auto" :style="{ 'max-height': vista.alto + 'px' }"> 

@@ -75,9 +75,10 @@ function updateCompas(newCompas: number) {
 <template>
 
   <div>
+    
     <div class="titulocontorltiempo">
-    {{ nro_cancion + 1 }} / {{ total_canciones }} {{ cancion.cancion }} - {{ cancion.banda }}
-  </div>
+      {{ nro_cancion + 1 }} / {{ total_canciones }} {{ cancion.cancion }} - {{ cancion.banda }}
+    </div>
     
   <div>
 
@@ -102,7 +103,7 @@ function updateCompas(newCompas: number) {
             <div><span class="spnTiempo">{{ tiempo.formatSegundos(segundos_actuales) }} / {{ tiempo.formatSegundos(segundos_totales) }} </span></div>
           </div>
         
-        <div>
+        
             <button class="boton_controller" @click="pause">
               <i class="bi bi-pause-fill"></i>
             </button>
@@ -114,17 +115,16 @@ function updateCompas(newCompas: number) {
             </button>
             <button class="boton_controller" @click="next">
               <i class="bi bi-skip-forward-fill"></i>
-            </button></div>
-          
+            </button>
         
             
             
             
       </div>
-      <div style="margin-left: auto">
+      
         <div style="margin-right: 10px;">
         <Metronomo ref="metronomeRef" :cancion="cancion"></Metronomo>
-      </div>
+      
       </div>
 
 
@@ -156,16 +156,13 @@ function updateCompas(newCompas: number) {
   white-space: nowrap;
 }
 .boton_controller {
-  width: 46px;
-  height: 46px;
-  
   border-radius: 3px;
   color: #a9a8f6;
   background-color: black;
   font-size: 20px;
   border: 1px solid #a9a8f6;
-  width: 56px;
-  height: 56px;
+  width: 46px;
+  height: 46px;
 }
 
 .boton_controllerplay {
@@ -174,7 +171,7 @@ function updateCompas(newCompas: number) {
 
 .spnTiempo {
   border: 1px solid;
-  font-size: 40px;
+  font-size: 30px;
   margin: 14px;
   border-radius: 8px;
   overflow: hidden;

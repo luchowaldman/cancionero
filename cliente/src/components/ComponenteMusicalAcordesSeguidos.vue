@@ -33,11 +33,12 @@ watch(() => props.compas, (newCompas) => {
 <template>
     <div>
       
-      <div v-for="(parte, index) in cancion.acordes.orden_partes" :key="index" style="display: flex;">
-        <div  class="parte">
+      <div v-for="(parte, index) in cancion.acordes.orden_partes" :key="index" >
+        <div>{{ cancion.acordes.partes[parte].nombre  }}</div>
+        <div style="display: flex; flex-wrap: wrap;">
         <div  v-for="(aco, index_aco) in cancion.acordes.partes[parte].acordes" :key="index_aco"
          class="acorde"
-         :style="{ 'max-height': vista.alto + 'px', 'width': (vista.tamanio_referencia * 7) + 'px'  }"
+         :style="{ 'max-height': vista.alto + 'px', 'width': (vista.tamanio_referencia * 3) + 'px', 'font-size' : vista.tamanio_referencia + 'px' }"
          :class="{ compas_actual: mostrando_parte === index && mostrando_compas_parte === index_aco }">
          {{ aco }}
         </div>
