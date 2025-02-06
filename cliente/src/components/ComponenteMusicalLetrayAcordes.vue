@@ -57,7 +57,7 @@ watch(() => props.compas, (newCompas) => {
   currentCompas.value = newCompas;
 
   const renglon = musica.get_renglontexto_de_compas(props.cancion ,newCompas);
-  let ve = renglon * props.vista.tamanio_referencia * 3.5;
+  let ve = renglon * props.vista.tamanio_referencia * 3.7;
    ve -= props.vista.alto * 0.4;
   const nueva_pos = Math.max(ve, 0);
   console.log('Nueva pos', nueva_pos);
