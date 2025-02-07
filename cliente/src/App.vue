@@ -25,6 +25,16 @@ import { DirectorOffline } from './modelo/directoroffline';
 import { DirectorOnline } from './modelo/directoronline';
 
 
+
+
+// VISTA
+const cancion_ref  = ref(new Cancion("Cancion no cargada", "sin banda", new Acordes([], []), new Letra([])));
+const sesion_ref = ref(new EstadoSesion());
+const compas_ref = ref(-2);
+const editando_item = ref(new item_lista("no song name", "no band name"));
+const editando_cancion = ref(new Cancion("no song name", "no band name", new Acordes([new Parte("p1", ["C"])], [0]), new Letra([[""]]), 120, 4, 4, 4, "C"));
+const viendo = ref("tocar");
+
 // VEO LA CONFIGURACION
 let config_load: string | null = localStorage.getItem("configuracion")
 if (!config_load)
@@ -46,14 +56,6 @@ if (configuracionObj == null) {
   configuracionObj.nombre = "default"
   localStorage.setItem("configuracion", JSON.stringify(configuracionObj))
 }
-
-// VISTA
-const cancion_ref  = ref(new Cancion("Cancion no cargada", "sin banda", new Acordes([], []), new Letra([])));
-const sesion_ref = ref(new EstadoSesion());
-const compas_ref = ref(-2);
-const editando_item = ref(new item_lista("no song name", "no band name"));
-const editando_cancion = ref(new Cancion("no song name", "no band name", new Acordes([new Parte("p1", ["C"])], [0]), new Letra([[""]]), 120, 4, 4, 4, "C"));
-const viendo = ref("tocar");
 
 // CONTROLES
 const ctrlMenu = ref();

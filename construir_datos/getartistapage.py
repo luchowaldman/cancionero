@@ -29,6 +29,9 @@ def getartista_page(band_name):
         print(f'Failed to download page: {url} (Status code: {response.status_code})')
 
 
+getartista_page("divididos")
+exit()
+
 getartista_page("los-piojos")
 getartista_page("vilma-palma-e-vampiros")
 getartista_page("bersuit-vergarabat")
