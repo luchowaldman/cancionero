@@ -513,13 +513,13 @@ function agregar_a_secuencia()
 
   <div class="menuEditar" >
     <div class="marca">
-      <input type="text" v-model="cancion.cancion" :style="{ width: (cancion.cancion.length + 1) + 'ch' }" /> -
-      <input type="text" v-model="cancion.banda" :style="{ width: (cancion.banda.length + 1) + 'ch' }" /> 
+      <input type="text" v-model="cancion.cancion" :style="{ backgroundColor: '#a9a8f6', color: 'white', width: (cancion.cancion.length + 1) + 'ch' }" /> -
+      <input type="text" v-model="cancion.banda" :style="{ backgroundColor: '#a9a8f6', color: 'white', width: (cancion.banda.length + 1) + 'ch' }" /> 
       
-        BPM: <input type="range" v-model="cancion.bpm" min="30" max="240" /> {{ cancion.bpm }} - 
+        BPM: <input type="range" style="background-color: #a9a8f6; color: white;"  v-model="cancion.bpm" min="30" max="240" /> {{ cancion.bpm }} - 
      
-        <span v-if="cancion.bpm < 40">No cargada o menos que lenta</span>
-        <span v-if="cancion.bpm >= 40 && cancion.bpm <= 60">Largo</span>
+        <span  style="color: white  !important;"  v-if="cancion.bpm < 40">No cargada o menos que lenta</span>
+        <span  style="background-color: #a9a8f6; color: white;"  v-if="cancion.bpm >= 40 && cancion.bpm <= 60">Largo</span>
 <span v-if="cancion.bpm > 60 && cancion.bpm <= 66">Largo a Adagio</span>
 <span v-if="cancion.bpm > 66 && cancion.bpm <= 76">Adagio</span>
 <span v-if="cancion.bpm > 76 && cancion.bpm <= 108">Andante</span>
@@ -545,9 +545,7 @@ function agregar_a_secuencia()
             <button @click="DescargarJSON()">
               <i class="bi bi-download"></i>
             </button>
-            <button @click="emit('cerrar')">
-              <i class="bi bi-x-circle"></i>
-            </button>
+            
           </div>
         </div>
           
@@ -668,6 +666,7 @@ function agregar_a_secuencia()
     <!-- PARTES  -->
     <!-- PARTES  -->
     <!-- PARTES  -->
+     <div v-if="editando_parte" >
     <h2  style="text-decoration: underline; margin-bottom: 2px;">Acordes</h2>
     <div class="partediv">
           <div v-for="(acorde, index) in ref_escala" :draggable="editando_parte" 
@@ -687,10 +686,14 @@ function agregar_a_secuencia()
             <span  >{{ acorde }}</span>
           </div>
           
+        </div></div>
+    
+        <div> 
+          
+          <span  style="text-decoration: underline; font-size: xxx-large; margin-bottom: 2px;">Partes</span>
+    <button @click="agregar_parte">+</button>
+
         </div>
-        
-    <h2  style="text-decoration: underline; margin-bottom: 2px;">Partes</h2>
-    <button @click="agregar_parte">Agregar Parte</button>
 
     <div v-for="(parte, index_parte) in cancion.acordes.partes" :key="parte.nombre" class="row" >
       <h2  v-if="!editando_parte || (refiereedit_parteid != index_parte)" >{{ parte.nombre }}</h2>
@@ -791,6 +794,8 @@ function agregar_a_secuencia()
   font-size: xx-large;
   border: 1px solid;
   margin-bottom: 10px;
+  background-color: #a9a8f6;
+  color: white;
 }
 
 .componenteMusical {
