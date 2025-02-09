@@ -27,9 +27,11 @@ export class MidiPlayer {
     this.conectadoHandler = handler;
   }
 
-  public play(note: string, duration: number = 500): void {
+  
+  
+  public play(note: string, duration: number = 1, delay: number): void {
     if (this.isReady) {
-      this.instrument.triggerAttackRelease(note, duration / 1000);
+      this.instrument.triggerAttackRelease(note, duration ,Tone.now() + delay);
     } else {
       console.error("MIDI Player is not ready");
     }

@@ -741,7 +741,8 @@ function agregar_a_secuencia()
             <span  > | </span>
           </div>
           <div style="display: inline-block; border: 1px solid red; padding: 4px; margin-right: 14px; margin-left: -10px; "
-            v-if="(editando_parte) && refiereedit_parteid == index_parte"
+            v-if="(editando_parte) && refiereedit_parteid == index_parte"            
+            class="paraagregar"
             @click="click_borraracordeparte(index)">x</div>
         </template>
 
@@ -948,5 +949,13 @@ textarea, input, select {
 
 .divacoarrastrando_acordes {
   border: 2px solid;
+}
+
+.paraagregar {
+  border: 1px solid;
+  padding: 2px;
+  margin: 2px;
+  color: red;
+  background-color: #a9a8f6;
 }
 </style>
