@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { MidiPlayer} from './modelo/midiplayer';
+import Pianocontrol from './components/pianocontrol.vue';
 const ref_instrumentocargado = ref(false)
 let midiplayer: MidiPlayer | null = null;
 let archivos_instrumentos = ['acordion', 'bateria', 'guitarra', 'guitarraelectrica', 'harmonica', 'piano', 'trompeta']
@@ -113,6 +114,11 @@ fetch('data/notas_midi/' + archivos_instrumentos[id_instrumeto]  +'.json')
       
       midiplayer?.tocarNota(nota);
     }
+
+    function soltar_nota(nota: string) {
+     
+     midiplayer?.soltarNota(nota);
+   }
 
     function nombre_nota(numero: number) 
     {
@@ -238,7 +244,7 @@ fetch('data/notas_midi/' + archivos_instrumentos[id_instrumeto]  +'.json')
 
 
     </div>
-
+    <Pianocontrol @toco="tocar_nota" @solto="soltar_nota" v-if="ref_instrumentocargado"></Pianocontrol>
 
 </div>
 </template>

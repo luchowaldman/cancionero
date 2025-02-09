@@ -23,7 +23,7 @@ watch(() => props.acorde, (newVal, oldVal) => {
 
 const emit = defineEmits(['toco', 'solto']);
 const ref_Notas = ref([] as string[])
-const escalas = [3, 4]
+const escalas = [2, 3, 4, 5, 6]
 const notas = ["C", "D", "E", "F", "G", "A", "B"]
 function tiene_sostendio(nota: string) {
     return ["C", "D", "F", "G", "A"].includes(nota[0])
@@ -95,7 +95,7 @@ function solto_nota(nota: string) {
   display: inline-block;
   position: relative;
   margin: 0 2px;
-  width: 6%;
+  width: 2.5%;
   max-width: 85px;
 }
 .key:active .black-key,
@@ -109,14 +109,14 @@ function solto_nota(nota: string) {
   background: linear-gradient(-30deg, #f8f8f8, #ffffff);
   box-shadow: inset 0 1px 0px #ffffff, inset 0 -1px 0px #ffffff, inset 1px 0px 0px #ffffff, inset -1px 0px 0px #ffffff, 0 4px 3px rgba(0, 0, 0, 0.7), inset 0 -1px 0px #ffffff, inset 1px 0px 0px #ffffff, inset -1px -1px 15px rgba(0, 0, 0, 0.5), -3px 4px 6px rgba(0, 0, 0, 0.5);
   display: block;
-  height: 300px;
+  height: 200px;
 }
 .key .white-key:active,
 .key .white-key.active {
   box-shadow: inset 0 1px 0px #ffffff, inset 0 -1px 0px #ffffff, inset 1px 0px 0px #ffffff, inset -1px 0px 0px #ffffff, 0 4px 3px rgba(0, 0, 0, 0.7), inset 0 -1px 0px #ffffff, inset 1px 0px 0px #ffffff, inset -1px -1px 15px #000000, -3px 4px 6px rgba(0, 0, 0, 0.5);
   position: relative;
   top: -5px;
-  height: 295px;
+  height: 200px;
 }
 .key .black-key {
   content: "";
@@ -161,37 +161,6 @@ function solto_nota(nota: string) {
   .key:nth-child(14) {
     display: none;
   }
-}
-
-
-
-
-.nota_negra {
-    background-color: black;
-    color: white;
-    position: relative;
-    left: -20px;
-    margin-right: -20px;
-}
-.pianomio {
-    display: flex;
-    
-}
-
-.tecla {
-    width: 50px;
-    height: 200px;
-    border: 1px solid black;
-    
-    
-}
-
-.nota_negra {
-    background-color: black;
-    color: white;
-    width: 40px;
-    height: 120px;
-    margin-left: -20px;
 }
 
 
