@@ -1,10 +1,11 @@
 <script setup lang="ts">
-
+import { Nota } from '../modelo/nota';
 import { ref } from 'vue';
 
 const props = defineProps<{
   escala: string;
   acorde: string;
+  notas_seleccionadas: Notas[];
 }>();
 
 
@@ -65,9 +66,13 @@ function solto_nota(nota: string) {
 
 
     <li v-for="(nota, nota_id) in ref_Notas" :key="nota_id" class="key">
-      <span class="white-key" @mousedown="toco_nota(nota)" @mouseup="solto_nota(nota)" ></span>
+      <span class="white-key" @mousedown="toco_nota(nota)" @mouseup="solto_nota(nota)" >
+        <span class="nota_seleccionada" v-if="props.notas_seleccionadas!= undefined && props.notas_seleccionadas.some(n => n.nota === nota)">X</span>
+      </span>
       <span v-if="tiene_sostendio(nota)" @mousedown="toco_nota(nota_sostenido(nota))" @mouseup="solto_nota(nota_sostenido(nota))"
-        class="black-key" > </span>
+        class="black-key" > 
+        <span class="nota_seleccionada" v-if="props.notas_seleccionadas!= undefined && props.notas_seleccionadas.some(n => n.nota === nota + '#')">X</span>
+      </span>
       <br>
     </li> 
 
@@ -79,7 +84,9 @@ function solto_nota(nota: string) {
 
 <style scoped>
 
-
+.nota_seleccionada {
+  border: 3px solid red;
+}
 
 .piano {
   background: -webkit-linear-gradient(-65deg, #000000, #222222, #000000, #666666, #222222 75%);
