@@ -30,6 +30,7 @@ def getartista_page(band_name):
 
 
 getartista_page("divididos")
+getartista_page("los-ramones")
 exit()
 
 getartista_page("los-piojos")
