@@ -3,6 +3,7 @@
 import { Cancion } from '../modelo/cancion';
 import ControladorTiempo from './ControladorTiempo.vue';
 import ControladorSesion from './ControladorSesion.vue';
+import Metronomo from './metronomo.vue';
 import { EstadoSesion } from '../modelo/estadosesion';
 import { ref } from 'vue';
 
@@ -11,6 +12,7 @@ import { ref } from 'vue';
 
 const emit = defineEmits(['acciono']);
 const ctrlSesion = ref();
+const ViendoDetalle = ref(false);
 
 function acciono(valor: string, compas: number = 0) {
     //console.log("Acciono--->", valor, compas);
@@ -46,24 +48,31 @@ const props = defineProps<{ viendo_vista: string, compas: number, cancion: Canci
 
         </p>	
       </div>
-        <div class="ctrl_menu"  style="width: 80%;">
+        <div class="ctrl_menu">
           <ControladorTiempo :nro_cancion="nro_cancion" :total_canciones="total_canciones"  :compas=compas :cancion="cancion"
+          :viendo_vista="viendo_vista"
           @play="acciono('play')" @pause="acciono('pause')" @stop="acciono('stop')" @next="acciono('next')" @previous="acciono('previous')"
             @update-compas="(valor) => acciono('update-compas', valor)">
         </ControladorTiempo> 
       </div>
 
-      <div class="ctrl_menu" :class="{conectado: sesion.estado == 'conectado'}" >
+      
+      <Metronomo v-if="viendo_vista=='tocar'" ref="metronomeRef" :cancion="cancion"></Metronomo>
+
+       
+      <div class="otras_paginas">
+    
+      <div class="otra_paginas" @click="acciono('listas')"  :class="{active: viendo_vista == 'conectar'}" >
         
+          
         <ControladorSesion :sesion="sesion"
         @desconectar="acciono('desconectar')"
           
           @conectar="acciono('conectar')">
         </ControladorSesion>
       </div>
-       
-      <div class="otras_paginas">
-      <div class="otra_paginas" @click="acciono('listas')"  :class="{active: viendo_vista == 'listas'}" >
+
+        <div class="otra_paginas" @click="acciono('listas')"  :class="{active: viendo_vista == 'listas'}" v-if="ViendoDetalle">
         
           <i class="bi bi-list"></i>
         
@@ -71,24 +80,29 @@ const props = defineProps<{ viendo_vista: string, compas: number, cancion: Canci
       
 
 
-      <div class="otra_paginas" @click="acciono('editar')"  :class="{active: viendo_vista == 'editar'}" >
+      <div class="otra_paginas" @click="acciono('editar')"  :class="{active: viendo_vista == 'editar'}" v-if="ViendoDetalle">
         
             <i class="bi bi-pencil"></i>
         
       </div> 
-      <div class="otra_paginas" @click="acciono('buscar')"  :class="{active: viendo_vista == 'buscar'}" >
+      <div class="otra_paginas" @click="acciono('buscar')"  :class="{active: viendo_vista == 'buscar'}" v-if="ViendoDetalle">
         
             <i class="bi bi-globe"></i>
         
       </div>    
       
           
-          <div class="otra_paginas" @click="acciono('config')" :class="{active: viendo_vista == 'config'}" >
-            
+          <div class="otra_paginas" @click="acciono('config')" :class="{active: viendo_vista == 'config'}" v-if="ViendoDetalle">
               <i class="bi bi-gear-fill"></i>
-
-            
           </div>
+          <div class="otra_paginas" @click="ViendoDetalle = !ViendoDetalle"  v-if="ViendoDetalle" >
+              <i class="bi bi-dash"></i>
+          </div>
+
+          <div class="otra_paginas"  @click="ViendoDetalle = !ViendoDetalle"  v-if="!ViendoDetalle" >
+              <i class="bi bi-plus"></i>
+          </div>
+
         </div>
 
         
@@ -98,7 +112,7 @@ const props = defineProps<{ viendo_vista: string, compas: number, cancion: Canci
 <style scoped>
 
 .otras_paginas {
-  font-size: 50px ;
+  font-size: 30px ;
   display: flex;
   border: 1px solid;
   margin: 10px 10px 15px 10px;
@@ -151,6 +165,9 @@ const props = defineProps<{ viendo_vista: string, compas: number, cancion: Canci
 .ilogo {
   margin: 14px;
   padding-right: 12px;
+  font-size: 70px;
+  border: 1px solid #a9a8f6 ;
+  border-radius: 40px;
 
 }
 
@@ -207,7 +224,7 @@ const props = defineProps<{ viendo_vista: string, compas: number, cancion: Canci
 }
 
 .clase_tocar {
-  font-size: 80px;
+  font-size: 30px;
   padding: 10px;
 }
 .conectado {

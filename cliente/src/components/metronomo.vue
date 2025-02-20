@@ -50,7 +50,6 @@ defineExpose({ startMetronome, stopMetronome });
 .metronono {
   border: 1px solid #a9a8f6;
   border-radius: 10px;
-  width: 100%;
   font-size: 27px;
   margin: 4px;
 }

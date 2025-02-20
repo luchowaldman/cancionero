@@ -7,7 +7,7 @@ import { Tiempo } from '../modelo/tiempo';
 import Metronomo from './metronomo.vue';
 
 import 'bootstrap-icons/font/bootstrap-icons.css';
-const props = defineProps<{ compas: number, cancion: Cancion,  nro_cancion: number, total_canciones: number }>();
+const props = defineProps<{ compas: number, cancion: Cancion,  nro_cancion: number, total_canciones: number, viendo_vista: string }>();
 const emit = defineEmits(['play', 'pause', 'stop', 'next', 'previous', 'update-compas']);
 const musica = new Musica();
 const tiempo = new Tiempo();
@@ -75,15 +75,27 @@ function updateCompas(newCompas: number) {
 <template>
 
   <div>
-    
+    <div style="display: inline;">
+      
     <div class="titulocontorltiempo">
-      {{ nro_cancion + 1 }} / {{ total_canciones }} {{ cancion.cancion }} - {{ cancion.banda }}
-    </div>
-    
-  <div>
+      
+            
+            <div v-if="viendo_vista=='editar'">
 
-<div class="progress-bar">
-    <input 
+              <input type="text" v-model="cancion.cancion"/> -
+      <input type="text" v-model="cancion.banda" /> 
+            </div>
+            
+            <div v-if="viendo_vista=='tocar'"> 
+              {{ nro_cancion + 1 }} / {{ total_canciones }} 
+          {{ cancion.cancion }} - {{ cancion.banda }}
+
+          
+        <div style="display: flex; flex-wrap: wrap;">
+          
+        
+        
+          <input 
         type="range" 
         min="0" 
         :max="musica.total_compases(cancion)" 
@@ -91,45 +103,45 @@ function updateCompas(newCompas: number) {
         @input="updateCompas(currentCompas)" 
     />
     
-</div>
-
-</div>
-    
-    <div class="controls">
-      <div style="display: flex; flex-wrap: wrap;">
-        <div style="display: flex; flex-wrap: wrap;"><button style="font-size: larger;" class="boton_controller boton_controllerplay" @click="play">
+          <span class="spnTiempo">{{ tiempo.formatSegundos(segundos_actuales) }} / {{ tiempo.formatSegundos(segundos_totales) }} </span>
+          <button  class="boton_controller boton_controllerplay" @click="play">
               <i class="bi bi-play-fill"></i>
-            </button>
-            <div><span class="spnTiempo">{{ tiempo.formatSegundos(segundos_actuales) }} / {{ tiempo.formatSegundos(segundos_totales) }} </span></div>
-          </div>
+        </button>
         
         
-            <button class="boton_controller" @click="pause">
+        <button class="boton_controller" @click="pause">
               <i class="bi bi-pause-fill"></i>
             </button>
             <button class="boton_controller" @click="stop">
               <i class="bi bi-stop-fill"></i>
             </button>
-            <button class="boton_controller" @click="previous">
+      
+          <button class="boton_controller" @click="previous">
               <i class="bi bi-skip-backward-fill"></i>
             </button>
             <button class="boton_controller" @click="next">
               <i class="bi bi-skip-forward-fill"></i>
             </button>
         
-            
-            
-            
+          </div>
+          
       </div>
       
-        <div style="margin-right: 10px;">
-        <Metronomo ref="metronomeRef" :cancion="cancion"></Metronomo>
+            
+            
+            
       
-      </div>
-
+      
+        
 
     </div>
+  </div>
+  <div>
+
+
+</div>
     
+      
     
 
     
@@ -171,7 +183,7 @@ function updateCompas(newCompas: number) {
 
 .spnTiempo {
   border: 1px solid;
-  font-size: 30px;
+  font-size: 16px;
   margin: 14px;
   border-radius: 8px;
   overflow: hidden;

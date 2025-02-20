@@ -16,7 +16,8 @@
     "socket.io-client": "^4.8.1",
     "tone": "^15.0.4",
     "vexflow": "^4.2.5",
-    "vue": "^3.5.12"
+    "vue": "^3.5.12",
+    "vue-resizable": "^2.1.7"
   },
   "devDependencies": {
     "@types/node": "^22.10.5",

@@ -23,30 +23,7 @@ function actualizar_vista() {
 
 <template>
 <div>
-  <div class="controlador_session" :class="{conectado: sesion.estado == 'conectado'}">
-     
-    <div class="iniciado" v-if="sesion.estado=='conectado'">
-        <i class="bi bi-wifi"></i>
-        <button @click="emit('desconectar');" >DESCONECTAR</button>
-        <i class="bi bi-magic"></i>
-      </div>
-      
-    
-      <div class="iniciado" v-if="sesion.estado=='Desconectado'">
-        <select style="margin-right: 10px;" v-model="sesion.nombre">
-          <option value="default">default</option>
-          <option value="default2">default2</option>
-          <option value="default3">default3</option>
-          <option value="fogoneando">fogoneando</option>
-          <option value="juntada">juntada</option>
-          <option value="nuestra">nuestra</option>
-          <option value="aca vamos">aca vamos</option>
-        </select>
-        <button @click="emit('conectar');" class="btnconectar">Conectarse</button>
-      </div>
-      
-     
-</div>
+  <i class="bi bi-diagram-2"></i>Conectar
 </div>
 </template>
 

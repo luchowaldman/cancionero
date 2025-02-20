@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import { GetCanciones } from '../modelo/GetCanciones';
 import ComponenteMusicalEditar from '../components/ComponenteMusicalEditar.vue';
+import Cabecera from '../components/comp_editar/cabecera.vue';
 import { item_lista } from '../modelo/item_lista';
 import { AdminListasURL } from '../modelo/AdminListasURL';
 import { Almacenado } from '../modelo/Almacenado';
@@ -29,6 +30,7 @@ function guardar_cancioneditada() {
 </script>
 <template>
     <div class="contenedor-editar">
+        <Cabecera :cancion="cancion" :item="item"></Cabecera>
         <ComponenteMusicalEditar @cerrar="cerro_editar" @guardar="guardar_cancioneditada" :item_indice="item" :editando_cancion="true" :compas="-1" :cancion="cancion"  ref="editref">
 
         </ComponenteMusicalEditar>
