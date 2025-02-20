@@ -60,11 +60,11 @@ watch(() => props.compas, (newCompas) => {
   let ve = renglon * props.vista.tamanio_referencia * 3.7;
    ve -= props.vista.alto * 0.4;
   const nueva_pos = Math.max(ve, 0);
-  console.log('Nueva pos', nueva_pos);
+  //console.log('Nueva pos', nueva_pos);
   
   mover_scroll(nueva_pos)
       
-  console.log('Compas actual', currentCompas.value);
+  //console.log('Compas actual', currentCompas.value);
 });
 
 

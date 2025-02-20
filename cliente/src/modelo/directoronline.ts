@@ -117,7 +117,7 @@ export class DirectorOnline extends Director {
         {
             console.log("Play", this.nro_compas);
             this.reproductor = new Reproductor(this.musica.duracion_compas(this.cancion_actual) * 1000 , this.musica.total_compases(this.cancion_actual));
-            this.reproductor.setIniciaCompasHandler(this.onNroCompasRecibido.bind(this));
+            this.reproductor.setIniciaCicloHandler(this.onNroCompasRecibido.bind(this));
             this.reproductor.iniciar();
         }
         else 
@@ -127,7 +127,7 @@ export class DirectorOnline extends Director {
                     
             console.log("Play conectado", this.nro_compas);
             this.reproductor = new Reproductor(this.musica.duracion_compas(this.cancion_actual) * 1000 , this.musica.total_compases(this.cancion_actual));
-            this.reproductor.setIniciaCompasHandler(this.iniciaCompasConectado.bind(this));
+            this.reproductor.setIniciaCicloHandler(this.iniciaCompasConectado.bind(this));
             this.reproductor.iniciar();
                 }
         }

@@ -1,39 +1,18 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { Cancion } from '../modelo/cancion';
-const props = defineProps<{ cancion: Cancion }>();
+const props = defineProps<{ cancion: Cancion, bpm_encompas: number }>();
 const activeBeat = ref(-1)
 import { Reproductor } from '../modelo/reproductor';
 
-let reproductor = new Reproductor(2200, 99999999);
 
-function startMetronome() {
-   const seg = 60 / props.cancion.bpm;
-   console.log("Duracion:", seg);
-   reproductor.setDuracion(seg * 1000);
-   reproductor.iniciar();
-}
-
-function stopMetronome() {
-  reproductor.parar()
-  activeBeat.value = -1;
-  
-}
-
-
-reproductor.setIniciaCompasHandler((newCompas: number) => {
-  console.log("Nuevo compas:", newCompas);
-    activeBeat.value = (activeBeat.value + 1) % (props.cancion.compas_cantidad);
-});
-
-defineExpose({ startMetronome, stopMetronome });
 </script>
 
 <template>
   <div class="metronono">
     
 <div style="display: flex;">
-<div v-for="n in parseInt(props.cancion.compas_cantidad)" :key="n" class="beat" :class="{ beat_activo: n - 1 === activeBeat }">
+<div v-for="n in parseInt(props.cancion.compas_cantidad)" :key="n" class="beat" :class="{ beat_activo: n - 1 === bpm_encompas }">
     
     {{ n }}
   </div>

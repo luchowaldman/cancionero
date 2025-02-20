@@ -82,10 +82,12 @@ export class DirectorOffline extends Director {
     click_play() {
 
         
-            console.log("Play", this.nro_compas);
+            console.log("Play", this.cambiosHandler);
+            this.estado = 'iniciando';
+            
+            this.cambiosHandler?.(this);
             this.reproductor = new Reproductor(this.musica.duracion_compas(this.cancion_actual) * 1000 , this.musica.total_compases(this.cancion_actual));
-            this.reproductor.current_compas = this.nro_compas;
-            this.reproductor.setIniciaCompasHandler(this.onNroCompasRecibido.bind(this));
+            this.reproductor.setIniciaCicloHandler(this.onNroCompasRecibido.bind(this));
             this.reproductor.iniciar();
         
     }   
@@ -122,10 +124,16 @@ export class DirectorOffline extends Director {
         console.log("Nro Cancion recibido", nro);
     }
   
-   onNroCompasRecibido(nro: number) {
-    this.nro_compas  = nro;
-    this.cambiosCompasHandler?.(nro);
-    console.log("Nro Compas recibido", nro);
+   onNroCompasRecibido() 
+   {
+        if (this.estado == 'iniciando') {
+            this.estado = 'tocando';
+            this.cambiosHandler?.(this);
+            
+        } else { 
+            this.nro_compas++;
+        }
+        this.cambiosCompasHandler?.(this.nro_compas);
   }
   
   iniciaCompasConectado(nro: number) {

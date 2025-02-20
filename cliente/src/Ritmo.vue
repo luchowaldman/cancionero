@@ -108,7 +108,7 @@ const bpm = ref(100);
 
 let reproductor = new Reproductor(200, 200000);
 
-reproductor.setIniciaCompasHandler((newCompas: number) => {  
+reproductor.setIniciaCicloHandler((newCompas: number) => {  
     if (ref_repetir.value) {
       tocar();
     }

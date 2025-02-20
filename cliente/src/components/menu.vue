@@ -14,21 +14,32 @@ const emit = defineEmits(['acciono']);
 const ctrlSesion = ref();
 const ViendoDetalle = ref(false);
 
-function acciono(valor: string, compas: number = 0) {
+function acciono(valor: string, compas: number = 0, ) {
     //console.log("Acciono--->", valor, compas);
     emit('acciono', valor, compas);
     
 }
 const props = defineProps<{ viendo_vista: string, compas: number, cancion: Cancion, editando_cancion: Cancion
-  ,  nro_cancion: number, total_canciones: number, sesion: EstadoSesion, estado: string }>()
+  ,  nro_cancion: number, total_canciones: number, sesion: EstadoSesion, estado: string, bpm_encompas: number }>()
 
 
   function actualizar_vista() {
     ctrlSesion?.value.actualizar_vista();
   }
 
-  defineExpose ({ actualizar_vista  });
+  const metronomeRef = ref();
+  function startMetronome() {
+    metronomeRef.value.startMetronome();
+  }
 
+  function stopMetronome() {
+    metronomeRef.value.stopMetronome();
+  }
+
+
+  defineExpose ({ actualizar_vista, startMetronome, stopMetronome   });
+
+  
 
 
 </script>
@@ -57,7 +68,7 @@ const props = defineProps<{ viendo_vista: string, compas: number, cancion: Canci
       
 
       
-      <Metronomo v-if="viendo_vista=='tocar' && estado=='tocando'" ref="metronomeRef" :cancion="cancion"></Metronomo>
+      <Metronomo v-if="viendo_vista=='tocar' && estado=='tocando'" ref="metronomeRef" :bpm_encompas="bpm_encompas" :cancion="cancion"></Metronomo>
 
        
       <div class="otras_paginas">

@@ -15,7 +15,7 @@ export class Director {
     lista: item_lista[];
     cancion_actual: Cancion;
     esDirector: boolean;
-    estado: string;
+    estado: string = "pausado";
     
     nro_compas: number;
     nro_cancion: number;

@@ -10,6 +10,7 @@ import Listas from './pages/listas.vue';
 import Editar from './pages/editar.vue';
 import Buscar from './pages/buscar.vue';
 import Configuracion from './pages/configuracion.vue';
+import { Reproductor } from './modelo/reproductor';
 
 import { ModeloConfiguracion  } from './modelo/modeloconfiguracion';
 import { Cancion } from './modelo/cancion';
@@ -26,7 +27,6 @@ import { DirectorOnline } from './modelo/directoronline';
 
 
 
-
 // VISTA
 const cancion_ref  = ref(new Cancion("Cancion no cargada", "sin banda", new Acordes([], []), new Letra([])));
 const sesion_ref = ref(new EstadoSesion());
@@ -34,6 +34,35 @@ const compas_ref = ref(-2);
 const editando_item = ref(new item_lista("no song name", "no band name"));
 const editando_cancion = ref(new Cancion("no song name", "no band name", new Acordes([new Parte("p1", ["C"])], [0]), new Letra([[""]]), 120, 4, 4, 4, "C"));
 const viendo = ref("tocar");
+
+
+let reproductor = new Reproductor(2200, 99999999);
+
+
+function startReproduccion() 
+{
+
+  console.log("Iniciando reproduccion");
+   const seg = 60 / cancion_ref.value.bpm;
+   console.log("Duracion:", seg);
+   reproductor.setDuracion(seg * 1000);
+   reproductor.iniciar();
+}
+
+function stopMetronome() {
+  reproductor.pausar()
+}
+
+
+const bpm_encompas = ref(0);
+
+reproductor.setIniciaCicloHandler(() => {
+  faltan_parainicio.value = faltan_parainicio.value - 1;
+  bpm_encompas.value = (bpm_encompas.value + 1) % cancion_ref.value.compas_cantidad;
+});
+
+
+
 
 // VEO LA CONFIGURACION
 let config_load: string | null = localStorage.getItem("configuracion")
@@ -63,8 +92,24 @@ const ctrlMenu = ref();
 
 viendo.value = localStorage.getItem("viendo") || "tocar";
 let director: Director = new DirectorOffline(configuracionObj);
-const director_ref = ref(director);
+  director.setcambiosHandler((directornuevo: Director) => {
+    
+    
+    console.log("Estado _red")
+    sesion_ref.value = directornuevo.configuracion.sesion;
+    if (estado_ref.value == 'pausado' && directornuevo.estado != 'pausado') {
+      faltan_parainicio.value = cancion_ref.value.compas_cantidad; 
+      startReproduccion();
+      
+    }
+    director.set_nro_cancion(directornuevo.nro_cancion);
+    
+    estado_ref.value = directornuevo.estado;
+    ctrlMenu.value?.actualizar_vista();
+  });
 
+const director_ref = ref(director);
+const faltan_parainicio = ref(-1);
 const estado_ref = ref(director.estado);
 const conectado = localStorage.getItem("conectado") || "no";
 
@@ -73,6 +118,8 @@ function Conectar() {
 
   director = new DirectorOnline(configuracionObj);
   director.setcambiosHandler((directornuevo: Director) => {
+    
+    console.log("Estado _red")
     sesion_ref.value = directornuevo.configuracion.sesion;
     estado_ref.value = directornuevo.estado;
     ctrlMenu.value?.actualizar_vista();
@@ -200,14 +247,19 @@ if (viendo.value == 'editar') {
 
 <div>
 
-       
-
   <Menu 
   :viendo_vista="viendo" :nro_cancion="director_ref.nro_cancion" :sesion="sesion_ref" 
   :total_canciones="director_ref.total_canciones" @acciono="acciono" 
   :compas="compas_ref" :cancion="cancion_ref" :ref="ctrlMenu"
   :editando_cancion="editando_cancion" :estado="estado_ref" :conectado="conectado" :director="director_ref"
+   :bpm_encompas="bpm_encompas"
   ></Menu>
+
+
+
+  <div class="carteliniciando" v-if="estado_ref=='iniciando'">
+        {{ faltan_parainicio }}
+   </div>    
 
     <Tocar v-if="viendo=='tocar'"  @acciono="acciono" :compas="compas_ref" :cancion="cancion_ref"></Tocar>
     <Listas v-if="viendo=='listas'" :nro_cancion="director.nro_cancion"  @acciono="acciono"></Listas>
@@ -243,5 +295,14 @@ if (viendo.value == 'editar') {
   right: 0;
   z-index: 9999; /* Asegura que se muestre encima de otros elementos */
 }
-
+.carteliniciando {
+  position: absolute;
+  top: 20px;
+  font-size: 500px;
+  border: 5px solid #a9a8f6;
+  margin-left: 300px;
+  padding-left: 40px;
+  padding-right: 40px;
+  border-radius: 60px;
+}
 </style>
