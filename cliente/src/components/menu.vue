@@ -48,13 +48,13 @@ const props = defineProps<{ viendo_vista: string, compas: number, cancion: Canci
 
         </p>	
       </div>
-        <div class="ctrl_menu">
+        
           <ControladorTiempo :nro_cancion="nro_cancion" :total_canciones="total_canciones"  :compas=compas :cancion="cancion"
           :viendo_vista="viendo_vista"
           @play="acciono('play')" @pause="acciono('pause')" @stop="acciono('stop')" @next="acciono('next')" @previous="acciono('previous')"
             @update-compas="(valor) => acciono('update-compas', valor)">
         </ControladorTiempo> 
-      </div>
+      
 
       
       <Metronomo v-if="viendo_vista=='tocar'" ref="metronomeRef" :cancion="cancion"></Metronomo>
@@ -62,7 +62,7 @@ const props = defineProps<{ viendo_vista: string, compas: number, cancion: Canci
        
       <div class="otras_paginas">
     
-      <div class="otra_paginas" @click="acciono('listas')"  :class="{active: viendo_vista == 'conectar'}" >
+      <div class="otra_paginas"  :class="{active: viendo_vista == 'conectar'}" >
         
           
         <ControladorSesion :sesion="sesion"
