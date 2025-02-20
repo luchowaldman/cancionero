@@ -94,14 +94,15 @@ function updateCompas(newCompas: number) {
         <div style="display: flex; flex-wrap: wrap;">
           
         
-        
           <input 
-        type="range" 
-        min="0" 
-        :max="musica.total_compases(cancion)" 
-        v-model="currentCompas" 
-        @input="updateCompas(currentCompas)" 
-    />
+    type="range" 
+    min="0" 
+    :max="musica.total_compases(cancion)" 
+    v-model="currentCompas" 
+    @input="updateCompas(currentCompas)" 
+    style="accent-color: #a9a8f6;"
+/>
+
     
           <span class="spnTiempo">{{ tiempo.formatSegundos(segundos_actuales) }} / {{ tiempo.formatSegundos(segundos_totales) }} </span>
           <button  class="boton_controller boton_controllerplay" @click="play">
