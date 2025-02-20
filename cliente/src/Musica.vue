@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { MidiPlayer} from './modelo/midiplayer';
 import Pianocontrol from './components/pianocontrol.vue';
+import Pentagrama from './components/pentagrama.vue';
 
 import Nota from './modelo/Midi/nota';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -26,7 +27,6 @@ function nombre_nota(numero: number)
       const toan = rn % 7;
       let modif = "";
       let escala = Math.floor((rn - 1) / 7);
-      console.log("nombre_nota", rn, toan, escala);
       switch (toan) {
         case 1: return "C" + modif + escala;
         case 2: return "D" + modif + escala;
@@ -209,6 +209,9 @@ fetch('data/notas_midi/' + archivos_instrumentos[id_instrumeto]  +'.json')
 
 <template>
     <div class="contMusica">
+      <Pentagrama></Pentagrama>
+      
+
       <div class="cabecera">
         <div style="display: flex;"> 
           <div style="display: flex;">
@@ -328,4 +331,6 @@ fetch('data/notas_midi/' + archivos_instrumentos[id_instrumeto]  +'.json')
   background-color: red;
   color: white;
 }
+
+
 </style>

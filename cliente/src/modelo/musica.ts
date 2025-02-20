@@ -10,6 +10,34 @@ export class Musica {
     
 
   }
+
+  getDistanciaNotas(nota1: string, nota2: string, escala: string): number {
+    
+    const acores_escala = this.GetNotasdeescala(escala);
+
+    console.log(nota1, nota2, acores_escala);
+    let octava_nota1 = 0;
+
+    if (!isNaN(parseInt(nota1.slice(-1)))) {
+        octava_nota1 = parseInt(nota1.slice(-1));
+        
+    }
+    
+    let octava_nota2 = 0;
+    if (!isNaN(parseInt(nota2.slice(-1)))) {
+        octava_nota2 = parseInt(nota2.slice(-1));
+    }
+    
+    let nota_nombre1 = nota1.replace(/[0-9]/g, '');
+    let nota_nombre2 = nota2.replace(/[0-9]/g, '');
+    let nro_nota1 = acores_escala.indexOf(nota_nombre1);
+    let nro_nota2 = acores_escala.indexOf(nota_nombre2);
+
+    console.log(nota_nombre1, nota_nombre2);
+    console.log(nro_nota1, nro_nota2);
+    let distancia = nro_nota1 - nro_nota2 + ((octava_nota1 - octava_nota2) * 7);
+    return distancia;
+  } 
     
     
     
@@ -86,20 +114,34 @@ export class Musica {
         return this.notas[nota];
     }
 
-    GetNotasdeescala(modo: string, nota: number) 
+    GetNotasdeescala(escala: string) 
     {
-        let nota_ind = nota;
-        let notas = [this.notas[nota_ind]];
-        const modo_susecion: number[] = this.modos[modo];
-
-        for (let i = 0; i < modo_susecion.length; i++) {
-            nota_ind += modo_susecion[i];
-            notas.push(this.notas[nota_ind % (this.notas.length)]);
+        
+        if (escala == "")
+            return [];
+        if (escala == undefined)
+            return [];
+        let buscar = escala;
+        let modo_escala = 'mayor';
+        if (escala.includes('m')) {
+            buscar = buscar.replace('m', '');
+            modo_escala = 'menor';
         }
         
         
-        return notas;
-    }
+        let nota_ind = this.numeroNota(buscar);
+        const modo_susecion: number[] = this.modos[modo_escala];
+        const modo_paraacorde: string[] = this.modos_paraacorde[modo_escala];
+
+        let acordes = [this.notas[nota_ind] + modo_paraacorde[0]];
+        for (let i = 0; i < modo_susecion.length; i++) {
+            nota_ind += modo_susecion[i];
+            acordes.push(this.notas[nota_ind % (this.notas.length)] );
+        }
+        console.log(acordes);
+        
+        return acordes;
+        }
 
     
     GetAcordesdeescala(escala: string) 
@@ -126,7 +168,6 @@ export class Musica {
             nota_ind += modo_susecion[i];
             acordes.push(this.notas[nota_ind % (this.notas.length)] + modo_paraacorde[i+1]);
         }
-        console.log(acordes);
         
         return acordes;
     }
