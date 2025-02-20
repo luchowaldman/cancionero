@@ -838,13 +838,15 @@ function agregar_a_secuencia()
 }
 
 .parte_secuencia {
-  font-size: large;
+  font-size: small;
   margin: 1px;
   padding: 5px;
   border: 1px solid;
   border-radius: 5px;
   color: #30a0d3;
   margin-right: 10px;
+  position: absolute;
+  margin-top: 80px;
   
 }
 .ordenparte {

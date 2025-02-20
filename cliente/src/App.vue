@@ -64,6 +64,8 @@ const ctrlMenu = ref();
 viendo.value = localStorage.getItem("viendo") || "tocar";
 let director: Director = new DirectorOffline(configuracionObj);
 const director_ref = ref(director);
+
+const estado_ref = ref(director.estado);
 const conectado = localStorage.getItem("conectado") || "no";
 
 
@@ -72,6 +74,7 @@ function Conectar() {
   director = new DirectorOnline(configuracionObj);
   director.setcambiosHandler((directornuevo: Director) => {
     sesion_ref.value = directornuevo.configuracion.sesion;
+    estado_ref.value = directornuevo.estado;
     ctrlMenu.value?.actualizar_vista();
   });
 

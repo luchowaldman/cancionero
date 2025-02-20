@@ -20,7 +20,7 @@ function acciono(valor: string, compas: number = 0) {
     
 }
 const props = defineProps<{ viendo_vista: string, compas: number, cancion: Cancion
-  ,  nro_cancion: number, total_canciones: number, sesion: EstadoSesion }>()
+  ,  nro_cancion: number, total_canciones: number, sesion: EstadoSesion, estado: string }>()
 
 
   function actualizar_vista() {
@@ -57,7 +57,7 @@ const props = defineProps<{ viendo_vista: string, compas: number, cancion: Canci
       
 
       
-      <Metronomo v-if="viendo_vista=='tocar'" ref="metronomeRef" :cancion="cancion"></Metronomo>
+      <Metronomo v-if="viendo_vista=='tocar' && estado=='tocando'" ref="metronomeRef" :cancion="cancion"></Metronomo>
 
        
       <div class="otras_paginas">
@@ -118,7 +118,6 @@ const props = defineProps<{ viendo_vista: string, compas: number, cancion: Canci
   margin: 10px 10px 15px 10px;
   right: 0 auto;
   border-radius: 20px;
-  color: #a9a8f6;
   height: 44%;
   margin-left: auto
 }
@@ -137,7 +136,6 @@ const props = defineProps<{ viendo_vista: string, compas: number, cancion: Canci
   border: 1px solid;
   margin: 5px 10px 5px 10px;
   border-radius: 20px;
-  color: #a9a8f6;
 }
 
 .ctrl_menu {
@@ -163,11 +161,9 @@ const props = defineProps<{ viendo_vista: string, compas: number, cancion: Canci
 }
 
 .ilogo {
-  margin: 14px;
+  margin: 1px;
   padding-right: 12px;
-  font-size: 70px;
-  border: 1px solid #a9a8f6 ;
-  border-radius: 40px;
+  font-size: 50px;
 
 }
 

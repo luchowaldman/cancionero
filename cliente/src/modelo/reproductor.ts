@@ -5,6 +5,7 @@ export class Reproductor  {
     private duracion_compas: number;
     private total_compases: number;
     public current_compas: number;
+    public estado: 'pausa' | 'iniciando' | 'tocando' = "pausa";
 
     private intervalId: any;
 

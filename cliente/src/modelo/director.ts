@@ -15,6 +15,7 @@ export class Director {
     lista: item_lista[];
     cancion_actual: Cancion;
     esDirector: boolean;
+    estado: string;
     
     nro_compas: number;
     nro_cancion: number;
@@ -26,6 +27,7 @@ export class Director {
         this.cambiosHandler = handler;
     }
     
+
     
     protected cambiosCancionHandler?: (cancion: Cancion) => void;
 
