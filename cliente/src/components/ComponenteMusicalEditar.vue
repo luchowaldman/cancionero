@@ -118,6 +118,7 @@ function forsarcompases_escala() {
 }
 function estilo_acorde(acorde: string) 
 {
+  return {};
   if (ref_escala.value.length == 0 && props.cancion.escala != "") {
     ref_escala.value = musica.GetAcordesdeescala(props.cancion.escala);
 
@@ -663,16 +664,23 @@ function agregar_a_secuencia()
           </div>
           
           <div class="acordediv acordediv_parte" :style="estilo_acorde(acorde)"
-           v-if="((mostrando_separadores) || (editando_parte)) && refiereedit_parteid == index_parte" 
+           
+          v-if="( arrastrando_acordes) && refiereedit_parteid == index_parte" 
             @drop="dropeo_intervalo(index)"
             @dragover="onDragOver($event)"
             @click="click_barra(index)">
             <span  > | </span>
           </div>
+          
+          <div style="display: inline-block; border: 1px solid red; padding: 4px; margin-right: 14px; margin-left: -10px; "
+            v-if="(editando_parte) && refiereedit_parteid == index_parte"            
+            class="paraagregar"
+            @click="click_combinaracorde(index)">|</div>
           <div style="display: inline-block; border: 1px solid red; padding: 4px; margin-right: 14px; margin-left: -10px; "
             v-if="(editando_parte) && refiereedit_parteid == index_parte"            
             class="paraagregar"
             @click="click_borraracordeparte(index)">x</div>
+            
         </template>
 
         </div>

@@ -19,7 +19,7 @@ function acciono(valor: string, compas: number = 0) {
     emit('acciono', valor, compas);
     
 }
-const props = defineProps<{ viendo_vista: string, compas: number, cancion: Cancion
+const props = defineProps<{ viendo_vista: string, compas: number, cancion: Cancion, editando_cancion: Cancion
   ,  nro_cancion: number, total_canciones: number, sesion: EstadoSesion, estado: string }>()
 
 
@@ -50,7 +50,7 @@ const props = defineProps<{ viendo_vista: string, compas: number, cancion: Canci
       </div>
         
           <ControladorTiempo :nro_cancion="nro_cancion" :total_canciones="total_canciones"  :compas=compas :cancion="cancion"
-          :viendo_vista="viendo_vista"
+          :viendo_vista="viendo_vista" :editando_cancion="editando_cancion" :estado="estado"
           @play="acciono('play')" @pause="acciono('pause')" @stop="acciono('stop')" @next="acciono('next')" @previous="acciono('previous')"
             @update-compas="(valor) => acciono('update-compas', valor)">
         </ControladorTiempo> 

@@ -7,7 +7,7 @@ import { Tiempo } from '../modelo/tiempo';
 import Metronomo from './metronomo.vue';
 
 import 'bootstrap-icons/font/bootstrap-icons.css';
-const props = defineProps<{ compas: number, cancion: Cancion,  nro_cancion: number, total_canciones: number, viendo_vista: string }>();
+const props = defineProps<{ compas: number, cancion: Cancion,  nro_cancion: number, total_canciones: number, viendo_vista: string, editando_cancion: Cancion }>();
 const emit = defineEmits(['play', 'pause', 'stop', 'next', 'previous', 'update-compas']);
 const musica = new Musica();
 const tiempo = new Tiempo();
@@ -82,8 +82,8 @@ function updateCompas(newCompas: number) {
             
             <div v-if="viendo_vista=='editar'">
 
-              <input type="text" v-model="cancion.cancion"/> -
-      <input type="text" v-model="cancion.banda" /> 
+              <input type="text" v-model="editando_cancion.cancion"/> -
+      <input type="text" v-model="editando_cancion.banda" /> 
             </div>
             
             <div v-if="viendo_vista=='tocar'"> 

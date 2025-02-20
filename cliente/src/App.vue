@@ -206,6 +206,7 @@ if (viendo.value == 'editar') {
   :viendo_vista="viendo" :nro_cancion="director_ref.nro_cancion" :sesion="sesion_ref" 
   :total_canciones="director_ref.total_canciones" @acciono="acciono" 
   :compas="compas_ref" :cancion="cancion_ref" :ref="ctrlMenu"
+  :editando_cancion="editando_cancion" :estado="estado_ref" :conectado="conectado" :director="director_ref"
   ></Menu>
 
     <Tocar v-if="viendo=='tocar'"  @acciono="acciono" :compas="compas_ref" :cancion="cancion_ref"></Tocar>
