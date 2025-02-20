@@ -97,7 +97,7 @@ function color_x_index(index: number) {
 
 const ref_escala = ref([] as string[]);
 const ref_noescala = ref([] as string[]);
-//ref_escala.value = musica.GetAcordesdeescala(props.cancion.escala)
+ref_escala.value = musica.GetAcordesdeescala(props.cancion.escala)
 
 function forsarcompases_escala() {
   ref_escala.value = musica.GetAcordesdeescala(props.cancion.escala);
@@ -477,6 +477,24 @@ function agregar_a_secuencia()
   props.cancion.acordes.orden_partes.push(0);
 }
 
+
+
+function click_editartexto(parteorden: number) {
+  editando_parteordendid.value = parteorden;
+  editando_texto.value = true;
+  let newEdit = "";
+  textos_parte(parteorden).forEach((texto) => {
+    newEdit  += texto.replace('/n','\n') + "|";
+  });
+  if (newEdit.endsWith("|")) {
+    newEdit = newEdit.slice(0, -1);
+  }
+  texto_editado.value = newEdit;
+  acordes_iniciales.value = texto_editado.value.split('|').length;
+  console.log("Textos", texto_editado.value.split('|'))
+}
+
+
 </script>
 
 
@@ -498,7 +516,6 @@ function agregar_a_secuencia()
         <div style="display: flex;">
             <div class="parte_secuencia"> {{   cancion.acordes.partes[cancion.acordes.orden_partes[index]].nombre }} </div>
             <div>
-              
               Acordes : <div v-for="(acorde) in cancion.acordes.partes[cancion.acordes.orden_partes[index]].acordes" class="acordediv" :key="acorde" :style="estilo_acorde(acorde)">
             <span  >{{ acorde }}</span>
           </div>
@@ -661,6 +678,12 @@ function agregar_a_secuencia()
                   @dragover="onDragOver($event)"
             >
             <span  >{{ acorde }}</span>
+            <span class="btnSpan" v-if="(editando_parte) && refiereedit_parteid == index_parte"            
+            @click="click_combinaracorde(index)">|</span>
+          <span class="btnSpan"
+            v-if="(editando_parte) && refiereedit_parteid == index_parte"            
+            @click="click_borraracordeparte(index)">x</span>
+          
           </div>
           
           <div class="acordediv acordediv_parte" :style="estilo_acorde(acorde)"
@@ -672,14 +695,6 @@ function agregar_a_secuencia()
             <span  > | </span>
           </div>
           
-          <div style="display: inline-block; border: 1px solid red; padding: 4px; margin-right: 14px; margin-left: -10px; "
-            v-if="(editando_parte) && refiereedit_parteid == index_parte"            
-            class="paraagregar"
-            @click="click_combinaracorde(index)">|</div>
-          <div style="display: inline-block; border: 1px solid red; padding: 4px; margin-right: 14px; margin-left: -10px; "
-            v-if="(editando_parte) && refiereedit_parteid == index_parte"            
-            class="paraagregar"
-            @click="click_borraracordeparte(index)">x</div>
             
         </template>
 
@@ -853,8 +868,6 @@ function agregar_a_secuencia()
   border-radius: 5px;
   color: #30a0d3;
   margin-right: 10px;
-  position: absolute;
-  margin-top: 80px;
   
 }
 .ordenparte {
@@ -896,5 +909,15 @@ textarea, input, select {
   margin: 2px;
   color: red;
   background-color: #a9a8f6;
+}
+.btnSpan {
+  border: 1px solid;
+  margin: 2px;
+  cursor: pointer;
+}
+
+.btnSpan:hover {
+  background-color: #a9a8f6;
+  color: white
 }
 </style>
