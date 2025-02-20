@@ -30,7 +30,7 @@ function guardar_cancioneditada() {
 </script>
 <template>
     <div class="contenedor-editar">
-        <Cabecera :cancion="cancion" :item="item"></Cabecera>
+        <Cabecera @cerrar="cerro_editar" @guardar="guardar_cancioneditada"  :cancion="cancion" :item="item"></Cabecera>
         <ComponenteMusicalEditar @cerrar="cerro_editar" @guardar="guardar_cancioneditada" :item_indice="item" :editando_cancion="true" :compas="-1" :cancion="cancion"  ref="editref">
 
         </ComponenteMusicalEditar>

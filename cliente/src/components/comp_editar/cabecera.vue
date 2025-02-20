@@ -4,7 +4,39 @@ import { Cancion } from '../modelo/cancion';
 
 
 
-defineProps<{ cancion: Cancion, item: item_lista }>()
+const props = defineProps<{ cancion: Cancion, item: item_lista }>()
+const emit = defineEmits(['cerrar', 'guardar', 'nuevo']);
+
+
+function DescargarJSON() {
+    const cancionJSON = JSON.stringify({
+      cancion: props.cancion.cancion,
+      banda: props.cancion.banda,
+      acordes: {
+        partes: props.cancion.acordes.partes.map(parte => ({
+          nombre: parte.nombre,
+          acordes: parte.acordes
+        })),
+        orden_partes: props.cancion.acordes.orden_partes
+      },
+      escala: props.cancion.escala,
+      letras: props.cancion.letras.renglones,
+      bpm: props.cancion.bpm,
+      calidad: props.cancion.calidad,
+      compas_cantidad: props.cancion.compas_cantidad,
+      compas_unidad: props.cancion.compas_unidad,
+    });
+
+
+    const blob = new Blob([cancionJSON], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    const nombreArchivo = `${props.cancion.banda.replace(/\s+/g, '-')}_${props.cancion.cancion.replace(/\s+/g, '-')}.json`.toLocaleLowerCase();
+    a.download = nombreArchivo;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
 
 </script>
 
