@@ -41,7 +41,7 @@ export class DirectorOffline extends Director {
         super(Configuracion);
         this.configuracion = Configuracion;
         this.nro_compas = 0;
-        this.nro_cancion = 0;
+        this.nro_cancion = parseInt(localStorage.getItem('nro_cancion') || '0');
         this.lista = [new item_lista("intoxicados", "fuego") ];
         this.cancion_actual = new Cancion("Cancion no cargada", "sin banda");
         this.esDirector = true;
@@ -69,7 +69,7 @@ export class DirectorOffline extends Director {
     update_compas(nro: number) {
         this.nro_compas = parseInt(nro.toString());
         this.cambiosCompasHandler?.(nro);
-        this.reproductor.current_compas = this.nro_compas;
+        
         //console.log("Compas actualizado", nro);
     }
 
@@ -120,6 +120,7 @@ export class DirectorOffline extends Director {
 
     onNroCancionRecibido(nro: number) {
         this.nro_cancion  = nro;
+        localStorage.setItem('nro_cancion', this.nro_cancion.toString());
         this.obtenerCancion()
         console.log("Nro Cancion recibido", nro);
     }

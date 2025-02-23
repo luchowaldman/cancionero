@@ -53,7 +53,25 @@ def procesar_html_artista(band_name):
 # Ejemplo de uso
 
 
+
+procesar_html_artista("mala-fama")
 procesar_html_artista("bizarrap")
+procesar_html_artista("phil-collins")
+procesar_html_artista("yes")
+procesar_html_artista("ramones")
+procesar_html_artista("muse")
+procesar_html_artista("radiohead")
+procesar_html_artista("u2")
+procesar_html_artista("genesis")
+procesar_html_artista("coldplay")
+procesar_html_artista("divididos")
+procesar_html_artista("traveling-wilburys")
+procesar_html_artista("david-bowie")
+procesar_html_artista("elton-john")
+
+
+
+exit()
 procesar_html_artista("dillom")
 procesar_html_artista("nathy-peluso")
 procesar_html_artista("los-caballeros-de-la-quema")

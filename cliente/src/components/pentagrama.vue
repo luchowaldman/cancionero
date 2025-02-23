@@ -4,15 +4,18 @@ import { ref } from "vue"
 import Nota from '../modelo/Midi/nota';
 import { Musica } from '../modelo/musica';
 
-defineProps<{ msg: string }>()
+const props = defineProps<{ clave: string, notas: Nota[][] }>()
+
+
 
 const buscar = ref("𝅘𝅥𝅯");
 const nota_en_top0 = ref("G5");
-const notas = [[new Nota("C6", 2), new Nota("C4", 4), new Nota("C5", 2)], [new Nota("D4", 4)], [new Nota("C4", 4)]];
-
-
+if (props.clave == "F") {
+  nota_en_top0.value = "F4";
+}
 const musica = new Musica();
-
+const nota_sol = new Nota("G4", 0);
+const nota_fa = new Nota("F3", 0);
 function estilo_nota(nota: Nota) 
 {
   let top = musica.getDistanciaNotas(nota_en_top0.value, nota.nota, "C") * 6;
@@ -64,17 +67,21 @@ function getnota(nota: Nota) {
 </script>
 
 <template>
-  <div>
+  <div style="position: relative;">
 <div style="font-family: 'Noto Music'; font-size: 50px; display: flex;">
   
   
   
-  <div>
-    <div style="position: absolute;" :style="{ top: '50px'}">𝄞</div>
-    <div style="position: relative;"><img src="/img/pentagrama.png" /></div>
+  <div v-if="clave == 'G'" :style="estilo_nota(nota_sol)">
+    <div  :style="{ top: '50px'}">𝄞</div>
+    
+  </div>  
+  <div v-if="clave == 'F'" :style="estilo_nota(nota_fa)">
+    <div  :style="{ top: '50px'}">𝄢</div>
+    
   </div>  
   <div>
-    <div style="position: relative;"><img src="/img/pentagrama.png" /></div>
+    <div ><img src="/img/pentagrama.png" /></div>
   </div>  
 
   
@@ -96,10 +103,7 @@ function getnota(nota: Nota) {
 
 
 
-
-<div style="font-family: 'Noto Music'; font-size: 50px;">  
-        𝄆 𝄙𝆏 𝅗𝅘𝅥𝅘𝅥𝅯𝅘𝅥𝅱 𝄞𝄟𝄢 𝄾𝄿𝄎 𝄴 𝄶𝅁 𝄭𝄰 𝇛𝇜 𝄊 𝄇 𝀸𝀹𝀺𝀻𝀼𝀽 𝈀𝈁𝈂𝈃𝈄𝈅
-</div></div>
+</div>
 </template>
 
 <style scoped>

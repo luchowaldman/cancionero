@@ -29,8 +29,31 @@ def getartista_page(band_name):
         print(f'Failed to download page: {url} (Status code: {response.status_code})')
 
 
+
+getartista_page("mala-fama")
+
+exit()
+getartista_page("bizarrap")
+getartista_page("traveling-wilburys")
+getartista_page("phil-collins")
+getartista_page("ramones")
+exit()
+getartista_page("coldplay")
 getartista_page("divididos")
 getartista_page("los-ramones")
+getartista_page("muse")
+getartista_page("radiohead")
+getartista_page("u2")
+getartista_page("genesis")
+getartista_page("phill-collins")
+getartista_page("yes")
+getartista_page("The-Traveling-Wilburys")
+getartista_page("david-bowie")
+getartista_page("elton-john")
+
+
+
+
 exit()
 
 getartista_page("los-piojos")

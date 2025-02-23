@@ -53,6 +53,23 @@ def download_cifraclub_artista(band_name):
         download_cifraclub_page(band_name, song_name)
 
 
+download_cifraclub_artista("mala-fama")
+download_cifraclub_artista("bizarrap")
+download_cifraclub_artista("phil-collins")
+download_cifraclub_artista("yes")
+download_cifraclub_artista("ramones")
+download_cifraclub_artista("muse")
+download_cifraclub_artista("radiohead")
+download_cifraclub_artista("u2")
+download_cifraclub_artista("genesis")
+download_cifraclub_artista("coldplay")
+download_cifraclub_artista("divididos")
+download_cifraclub_artista("traveling-wilburys")
+download_cifraclub_artista("david-bowie")
+download_cifraclub_artista("elton-john")
+exit()
+
+
 
 download_cifraclub_artista("bizarrap")
 download_cifraclub_artista("dillom")

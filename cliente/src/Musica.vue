@@ -205,12 +205,34 @@ fetch('data/notas_midi/' + archivos_instrumentos[id_instrumeto]  +'.json')
     }
 
 
+    const notasPen: Nota[][] = [[new Nota("C6", 2), new Nota("C4", 4), new Nota("C5", 2)], [new Nota("D4", 4)], [new Nota("D4", 4)], [new Nota("C4", 4)]];
+
+
 </script>
 
 <template>
+    <div  >
     <div class="contMusica">
-      <Pentagrama></Pentagrama>
-      
+      <Pentagrama clave="G" :notas="notasPen"></Pentagrama>
+      <Pentagrama clave=""  :notas="notasPen"></Pentagrama>
+      <Pentagrama clave=""  :notas="notasPen"></Pentagrama>
+      <Pentagrama clave=""  :notas="notasPen"></Pentagrama>
+      <Pentagrama clave=""  :notas="notasPen"></Pentagrama>
+    </div>
+    <div class="contMusica">
+      <Pentagrama clave="F" :notas="notasPen"></Pentagrama>
+      <Pentagrama clave=""  :notas="notasPen"></Pentagrama>
+      <Pentagrama clave=""  :notas="notasPen"></Pentagrama>
+      <Pentagrama clave=""  :notas="notasPen"></Pentagrama>
+      <Pentagrama clave=""  :notas="notasPen"></Pentagrama>
+    </div>
+
+
+    
+
+
+
+
 
       <div class="cabecera">
         <div style="display: flex;"> 
@@ -332,5 +354,8 @@ fetch('data/notas_midi/' + archivos_instrumentos[id_instrumeto]  +'.json')
   color: white;
 }
 
+.contMusica {
+  display: flex;
+}
 
 </style>
