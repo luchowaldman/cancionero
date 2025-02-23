@@ -33,13 +33,13 @@ function estilo_nota(nota: Nota)
 function getnota(nota: Nota) { 
   const duracion = nota.duracion;
   if (duracion == 1) {
-    return "0";
+    return "o";
   }
   if (duracion == 2) {
     return "𝅗";
   }
   if (duracion == 4) {
-    return "𝅘𝅥";a
+    return "𝅘𝅥";
   }
   if (duracion == 8) {
     return "𝅘𝅥𝅯";

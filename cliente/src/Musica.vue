@@ -176,6 +176,7 @@ fetch('data/notas_midi/' + archivos_instrumentos[id_instrumeto]  +'.json')
       }
    }
 
+   
     function tocar() 
     {
       const bpm = 120;
@@ -203,18 +204,71 @@ fetch('data/notas_midi/' + archivos_instrumentos[id_instrumeto]  +'.json')
     function ver_acorde(acordeid: number) {
       ref_viendoacorde.value = acordeid;
     }
+
     const notasPen: Nota[][] = [[new Nota("C6", 2), new Nota("C4", 4), new Nota("C5", 2)], [new Nota("D4", 4)], [new Nota("D4", 4)], [new Nota("C4", 4)]];
     const comp1 = [[new Nota("E4", 4)], [new Nota("E4", 4)], [new Nota("F4", 4)], [new Nota("G4", 4)]];
     const comp2 = [[new Nota("G4", 4)], [new Nota("F4", 4)], [new Nota("E4", 4)], [new Nota("D4", 4)]];
     const comp3 = [[new Nota("C4", 4)], [new Nota("C4", 4)], [new Nota("D4", 4)], [new Nota("E4", 4)]];
     const comp4= [[new Nota("E4", 4)], [new Nota("D4", 8)], [new Nota("D4", 2)]];
 
-    const baj1= [[new Nota("C3", 2), new Nota("E3", 2), new Nota("G3", 2)]];
-    const baj2= [[new Nota("G3", 2)]];
+    const baj1= [[new Nota("C3", 1), new Nota("E3", 1), new Nota("G3", 1)]];
+    const baj2= [[new Nota("G3", 1)]];
     
     const cancion_G = [comp1, comp2, comp3, comp4];
     const cancion_F = [baj1, baj1, baj1, baj2];
 
+  
+  
+    
+   function tocarparti() {
+      
+      const bpm = 80;
+        const duracion_blanca = (60 / bpm) * 4;
+        let delay = 0;
+        for (let i = 0; i < cancion_G.length; i++) 
+        {
+            for (let x = 0; x < cancion_G[i].length; x++) {
+              const acorde = cancion_G[i][x];
+              let menor_del_acorde = 11111;
+              for (let j = 0; j < acorde.length; j++) {
+                const nota = acorde[j];
+                const duracion = duracion_blanca / nota.duracion;
+                if (duracion < menor_del_acorde) {
+                  menor_del_acorde = duracion;
+                }
+                const notanom = nota.nota;
+                console.log("Tocar", notanom, duracion, delay); 
+                midiplayer?.play(notanom, duracion, delay);
+              }
+              delay += menor_del_acorde;
+            }
+        }
+        
+        delay = 0;
+        for (let i = 0; i < cancion_F.length; i++) 
+        {
+            for (let x = 0; x < cancion_F[i].length; x++) {
+              const acorde = cancion_F[i][x];
+              let menor_del_acorde = 11111;
+              for (let j = 0; j < acorde.length; j++) {
+                const nota = acorde[j];
+                const duracion = duracion_blanca / nota.duracion;
+                if (duracion < menor_del_acorde) {
+                  menor_del_acorde = duracion;
+                }
+                const notanom = nota.nota;
+                console.log("Tocar", notanom, duracion, delay); 
+                midiplayer?.play(notanom, duracion, delay);
+              }
+              delay += menor_del_acorde;
+            }
+        }
+
+
+
+
+      }
+  
 
 </script>
 
@@ -255,7 +309,9 @@ fetch('data/notas_midi/' + archivos_instrumentos[id_instrumeto]  +'.json')
 
             <button v-for="(nombre, id) in nombres_instrumentos" :key="id" @click="iniciar_midi(id)" > {{ nombre }}</button>
             
-      <button @click="tocar()"  v-if="ref_instrumentocargado">TOCAR</button>
+            <button @click="tocar()"  v-if="ref_instrumentocargado">TOCAR </button>
+            
+            <button @click="tocarparti()"  v-if="ref_instrumentocargado">TOCAR PARTIRA</button>
 
 
           </div>
