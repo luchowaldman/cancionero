@@ -15,7 +15,6 @@ export class Musica {
     
     const acores_escala = this.GetNotasdeescala(escala);
 
-    console.log(nota1, nota2, acores_escala);
     let octava_nota1 = 0;
 
     if (!isNaN(parseInt(nota1.slice(-1)))) {
@@ -33,8 +32,6 @@ export class Musica {
     let nro_nota1 = acores_escala.indexOf(nota_nombre1);
     let nro_nota2 = acores_escala.indexOf(nota_nombre2);
 
-    console.log(nota_nombre1, nota_nombre2);
-    console.log(nro_nota1, nro_nota2);
     let distancia = nro_nota1 - nro_nota2 + ((octava_nota1 - octava_nota2) * 7);
     return distancia;
   } 
@@ -138,7 +135,6 @@ export class Musica {
             nota_ind += modo_susecion[i];
             acordes.push(this.notas[nota_ind % (this.notas.length)] );
         }
-        console.log(acordes);
         
         return acordes;
         }

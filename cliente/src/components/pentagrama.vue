@@ -11,11 +11,12 @@ const props = defineProps<{ clave: string, notas: Nota[][] }>()
 const buscar = ref("𝅘𝅥𝅯");
 const nota_en_top0 = ref("G5");
 if (props.clave == "F") {
-  nota_en_top0.value = "F4";
+  nota_en_top0.value = "B3";
 }
+console.log("nota_en_top0", nota_en_top0.value);
 const musica = new Musica();
 const nota_sol = new Nota("G4", 0);
-const nota_fa = new Nota("F3", 0);
+const nota_fa = new Nota("B2", 0);
 function estilo_nota(nota: Nota) 
 {
   let top = musica.getDistanciaNotas(nota_en_top0.value, nota.nota, "C") * 6;
@@ -38,7 +39,7 @@ function getnota(nota: Nota) {
     return "𝅗";
   }
   if (duracion == 4) {
-    return "𝅘𝅥";
+    return "𝅘𝅥";a
   }
   if (duracion == 8) {
     return "𝅘𝅥𝅯";
@@ -71,7 +72,7 @@ function getnota(nota: Nota) {
 <div style="font-family: 'Noto Music'; font-size: 50px; display: flex;">
   
   
-  
+  <!-- 
   <div v-if="clave == 'G'" :style="estilo_nota(nota_sol)">
     <div  :style="{ top: '50px'}">𝄞</div>
     
@@ -84,7 +85,7 @@ function getnota(nota: Nota) {
     <div ><img src="/img/pentagrama.png" /></div>
   </div>  
 
-  
+  -->
   <div v-for="(nota, notaindex) in notas" :key="notaindex">
     
         <div v-for="(key, keyindex) in nota" :style="estilo_nota(key)" :key="keyindex">

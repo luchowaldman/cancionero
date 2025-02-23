@@ -203,32 +203,36 @@ fetch('data/notas_midi/' + archivos_instrumentos[id_instrumeto]  +'.json')
     function ver_acorde(acordeid: number) {
       ref_viendoacorde.value = acordeid;
     }
-
-
     const notasPen: Nota[][] = [[new Nota("C6", 2), new Nota("C4", 4), new Nota("C5", 2)], [new Nota("D4", 4)], [new Nota("D4", 4)], [new Nota("C4", 4)]];
+    const comp1 = [[new Nota("E4", 4)], [new Nota("E4", 4)], [new Nota("F4", 4)], [new Nota("G4", 4)]];
+    const comp2 = [[new Nota("G4", 4)], [new Nota("F4", 4)], [new Nota("E4", 4)], [new Nota("D4", 4)]];
+    const comp3 = [[new Nota("C4", 4)], [new Nota("C4", 4)], [new Nota("D4", 4)], [new Nota("E4", 4)]];
+    const comp4= [[new Nota("E4", 4)], [new Nota("D4", 8)], [new Nota("D4", 2)]];
+
+    const baj1= [[new Nota("C3", 2), new Nota("E3", 2), new Nota("G3", 2)]];
+    const baj2= [[new Nota("G3", 2)]];
+    
+    const cancion_G = [comp1, comp2, comp3, comp4];
+    const cancion_F = [baj1, baj1, baj1, baj2];
 
 
 </script>
 
 <template>
     <div  >
-    <div class="contMusica">
-      <Pentagrama clave="G" :notas="notasPen"></Pentagrama>
-      <Pentagrama clave=""  :notas="notasPen"></Pentagrama>
-      <Pentagrama clave=""  :notas="notasPen"></Pentagrama>
-      <Pentagrama clave=""  :notas="notasPen"></Pentagrama>
-      <Pentagrama clave=""  :notas="notasPen"></Pentagrama>
-    </div>
-    <div class="contMusica">
-      <Pentagrama clave="F" :notas="notasPen"></Pentagrama>
-      <Pentagrama clave=""  :notas="notasPen"></Pentagrama>
-      <Pentagrama clave=""  :notas="notasPen"></Pentagrama>
-      <Pentagrama clave=""  :notas="notasPen"></Pentagrama>
-      <Pentagrama clave=""  :notas="notasPen"></Pentagrama>
-    </div>
+      <div style="display: flex; position: relative;">
 
+        <div  class="contMusica" v-for="(compas, compasid) in cancion_G" :key="compasid" >
+        <div style="position: relative;">
+        <Pentagrama clave="G" :notas="cancion_G[compasid]"></Pentagrama>
+      </div>
+      <div style="position: relative;">
+        <Pentagrama clave="F" :notas="cancion_F[compasid]"></Pentagrama>
+      </div>
+      </div>
 
-    
+      </div>
+      
 
 
 
@@ -355,7 +359,6 @@ fetch('data/notas_midi/' + archivos_instrumentos[id_instrumeto]  +'.json')
 }
 
 .contMusica {
-  display: flex;
 }
 
 </style>
