@@ -167,13 +167,32 @@ export class Musica {
     }
 
 
-    
+    esMenor(nota1: string, nota2: string) {
+        let nro_nota1 = this.numeroNota(nota1);
+        let nro_nota2 = this.numeroNota(nota2);
+        console.log("Emenor",nro_nota1, nro_nota2);
+        if (nro_nota1 < nro_nota2) {
+            return true;
+        }
+        return false;
+    }
     getNotasdeacorde(acorde: string, escala: string = ''): string[] {
         let toRet: string[] = [];
         const notas = this.GetNotasdeescala(acorde);
-        toRet.push(notas[0] + escala);
-        toRet.push(notas[2] + escala);
-        toRet.push(notas[4] + escala);
+        let esca_put = escala;
+        toRet.push(notas[0] + esca_put);
+        if (this.esMenor(notas[2], notas[0]))
+        {
+            console.log(esca_put, escala, notas[2] , notas[0]);
+            esca_put = (parseInt(esca_put) + 1).toString();
+            console.log(esca_put, escala);
+        }
+        toRet.push(notas[2] + esca_put);
+        if ((this.esMenor(notas[4], notas[0])) && (esca_put == escala))
+        {
+            esca_put = (parseInt(esca_put) + 1).toString();
+        }
+        toRet.push(notas[4] + esca_put);
 
         return toRet;
     }
