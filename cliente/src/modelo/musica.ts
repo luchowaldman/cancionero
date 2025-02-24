@@ -37,8 +37,6 @@ export class Musica {
   } 
     
     
-    
-    
     getAnalisis(nota: string, acores_escala: string[]): AnalisisArmonico
     {
         
@@ -167,6 +165,19 @@ export class Musica {
         
         return acordes;
     }
+
+
+    
+    getNotasdeacorde(acorde: string, escala: string = ''): string[] {
+        let toRet: string[] = [];
+        const notas = this.GetNotasdeescala(acorde);
+        toRet.push(notas[0] + escala);
+        toRet.push(notas[2] + escala);
+        toRet.push(notas[4] + escala);
+
+        return toRet;
+    }
+    
 
     
 

@@ -13,15 +13,12 @@ const nota_en_top0 = ref("G5");
 if (props.clave == "F") {
   nota_en_top0.value = "B3";
 }
-console.log("nota_en_top0", nota_en_top0.value);
 const musica = new Musica();
 const nota_sol = new Nota("G4", 0);
 const nota_fa = new Nota("B2", 0);
 function estilo_nota(nota: Nota) 
 {
   let top = musica.getDistanciaNotas(nota_en_top0.value, nota.nota, "C") * 6;
-
-
   return { 'position': 'absolute',
     'top': top + 'px'
 

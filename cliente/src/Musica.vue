@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { MidiPlayer} from './modelo/midiplayer';
+import { Musica} from './modelo/musica';
 import Pianocontrol from './components/pianocontrol.vue';
 import Pentagrama from './components/pentagrama.vue';
 
-import Nota from './modelo/Midi/nota';
+
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
@@ -12,409 +13,169 @@ const ref_instrumentocargado = ref(false)
 const ref_viendoacorde = ref(0);
 let midiplayer: MidiPlayer | null = null;
 let archivos_instrumentos = ['acordion', 'bateria', 'guitarra', 'guitarraelectrica', 'harmonica', 'piano', 'trompeta']
-let nombres_instrumentos = ['acordion', 'bateria', 'guitarra', 'guitarra electrica', 'harmonica', 'piano', 'trompeta']
-
-const notas: number[] = [1, 2, 4, 8, 16, 32];
-const musicaref = ref([] as Nota[][])
 
 import { ref } from 'vue';
+import { Cancion } from './modelo/cancion';
+import { Acordes, Parte } from './modelo/acordes';
+import { Letra } from './modelo/letra';
+import Nota from './modelo/Midi/nota';
+import { NotasCancion, NotasParteCancion }    from './modelo/notasdecancion';
+import { GetCanciones } from './modelo/GetCanciones';
+import { parse } from 'path';
+const editando_cancion = ref(new Cancion("no song name", "no band name", new Acordes([new Parte("p1", ["C"])], [0]), new Letra([[""]]), 120, 4, 4, 4, "C"));
+const letra = ref([] as string[])
+const musica = new Musica();
 
+const editando_parte_id = ref(-1)
+const editando_acorde_id = ref(-1)
 
-function nombre_nota(numero: number) 
-    {
+function click_editar_acorde(parte_id: number, acorde_id: number) {
+  editando_parte_id.value = parte_id
+  editando_acorde_id.value = acorde_id
+}
 
-      const rn = 51 - numero;
-      const toan = rn % 7;
-      let modif = "";
-      let escala = Math.floor((rn - 1) / 7);
-      switch (toan) {
-        case 1: return "C" + modif + escala;
-        case 2: return "D" + modif + escala;
-        case 3: return "E" + modif + escala;
-        case 4: return "F" + modif + escala;
-        case 5: return "G" + modif + escala;
-        case 6: return "A" + modif + escala;
-        case 0: return "B" + modif + escala;
+function cargar_edit() {
+  let item = JSON.parse(localStorage.getItem("editando_cancion") || "{}");
+  GetCanciones.obtenerCancion(item).then((cancion_get: Cancion) => {
+      editando_cancion.value = cancion_get;
 
+      // ARMO LA LETRA
+      let flt_renglones: string[] = []
+      for (let i = 0; i < cancion_get.letras.renglones.length; i++) {
+        flt_renglones.push(cancion_get.letras.renglones[i].join(''))
       }
-      return "N/A";
-    }
+      letra.value = flt_renglones 
 
 
-
-const numeros: number[] = Array.from({ length: 53 }, (_, i) => i);
-let notas_pentagrama: string[] = [];
-for (let i = 1; i < 53; i++) {
-  notas_pentagrama.push(nombre_nota(i));
-}
-const drageandoref = ref(false);
-
-
-musicaref.value = [[]];
-
-function clase(numero: number) {
-  if (numero < 10 || numero > 32) {
-    return "noseve";
-  }
-  // DO CENTRAL
-  if (numero == 22 || numero == 23) {
-      return "espacio";
-  }
-
-  if (numero % 2 == 1 && numero < 20) {
-    return "linea";
-  } 
-  if (numero % 2 == 0 && numero > 22) {
-    return "linea";
-  } 
-  return "espacio";
-}
-
-function duracionnota(acordes: Nota[], numero: number) {
-  const nota = nombre_nota(numero);
-  for (let i = 0; i < acordes.length; i++) {
-    if (acordes[i].nota == nota) {
-      return acordes[i].duracion
-    }
-  }
-  return -1;
-}
-
-
-const pordrop_acorde = ref(-1);
-const pordrop_nronota = ref(-1);
-
-function onDragOver(event: DragEvent, acordeid: number, numero: number) {
-      event.preventDefault();
-      pordrop_acorde.value = acordeid;
-      pordrop_nronota.value = numero;      
-      }
-
-function drop(acordeid: number, numero: number) {
-  console.log("Drop", acordeid, numero);
-  if (acordeid == -1) {
-    //musicaref.value[acordeid].push([new Nota(nombre_nota(numero), agregando_duracion.value)]);
-
-  }
-  else {
-   
-    let acorde = musicaref.value[acordeid];
-    const notaExistente = acorde.find(nota => nota.nota === nombre_nota(numero));
-    if (notaExistente) {
-      notaExistente.duracion = agregando_duracion.value;
-    } else {
-      acorde.push(new Nota(nombre_nota(numero), agregando_duracion.value));
-    } 
-  }
-  pordrop_acorde.value = -1;
-  pordrop_nronota.value = -1;
-}
-const agregando_duracion = ref(4);
-function click_duracion(duracion: number) {
-
-  agregando_duracion.value = duracion;
-}
-
-function dragend() {
-  drageandoref.value = false;
-  agregando_duracion.value = 0;
-
-}
-
-function iniciar_midi(id_instrumeto: number) {
-  console.log("iniciar_midi") 
-
-fetch('data/notas_midi/' + archivos_instrumentos[id_instrumeto]  +'.json')
-  .then(response => response.json())
-  .then(samples => {
-    midiplayer = new MidiPlayer(samples);
-    midiplayer.initialize();
-
-    ref_instrumentocargado.value = true;
-    // Puedes establecer el handler aquí si lo necesitas:
-    midiplayer.setConectadoHandler((resultado: string) => {
-      console.log(resultado);
+      agregar_instrumento("piano_mi");
+      agregar_instrumento("piano_md");
     });
+}
 
-    // Ejemplo para tocar una nota:
-    
-  })
-  .catch(error => {
-    console.error("Error loading samples:", error);
-  });
-    }
+function agregar_instrumento(instrumento: string) {
 
-    function tocar_nota(nota: string) {
-      if (ref_instrumentocargado.value) {
-        midiplayer?.tocarNota(nota);
-      }
-      // Agrego la nota
-      if (ref_viendoacorde.value != -1) {
-        let acorde = musicaref.value[ref_viendoacorde.value];
+  let notascan: NotasParteCancion[] = [];
+  for (let i = 0; i < editando_cancion.value.acordes.partes.length; i++) 
+  {
 
-        const notaExistente = acorde.find(notaf => notaf.nota === nota);
-        if (notaExistente) 
-        {
-            acorde.splice(acorde.indexOf(notaExistente), 1); 
-        } else 
-        {
-          musicaref.value[ref_viendoacorde.value].push(new Nota(nota, agregando_duracion.value));
-          ref_viendoacorde.value++;
-          if (ref_viendoacorde.value >= musicaref.value.length) {
-            musicaref.value.push([]);
-
-        } 
-      }
-        }
-      
-    }
-
-    function soltar_nota(nota: string) {
-     
-      if (ref_instrumentocargado.value) {
-        midiplayer?.soltarNota(nota);
-      }
-   }
-
-   
-    function tocar() 
+    let compases_en_parte = [];
+    for (let j = 0; j < editando_cancion.value.acordes.partes[i].acordes.length; j++) 
     {
-      const bpm = 120;
-      const duracion_blanca = 60 / bpm;
-      let delay = 0;
-      for (let i = 0; i < musicaref.value.length; i++) {
-        const acorde = musicaref.value[i];
-        let menor_del_acorde = 11111;
-        for (let j = 0; j < acorde.length; j++) {
-          const nota = acorde[j];
-          const duracion = duracion_blanca / nota.duracion;
-          if (duracion < menor_del_acorde) {
-            menor_del_acorde = duracion;
-          }
-          const notanom = nota.nota;
-          console.log("Tocar", notanom, duracion, delay); 
-          midiplayer?.play(notanom, duracion, delay);
-        }
-        delay += menor_del_acorde;
+      let notas_compas: Nota[] = [];
+      for (let k = 0; k < editando_cancion.value.acordes.partes[i].acordes[j].length; k++) 
+      {
+        notas_compas.push(new Nota("C4", 1));
       }
-      //midiplayer?.play("C4", 1, 0);
+      compases_en_parte.push([notas_compas]);
+
     }
 
+    let notas = new NotasParteCancion(editando_cancion.value.acordes.partes[i].nombre, compases_en_parte);
+    notascan.push(notas);
+  }
 
-    function ver_acorde(acordeid: number) {
-      ref_viendoacorde.value = acordeid;
-    }
 
-    const notasPen: Nota[][] = [[new Nota("C6", 2), new Nota("C4", 4), new Nota("C5", 2)], [new Nota("D4", 4)], [new Nota("D4", 4)], [new Nota("C4", 4)]];
-    const comp1 = [[new Nota("E4", 4)], [new Nota("E4", 4)], [new Nota("F4", 4)], [new Nota("G4", 4)]];
-    const comp2 = [[new Nota("G4", 4)], [new Nota("F4", 4)], [new Nota("E4", 4)], [new Nota("D4", 4)]];
-    const comp3 = [[new Nota("C4", 4)], [new Nota("C4", 4)], [new Nota("D4", 4)], [new Nota("E4", 4)]];
-    const comp4= [[new Nota("E4", 4)], [new Nota("D4", 8)], [new Nota("D4", 2)]];
-
-    const baj1= [[new Nota("C3", 1), new Nota("E3", 1), new Nota("G3", 1)]];
-    const baj2= [[new Nota("G3", 1)]];
-    
-    const cancion_G = [comp1, comp2, comp3, comp4];
-    const cancion_F = [baj1, baj1, baj1, baj2];
-
+  let clave = "G";
+  if (instrumento == "piano_md") {
+    clave = "F";
+  }
+  let notas =  new NotasCancion(instrumento, notascan, clave);
+  editando_cancion.value.notas_cancion.push(notas);
   
-  
-    
-   function tocarparti() {
-      
-      const bpm = 80;
-        const duracion_blanca = (60 / bpm) * 4;
-        let delay = 0;
-        for (let i = 0; i < cancion_G.length; i++) 
-        {
-            for (let x = 0; x < cancion_G[i].length; x++) {
-              const acorde = cancion_G[i][x];
-              let menor_del_acorde = 11111;
-              for (let j = 0; j < acorde.length; j++) {
-                const nota = acorde[j];
-                const duracion = duracion_blanca / nota.duracion;
-                if (duracion < menor_del_acorde) {
-                  menor_del_acorde = duracion;
-                }
-                const notanom = nota.nota;
-                console.log("Tocar", notanom, duracion, delay); 
-                midiplayer?.play(notanom, duracion, delay);
-              }
-              delay += menor_del_acorde;
-            }
-        }
-        
-        delay = 0;
-        for (let i = 0; i < cancion_F.length; i++) 
-        {
-            for (let x = 0; x < cancion_F[i].length; x++) {
-              const acorde = cancion_F[i][x];
-              let menor_del_acorde = 11111;
-              for (let j = 0; j < acorde.length; j++) {
-                const nota = acorde[j];
-                const duracion = duracion_blanca / nota.duracion;
-                if (duracion < menor_del_acorde) {
-                  menor_del_acorde = duracion;
-                }
-                const notanom = nota.nota;
-                console.log("Tocar", notanom, duracion, delay); 
-                midiplayer?.play(notanom, duracion, delay);
-              }
-              delay += menor_del_acorde;
-            }
-        }
+}
 
+cargar_edit();
+function click_agregarpatron(patron: string, instruid: number) 
+{
 
+  const editando_acorde = editando_cancion.value.acordes.partes[editando_parte_id.value].acordes[editando_acorde_id.value];
+  const clave: string = editando_cancion.value.notas_cancion[instruid].clave;
+  console.log("clave: " , clave);
+  let desde_clave: string = "4";
+  if (clave == "F") {
+    desde_clave = "2";
+  }
+  if (patron == "cuatros") 
+  {
+    const notas_acorde4 = musica.getNotasdeacorde(editando_acorde, desde_clave);
+    editando_cancion.value.notas_cancion[instruid].partes[editando_parte_id.value].notas[editando_acorde_id.value] =    
+    [[new Nota(notas_acorde4[0], 4)],[ new Nota(notas_acorde4[0], 4)],[ new Nota(notas_acorde4[0], 4)],[ new Nota(notas_acorde4[0], 4)]];
+  }
+  if (patron == "cuatros5") 
+  {
+    const notas_acorde4 = musica.getNotasdeacorde(editando_acorde, (parseInt(desde_clave) + 1).toString());
+    editando_cancion.value.notas_cancion[instruid].partes[editando_parte_id.value].notas[editando_acorde_id.value] =    
+    [[new Nota(notas_acorde4[0], 4)],[ new Nota(notas_acorde4[0], 4)],[ new Nota(notas_acorde4[0], 4)],[ new Nota(notas_acorde4[0], 4)]];
+  }
 
+if (patron == "cuatros6") 
+{
+  const notas_acorde4 = musica.getNotasdeacorde(editando_acorde, (parseInt(desde_clave) + 2).toString());
+  editando_cancion.value.notas_cancion[instruid].partes[editando_parte_id.value].notas[editando_acorde_id.value] =    
+  [[new Nota(notas_acorde4[0], 4)],[ new Nota(notas_acorde4[0], 4)],[ new Nota(notas_acorde4[0], 4)],[ new Nota(notas_acorde4[0], 4)]];
+}
 
-      }
-  
+if (patron == "cuatros3") 
+{
+  const notas_acorde4 = musica.getNotasdeacorde(editando_acorde, (parseInt(desde_clave) - 1).toString());
+  editando_cancion.value.notas_cancion[instruid].partes[editando_parte_id.value].notas[editando_acorde_id.value] =    
+  [[new Nota(notas_acorde4[0], 4)],[ new Nota(notas_acorde4[0], 4)],[ new Nota(notas_acorde4[0], 4)],[ new Nota(notas_acorde4[0], 4)]];
+}
+
+}
 
 </script>
 
 <template>
-    <div  >
-      <div style="display: flex; position: relative;">
-
-        <div  class="contMusica" v-for="(compas, compasid) in cancion_G" :key="compasid" >
-        <div style="position: relative;">
-        <Pentagrama clave="G" :notas="cancion_G[compasid]"></Pentagrama>
-      </div>
-      <div style="position: relative;">
-        <Pentagrama clave="F" :notas="cancion_F[compasid]"></Pentagrama>
-      </div>
-      </div>
-
-      </div>
-      
+<div>
 
 
+<div display="flex">
 
-
-
-      <div class="cabecera">
-        <div style="display: flex;"> 
-          <div style="display: flex;">
-            <div class="notaadd titnotas">Notas: </div> 
-            <div class="notaadd" v-for="nota in notas" :key="nota" 
-            @click="click_duracion(nota)" :class="{'seleccionada' : nota == agregando_duracion}"> {{ nota }} </div>
-          </div> 
-          <div v-if="drageandoref"> 
-            <div>Va a agregar</div>
-            <div>{{  agregando_duracion }} - {{ pordrop_acorde }} - {{ pordrop_nronota }}</div>
-          </div>
-
-          <div>
-            
-
-            <button v-for="(nombre, id) in nombres_instrumentos" :key="id" @click="iniciar_midi(id)" > {{ nombre }}</button>
-            
-            <button @click="tocar()"  v-if="ref_instrumentocargado">TOCAR </button>
-            
-            <button @click="tocarparti()"  v-if="ref_instrumentocargado">TOCAR PARTIRA</button>
-
-
-          </div>
+    <div style="width: 70%;">
+      <div v-for="(parte, parteid) in editando_cancion.acordes.partes" :key="parteid">
+        <div>
+          <h3>{{ parte.nombre }}</h3>
         </div>
-
-
-      </div>
-
-
-      <div style="display: flex; width: 100%;" :class="{ 'drageando': drageandoref }">
-     
-
-
-            <div v-for="(acordes, acordeid) in musicaref" :key="acordeid">
-              <div class="parte_pentagrama" :class="{'acorde_viendo': ref_viendoacorde == acordeid} ">
-                <div @click="ver_acorde(acordeid)">
-                <i class="bi bi-eye"></i>
-                </div>
-                <div v-for="numero in numeros" :key="numero" class="linea_pentagrama" :class="[clase(numero), { 'lineadrageando': pordrop_nronota == numero }]"  >
-                    <div class="nota">
-                      
-                      <div v-if="!drageandoref">
-                        <template v-if="duracionnota(acordes, numero) != -1">
-                          <span>{{ duracionnota(acordes, numero) }} - {{ nombre_nota(numero)  }}</span>
-                        </template>
-                        <template v-else>
-                          <span>&nbsp;</span>
-                        </template>
-                      
-                      </div>
-                      <div v-if="drageandoref" @dragover="onDragOver($event, acordeid, numero)" 
-                      @drop="drop(acordeid, numero)"
-                      :class="{'xDrag': pordrop_acorde == acordeid && pordrop_nronota == numero }">
-                      x
-                    
-                    </div>
-                    </div>
-                  </div>
+        
+        <div class="notaparte">
+          
+            <div v-for="(nota, acordeid) in parte.acordes" :key="acordeid" @click="click_editar_acorde(parteid, acordeid)" style="display: flex;">
+              <div>
+              <div>{{ nota }}</div>
+              <div v-for="(instru, instruid) in editando_cancion.notas_cancion" :key="instruid" style="display: flex;">
+                <Pentagrama :clave="instru.clave" :notas="instru.partes[parteid].notas[acordeid]"></Pentagrama>
+                <div v-if="parteid == editando_parte_id && acordeid == editando_acorde_id">
+              <div>Editando</div>
+              <div @click="click_agregarpatron('cuatros3', instruid)">cuatros-1</div>
+              <div @click="click_agregarpatron('cuatros', instruid)">cuatros</div>
+              <div @click="click_agregarpatron('cuatros5', instruid)">cuatros+1</div>
+              <div @click="click_agregarpatron('cuatros6', instruid)">cuatros+2</div>
+            </div>
               </div>
             </div>
-
-              <!-- Pa Agregar-->
-              <div class="parte_pentagrama"  v-if="drageandoref">
-                <div>+</div>
-                <div v-for="numero in numeros" :key="numero" :class="[clase(numero), { 'lineadrageando': pordrop_nronota == numero }]">
-                  <div class="nota">
-                    <span @dragover="onDragOver($event, -1, numero)" 
-                                  @drop="drop(-1, numero)"
-                                  class="linea_pentagrama"
-                                  :class="{'xDrag': pordrop_acorde == -1 && pordrop_nronota == numero }">N</span></div>
-                  </div>
+            
             </div>
+        </div>
+      
+      </div>
+  </div>
+  <div> 
+    Edutabdi
+  </div>
+</div>
 
 
 
 
-    </div>
-    <Pianocontrol @toco="tocar_nota" @solto="soltar_nota" escala="C" acorde="C" :notas_seleccionadas="musicaref[ref_viendoacorde]" ></Pianocontrol>
+
 
 </div>
 </template>
 
 <style scoped>
-
-.noseve {
-  display: none;
-}
-
-.linea {
-  border-bottom: 1px solid;
-  height: 16px;
-}
-
-.espacio {
-  height: 16px;
-}
-
-.lineadrageando {
-  background-color: yellow;
-}
-.xDrag {
-  border-color: red ;
-  border: 1px solid;
-
-}
-
-.notaadd {
-  padding: 12px;
-  font-size: xxx-large;
-  border: 1px solid;
-}
-
-.acorde_viendo {
-  border: 1px solid red;
-
-}
-
-.seleccionada {
-  background-color: red;
-  color: white;
-}
-
-.contMusica {
+.notaparte {
+  display: flex;
 }
 
 </style>
