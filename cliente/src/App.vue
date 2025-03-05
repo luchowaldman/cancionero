@@ -17,10 +17,8 @@ import { Cancion } from './modelo/cancion';
 import { Letra } from './modelo/letra';
 import { Acordes, Parte } from './modelo/acordes';
 import { EstadoSesion } from './modelo/estadosesion';
-import { Cliente }  from './modelo/client_socketio';
 import { Director } from './modelo/director';
 import { item_lista } from './modelo/item_lista';
-import { AdminListasTocables } from './modelo/AdminIndiceListas';
 import { GetCanciones } from './modelo/GetCanciones';
 import { DirectorOffline } from './modelo/directoroffline';
 import { DirectorOnline } from './modelo/directoronline';
@@ -36,7 +34,7 @@ const editando_cancion = ref(new Cancion("no song name", "no band name", new Aco
 const viendo = ref("tocar");
 
 
-let reproductor = new Reproductor(2200, 99999999);
+let reproductor = new Reproductor(2200);
 
 
 function startReproduccion() 
@@ -49,9 +47,6 @@ function startReproduccion()
    reproductor.iniciar();
 }
 
-function stopMetronome() {
-  reproductor.pausar()
-}
 
 
 const bpm_encompas = ref(0);
@@ -69,7 +64,7 @@ let config_load: string | null = localStorage.getItem("configuracion")
 if (!config_load)
   config_load = ""
 
-let configuracionObj: ModeloConfiguracion | null = null;
+let configuracionObj: ModeloConfiguracion;
 
 try {
   configuracionObj = JSON.parse(config_load);
@@ -77,14 +72,14 @@ try {
 {
 }
 
-if (configuracionObj == null) {
-  viendo.value = "config";
+
+viendo.value = "config";
   configuracionObj = new ModeloConfiguracion()
   configuracionObj.sesion = new EstadoSesion()
   configuracionObj.sesion.nombre = "default"
   configuracionObj.nombre = "default"
   localStorage.setItem("configuracion", JSON.stringify(configuracionObj))
-}
+
 
 // CONTROLES
 const ctrlMenu = ref();
@@ -124,12 +119,21 @@ function Conectar() {
     ctrlMenu.value?.actualizar_vista();
   });
 
-  director.Iniciar();
-  director.Conectar();
+  director.Iniciar();if (director instanceof DirectorOnline) {
+  // Haz un casting al tipo DirectorOnline y llama al método exclusivo
+  (director as DirectorOnline).Conectar();
+} else {
+  console.log("El objeto no es una instancia de DirectorOnline");
+  }
   vincular_director();
 }
 function Desconectar() {
-  director.Desconectar();
+  if (director instanceof DirectorOnline) {
+  // Haz un casting al tipo DirectorOnline y llama al método exclusivo
+  (director as DirectorOnline).Desconectar();
+} else {
+  console.log("El objeto no es una instancia de DirectorOnline");
+  }
   director = new DirectorOffline(configuracionObj);
   director.Iniciar();
   vincular_director();

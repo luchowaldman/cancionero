@@ -1,4 +1,10 @@
 <script setup lang="ts">
+</script>
+<template>
+  <div>piano pa compilar</div>
+</template>
+<!-- PianoControl.vue 
+<script setup lang="ts">
 import { Nota } from '../modelo/nota';
 import { ref } from 'vue';
 
@@ -180,3 +186,4 @@ function solto_nota(nota: string) {
 
 
 
+-->

@@ -1,4 +1,4 @@
-import { NotasCancion } from "./NotasdeCancion";
+import { NotasCancion } from "./NotasCancion";
 import { Acordes } from "./acordes";
 import { Letra } from "./letra";
 
@@ -15,7 +15,7 @@ export class Cancion {
         public compas_cantidad: number = 4,
         public compas_unidad: number = 4,
         public escala: string = "",
-        public notas_cancion: NotasCancion[] = []
+        public notas_cancion: NotasCancion[][] = []
     ){}
 
 }

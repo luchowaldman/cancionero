@@ -3,14 +3,11 @@ import { ref, watch } from 'vue';
 import { Cancion } from '../modelo/cancion';
 import { Musica } from '../modelo/musica';
 import { item_lista } from '../modelo/item_lista';
-import { text } from 'stream/consumers';
 import { Parte } from '../modelo/acordes';
-import { escape } from 'querystring';
 
 let musica = new Musica();
 const props = defineProps<{ compas: number, cancion: Cancion, item_indice: item_lista, editando_cancion: boolean }>()
 const emit = defineEmits(['cerrar', 'guardar', 'nuevo']);
-const letras_porparte = ref([] as string[][]);
 const editando_partecombo = ref(-1);
 watch(() => props.cancion, () => {
 }, { deep: true });
@@ -159,31 +156,13 @@ const editando_parteordendid = ref(-1);
 const texto_editado = ref("");
 
 const acordes_iniciales = ref (-1 as number);
-const acordes_actuales = ref (-1 as number);
-const accion_completar = ref ("" as string);
 
 
-function guardar_cancioneditada(parteorden: number) {
-  editando_parteordendid.value = parteorden;
-  editando_texto.value = true;
-  let newEdit = "";
-  textos_parte(parteorden).forEach((texto) => {
-    newEdit  += texto.replace('/n','\n') + "|";
-  });
-  if (newEdit.endsWith("|")) {
-    newEdit = newEdit.slice(0, -1);
-  }
-  texto_editado.value = newEdit;
-  acordes_iniciales.value = texto_editado.value.split('|').length;
-  console.log("Textos", texto_editado.value.split('|'))
-}
 
 
 function guardar_texto_editado() {
   const texto_nuevo = [];
-  let contado_renglon = 0;
-  let contador_renglon_pal = 0;
-
+  
   for (var i = 0; i < props.cancion.acordes.orden_partes.length; i++) {
     if (i == editando_parteordendid.value) {
       const texto = texto_editado.value.split('|');
@@ -352,6 +331,7 @@ function borrar_parte(parteid: number) {
 
 }
 function cancelar_parte(parteid: number) {
+  console.log("Cancelar", parteid);
   combinando_parte.value = false;
   editando_parte.value = false;
   mostrando_separadores.value = false;
@@ -381,9 +361,7 @@ function click_borraracordeparte(acordeid: number) {
 
 function texto_combino_editado(parte: number, acordeid: number) {
   const texto_nuevo = [];
-  let contado_renglon = 0;
-  let contador_renglon_pal = 0;
-
+  
   for (var i = 0; i < props.cancion.acordes.orden_partes.length; i++) 
   {
     if (props.cancion.acordes.orden_partes[i] == parte) 
@@ -529,7 +507,7 @@ function click_editartexto(parteorden: number) {
           </div>
           
 
-          <button @click="guardar_texto_editado(index)">Guardar</button>
+          <button @click="guardar_texto_editado()">Guardar</button>
           <button @click="editando_texto = false">Cancelar</button>
         </div>
           <textarea v-model="texto_editado" :rows="texto_editado.split('\n').length" style="width: 100%;">
@@ -616,7 +594,8 @@ function click_editartexto(parteorden: number) {
      <div v-if="editando_parte" >
     <h2  style="text-decoration: underline; margin-bottom: 2px;">Acordes</h2>
     <div class="partediv">
-          <div v-for="(acorde, index) in ref_escala" :draggable="editando_parte" 
+          <div v-for="(acorde) in ref_escala" :draggable="editando_parte" 
+          
             @dragstart="inicio_arrastrar(acorde)" 
             @dragend="arrastrando_acordes = false"
             :class="{acorde_paraarrastrar: editando_parte }" class="acordediv" :key="acorde" :style="estilo_acorde(acorde)">
@@ -628,8 +607,9 @@ function click_editartexto(parteorden: number) {
             &nbsp;
           </div>
           <div v-for="(acorde, index) in ref_noescala" 
+          v-bind:key="index"
             @dragstart="inicio_arrastrar(acorde)" 
-            :draggable="editando_parte" :class="{acorde_paraarrastrar: editando_parte }"  class="acordediv" :key="acorde" :style="estilo_acorde(acorde)">
+            :draggable="editando_parte" :class="{acorde_paraarrastrar: editando_parte }"  class="acordediv" :style="estilo_acorde(acorde)">
             <span  >{{ acorde }}</span>
           </div>
           
@@ -702,7 +682,7 @@ function click_editartexto(parteorden: number) {
     </div>
     <h2 style="text-decoration: underline; margin-bottom: 2px;"> Secuencia </h2>
     <div style="display: flex; flex-wrap: wrap;">
-          <div v-for="(parte, index) in cancion.acordes.orden_partes" :key="index" class="ordendiv">
+          <div v-for="index in cancion.acordes.orden_partes" :key="index" class="ordendiv">
             
             <select v-model="cancion.acordes.orden_partes[index]" @change="actualizarOrdenPartes(index)" class="selectParteEnOrden">
             <option v-for="(parte, parteIndex) in cancion.acordes.partes" :key="parteIndex" :value="parteIndex">

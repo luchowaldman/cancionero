@@ -1,13 +1,10 @@
 
 import { ModeloConfiguracion } from './modeloconfiguracion';
-import { Cliente } from '../modelo/client_socketio';
 import { item_lista } from '../modelo/item_lista';
 import { AdminListasTocables } from './AdminIndiceListas';
 import { Cancion } from './cancion';
 import { GetCanciones } from './GetCanciones';
 
-import { Reproductor } from '../modelo/reproductor';
-import { Musica } from './musica';
 
 
 export class Director {

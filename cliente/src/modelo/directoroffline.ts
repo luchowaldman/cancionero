@@ -1,6 +1,5 @@
 
 import { ModeloConfiguracion } from './modeloconfiguracion';
-import { Cliente } from './client_socketio';
 import { item_lista } from './item_lista';
 import { AdminListasTocables } from './AdminIndiceListas';
 import { Cancion } from './cancion';
@@ -18,7 +17,7 @@ export class DirectorOffline extends Director {
     lista: item_lista[];
     cancion_actual: Cancion;
     esDirector: boolean;
-    reproductor: Reproductor = new Reproductor(2200, 99999999);
+    reproductor: Reproductor = new Reproductor(2200);
     musica: Musica = new Musica();
     
 
@@ -45,7 +44,7 @@ export class DirectorOffline extends Director {
         this.lista = [new item_lista("intoxicados", "fuego") ];
         this.cancion_actual = new Cancion("Cancion no cargada", "sin banda");
         this.esDirector = true;
-    }
+    }   
 
           
     click_siguiente() {
@@ -86,7 +85,7 @@ export class DirectorOffline extends Director {
             this.estado = 'iniciando';
             
             this.cambiosHandler?.(this);
-            this.reproductor = new Reproductor(this.musica.duracion_compas(this.cancion_actual) * 1000 , this.musica.total_compases(this.cancion_actual));
+            this.reproductor = new Reproductor(this.musica.duracion_compas(this.cancion_actual) * 1000);
             this.reproductor.setIniciaCicloHandler(this.onNroCompasRecibido.bind(this));
             this.reproductor.iniciar();
         

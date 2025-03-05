@@ -19,7 +19,7 @@ export class DirectorOnline extends Director {
     lista: item_lista[];
     cancion_actual: Cancion;
     esDirector: boolean;
-    reproductor: Reproductor = new Reproductor(2200, 99999999);
+    reproductor: Reproductor = new Reproductor(2200);
     musica: Musica = new Musica();
     
 
@@ -116,8 +116,8 @@ export class DirectorOnline extends Director {
         if (this.configuracion.sesion.estado != "conectado") 
         {
             console.log("Play", this.nro_compas);
-            this.reproductor = new Reproductor(this.musica.duracion_compas(this.cancion_actual) * 1000 , this.musica.total_compases(this.cancion_actual));
-            this.reproductor.setIniciaCicloHandler(this.onNroCompasRecibido.bind(this));
+            this.reproductor = new Reproductor(this.musica.duracion_compas(this.cancion_actual) * 1000);
+            //this.reproductor.setIniciaCicloHandler(this.onNroCompasRecibido.bind(this));
             this.reproductor.iniciar();
         }
         else 
@@ -126,7 +126,7 @@ export class DirectorOnline extends Director {
                 {
                     
             console.log("Play conectado", this.nro_compas);
-            this.reproductor = new Reproductor(this.musica.duracion_compas(this.cancion_actual) * 1000 , this.musica.total_compases(this.cancion_actual));
+            this.reproductor = new Reproductor(this.musica.duracion_compas(this.cancion_actual) * 1000);
             this.reproductor.setIniciaCicloHandler(this.iniciaCompasConectado.bind(this));
             this.reproductor.iniciar();
                 }

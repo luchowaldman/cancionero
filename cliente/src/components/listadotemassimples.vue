@@ -13,17 +13,9 @@ const props = defineProps<{ indice: item_lista[], titulo: string, muestra_renglo
 const musica = new Musica();
 const tiempo = new Tiempo();
 const indice_disponible = ref(props.indice);
-const viendo_detalles = ref([] as number[]);
 const indice_disponible_filtro = ref([] as item_lista[]);
 
 
-function VerDetalle(indice: number) {
-    if (viendo_detalles.value.includes(indice)) {
-        viendo_detalles.value = viendo_detalles.value.filter((item) => item != indice);
-    } else {
-        viendo_detalles.value.push(indice);
-    }
-}
 
 watch(() => props.indice, (newindice: item_lista[]) => {
   indice_disponible.value = newindice;
@@ -52,14 +44,12 @@ function click_borrar(indice: item_lista) {
 }
 
 
-const muy_faciles = ref(false);
 const fil_can = ref("");
 const fil_ban = ref("");
 const max_registros = ref(100);
 const calidad_min = ref(0);
 const calidad_max = ref(10);
 
-const con_buenaspropos = ref(false);
 
 function cancionesFiltradas() 
 {

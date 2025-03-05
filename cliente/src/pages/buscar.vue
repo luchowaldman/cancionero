@@ -4,11 +4,8 @@ import { Almacenado } from '../modelo/Almacenado';
 import { item_lista } from '../modelo/item_lista';
 import { Cancion } from '../modelo/cancion';
 import ListadoTemas from '../components/listadotemas.vue';
-import { Acordes } from '../modelo/acordes';
-import { Letra } from '../modelo/letra';
 import { AdminListasURL } from '../modelo/AdminListasURL';
 import { AdminListasLocalStorage } from '../modelo/AdminListasStorage';
-import { GetCanciones } from '../modelo/GetCanciones';
 import { AdminListasTocables } from '../modelo/AdminIndiceListas';
 import { Musica } from '../modelo/musica';
 
@@ -181,11 +178,6 @@ loadBandasFavoritas();
 
 
 
-const ctrlguardados = ref();
-const ctrlviendolista = ref();
-const editando_cancion = ref(false);
-const cancion_ver  = ref(new Cancion("no song name", "no band name", new Acordes([], []), new Letra([])));
-const itemindice_ref = ref(new item_lista("no song name", "no band name"));
 
 
 

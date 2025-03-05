@@ -114,13 +114,13 @@ function click_duracion(duracion: number) {
 
   agregando_duracion.value = duracion;
 }
-
+/*
 function dragend() {
   drageandoref.value = false;
   agregando_duracion.value = 0;
 
 }
-
+*/
 function iniciar_midi(id_instrumeto: number) {
   console.log("iniciar_midi") 
 
@@ -216,7 +216,7 @@ fetch('data/notas_midi/' + archivos_instrumentos[id_instrumeto]  +'.json')
     
     const cancion_G = [comp1, comp2, comp3, comp4];
     const cancion_F = [baj1, baj1, baj1, baj2];
-
+    console.log(notasPen);
   
   
     
@@ -278,6 +278,7 @@ fetch('data/notas_midi/' + archivos_instrumentos[id_instrumeto]  +'.json')
 
         <div  class="contMusica" v-for="(compas, compasid) in cancion_G" :key="compasid" >
         <div style="position: relative;">
+          <div v-if="compas.length == -23">SOLO PA QUE COMPILE</div>
         <Pentagrama clave="G" :notas="cancion_G[compasid]"></Pentagrama>
       </div>
       <div style="position: relative;">

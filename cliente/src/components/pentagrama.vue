@@ -1,4 +1,4 @@
-
+<!--
 <script setup lang="ts">
 import { ref } from "vue"
 import Nota from '../modelo/Midi/nota';
@@ -69,20 +69,6 @@ function getnota(nota: Nota) {
 <div style="font-family: 'Noto Music'; font-size: 50px; display: flex;">
   
   
-  <!-- 
-  <div v-if="clave == 'G'" :style="estilo_nota(nota_sol)">
-    <div  :style="{ top: '50px'}">𝄞</div>
-    
-  </div>  
-  <div v-if="clave == 'F'" :style="estilo_nota(nota_fa)">
-    <div  :style="{ top: '50px'}">𝄢</div>
-    
-  </div>  
-  <div>
-    <div ><img src="/img/pentagrama.png" /></div>
-  </div>  
-
-  -->
   <div v-for="(nota, notaindex) in notas" :key="notaindex">
     
         <div v-for="(key, keyindex) in nota" :style="estilo_nota(key)" :key="keyindex">
@@ -109,3 +95,4 @@ function getnota(nota: Nota) {
   color: #888;
 }
 </style>
+-->

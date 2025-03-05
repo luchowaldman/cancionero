@@ -1,20 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { GetCanciones } from '../modelo/GetCanciones';
 import ComponenteMusicalEditar from '../components/ComponenteMusicalEditar.vue';
 import Cabecera from '../components/comp_editar/cabecera.vue';
 import { item_lista } from '../modelo/item_lista';
-import { AdminListasURL } from '../modelo/AdminListasURL';
-import { Almacenado } from '../modelo/Almacenado';
-import { AdminListasLocalStorage } from '../modelo/AdminListasStorage';
-import { AdminListasTocables } from '../modelo/AdminIndiceListas';
-import { Acordes, Parte } from '../modelo/acordes';
-import { Letra } from '../modelo/letra';
 import { Cancion } from '../modelo/cancion';
 
 defineProps<{ cancion: Cancion, item: item_lista }>()
 const emit = defineEmits(['acciono']);
-const almacen = new Almacenado();
 
 
 function cerro_editar() {

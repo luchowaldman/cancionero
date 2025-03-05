@@ -2,18 +2,15 @@
 import { MidiPlayer} from './modelo/midiplayer';
 import { Reproductor } from './modelo/reproductor';
 
-import Nota from './modelo/Midi/nota';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const ref_instrumentocargado = ref(false)
-const ref_viendoacorde = ref(0);
 const ref_repetir = ref(true);
-const ref_instrumento = ref("C1");
+
 let midiplayer: MidiPlayer | null = null;
 import { ref } from 'vue';
-import { transpileModule } from 'typescript';
 
 
 class ParteBateria {
@@ -106,9 +103,9 @@ function tocar_instrumento(numero_instrumento: number) {
 }
 const bpm = ref(100);
 
-let reproductor = new Reproductor(200, 200000);
+let reproductor = new Reproductor(200);
 
-reproductor.setIniciaCicloHandler((newCompas: number) => {  
+reproductor.setIniciaCicloHandler(() => {  
     if (ref_repetir.value) {
       tocar();
     }

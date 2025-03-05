@@ -15,15 +15,10 @@ export class Reproductor  {
             this.intervalId = null;
         }
         private IniciaHandler?: () => void;
-        private FinalizaHandler?: () => void;
         private IniciaCicloHandler?: () => void;
 
         public setIniciaHandler(handler: () => void) {
             this.IniciaHandler = handler;
-        }
-
-        public setFinalizaHandler(handler: () => void) {
-            this.FinalizaHandler = handler;
         }
 
         public setIniciaCicloHandler(handler: () => void) {

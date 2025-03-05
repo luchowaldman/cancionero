@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+
 import { Cancion } from '../modelo/cancion';
 const props = defineProps<{ cancion: Cancion, bpm_encompas: number }>();
-const activeBeat = ref(-1)
-import { Reproductor } from '../modelo/reproductor';
+
+
 
 
 </script>
@@ -12,7 +12,7 @@ import { Reproductor } from '../modelo/reproductor';
   <div class="metronono">
     
 <div style="display: flex;">
-<div v-for="n in parseInt(props.cancion.compas_cantidad)" :key="n" class="beat" :class="{ beat_activo: n - 1 === bpm_encompas }">
+<div v-for="n in props.cancion.compas_cantidad" :key="n" class="beat" :class="{ beat_activo: n - 1 === bpm_encompas }">
     
     {{ n }}
   </div>

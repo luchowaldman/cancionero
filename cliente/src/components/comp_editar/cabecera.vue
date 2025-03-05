@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { item_lista } from '../modelo/item_lista';
-import { Cancion } from '../modelo/cancion';
+import { item_lista } from '../../modelo/item_lista';
+import { Cancion } from '../../modelo/cancion';
 
 
 
@@ -65,7 +65,7 @@ function DescargarJSON() {
       
         Compas: <input type="text" v-model="cancion.compas_cantidad" maxlength="1" :style="{ width: '3ch' }" /> / 
         <input type="text" v-model="cancion.compas_unidad" maxlength="1" :style="{ width: '3ch' }" /> - Escala  
-        <input type="text" v-model="cancion.escala" @change="forsarcompases_escala" maxlength="4" :style="{ width: '6ch' }" />
+        <input type="text" v-model="cancion.escala" maxlength="4" :style="{ width: '6ch' }" />
         Calidad: <input type="range" v-model="cancion.calidad" min="0" max="10" />
 
         <div style="display: inline; float: right;">

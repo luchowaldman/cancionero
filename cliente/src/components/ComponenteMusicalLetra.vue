@@ -10,7 +10,6 @@ const letraDiv = ref<HTMLElement | null>(null); // Ref to the div
 
 const mostrando_renglon = ref(-1)
 const mostrando_palabra = ref(-1)
-const currentCompas = ref(0);
 const letras = ref([] as string[][]);
 const musica = new Musica();
 

@@ -2,7 +2,6 @@
 
 import { Cancion } from '../modelo/cancion';
 import ControladorTiempo from './ControladorTiempo.vue';
-import ControladorSesion from './ControladorSesion.vue';
 import Metronomo from './metronomo.vue';
 import { EstadoSesion } from '../modelo/estadosesion';
 import { ref } from 'vue';
@@ -19,7 +18,7 @@ function acciono(valor: string, compas: number = 0, ) {
     emit('acciono', valor, compas);
     
 }
-const props = defineProps<{ viendo_vista: string, compas: number, cancion: Cancion, editando_cancion: Cancion
+defineProps<{ viendo_vista: string, compas: number, cancion: Cancion, editando_cancion: Cancion
   ,  nro_cancion: number, total_canciones: number, sesion: EstadoSesion, estado: string, bpm_encompas: number }>()
 
 

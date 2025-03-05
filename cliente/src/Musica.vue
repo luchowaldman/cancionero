@@ -1,3 +1,4 @@
+<!--
 <script setup lang="ts">
 import { MidiPlayer} from './modelo/midiplayer';
 import { Musica} from './modelo/musica';
@@ -21,18 +22,19 @@ import { Cancion } from './modelo/cancion';
 import { Acordes, Parte } from './modelo/acordes';
 import { Letra } from './modelo/letra';
 import Nota from './modelo/Midi/nota';
-import { NotasCancion, NotasParteCancion }    from './modelo/notasdecancion';
+import { NotasCancion, NotasParteCancion }    from './modelo/NotasCancion';
 import { GetCanciones } from './modelo/GetCanciones';
 import { parse } from 'path';
 
 
 
-function tocar_notas(compases: NotasParteCancion[]) {
+function tocar_notas(compases: NotasParteCancion[][]) {
   
   const bpm = editando_cancion.value.bpm;
       const duracion_blanca = (60 / bpm) * editando_cancion.value.compas_unidad;
       let delay = 0;
-
+      console.log("TOCAR SUSPENDIDA", delay, duracion_blanca);
+/*
   for (let notas_index = 0; notas_index < compases.length; notas_index++) 
       {
         
@@ -57,7 +59,7 @@ function tocar_notas(compases: NotasParteCancion[]) {
         console.log("delay", delay);
         }
       }
-
+ */
 
 }
 function tocar(parteid: number) 
@@ -230,7 +232,7 @@ fetch('data/notas_midi/' + archivos_instrumentos[id_instrumeto]  +'.json')
               <div>
               <div>{{ nota }}</div>
               <div v-for="(instru, instruid) in editando_cancion.notas_cancion" :key="instruid" style="display: flex;">
-                
+                {{  instru  }}
                 <div v-if="parteid == editando_parte_id && acordeid == editando_acorde_id">
               <div>Editando
                 Octava: <input type="number"  v-model="modi_escala" style="width: 7ch;" />
@@ -245,7 +247,9 @@ fetch('data/notas_midi/' + archivos_instrumentos[id_instrumeto]  +'.json')
                 
               </div>
                 </div>
+                
                 <Pentagrama :clave="instru.clave" :notas="instru.partes[parteid].notas[acordeid]"></Pentagrama>
+                
               </div>
             </div>
             
@@ -294,3 +298,4 @@ fetch('data/notas_midi/' + archivos_instrumentos[id_instrumeto]  +'.json')
 }
 </style>
 
+-->

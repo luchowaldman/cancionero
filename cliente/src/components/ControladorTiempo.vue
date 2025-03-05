@@ -4,8 +4,6 @@ import { Cancion } from '../modelo/cancion';
 import { Musica } from '../modelo/musica';
 import { Tiempo } from '../modelo/tiempo';
 
-import Metronomo from './metronomo.vue';
-
 import 'bootstrap-icons/font/bootstrap-icons.css';
 const props = defineProps<{ compas: number, cancion: Cancion,  nro_cancion: number, total_canciones: number, viendo_vista: string, editando_cancion: Cancion }>();
 const emit = defineEmits(['play', 'pause', 'stop', 'next', 'previous', 'update-compas']);

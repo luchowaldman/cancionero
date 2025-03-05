@@ -1,9 +1,9 @@
 
-import { Nota } from "./Midi/nota";
+import Nota from "./Midi/nota";
 // src/cancion.ts
 export class NotasParteCancion {
     nombre: string;
-    notas: Nota[][];
+    notas: Nota[];
 
     constructor(nombre: string, notas: Nota []) {
         this.nombre = nombre;
