@@ -137,11 +137,6 @@ export class DirectorOffline extends Director {
         this.cambiosCompasHandler?.(this.nro_compas);
   }
   
-  iniciaCompasConectado(nro: number) {
-    this.nro_compas  = nro;
-    this.cambiosCompasHandler?.(nro);
-    console.log("Inicia compas conectado", nro);
-  }
   
 
 

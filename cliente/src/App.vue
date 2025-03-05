@@ -95,7 +95,6 @@ let director: Director = new DirectorOffline(configuracionObj);
   director.setcambiosHandler((directornuevo: Director) => {
     
     
-    console.log("Estado _red")
     sesion_ref.value = directornuevo.configuracion.sesion;
     if (estado_ref.value == 'pausado' && directornuevo.estado != 'pausado') {
       faltan_parainicio.value = cancion_ref.value.compas_cantidad; 

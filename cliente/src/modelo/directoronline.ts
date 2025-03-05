@@ -171,15 +171,18 @@ export class DirectorOnline extends Director {
     console.log("Nro Compas recibido", nro);
   }
   
-  iniciaCompasConectado(nro: number) {
-    console.log("Inicia compas conectado", nro);
-    this.cliente.set_compas(nro);
+  iniciaCompasConectado() {
+    this.nro_compas = this.nro_compas + 1;
+    this.cliente.set_compas(this.nro_compas);
   }
   
 
    onStartCompasRecibido(nro: number) {
-    this.nro_compas  = nro;
-    console.log("Star recibido", nro);
+    if (this.esDirector == false) {
+
+        this.nro_compas  = nro;
+        console.log("Star recibido", nro);
+    }
   }
 
 
@@ -187,8 +190,8 @@ export class DirectorOnline extends Director {
 
     handlerConectado(estado: string) {
         this.configuracion.sesion.estado = estado;
-        console.log("conectado", estado)
-        if (estado=="") {
+        
+        if (estado=="conectado") {
             this.configuracion.sesion.estado = "conectado"
             this.cliente.unirme_sesion(this.configuracion.sesion.nombre, this.configuracion.sesion.usuario_sesion)
         }

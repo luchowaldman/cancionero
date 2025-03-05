@@ -11,7 +11,7 @@ const Port = ":8080"
 
 func main() {
 
-	log.Println("Starting sever")
+	log.Println("Iniciando servidor en puerto", Port)
 
 	io := socket.NewServer(nil, nil)
 	http.Handle("/socket.io/", io.ServeHandler(nil))

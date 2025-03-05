@@ -90,7 +90,7 @@ export class Cliente {
 
         socket.on("connect", () => {
             console.log("socket connected");
-            this.conectadoHandler?.("");
+            this.conectadoHandler?.("conectado");
         });
 
         

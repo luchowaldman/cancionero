@@ -22,8 +22,15 @@ function actualizar_vista() {
 </script>
 
 <template>
-<div>
-  <i class="bi bi-diagram-2"></i>Conectar
+  <div>
+    {{ sesion.estado}}
+<div @click="conectar" v-if="sesion.estado == 'Desconectado'">
+  <i class="bi bi-diagram-2"></i>Conectar {{ sesion.estado}}
+</div>
+
+<div @click="conectar" v-if="sesion.estado == 'conectado'">
+  <i class="bi bi-diagram-2"></i>Desconectar
+</div>
 </div>
 </template>
 

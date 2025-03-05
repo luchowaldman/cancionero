@@ -76,11 +76,12 @@ const props = defineProps<{ viendo_vista: string, compas: number, cancion: Canci
       <div class="otra_paginas"  :class="{active: viendo_vista == 'conectar'}" >
         
           
-        <ControladorSesion :sesion="sesion"
-        @desconectar="acciono('desconectar')"
-          
-          @conectar="acciono('conectar')">
-        </ControladorSesion>
+          <div @click="acciono('conectar')" v-if="sesion.estado == 'Desconectado'">
+              <i class="bi bi-diagram-2"></i>Conectar 
+          </div>
+          <div @click="acciono('desconectar')" v-if="sesion.estado == 'conectado'" class="conectado">
+              <i class="bi bi-diagram-2"></i>Conectado!
+          </div>
       </div>
 
         <div class="otra_paginas" @click="acciono('listas')"  :class="{active: viendo_vista == 'listas'}" v-if="ViendoDetalle">
@@ -141,7 +142,9 @@ const props = defineProps<{ viendo_vista: string, compas: number, cancion: Canci
   border-radius: 20px;
   color: #a9a8f6;
 }
-
+.conectado {
+  color: red;
+}
 .navbarFogon {
   display: flex;
   border: 1px solid;
