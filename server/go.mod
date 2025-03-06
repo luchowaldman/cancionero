@@ -1,4 +1,4 @@
-module github.com/luchowaldman/elpibegravedad/server
+module cancionero-server
 
 go 1.23.1
 

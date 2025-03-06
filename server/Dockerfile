@@ -1,36 +1,29 @@
-ARG BUILD_ENV=cicd
-
+# Usa la imagen oficial de Golang 1.23-alpine como base
 FROM golang:1.23-alpine as base
+
+# Establece el directorio de trabajo dentro del contenedor
 WORKDIR /app
 
-RUN apk add -U --no-cache ca-certificates git openssh-client build-base
+# Copia el archivo go.mod y go.sum
+COPY go.mod go.sum ./
 
-ENV GOPROXY=https://proxy.golang.org
-ENV GO111MODULE=on
-
-COPY go.mod .
-COPY go.sum .
-
-# Local Build
-FROM base AS local
-
+# Descarga las dependencias
 RUN go mod download
-RUN go get github.com/githubnemo/CompileDaemon && go install -mod=mod github.com/githubnemo/CompileDaemon
 
-ENTRYPOINT CompileDaemon --build="go build ." --command=./server
-
-# CICD Build
-FROM base AS build-cicd
-
+# Copia el código fuente de la aplicación en el contenedor
 COPY . .
 
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /main
+# Compila la aplicación
+RUN go build -o myapp
 
-# Reduce CICD build image size by using scratch image
-FROM scratch as cicd
-COPY --from=build-cicd /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
-COPY --from=build-cicd /main /main
-EXPOSE 80
-CMD ["/main"]
+# Usa una imagen mínima de Alpine para el entorno de producción
+FROM alpine:3.14
 
-FROM ${BUILD_ENV} AS build
+# Copia el binario compilado desde la etapa anterior
+COPY --from=base /app/myapp /myapp
+
+# Define el punto de entrada de la aplicación
+ENTRYPOINT ["/myapp"]
+
+# Exponer el puerto (ajústalo según tu aplicación)
+EXPOSE 8080
