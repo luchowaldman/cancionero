@@ -40,7 +40,7 @@ export class DirectorOnline extends Director {
     constructor(Configuracion: ModeloConfiguracion) {
         super(Configuracion);
         this.configuracion = Configuracion;
-        this.cliente = new Cliente("http://192.168.0.202:8080/");
+        this.cliente = new Cliente("https://server-cancionero-187897456683.southamerica-east1.run.app");
         this.configuracion.sesion.usuario_sesion = this.configuracion.nombre + "-" + Math.random()
         this.nro_compas = 0;
         this.nro_cancion = 0;
