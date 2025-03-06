@@ -41,6 +41,8 @@ for ar in arch:
     if (len(sp) == 2):
         try:
             if not (existe_tema(sp[0], sp[1])):
+                
+                print(f"Analizando {sp[0]} - {sp[1]}")
                 resultados.append(analizarxletra(sp[0], sp[1]))
         except Exception as e:
             #print(f"Error al archivo {ar}: {e}")
