@@ -8,7 +8,7 @@ COPY /dist /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Expone el puerto 80
-EXPOSE 80
+EXPOSE 8080
 
 # Define el punto de entrada
 CMD ["nginx", "-g", "daemon off;"]

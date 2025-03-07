@@ -14,3 +14,11 @@ docker push gcr.io/fogoncancionero/server-cancionero:v1.0
 # desde el google cloud shell
 # subir el programa
 gcloud app deploy app.yaml --image-url gcr.io/fogoncancionero/server-cancionero:v1.0
+
+
+# Crear la imagen del cliente
+docker build -t cliente .
+docker tag cliente gcr.io/fogoncancionero/cliente:v1.0
+
+
+docker push gcr.io/fogoncancionero/cliente:v1.0
