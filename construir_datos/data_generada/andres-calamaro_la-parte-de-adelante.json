@@ -1,0 +1,1143 @@
+[
+    {
+        "tipo": "m",
+        "linea": 0,
+        "acordes": [
+            {
+                "acorde": "E7(9+/13-)",
+                "pos": 8
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 1,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 2,
+        "letra": "[Primera Parte]"
+    },
+    {
+        "tipo": "l",
+        "linea": 3,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 4,
+        "acordes": [
+            {
+                "acorde": "Am7",
+                "pos": 10
+            },
+            {
+                "acorde": "D9",
+                "pos": 35
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 5,
+        "letra": "Soy vulnerable a tu lado más amable"
+    },
+    {
+        "tipo": "m",
+        "linea": 6,
+        "acordes": [
+            {
+                "acorde": "Bm7",
+                "pos": 10
+            },
+            {
+                "acorde": "Em7",
+                "pos": 37
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 7,
+        "letra": "Soy carcelero de tu lado más grosero"
+    },
+    {
+        "tipo": "m",
+        "linea": 8,
+        "acordes": [
+            {
+                "acorde": "Am7",
+                "pos": 11
+            },
+            {
+                "acorde": "D9",
+                "pos": 38
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 9,
+        "letra": "Soy el soldado de tu lado más malvado"
+    },
+    {
+        "tipo": "m",
+        "linea": 10,
+        "acordes": [
+            {
+                "acorde": "Bm7",
+                "pos": 11
+            },
+            {
+                "acorde": "E7",
+                "pos": 39
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 11,
+        "letra": "Y el arquitecto de tus lados incorrectos"
+    },
+    {
+        "tipo": "m",
+        "linea": 12,
+        "acordes": [
+            {
+                "acorde": "Am7",
+                "pos": 11
+            },
+            {
+                "acorde": "D9",
+                "pos": 39
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 13,
+        "letra": "Soy propietario de tu lado más caliente"
+    },
+    {
+        "tipo": "m",
+        "linea": 14,
+        "acordes": [
+            {
+                "acorde": "Bm7",
+                "pos": 9
+            },
+            {
+                "acorde": "Em7",
+                "pos": 37
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 15,
+        "letra": "Soy dirigente de tu parte más urgente"
+    },
+    {
+        "tipo": "m",
+        "linea": 16,
+        "acordes": [
+            {
+                "acorde": "Am7",
+                "pos": 9
+            },
+            {
+                "acorde": "D9",
+                "pos": 35
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 17,
+        "letra": "Soy artesano de tu lado más humano"
+    },
+    {
+        "tipo": "m",
+        "linea": 18,
+        "acordes": [
+            {
+                "acorde": "Bm7",
+                "pos": 11
+            },
+            {
+                "acorde": "E7",
+                "pos": 39
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 19,
+        "letra": "Y el comandante de tu parte de adelante"
+    },
+    {
+        "tipo": "l",
+        "linea": 20,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 21,
+        "letra": "[Segunda Parte]"
+    },
+    {
+        "tipo": "l",
+        "linea": 22,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 23,
+        "acordes": [
+            {
+                "acorde": "Am7",
+                "pos": 8
+            },
+            {
+                "acorde": "D9",
+                "pos": 36
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 24,
+        "letra": "Soy inocente de tu lado más culpable"
+    },
+    {
+        "tipo": "m",
+        "linea": 25,
+        "acordes": [
+            {
+                "acorde": "Bm7",
+                "pos": 12
+            },
+            {
+                "acorde": "Em7",
+                "pos": 40
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 26,
+        "letra": "Pero el culpable de tu lado más caliente"
+    },
+    {
+        "tipo": "m",
+        "linea": 27,
+        "acordes": [
+            {
+                "acorde": "Am7",
+                "pos": 11
+            },
+            {
+                "acorde": "D9",
+                "pos": 38
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 28,
+        "letra": "Soy el custodio de tus ráfagas de odio"
+    },
+    {
+        "tipo": "m",
+        "linea": 29,
+        "acordes": [
+            {
+                "acorde": "Bm7",
+                "pos": 12
+            },
+            {
+                "acorde": "E7",
+                "pos": 39
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 30,
+        "letra": "Y el comandante de tu parte de adelante"
+    },
+    {
+        "tipo": "l",
+        "linea": 31,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 32,
+        "letra": "[Terceira Parte]"
+    },
+    {
+        "tipo": "l",
+        "linea": 33,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 34,
+        "acordes": [
+            {
+                "acorde": "Am7",
+                "pos": 12
+            },
+            {
+                "acorde": "D9",
+                "pos": 41
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 35,
+        "letra": "Perdiendo imagen a tu lado estoy mi vida"
+    },
+    {
+        "tipo": "m",
+        "linea": 36,
+        "acordes": [
+            {
+                "acorde": "Bm7",
+                "pos": 3
+            },
+            {
+                "acorde": "Em7",
+                "pos": 38
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 37,
+        "letra": "Mañana será un nuevo punto de partida"
+    },
+    {
+        "tipo": "m",
+        "linea": 38,
+        "acordes": [
+            {
+                "acorde": "Am7",
+                "pos": 9
+            },
+            {
+                "acorde": "D9",
+                "pos": 37
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 39,
+        "letra": "Soy vagabundo de tu lado más profundo"
+    },
+    {
+        "tipo": "m",
+        "linea": 40,
+        "acordes": [
+            {
+                "acorde": "Bm7",
+                "pos": 10
+            },
+            {
+                "acorde": "E7",
+                "pos": 40
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 41,
+        "letra": "Por un segundo de tu cuerpo doy el mundo"
+    },
+    {
+        "tipo": "l",
+        "linea": 42,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 43,
+        "letra": "[Quarta Parte]"
+    },
+    {
+        "tipo": "l",
+        "linea": 44,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 45,
+        "acordes": [
+            {
+                "acorde": "Am7",
+                "pos": 12
+            },
+            {
+                "acorde": "D9",
+                "pos": 42
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 46,
+        "letra": "Que más quisiera que pasar la vida entera"
+    },
+    {
+        "tipo": "m",
+        "linea": 47,
+        "acordes": [
+            {
+                "acorde": "Bm7",
+                "pos": 10
+            },
+            {
+                "acorde": "Em7",
+                "pos": 39
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 48,
+        "letra": "Como estudiante el día de la primavera"
+    },
+    {
+        "tipo": "m",
+        "linea": 49,
+        "acordes": [
+            {
+                "acorde": "Am7",
+                "pos": 12
+            },
+            {
+                "acorde": "D9",
+                "pos": 42
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 50,
+        "letra": "Siempre viajando en un asiento de primera"
+    },
+    {
+        "tipo": "m",
+        "linea": 51,
+        "acordes": [
+            {
+                "acorde": "Bm7",
+                "pos": 10
+            },
+            {
+                "acorde": "E7",
+                "pos": 36
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 52,
+        "letra": "El comandante de tu balsa de madera"
+    },
+    {
+        "tipo": "m",
+        "linea": 53,
+        "acordes": [
+            {
+                "acorde": "Am7",
+                "pos": 12
+            },
+            {
+                "acorde": "D9",
+                "pos": 42
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 54,
+        "letra": "Que más quisiera que pasar la vida entera"
+    },
+    {
+        "tipo": "m",
+        "linea": 55,
+        "acordes": [
+            {
+                "acorde": "Bm7",
+                "pos": 10
+            },
+            {
+                "acorde": "Em7",
+                "pos": 39
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 56,
+        "letra": "Como estudiante el día de la primavera"
+    },
+    {
+        "tipo": "m",
+        "linea": 57,
+        "acordes": [
+            {
+                "acorde": "Am7",
+                "pos": 12
+            },
+            {
+                "acorde": "D9",
+                "pos": 42
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 58,
+        "letra": "Siempre viajando en un asiento de primera"
+    },
+    {
+        "tipo": "m",
+        "linea": 59,
+        "acordes": [
+            {
+                "acorde": "Bm7",
+                "pos": 10
+            },
+            {
+                "acorde": "E7",
+                "pos": 36
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 60,
+        "letra": "El comandante de tu balsa de madera"
+    },
+    {
+        "tipo": "l",
+        "linea": 61,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 62,
+        "acordes": [
+            {
+                "acorde": "Am7",
+                "pos": 2
+            },
+            {
+                "acorde": "D",
+                "pos": 11
+            },
+            {
+                "acorde": "Bm7",
+                "pos": 18
+            },
+            {
+                "acorde": "Em7",
+                "pos": 27
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 63,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 64,
+        "acordes": [
+            {
+                "acorde": "Am7",
+                "pos": 0
+            },
+            {
+                "acorde": "D",
+                "pos": 11
+            },
+            {
+                "acorde": "Bm7",
+                "pos": 19
+            },
+            {
+                "acorde": "Em7",
+                "pos": 29
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 65,
+        "letra": "Aaahhh"
+    },
+    {
+        "tipo": "m",
+        "linea": 66,
+        "acordes": [
+            {
+                "acorde": "Am7",
+                "pos": 11
+            },
+            {
+                "acorde": "D",
+                "pos": 34
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 67,
+        "letra": "Soy el soldado de tu lado malvado"
+    },
+    {
+        "tipo": "m",
+        "linea": 68,
+        "acordes": [
+            {
+                "acorde": "Bm7",
+                "pos": 11
+            },
+            {
+                "acorde": "E7",
+                "pos": 39
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 69,
+        "letra": "Y el comandante de tu parte de adelante"
+    },
+    {
+        "tipo": "l",
+        "linea": 70,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 71,
+        "acordes": [
+            {
+                "acorde": "Am7",
+                "pos": 7
+            },
+            {
+                "acorde": "D",
+                "pos": 16
+            },
+            {
+                "acorde": "Bm7",
+                "pos": 23
+            },
+            {
+                "acorde": "Em7",
+                "pos": 32
+            }
+        ]
+    },
+    {
+        "tipo": "m",
+        "linea": 72,
+        "acordes": [
+            {
+                "acorde": "Am7",
+                "pos": 7
+            },
+            {
+                "acorde": "D",
+                "pos": 16
+            },
+            {
+                "acorde": "Bm7",
+                "pos": 23
+            },
+            {
+                "acorde": "E7",
+                "pos": 32
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 73,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 74,
+        "letra": "[Terceira Parte]"
+    },
+    {
+        "tipo": "l",
+        "linea": 75,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 76,
+        "acordes": [
+            {
+                "acorde": "Am7",
+                "pos": 12
+            },
+            {
+                "acorde": "D9",
+                "pos": 41
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 77,
+        "letra": "Perdiendo imagen a tu lado estoy mi vida"
+    },
+    {
+        "tipo": "m",
+        "linea": 78,
+        "acordes": [
+            {
+                "acorde": "Bm7",
+                "pos": 3
+            },
+            {
+                "acorde": "Em7",
+                "pos": 38
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 79,
+        "letra": "Mañana será un nuevo punto de partida"
+    },
+    {
+        "tipo": "m",
+        "linea": 80,
+        "acordes": [
+            {
+                "acorde": "Am7",
+                "pos": 9
+            },
+            {
+                "acorde": "D9",
+                "pos": 37
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 81,
+        "letra": "Soy vagabundo de tu lado más profundo"
+    },
+    {
+        "tipo": "m",
+        "linea": 82,
+        "acordes": [
+            {
+                "acorde": "Bm7",
+                "pos": 10
+            },
+            {
+                "acorde": "E7",
+                "pos": 40
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 83,
+        "letra": "Por un segundo de tu cuerpo doy el mundo"
+    },
+    {
+        "tipo": "l",
+        "linea": 84,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 85,
+        "letra": "[Quarta Parte]"
+    },
+    {
+        "tipo": "l",
+        "linea": 86,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 87,
+        "acordes": [
+            {
+                "acorde": "Am7",
+                "pos": 12
+            },
+            {
+                "acorde": "D9",
+                "pos": 42
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 88,
+        "letra": "Que más quisiera que pasar la vida entera"
+    },
+    {
+        "tipo": "m",
+        "linea": 89,
+        "acordes": [
+            {
+                "acorde": "Bm7",
+                "pos": 10
+            },
+            {
+                "acorde": "Em7",
+                "pos": 39
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 90,
+        "letra": "Como estudiante el día de la primavera"
+    },
+    {
+        "tipo": "m",
+        "linea": 91,
+        "acordes": [
+            {
+                "acorde": "Am7",
+                "pos": 12
+            },
+            {
+                "acorde": "D9",
+                "pos": 42
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 92,
+        "letra": "Siempre viajando en un asiento de primera"
+    },
+    {
+        "tipo": "m",
+        "linea": 93,
+        "acordes": [
+            {
+                "acorde": "Bm7",
+                "pos": 10
+            },
+            {
+                "acorde": "E7",
+                "pos": 36
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 94,
+        "letra": "El comandante de tu balsa de madera"
+    },
+    {
+        "tipo": "m",
+        "linea": 95,
+        "acordes": [
+            {
+                "acorde": "Am7",
+                "pos": 12
+            },
+            {
+                "acorde": "D9",
+                "pos": 42
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 96,
+        "letra": "Que más quisiera que pasar la vida entera"
+    },
+    {
+        "tipo": "m",
+        "linea": 97,
+        "acordes": [
+            {
+                "acorde": "Bm7",
+                "pos": 10
+            },
+            {
+                "acorde": "Em7",
+                "pos": 39
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 98,
+        "letra": "Como estudiante el día de la primavera"
+    },
+    {
+        "tipo": "m",
+        "linea": 99,
+        "acordes": [
+            {
+                "acorde": "Am7",
+                "pos": 12
+            },
+            {
+                "acorde": "D9",
+                "pos": 42
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 100,
+        "letra": "Siempre viajando en un asiento de primera"
+    },
+    {
+        "tipo": "m",
+        "linea": 101,
+        "acordes": [
+            {
+                "acorde": "Bm7",
+                "pos": 10
+            },
+            {
+                "acorde": "E7",
+                "pos": 36
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 102,
+        "letra": "El comandante de tu balsa de madera"
+    },
+    {
+        "tipo": "l",
+        "linea": 103,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 104,
+        "acordes": [
+            {
+                "acorde": "Am7",
+                "pos": 2
+            },
+            {
+                "acorde": "D",
+                "pos": 11
+            },
+            {
+                "acorde": "Bm7",
+                "pos": 18
+            },
+            {
+                "acorde": "Em7",
+                "pos": 27
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 105,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 106,
+        "acordes": [
+            {
+                "acorde": "Am7",
+                "pos": 0
+            },
+            {
+                "acorde": "D",
+                "pos": 11
+            },
+            {
+                "acorde": "Bm7",
+                "pos": 19
+            },
+            {
+                "acorde": "Em7",
+                "pos": 29
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 107,
+        "letra": "Aaahhh"
+    },
+    {
+        "tipo": "m",
+        "linea": 108,
+        "acordes": [
+            {
+                "acorde": "Am7",
+                "pos": 11
+            },
+            {
+                "acorde": "D",
+                "pos": 34
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 109,
+        "letra": "Soy el soldado de tu lado malvado"
+    },
+    {
+        "tipo": "m",
+        "linea": 110,
+        "acordes": [
+            {
+                "acorde": "Bm7",
+                "pos": 11
+            },
+            {
+                "acorde": "E7",
+                "pos": 39
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 111,
+        "letra": "Y el comandante de tu parte de adelante"
+    },
+    {
+        "tipo": "m",
+        "linea": 112,
+        "acordes": [
+            {
+                "acorde": "Am7",
+                "pos": 0
+            },
+            {
+                "acorde": "D",
+                "pos": 11
+            },
+            {
+                "acorde": "Bm7",
+                "pos": 19
+            },
+            {
+                "acorde": "Em7",
+                "pos": 29
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 113,
+        "letra": "Aaahhh"
+    },
+    {
+        "tipo": "m",
+        "linea": 114,
+        "acordes": [
+            {
+                "acorde": "Am7",
+                "pos": 11
+            },
+            {
+                "acorde": "D",
+                "pos": 34
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 115,
+        "letra": "Soy el soldado de tu lado malvado"
+    },
+    {
+        "tipo": "m",
+        "linea": 116,
+        "acordes": [
+            {
+                "acorde": "Bm7",
+                "pos": 11
+            },
+            {
+                "acorde": "E7",
+                "pos": 39
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 117,
+        "letra": "Y el comandante de tu parte de adelante"
+    },
+    {
+        "tipo": "l",
+        "linea": 118,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 119,
+        "acordes": [
+            {
+                "acorde": "Am7",
+                "pos": 8
+            },
+            {
+                "acorde": "D",
+                "pos": 17
+            },
+            {
+                "acorde": "Bm7",
+                "pos": 24
+            },
+            {
+                "acorde": "Em7",
+                "pos": 33
+            }
+        ]
+    },
+    {
+        "tipo": "m",
+        "linea": 120,
+        "acordes": [
+            {
+                "acorde": "Am7",
+                "pos": 8
+            },
+            {
+                "acorde": "D",
+                "pos": 17
+            },
+            {
+                "acorde": "Bm7",
+                "pos": 24
+            },
+            {
+                "acorde": "E7",
+                "pos": 33
+            }
+        ]
+    }
+]

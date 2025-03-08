@@ -1,22 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { Cancion } from '../modelo/cancion';
-import { Contexto } from '../modelo/contexto';
 
-defineProps<{ compas: number, cancion: Cancion, contexto: Contexto }>()
+defineProps<{ compas: number, cancion: Cancion }>()
 
-const count = ref(0)
-
-
-function Iniciar_Compas(nro_compas: number) 
-{ 
-  console.log(`Iniciando compás ${nro_compas} en ComponenteMusicalAcordes`); 
-}
 
 </script>
 
 <template>
-METRONOMO {{ compas }}
 
 
 </template>

@@ -9,14 +9,16 @@ from buscar_partes import buscar_partes
 
 SAVE_DIRECTORY = 'cifraclub_pages/'
 DIRECTORIO_DATOS = '../cliente/public/data/'
-
+DIRECTORIO_DATOS_GENERADA = 'data_generada/'
 # Función para calcular las partes de la canción
+def nocalcular_partes(acordes, letras):
+    acorde = Acordes([Parte('p1', [acordes])], [0])
+    return acorde.toJson()
 
+    
 def calcular_partes(acordes, letras):
     
     partes, secuencia = buscar_partes(acordes)
-
-
     partes_obj = []
     for (i, parte) in enumerate(partes):
         partes_obj.append(Parte(f'Parte {i + 1}', parte))
@@ -25,112 +27,87 @@ def calcular_partes(acordes, letras):
 
 
 # Función para analizar un archivo HTML y guardarlo en JSON
-def analizar_html_y_guardar_en_json(band_name, song_name ):
+def construir_prearchivo(band_name, song_name ):
     # Crear un diccionario para almacenar el análisis
-    analisis = {}
-    analisis['banda'] = band_name
-    analisis['cancion'] = song_name
+    data_gen = {}
     band_name = band_name.replace(' ', '-')
     song_name = song_name.replace(' ', '-')
     
     nombre_archivo_html = os.path.join(SAVE_DIRECTORY, f'{band_name}_{song_name}.html')
-    nombre_archivo_json  = os.path.join(DIRECTORIO_DATOS, f'{band_name}_{song_name}.json')
+#    nombre_archivo_json  = os.path.join(DIRECTORIO_DATOS, f'{band_name}_{song_name}.json')
+    nombre_archivo_generado_json  = os.path.join(DIRECTORIO_DATOS_GENERADA, f'{band_name}_{song_name}.json')
     # Leer el contenido del archivo HTML
+    print (f'leyendo archivo: {nombre_archivo_html}')
     with open(nombre_archivo_html, 'r', encoding='utf-8') as file:
         contenido_html = file.read()
     
     # Analizar el contenido HTML con BeautifulSoup
-    soup = BeautifulSoup(contenido_html, 'lxml')
     
     
-    # Obtener el tono de la canción
-    cifra_tom = soup.find('span', id='cifra_tom')
-    if cifra_tom and cifra_tom.find('a'):
-        tono = cifra_tom.find('a').get_text()
-    else:
-        tono = 'No se encontró el tono'
-    
-    analisis['tono'] = tono
-
-    # Crear un diccionario vacío
-    lineas_dict = {}
-    lineas_tieneacordes = {}
+    renglones = []
     
     # Obtener los acordes y la letra desde el tag <pre>
+    soup = BeautifulSoup(contenido_html, 'lxml')
     pre_tag = soup.find('pre')
     if pre_tag:
         # Eliminar todos los tags de la clase 'tablatura' y 'cnt'
         for tag in pre_tag.find_all(class_=['tablatura', 'cnt']):
             tag.decompose()
-        acordes = []
-        letras = []
         lineas = pre_tag.decode_contents().split('\n')
-    count = 0
-
-
-
+    max_renglon = 0
     for i, line in enumerate(lineas):
-            if line.strip():  # Verificar si la línea no es un string en blanco
-                tiene_acordes = bool(BeautifulSoup(line, 'html.parser').find('b'))
-                lineas_dict[count] = line
-                lineas_tieneacordes[count] = tiene_acordes
-                count += 1
-
-    i = 0
-    while i < len(lineas_dict):
-        tiene_acordes = lineas_tieneacordes[i]
-        if not (tiene_acordes):
-            acordes.append('')
-            letras.append([lineas_dict[i]])
-            i += 1
+        #print(i, line)
+        pos = 0
+        acorde_inline = line.split('<b>')
+        tiene_acordes = (len(acorde_inline) > 1)
+        if (not tiene_acordes):
+            pos = 0
+            renglones.append({'tipo': 'l', 'linea':i, 'letra': line } )
+            #print (i, line)
         else:
-            if (i == len(lineas) - 1) or (lineas_tieneacordes[i + 1]):
-                addacordes = [b.get_text() for b in BeautifulSoup(lineas_dict[i], 'html.parser').find_all('b')]
-                acordes.extend(addacordes)
-                addtexto = ['' for _ in addacordes]
-                letras.append(addtexto)
-                i += 1
-            else:
-                addacordes = [b.get_text() for b in BeautifulSoup(lineas_dict[i], 'html.parser').find_all('b')]
-                acordes.extend(addacordes)
-
-                positions = []
-                last_pos = 0
-                for b in BeautifulSoup(lineas_dict[i], 'html.parser').find_all('b'):
-                    pos = lineas_dict[i].find(b.get_text(), last_pos)
-                    positions.append(pos)
-                    last_pos = pos + len(b.get_text())
-                
-                addtexto = []
-                last_pos = 0
-                for pos in positions:
-                    addtexto.append(lineas[i + 1][last_pos:pos])
-                    last_pos = pos
-                addtexto.append(lineas[i + 1][last_pos:])
-                letras.append(addtexto)
-                i += 2
-
-    analisis['acordes'] = calcular_partes(acordes, letras)
-    analisis['letras'] = letras
-
-
-
+            acordes = []
+            for acorde in acorde_inline:
+                if acorde.__contains__('</b>'):
+                    acorde_r = acorde.split('</b>')[0]
+                    acordes.append({'acorde':acorde_r, 'pos': pos})
+                pos += len(acorde)
+            renglones.append({'tipo': 'm', 'linea':i, 'acordes': acordes })
+            
         
-    # Crear el directorio si no existe
-    directorio = os.path.dirname(nombre_archivo_json)
-    if not os.path.exists(directorio):
-        os.makedirs(directorio)
-    
-    # Guardar el análisis en un archivo JSON
-    with open(nombre_archivo_json, 'w', encoding='utf-8') as file:
-        json.dump(analisis, file, ensure_ascii=False, indent=4)
+    with open(nombre_archivo_generado_json, 'w', encoding='utf-8') as file:
+        json.dump(renglones, file, ensure_ascii=False, indent=4)
 
+    return 'ok'
 # Ejemplo de uso
-analizar_html_y_guardar_en_json("intoxicados", "fuiste lo mejor")
 
-# analizar_html_y_guardar_en_json("intoxicados", "fuego")
-# analizar_html_y_guardar_en_json('intoxicados', 'esta saliendo el sol')
-# analizar_html_y_guardar_en_json('intoxicados', 'se fue al cielo')
-# analizar_html_y_guardar_en_json('intoxicados', 'casi sin pensar')
-# analizar_html_y_guardar_en_json('intoxicados', 'pila pila')
-# analizar_html_y_guardar_en_json('intoxicados', 'volver a casa')
+
+
+print('Construyendo acordes de canciones...')
+
+construir_prearchivo('intoxicados', 'casi sin pensar')
+construir_prearchivo("intoxicados", "fuego")
+construir_prearchivo("intoxicados", "fuiste lo mejor")
+construir_prearchivo('andres-calamaro', 'la parte de adelante')
+construir_prearchivo('intoxicados', 'esta saliendo el sol')
+construir_prearchivo('intoxicados', 'se fue al cielo')
+construir_prearchivo('intoxicados', 'casi sin pensar')
+construir_prearchivo('intoxicados', 'pila pila')
+construir_prearchivo('intoxicados', 'volver a casa')
+
+construir_prearchivo('andres calamaro', 'flaca')
+construir_prearchivo('andres calamaro', 'la parte de adelante')
+construir_prearchivo('andres calamaro', 'cuando no estas')
+exit()
+construir_prearchivo('andres calamaro', 'te quiero igual')
+construir_prearchivo('andres calamaro', 'crimenes perfectos')
+construir_prearchivo('andres calamaro', 'paloma')
+construir_prearchivo('andres calamaro', 'cartas sin marcar')
+construir_prearchivo('andres calamaro', 'donde manda marinero')
+construir_prearchivo('andres calamaro', 'pasemos a otro tema')
+construir_prearchivo('andres calamaro', 'mi gin tonic')
+construir_prearchivo('andres calamaro', 'loco')
+construir_prearchivo('andres calamaro', 'soy tuyo')
+construir_prearchivo('andres calamaro', 'el salmon')
+construir_prearchivo('andres calamaro', 'alta suciedad')
+construir_prearchivo('andres calamaro', 'media veronica')
+construir_prearchivo('andres calamaro', 'bohemio')

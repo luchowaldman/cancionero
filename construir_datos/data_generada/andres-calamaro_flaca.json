@@ -1,0 +1,1646 @@
+[
+    {
+        "tipo": "m",
+        "linea": 0,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 8
+            },
+            {
+                "acorde": "B7",
+                "pos": 15
+            },
+            {
+                "acorde": "Em",
+                "pos": 23
+            },
+            {
+                "acorde": "C",
+                "pos": 31
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 1,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 2,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 8
+            },
+            {
+                "acorde": "D",
+                "pos": 15
+            },
+            {
+                "acorde": "G",
+                "pos": 22
+            },
+            {
+                "acorde": "D",
+                "pos": 29
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 3,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 4,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 5,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 6,
+        "letra": "[Tab - Solo Intro]"
+    },
+    {
+        "tipo": "l",
+        "linea": 7,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 8,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 9,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 10,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 11,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 12,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 13,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 14,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 15,
+        "letra": "[Estribillo]"
+    },
+    {
+        "tipo": "l",
+        "linea": 16,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 17,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 18,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 19,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 4
+            },
+            {
+                "acorde": "B7",
+                "pos": 21
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 20,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 21,
+        "letra": "Flaca, no me claves"
+    },
+    {
+        "tipo": "l",
+        "linea": 22,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 23,
+        "acordes": [
+            {
+                "acorde": "Em",
+                "pos": 9
+            },
+            {
+                "acorde": "C",
+                "pos": 30
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 24,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 25,
+        "letra": "Tus puñales, por la espalda"
+    },
+    {
+        "tipo": "l",
+        "linea": 26,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 27,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 11
+            },
+            {
+                "acorde": "D",
+                "pos": 28
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 28,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 29,
+        "letra": "Tan profundo, no me duelen"
+    },
+    {
+        "tipo": "l",
+        "linea": 30,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 31,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 13
+            },
+            {
+                "acorde": "D",
+                "pos": 20
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 32,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 33,
+        "letra": "No me hacen mal"
+    },
+    {
+        "tipo": "l",
+        "linea": 34,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 35,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 36,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 37,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 3
+            },
+            {
+                "acorde": "B7",
+                "pos": 22
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 38,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 39,
+        "letra": "Lejos, en el centro"
+    },
+    {
+        "tipo": "l",
+        "linea": 40,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 41,
+        "acordes": [
+            {
+                "acorde": "Em",
+                "pos": 11
+            },
+            {
+                "acorde": "C",
+                "pos": 26
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 42,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 43,
+        "letra": "De la Tierra, las raíces"
+    },
+    {
+        "tipo": "l",
+        "linea": 44,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 45,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 6
+            },
+            {
+                "acorde": "D",
+                "pos": 25
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 46,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 47,
+        "letra": "Del amor, donde estaban"
+    },
+    {
+        "tipo": "l",
+        "linea": 48,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 49,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 6
+            },
+            {
+                "acorde": "D",
+                "pos": 13
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 50,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 51,
+        "letra": "Quedarán"
+    },
+    {
+        "tipo": "l",
+        "linea": 52,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 53,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 54,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 55,
+        "letra": "[Primera Parte]"
+    },
+    {
+        "tipo": "l",
+        "linea": 56,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 57,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 58,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 59,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 0
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 60,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 61,
+        "letra": "Entre no me olvides"
+    },
+    {
+        "tipo": "l",
+        "linea": 62,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 63,
+        "acordes": [
+            {
+                "acorde": "B7",
+                "pos": 6
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 64,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 65,
+        "letra": "Me deje nuestros abriles"
+    },
+    {
+        "tipo": "l",
+        "linea": 66,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 67,
+        "acordes": [
+            {
+                "acorde": "Em",
+                "pos": 5
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 68,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 69,
+        "letra": "Olvidados"
+    },
+    {
+        "tipo": "l",
+        "linea": 70,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 71,
+        "acordes": [
+            {
+                "acorde": "C",
+                "pos": 20
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 72,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 73,
+        "letra": "En el fondo del placard"
+    },
+    {
+        "tipo": "l",
+        "linea": 74,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 75,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 19
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 76,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 77,
+        "letra": "Del cuarto de invitados"
+    },
+    {
+        "tipo": "l",
+        "linea": 78,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 79,
+        "acordes": [
+            {
+                "acorde": "D",
+                "pos": 16
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 80,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 81,
+        "letra": "Eran tiempos dorados"
+    },
+    {
+        "tipo": "l",
+        "linea": 82,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 83,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 13
+            },
+            {
+                "acorde": "D",
+                "pos": 20
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 84,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 85,
+        "letra": "Un pasado mejor"
+    },
+    {
+        "tipo": "l",
+        "linea": 86,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 87,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 88,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 89,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 8
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 90,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 91,
+        "letra": "Aunque casi me equivoco"
+    },
+    {
+        "tipo": "l",
+        "linea": 92,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 93,
+        "acordes": [
+            {
+                "acorde": "B7",
+                "pos": 6
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 94,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 95,
+        "letra": "Y te digo poco a poco"
+    },
+    {
+        "tipo": "l",
+        "linea": 96,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 97,
+        "acordes": [
+            {
+                "acorde": "Em",
+                "pos": 8
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 98,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 99,
+        "letra": "No me mientas"
+    },
+    {
+        "tipo": "l",
+        "linea": 100,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 101,
+        "acordes": [
+            {
+                "acorde": "C",
+                "pos": 19
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 102,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 103,
+        "letra": "No me digas la verdad"
+    },
+    {
+        "tipo": "l",
+        "linea": 104,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 105,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 17
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 106,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 107,
+        "letra": "No te quedes callada"
+    },
+    {
+        "tipo": "l",
+        "linea": 108,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 109,
+        "acordes": [
+            {
+                "acorde": "D",
+                "pos": 16
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 110,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 111,
+        "letra": "No levantes la voz"
+    },
+    {
+        "tipo": "l",
+        "linea": 112,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 113,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 16
+            },
+            {
+                "acorde": "D",
+                "pos": 23
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 114,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 115,
+        "letra": "Ni me pidas perdón"
+    },
+    {
+        "tipo": "l",
+        "linea": 116,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 117,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 118,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 119,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 8
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 120,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 121,
+        "letra": "Aunque casi te confieso"
+    },
+    {
+        "tipo": "l",
+        "linea": 122,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 123,
+        "acordes": [
+            {
+                "acorde": "B7",
+                "pos": 9
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 124,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 125,
+        "letra": "Que también he sido un perro"
+    },
+    {
+        "tipo": "l",
+        "linea": 126,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 127,
+        "acordes": [
+            {
+                "acorde": "Em",
+                "pos": 5
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 128,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 129,
+        "letra": "Compañero"
+    },
+    {
+        "tipo": "l",
+        "linea": 130,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 131,
+        "acordes": [
+            {
+                "acorde": "C",
+                "pos": 12
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 132,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 133,
+        "letra": "Un perro ideal"
+    },
+    {
+        "tipo": "l",
+        "linea": 134,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 135,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 19
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 136,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 137,
+        "letra": "Que aprendió a ladrar"
+    },
+    {
+        "tipo": "l",
+        "linea": 138,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 139,
+        "acordes": [
+            {
+                "acorde": "D",
+                "pos": 17
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 140,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 141,
+        "letra": "Y a volver al hogar"
+    },
+    {
+        "tipo": "l",
+        "linea": 142,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 143,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 14
+            },
+            {
+                "acorde": "D",
+                "pos": 21
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 144,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 145,
+        "letra": "Para poder comer"
+    },
+    {
+        "tipo": "l",
+        "linea": 146,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 147,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 148,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 149,
+        "letra": "[Estribillo]"
+    },
+    {
+        "tipo": "l",
+        "linea": 150,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 151,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 152,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 153,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 4
+            },
+            {
+                "acorde": "B7",
+                "pos": 21
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 154,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 155,
+        "letra": "Flaca, no me claves"
+    },
+    {
+        "tipo": "l",
+        "linea": 156,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 157,
+        "acordes": [
+            {
+                "acorde": "Em",
+                "pos": 9
+            },
+            {
+                "acorde": "C",
+                "pos": 30
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 158,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 159,
+        "letra": "Tus puñales, por la espalda"
+    },
+    {
+        "tipo": "l",
+        "linea": 160,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 161,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 11
+            },
+            {
+                "acorde": "D",
+                "pos": 28
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 162,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 163,
+        "letra": "Tan profundo, no me duelen"
+    },
+    {
+        "tipo": "l",
+        "linea": 164,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 165,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 13
+            },
+            {
+                "acorde": "D",
+                "pos": 20
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 166,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 167,
+        "letra": "No me hacen mal"
+    },
+    {
+        "tipo": "l",
+        "linea": 168,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 169,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 170,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 171,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 3
+            },
+            {
+                "acorde": "B7",
+                "pos": 22
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 172,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 173,
+        "letra": "Lejos, en el centro"
+    },
+    {
+        "tipo": "l",
+        "linea": 174,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 175,
+        "acordes": [
+            {
+                "acorde": "Em",
+                "pos": 11
+            },
+            {
+                "acorde": "C",
+                "pos": 26
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 176,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 177,
+        "letra": "De la tierra, las raíces"
+    },
+    {
+        "tipo": "l",
+        "linea": 178,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 179,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 6
+            },
+            {
+                "acorde": "D",
+                "pos": 25
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 180,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 181,
+        "letra": "Del amor, donde estaban"
+    },
+    {
+        "tipo": "l",
+        "linea": 182,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 183,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 6
+            },
+            {
+                "acorde": "D",
+                "pos": 13
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 184,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 185,
+        "letra": "Quedarán"
+    },
+    {
+        "tipo": "l",
+        "linea": 186,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 187,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 188,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 189,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 13
+            },
+            {
+                "acorde": "B7",
+                "pos": 20
+            },
+            {
+                "acorde": "Em",
+                "pos": 28
+            },
+            {
+                "acorde": "C",
+                "pos": 36
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 190,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 191,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 13
+            },
+            {
+                "acorde": "D",
+                "pos": 20
+            },
+            {
+                "acorde": "G",
+                "pos": 27
+            },
+            {
+                "acorde": "D",
+                "pos": 34
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 192,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 193,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 13
+            },
+            {
+                "acorde": "B7",
+                "pos": 20
+            },
+            {
+                "acorde": "Em",
+                "pos": 28
+            },
+            {
+                "acorde": "C",
+                "pos": 36
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 194,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 195,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 13
+            },
+            {
+                "acorde": "D",
+                "pos": 20
+            },
+            {
+                "acorde": "G",
+                "pos": 27
+            },
+            {
+                "acorde": "D",
+                "pos": 34
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 196,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 197,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 13
+            },
+            {
+                "acorde": "B7",
+                "pos": 20
+            },
+            {
+                "acorde": "Em",
+                "pos": 28
+            },
+            {
+                "acorde": "C",
+                "pos": 36
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 198,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 199,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 13
+            },
+            {
+                "acorde": "D",
+                "pos": 20
+            },
+            {
+                "acorde": "G",
+                "pos": 27
+            },
+            {
+                "acorde": "D",
+                "pos": 34
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 200,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 201,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 13
+            },
+            {
+                "acorde": "B7",
+                "pos": 20
+            },
+            {
+                "acorde": "Em",
+                "pos": 28
+            },
+            {
+                "acorde": "C",
+                "pos": 36
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 202,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 203,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 13
+            },
+            {
+                "acorde": "D",
+                "pos": 20
+            },
+            {
+                "acorde": "G",
+                "pos": 27
+            },
+            {
+                "acorde": "D",
+                "pos": 34
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 204,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 205,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 13
+            },
+            {
+                "acorde": "B7",
+                "pos": 20
+            },
+            {
+                "acorde": "Em",
+                "pos": 28
+            },
+            {
+                "acorde": "C",
+                "pos": 36
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 206,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 207,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 13
+            },
+            {
+                "acorde": "D",
+                "pos": 20
+            },
+            {
+                "acorde": "G",
+                "pos": 27
+            },
+            {
+                "acorde": "D",
+                "pos": 34
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 208,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 209,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 13
+            },
+            {
+                "acorde": "B7",
+                "pos": 20
+            },
+            {
+                "acorde": "Em",
+                "pos": 28
+            },
+            {
+                "acorde": "C",
+                "pos": 36
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 210,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 211,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 13
+            },
+            {
+                "acorde": "D",
+                "pos": 20
+            },
+            {
+                "acorde": "G",
+                "pos": 27
+            },
+            {
+                "acorde": "D",
+                "pos": 34
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 212,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 213,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 214,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 215,
+        "letra": "[Tab - Solo Final]"
+    },
+    {
+        "tipo": "l",
+        "linea": 216,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 217,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 218,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 219,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 220,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 221,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 222,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 223,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 224,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 225,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 226,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 227,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 228,
+        "letra": ""
+    }
+]

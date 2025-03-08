@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { Cancion } from '../modelo/cancion';
-import { Contexto } from '../modelo/contexto';
 import { watch } from 'vue';
+import { VistaControl } from '../modelo/vista_control';
 
-const props = defineProps<{ compas: number, cancion: Cancion, contexto: Contexto }>()
+const props = defineProps<{ compas: number, cancion: Cancion, vista: VistaControl  }>()
 
 const mostrando_parte = ref(-1)
 const mostrando_compas_parte = ref(-1)
@@ -31,23 +31,20 @@ watch(() => props.compas, (newCompas) => {
 </script>
 
 <template>
-
-    
-    
-      <div v-for="(parte, index) in cancion.acordes.orden_partes" :key="index" class="parte">
-        
-        
+    <div>
+      
+      <div v-for="(parte, index) in cancion.acordes.orden_partes" :key="index" >
+        <div>{{ cancion.acordes.partes[parte].nombre  }}</div>
+        <div style="display: flex; flex-wrap: wrap;">
         <div  v-for="(aco, index_aco) in cancion.acordes.partes[parte].acordes" :key="index_aco"
-        class="acorde"
-         :class="{ compas_actual: mostrando_parte === index && mostrando_compas_parte === index_aco }"
-        >
+         class="acorde"
+         :style="{ 'max-height': vista.alto + 'px', 'width': (vista.tamanio_referencia * 3) + 'px', 'font-size' : vista.tamanio_referencia + 'px' }"
+         :class="{ compas_actual: mostrando_parte === index && mostrando_compas_parte === index_aco }">
          {{ aco }}
         </div>
-
-     </div>
-    
-    
-
+      </div>
+      </div>
+    </div>
 </template>
 
 <style scoped>
@@ -57,10 +54,20 @@ watch(() => props.compas, (newCompas) => {
 
 .parte {
   display: flex;
+  margin: 1px;
+  padding: 5px;
+  border: 1px solid;
+  border-radius: 5px;
 }
-.acorde {
-  border: 1px solid #888;
-  width: 25%;
+.acorde  {
+  font-size: large;
+  margin: 1px;
+  padding: 5px;
+  border: 1px solid;
+  border-radius: 5px;
+  color: #a9a8f6;
+  margin-right: 10px;
+  
 }
 .ordenparte {
   border: 1px solid #888;
@@ -68,7 +75,9 @@ watch(() => props.compas, (newCompas) => {
 }
 
 .compas_actual {
-  background-color: #00FF00;
+  background-color: red;
   color: white;
 }
+
+
 </style>

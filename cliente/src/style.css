@@ -1,3 +1,4 @@
+
 #barra_navegacion {
     display: flex;
     border: 1px solid;
@@ -11,7 +12,15 @@
     
 }
 
+.bodyClass {
+  background-color: black;
+  color: white;
+}
 
+#app {
+  height: 100%;
+  width: 98%;
+}
 
 .parte {
     display: flex;
@@ -25,7 +34,3 @@
     width: 25%;
   }
   
-  .compas_actual {
-    background-color: #00FF00;
-    color: white;
-  }

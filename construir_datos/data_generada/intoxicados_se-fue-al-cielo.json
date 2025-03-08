@@ -1,0 +1,766 @@
+[
+    {
+        "tipo": "m",
+        "linea": 0,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 10
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 1,
+        "letra": "Cuando camino solo trato"
+    },
+    {
+        "tipo": "m",
+        "linea": 2,
+        "acordes": [
+            {
+                "acorde": "C",
+                "pos": 9
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 3,
+        "letra": "Q nadie me distraiga"
+    },
+    {
+        "tipo": "m",
+        "linea": 4,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 11
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 5,
+        "letra": "Seguramente estoy colgado"
+    },
+    {
+        "tipo": "m",
+        "linea": 6,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 11
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 7,
+        "letra": "En esas cosas que"
+    },
+    {
+        "tipo": "m",
+        "linea": 8,
+        "acordes": [
+            {
+                "acorde": "C",
+                "pos": 5
+            },
+            {
+                "acorde": "G",
+                "pos": 23
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 9,
+        "letra": "Nadie me puede explicar"
+    },
+    {
+        "tipo": "l",
+        "linea": 10,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 11,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 11
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 12,
+        "letra": "Armando mi propia religión"
+    },
+    {
+        "tipo": "m",
+        "linea": 13,
+        "acordes": [
+            {
+                "acorde": "C",
+                "pos": 10
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 14,
+        "letra": "Mi espiritu está tratando"
+    },
+    {
+        "tipo": "m",
+        "linea": 15,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 10
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 16,
+        "letra": "De encontrar alguna"
+    },
+    {
+        "tipo": "m",
+        "linea": 17,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 10
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 18,
+        "letra": "Buena razon para justificar"
+    },
+    {
+        "tipo": "m",
+        "linea": 19,
+        "acordes": [
+            {
+                "acorde": "C",
+                "pos": 4
+            },
+            {
+                "acorde": "G",
+                "pos": 20
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 20,
+        "letra": "Vivir en este lugar"
+    },
+    {
+        "tipo": "l",
+        "linea": 21,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 22,
+        "acordes": [
+            {
+                "acorde": "D",
+                "pos": 7
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 23,
+        "letra": "Pero ahora no quiero hacerte pensar"
+    },
+    {
+        "tipo": "m",
+        "linea": 24,
+        "acordes": [
+            {
+                "acorde": "D",
+                "pos": 6
+            },
+            {
+                "acorde": "G",
+                "pos": 29
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 25,
+        "letra": "Porque pensar tanto no es bueno"
+    },
+    {
+        "tipo": "m",
+        "linea": 26,
+        "acordes": [
+            {
+                "acorde": "D",
+                "pos": 7
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 27,
+        "letra": "Eso me lo dijo un viejo que"
+    },
+    {
+        "tipo": "m",
+        "linea": 28,
+        "acordes": [
+            {
+                "acorde": "C",
+                "pos": 8
+            },
+            {
+                "acorde": "G",
+                "pos": 28
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 29,
+        "letra": "De tristeza se fue al cielo"
+    },
+    {
+        "tipo": "l",
+        "linea": 30,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 31,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 15
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 32,
+        "letra": "No quiero ir mas a ningun hospital"
+    },
+    {
+        "tipo": "m",
+        "linea": 33,
+        "acordes": [
+            {
+                "acorde": "C",
+                "pos": 14
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 34,
+        "letra": "Porque ahi nunca me dicen nada"
+    },
+    {
+        "tipo": "m",
+        "linea": 35,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 14
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 36,
+        "letra": "Creo que un veterinario va a poder"
+    },
+    {
+        "tipo": "m",
+        "linea": 37,
+        "acordes": [
+            {
+                "acorde": "C",
+                "pos": 7
+            },
+            {
+                "acorde": "G",
+                "pos": 33
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 38,
+        "letra": "Recetar algo para calmar este dolor"
+    },
+    {
+        "tipo": "l",
+        "linea": 39,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 40,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 21
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 41,
+        "letra": "Porque soy mas parecido a un perro de la calle"
+    },
+    {
+        "tipo": "m",
+        "linea": 42,
+        "acordes": [
+            {
+                "acorde": "C",
+                "pos": 10
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 43,
+        "letra": "O a la planta que fumo en casa"
+    },
+    {
+        "tipo": "m",
+        "linea": 44,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 17
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 45,
+        "letra": "Que a los que anhelan sin un gramo de arte"
+    },
+    {
+        "tipo": "m",
+        "linea": 46,
+        "acordes": [
+            {
+                "acorde": "C",
+                "pos": 13
+            },
+            {
+                "acorde": "G",
+                "pos": 43
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 47,
+        "letra": "Tener fama y dinero y salir en television"
+    },
+    {
+        "tipo": "l",
+        "linea": 48,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 49,
+        "acordes": [
+            {
+                "acorde": "D",
+                "pos": 0
+            },
+            {
+                "acorde": "G",
+                "pos": 58
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 50,
+        "letra": " El doctor dice que mucho rockanroll, me puede hacer mal"
+    },
+    {
+        "tipo": "m",
+        "linea": 51,
+        "acordes": [
+            {
+                "acorde": "D",
+                "pos": 0
+            },
+            {
+                "acorde": "C",
+                "pos": 47
+            },
+            {
+                "acorde": "G",
+                "pos": 60
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 52,
+        "letra": " Yo no creo nada, agarro la guitarra y empiezo a tocar"
+    },
+    {
+        "tipo": "l",
+        "linea": 53,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 54,
+        "letra": "[Solo 1]"
+    },
+    {
+        "tipo": "l",
+        "linea": 55,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 56,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 57,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 58,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 59,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 60,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 10
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 61,
+        "letra": "Solo una cosa me gusta"
+    },
+    {
+        "tipo": "m",
+        "linea": 62,
+        "acordes": [
+            {
+                "acorde": "C",
+                "pos": 12
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 63,
+        "letra": "Cuando hay tanto tanto por entender"
+    },
+    {
+        "tipo": "m",
+        "linea": 64,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 14
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 65,
+        "letra": "Son los que te alientan cuando hablas, cantas"
+    },
+    {
+        "tipo": "m",
+        "linea": 66,
+        "acordes": [
+            {
+                "acorde": "C",
+                "pos": 13
+            },
+            {
+                "acorde": "G",
+                "pos": 43
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 67,
+        "letra": "Aunque no esten de acuerdo o no afines bien"
+    },
+    {
+        "tipo": "l",
+        "linea": 68,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 69,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 15
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 70,
+        "letra": "Escuche por ahi que el alcohol y el tabaco"
+    },
+    {
+        "tipo": "m",
+        "linea": 71,
+        "acordes": [
+            {
+                "acorde": "C",
+                "pos": 6
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 72,
+        "letra": "Mataron mucha gente"
+    },
+    {
+        "tipo": "m",
+        "linea": 73,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 12
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 74,
+        "letra": "Y chamuyando con mi amiga paraguaya"
+    },
+    {
+        "tipo": "m",
+        "linea": 75,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 15
+            },
+            {
+                "acorde": "C",
+                "pos": 38
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 76,
+        "letra": "Que me dice, pity, añara cope guare"
+    },
+    {
+        "tipo": "l",
+        "linea": 77,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 78,
+        "acordes": [
+            {
+                "acorde": "D",
+                "pos": 0
+            },
+            {
+                "acorde": "G",
+                "pos": 57
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 79,
+        "letra": "El doctor dice que mucho rockanroll me puede hacer mal"
+    },
+    {
+        "tipo": "m",
+        "linea": 80,
+        "acordes": [
+            {
+                "acorde": "D",
+                "pos": 0
+            },
+            {
+                "acorde": "C",
+                "pos": 36
+            },
+            {
+                "acorde": "G",
+                "pos": 62
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 81,
+        "letra": "Yo le digo - Gracias doctor, nos vemos la semana pasada"
+    },
+    {
+        "tipo": "l",
+        "linea": 82,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 83,
+        "acordes": [
+            {
+                "acorde": "D",
+                "pos": 7
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 84,
+        "letra": "Pero ahora no quiero hacerte pensar"
+    },
+    {
+        "tipo": "m",
+        "linea": 85,
+        "acordes": [
+            {
+                "acorde": "D",
+                "pos": 6
+            },
+            {
+                "acorde": "G",
+                "pos": 29
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 86,
+        "letra": "Porque pensar tanto no es bueno"
+    },
+    {
+        "tipo": "m",
+        "linea": 87,
+        "acordes": [
+            {
+                "acorde": "D",
+                "pos": 7
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 88,
+        "letra": "Eso me lo dijo un viejo que"
+    },
+    {
+        "tipo": "m",
+        "linea": 89,
+        "acordes": [
+            {
+                "acorde": "C",
+                "pos": 8
+            },
+            {
+                "acorde": "G",
+                "pos": 28
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 90,
+        "letra": "De tristeza se fue al cielo"
+    },
+    {
+        "tipo": "l",
+        "linea": 91,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 92,
+        "letra": "[Solo 1]"
+    },
+    {
+        "tipo": "l",
+        "linea": 93,
+        "letra": "Se fue al cielo"
+    },
+    {
+        "tipo": "l",
+        "linea": 94,
+        "letra": "Pero pudo ir al infierno también"
+    },
+    {
+        "tipo": "l",
+        "linea": 95,
+        "letra": "Yo creo que fue al cielo"
+    },
+    {
+        "tipo": "l",
+        "linea": 96,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 97,
+        "letra": "[Solo 2]"
+    },
+    {
+        "tipo": "l",
+        "linea": 98,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 99,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 100,
+        "letra": ""
+    },
+    {
+        "tipo": "l",
+        "linea": 101,
+        "letra": "Yo creo que fue al cielo"
+    }
+]

@@ -1,0 +1,380 @@
+[
+    {
+        "tipo": "m",
+        "linea": 0,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 0
+            },
+            {
+                "acorde": "C",
+                "pos": 37
+            },
+            {
+                "acorde": "G",
+                "pos": 59
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 1,
+        "letra": "Yo no creo que esté todo bien si salto por la ventana"
+    },
+    {
+        "tipo": "m",
+        "linea": 2,
+        "acordes": [
+            {
+                "acorde": "Em",
+                "pos": 24
+            },
+            {
+                "acorde": "Am",
+                "pos": 40
+            },
+            {
+                "acorde": "D",
+                "pos": 65
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 3,
+        "letra": "Todo fue muy bueno y extraño hoy, tu cuerpo en mi habitación"
+    },
+    {
+        "tipo": "m",
+        "linea": 4,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 0
+            },
+            {
+                "acorde": "C",
+                "pos": 38
+            },
+            {
+                "acorde": "G",
+                "pos": 59
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 5,
+        "letra": "Y perdona si te lastimé, pero quería que esto terminara"
+    },
+    {
+        "tipo": "m",
+        "linea": 6,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 0
+            },
+            {
+                "acorde": "D",
+                "pos": 20
+            },
+            {
+                "acorde": "C",
+                "pos": 36
+            },
+            {
+                "acorde": "G",
+                "pos": 48
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 7,
+        "letra": "Lamento no haber sido lo mejor para voooss"
+    },
+    {
+        "tipo": "m",
+        "linea": 8,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 0
+            },
+            {
+                "acorde": "C",
+                "pos": 40
+            },
+            {
+                "acorde": "G",
+                "pos": 66
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 9,
+        "letra": "Cuando te deje y te dije que por un par de años más te amaría"
+    },
+    {
+        "tipo": "m",
+        "linea": 10,
+        "acordes": [
+            {
+                "acorde": "Em",
+                "pos": 22
+            },
+            {
+                "acorde": "Am",
+                "pos": 46
+            },
+            {
+                "acorde": "D",
+                "pos": 69
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 11,
+        "letra": "Pero aunque no quiera estoy pensando como pude alejarme de voos"
+    },
+    {
+        "tipo": "m",
+        "linea": 12,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 5
+            },
+            {
+                "acorde": "C",
+                "pos": 34
+            },
+            {
+                "acorde": "G",
+                "pos": 58
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 13,
+        "letra": "Pero sé que te olvidaré pero hasta que llegue ese día"
+    },
+    {
+        "tipo": "m",
+        "linea": 14,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 0
+            },
+            {
+                "acorde": "D",
+                "pos": 26
+            },
+            {
+                "acorde": "C",
+                "pos": 41
+            },
+            {
+                "acorde": "G",
+                "pos": 61
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 15,
+        "letra": "Quiero que sepas que fuiste lo mejor"
+    },
+    {
+        "tipo": "l",
+        "linea": 16,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 17,
+        "acordes": [
+            {
+                "acorde": "Bm",
+                "pos": 0
+            },
+            {
+                "acorde": "G",
+                "pos": 28
+            },
+            {
+                "acorde": "Am",
+                "pos": 55
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 18,
+        "letra": "Y dame un tiempo para poderlo pensaaar, es que"
+    },
+    {
+        "tipo": "m",
+        "linea": 19,
+        "acordes": [
+            {
+                "acorde": "C",
+                "pos": 22
+            },
+            {
+                "acorde": "D",
+                "pos": 40
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 20,
+        "letra": "Estoy rodeado de emociones que me ahogan"
+    },
+    {
+        "tipo": "m",
+        "linea": 21,
+        "acordes": [
+            {
+                "acorde": "Bm",
+                "pos": 0
+            },
+            {
+                "acorde": "G",
+                "pos": 31
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 22,
+        "letra": "Pensé en decirte de intentar una vez maas"
+    },
+    {
+        "tipo": "m",
+        "linea": 23,
+        "acordes": [
+            {
+                "acorde": "C",
+                "pos": 1
+            },
+            {
+                "acorde": "D",
+                "pos": 26
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 24,
+        "letra": "Pero no quisiera comenzar de nuevo"
+    },
+    {
+        "tipo": "l",
+        "linea": 25,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 26,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 0
+            },
+            {
+                "acorde": "C",
+                "pos": 37
+            },
+            {
+                "acorde": "G",
+                "pos": 57
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 27,
+        "letra": "Yo no creo que estee todo bien si salto por la ventana"
+    },
+    {
+        "tipo": "m",
+        "linea": 28,
+        "acordes": [
+            {
+                "acorde": "Em",
+                "pos": 22
+            },
+            {
+                "acorde": "Am",
+                "pos": 40
+            },
+            {
+                "acorde": "D",
+                "pos": 63
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 29,
+        "letra": "Todo fue muy bueno y extraño hoy, tu cuerpo en mi habitacion"
+    },
+    {
+        "tipo": "m",
+        "linea": 30,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 0
+            },
+            {
+                "acorde": "C",
+                "pos": 28
+            },
+            {
+                "acorde": "G",
+                "pos": 55
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 31,
+        "letra": "Y perdoná si te lastime, pero quería que esto terminara"
+    },
+    {
+        "tipo": "m",
+        "linea": 32,
+        "acordes": [
+            {
+                "acorde": "G",
+                "pos": 0
+            },
+            {
+                "acorde": "D",
+                "pos": 20
+            },
+            {
+                "acorde": "C",
+                "pos": 32
+            },
+            {
+                "acorde": "G",
+                "pos": 46
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 33,
+        "letra": "Lamento no haber sido lo mejor para voooss"
+    }
+]

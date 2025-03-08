@@ -10,10 +10,17 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
+    "@stringsync/musicxml": "^0.2.1",
     "bootstrap": "^5.3.3",
-    "vue": "^3.5.12"
+    "bootstrap-icons": "^1.11.3",
+    "socket.io-client": "^4.8.1",
+    "tone": "^15.0.4",
+    "vexflow": "^4.2.5",
+    "vue": "^3.5.12",
+    "vue-resizable": "^2.1.7"
   },
   "devDependencies": {
+    "@types/node": "^22.10.5",
     "@vitejs/plugin-vue": "^5.1.4",
     "sass": "^1.79.5",
     "typescript": "^5.5.3",

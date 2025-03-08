@@ -1,0 +1,8 @@
+Como obtener datos desde cifraclub
+
+Obtener paginas del artista desde getartistapage
+Obtenes las canciones del artista con procesar_html_artista del archvio procesar_archivo_artista.py y genera un json con todas las canciones
+Obtenes el html de las canciones del artista con download_cifraclub_artista de getartistaxcifraclub.py 
+Preprocesas los html , por ejemplo con el script procesar_todoshtml
+Haces el ultimo procesamiento con construir_datos/analizarxletraxgrupo.py
+Armas el indice con armar_indice.py

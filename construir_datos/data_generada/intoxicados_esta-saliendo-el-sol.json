@@ -1,0 +1,356 @@
+[
+    {
+        "tipo": "m",
+        "linea": 0,
+        "acordes": [
+            {
+                "acorde": "A",
+                "pos": 0
+            },
+            {
+                "acorde": "E",
+                "pos": 22
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 1,
+        "letra": "Esta saliendo el sol que es"
+    },
+    {
+        "tipo": "m",
+        "linea": 2,
+        "acordes": [
+            {
+                "acorde": "F#m",
+                "pos": 0
+            },
+            {
+                "acorde": "D",
+                "pos": 17
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 3,
+        "letra": "Sin duda mi dios"
+    },
+    {
+        "tipo": "m",
+        "linea": 4,
+        "acordes": [
+            {
+                "acorde": "A",
+                "pos": 0
+            },
+            {
+                "acorde": "E",
+                "pos": 24
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 5,
+        "letra": "Pero no estoy apto para aprender hoy"
+    },
+    {
+        "tipo": "m",
+        "linea": 6,
+        "acordes": [
+            {
+                "acorde": "F#m",
+                "pos": 0
+            },
+            {
+                "acorde": "D",
+                "pos": 17
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 7,
+        "letra": "De su sabiduria"
+    },
+    {
+        "tipo": "m",
+        "linea": 8,
+        "acordes": [
+            {
+                "acorde": "A",
+                "pos": 0
+            },
+            {
+                "acorde": "E",
+                "pos": 25
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 9,
+        "letra": "Porque la luna aparecio"
+    },
+    {
+        "tipo": "m",
+        "linea": 10,
+        "acordes": [
+            {
+                "acorde": "D",
+                "pos": 9
+            },
+            {
+                "acorde": "Bm",
+                "pos": 43
+            },
+            {
+                "acorde": "C#m",
+                "pos": 50
+            },
+            {
+                "acorde": "A",
+                "pos": 60
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 11,
+        "letra": "Y me invito a estar con ella hasta que vuelvas vos"
+    },
+    {
+        "tipo": "l",
+        "linea": 12,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 13,
+        "acordes": [
+            {
+                "acorde": "A",
+                "pos": 0
+            },
+            {
+                "acorde": "E",
+                "pos": 22
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 14,
+        "letra": "Esta saliendo el sol que es"
+    },
+    {
+        "tipo": "m",
+        "linea": 15,
+        "acordes": [
+            {
+                "acorde": "F#m",
+                "pos": 0
+            },
+            {
+                "acorde": "D",
+                "pos": 15
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 16,
+        "letra": "Sin duda mi dios"
+    },
+    {
+        "tipo": "m",
+        "linea": 17,
+        "acordes": [
+            {
+                "acorde": "A",
+                "pos": 0
+            },
+            {
+                "acorde": "E",
+                "pos": 22
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 18,
+        "letra": "Y aunque no cerre un ojo en toda la semana"
+    },
+    {
+        "tipo": "m",
+        "linea": 19,
+        "acordes": [
+            {
+                "acorde": "F#m",
+                "pos": 0
+            },
+            {
+                "acorde": "D",
+                "pos": 23
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 20,
+        "letra": "Y tenga ganas de desmayarme en la cama"
+    },
+    {
+        "tipo": "m",
+        "linea": 21,
+        "acordes": [
+            {
+                "acorde": "A",
+                "pos": 0
+            },
+            {
+                "acorde": "E",
+                "pos": 22
+            },
+            {
+                "acorde": "D",
+                "pos": 40
+            },
+            {
+                "acorde": "Bm",
+                "pos": 54
+            },
+            {
+                "acorde": "C#m",
+                "pos": 61
+            },
+            {
+                "acorde": "A",
+                "pos": 70
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 22,
+        "letra": "Voy a salir a recibir su bendicion oh dios"
+    },
+    {
+        "tipo": "l",
+        "linea": 23,
+        "letra": ""
+    },
+    {
+        "tipo": "m",
+        "linea": 24,
+        "acordes": [
+            {
+                "acorde": "A",
+                "pos": 0
+            },
+            {
+                "acorde": "E",
+                "pos": 28
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 25,
+        "letra": "Padre sol nuestro que estas en los cielos"
+    },
+    {
+        "tipo": "m",
+        "linea": 26,
+        "acordes": [
+            {
+                "acorde": "F#m",
+                "pos": 0
+            },
+            {
+                "acorde": "D",
+                "pos": 30
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 27,
+        "letra": "Guiame si no esta bien la vida que llevo"
+    },
+    {
+        "tipo": "m",
+        "linea": 28,
+        "acordes": [
+            {
+                "acorde": "A",
+                "pos": 0
+            },
+            {
+                "acorde": "E",
+                "pos": 22
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 29,
+        "letra": "No dejes nunca de brillar"
+    },
+    {
+        "tipo": "m",
+        "linea": 30,
+        "acordes": [
+            {
+                "acorde": "F#m",
+                "pos": 4
+            },
+            {
+                "acorde": "D",
+                "pos": 36
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 31,
+        "letra": "Porque eso me pone bien cuando estoy un poco mal"
+    },
+    {
+        "tipo": "m",
+        "linea": 32,
+        "acordes": [
+            {
+                "acorde": "A",
+                "pos": 0
+            },
+            {
+                "acorde": "E",
+                "pos": 27
+            },
+            {
+                "acorde": "D",
+                "pos": 46
+            },
+            {
+                "acorde": "Bm",
+                "pos": 61
+            },
+            {
+                "acorde": "C#m",
+                "pos": 68
+            },
+            {
+                "acorde": "A",
+                "pos": 76
+            }
+        ]
+    },
+    {
+        "tipo": "l",
+        "linea": 33,
+        "letra": "La luz nuestra de cada dia danosle hoy y que asi sea amen"
+    }
+]

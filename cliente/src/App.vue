@@ -1,151 +1,285 @@
 <script setup lang="ts">
-import { ref, markRaw, onMounted } from 'vue';
-import { Cancion } from './modelo/cancion';
-import { Contexto } from './modelo/contexto';
+
+
+import { ref, onMounted } from 'vue';
+
+
+import Menu from './components/menu.vue';
+import Tocar from './pages/tocar.vue';
+import Listas from './pages/listas.vue';
+import Editar from './pages/editar.vue';
+import Buscar from './pages/buscar.vue';
+import Configuracion from './pages/configuracion.vue';
 import { Reproductor } from './modelo/reproductor';
 
-import ComponenteMusicalAcordes from './components/ComponenteMusicalAcordes.vue';
-import ComponenteMusicalAcordesSeguidos from './components/ComponenteMusicalAcordesSeguidos.vue';
-import ComponenteMusicalLetra from './components/ComponenteMusicalLetra.vue';
-import ComponenteMusical from './components/ComponenteMusical.vue';
-import ComponenteMusicalPartitura from './components/ComponenteMusicalPartitura.vue';
-import ComponenteMusicalMetronomo from './components/ComponenteMusicalMetronomo.vue';
-import ControladorTiempo from './components/ControladorTiempo.vue';
-import { Acordes, Parte } from './modelo/acordes';
+import { ModeloConfiguracion  } from './modelo/modeloconfiguracion';
+import { Cancion } from './modelo/cancion';
 import { Letra } from './modelo/letra';
+import { Acordes, Parte } from './modelo/acordes';
+import { EstadoSesion } from './modelo/estadosesion';
+import { Director } from './modelo/director';
+import { item_lista } from './modelo/item_lista';
+import { GetCanciones } from './modelo/GetCanciones';
+import { DirectorOffline } from './modelo/directoroffline';
+import { DirectorOnline } from './modelo/directoronline';
 
-// Definir la canción y el contexto
 
-async function getCancion(banda: string, tema: string): Promise<Cancion> {
-        const response = await fetch(`/public/data/${banda.replace(/\s+/g, '-')}_${tema.replace(/\s+/g, '-')}.json`);
-        const data = await response.json();
-        
-        let partes = []
-        for (let i = 0; i < data.acordes.partes.length; i++) {
-            partes.push(new Parte(data.acordes.partes[i].nombre, data.acordes.partes[i].acordes));
-        }
 
-        
-        const acordes = new Acordes(partes, data.acordes.orden_partes);
+// VISTA
+const cancion_ref  = ref(new Cancion("Cancion no cargada", "sin banda", new Acordes([], []), new Letra([])));
+const sesion_ref = ref(new EstadoSesion());
+const compas_ref = ref(-2);
+const editando_item = ref(new item_lista("no song name", "no band name"));
+const editando_cancion = ref(new Cancion("no song name", "no band name", new Acordes([new Parte("p1", ["C"])], [0]), new Letra([[""]]), 120, 4, 4, 4, "C"));
+const viendo = ref("tocar");
+
+
+let reproductor = new Reproductor(2200);
+
+
+function startReproduccion() 
+{
+
+  console.log("Iniciando reproduccion");
+   const seg = 60 / cancion_ref.value.bpm;
+   console.log("Duracion:", seg);
+   reproductor.setDuracion(seg * 1000);
+   reproductor.iniciar();
+}
+
+
+
+const bpm_encompas = ref(0);
+
+reproductor.setIniciaCicloHandler(() => {
+  faltan_parainicio.value = faltan_parainicio.value - 1;
+  bpm_encompas.value = (bpm_encompas.value + 1) % cancion_ref.value.compas_cantidad;
+});
+
+
+
+
+// VEO LA CONFIGURACION
+let config_load: string | null = localStorage.getItem("configuracion")
+if (!config_load)
+  config_load = ""
+
+let configuracionObj: ModeloConfiguracion;
+
+try {
+  configuracionObj = JSON.parse(config_load);
+} catch (error) 
+{
+}
+
+
+viendo.value = "config";
+  configuracionObj = new ModeloConfiguracion()
+  configuracionObj.sesion = new EstadoSesion()
+  configuracionObj.sesion.nombre = "default"
+  configuracionObj.nombre = "default"
+  localStorage.setItem("configuracion", JSON.stringify(configuracionObj))
+
+
+// CONTROLES
+const ctrlMenu = ref();
+
+
+viendo.value = localStorage.getItem("viendo") || "tocar";
+let director: Director = new DirectorOffline(configuracionObj);
+  director.setcambiosHandler((directornuevo: Director) => {
     
-        return new Cancion(
-            data.cancion,
-            data.banda,
-            acordes,
-            new Letra(data.letras) 
-        );
+    
+    sesion_ref.value = directornuevo.configuracion.sesion;
+    if (estado_ref.value == 'pausado' && directornuevo.estado != 'pausado') {
+      faltan_parainicio.value = cancion_ref.value.compas_cantidad; 
+      startReproduccion();
+      
     }
+    director.set_nro_cancion(directornuevo.nro_cancion);
     
+    estado_ref.value = directornuevo.estado;
+    ctrlMenu.value?.actualizar_vista();
+  });
 
-const cancion  = ref(new Cancion("", "", new Acordes([], [0]), new Letra([])));
-
-getCancion('Intoxicados', 'fuiste lo mejor').then((cancionret) => {
-    console.log("Canción cargada", cancionret);
-    cancion.value = cancionret;
-});
-
-
-
-let vista = ref({
-   cargando_cancion: false
-});
-let contexto = new Contexto("Lista", 10);
-const compas = ref(-1);
-let reproductor = new Reproductor(2200, 50);
-
-reproductor.setIniciaHandler(() => {
-    console.log("Iniciando reproductor");
-});
-
-reproductor.setIniciaCompasHandler((newCompas: number) => {
-    console.log("Tocando compas", newCompas);
-    compas.value = parseInt(newCompas)
-});
-
-reproductor.setFinalizaHandler(() => {
-    console.log("Deteniendo reproductor");
-});
+const director_ref = ref(director);
+const faltan_parainicio = ref(-1);
+const estado_ref = ref(director.estado);
+const conectado = localStorage.getItem("conectado") || "no";
 
 
+function Conectar() {
 
-// Vector de componentes musicales
-const componentesMusicales = ref([
-markRaw(ComponenteMusicalAcordes),
-markRaw(ComponenteMusicalLetra),
-    markRaw(ComponenteMusicalAcordesSeguidos)
+  director = new DirectorOnline(configuracionObj);
+  director.setcambiosHandler((directornuevo: Director) => {
     
-    //markRaw()
-    //
-    //markRaw(ComponenteMusicalLetra),
-    //markRaw(ComponenteMusicalMetronomo),
-    //markRaw(ComponenteMusical),
-    //markRaw(ComponenteMusical),
-    
-]);
+    console.log("Estado _red")
+    sesion_ref.value = directornuevo.configuracion.sesion;
+    estado_ref.value = directornuevo.estado;
+    ctrlMenu.value?.actualizar_vista();
+  });
 
-
-function onPause() {
-    reproductor.pausar();
-    console.log("Pause event received");
+  director.Iniciar();if (director instanceof DirectorOnline) {
+  // Haz un casting al tipo DirectorOnline y llama al método exclusivo
+  (director as DirectorOnline).Conectar();
+} else {
+  console.log("El objeto no es una instancia de DirectorOnline");
+  }
+  vincular_director();
+}
+function Desconectar() {
+  if (director instanceof DirectorOnline) {
+  // Haz un casting al tipo DirectorOnline y llama al método exclusivo
+  (director as DirectorOnline).Desconectar();
+} else {
+  console.log("El objeto no es una instancia de DirectorOnline");
+  }
+  director = new DirectorOffline(configuracionObj);
+  director.Iniciar();
+  vincular_director();
 }
 
-function onPlay() {
-    reproductor.iniciar();
-    console.log("Play event received");
+function vincular_director() {
+  director_ref.value = director;
+  sesion_ref.value = director.configuracion.sesion;
 
-}
+  director.setcambiosCancionHandler((cancion: Cancion) => {
+      cancion_ref.value = cancion;
+  });
 
-function onStop() {
-    reproductor.parar();
-    console.log("Stop event received");
-}
-
-function onNext() {
-    console.log("Next event received");
-}
-
-function onPrevious() {
-    console.log("Previous event received");
-}
-
-function onUpdateCompas(newCompas: number) {
-    compas.value = parseInt(newCompas)
-    console.log(`Esto se actualiza: ${newCompas}`);
-}
-
-    // Llamar a la función iniciarCompasEnComponentes cuando sea necesario 
-    onMounted(() => { 
-        console.log("APP MONTADA")
+  director.setcambiosCompasHandler((compas: number) => {
+    compas_ref.value = parseInt(compas.toString());
     });
+  }
+
+  director.Iniciar();
+  vincular_director();
+
+onMounted(() => { 
+    console.log("APP MONTADA")
+});
+
+function cargar_edit() {
+  let item = JSON.parse(localStorage.getItem("editando_cancion") || "{}");
+  GetCanciones.obtenerCancion(item).then((cancion_get: Cancion) => {
+      editando_cancion.value = cancion_get;
+      
+    });
+}
+
+
+
+function acciono(valor: string, compas: number = 0) {
+
+  switch (valor) {
+    case 'next':
+      director.click_siguiente();
+      break;
+    case 'previous':
+      director.click_anterior();
+      break;
+      
+    case 'setcancion':
+      director.set_nro_cancion(compas);
+      break;
+    case 'play':
+      director.click_play();
+      break;
+    case 'pause':
+      director.click_pause();
+      break;
+    case 'update-compas':
+      director.update_compas(compas);
+      break;
+    case 'conectar':
+      console.log("conectar");
+      Conectar();
+      break;
+    case 'desconectar':
+      console.log("conectar");
+      Desconectar();
+      break;
+      
+    case 'tocar_cancion':
+      director.set_nro_cancion(compas);
+      break;
+    case 'tocar':
+    case 'listas':
+    case 'config':
+    case 'editar':
+    case 'buscar':
+
+      if (valor == 'editar') 
+      {
+        if (viendo.value == 'tocar') 
+        {
+          editando_item.value = director.getitemActual();
+          localStorage.setItem("editando_cancion", JSON.stringify(editando_item.value));
+          
+        }
+        
+        cargar_edit();
+      }
+      
+      if (valor == 'tocar') 
+      {
+        director.CargarLista();
+
+      }
+
+      viendo.value = valor;
+      localStorage.setItem("viendo", valor);
+      
+      break;
+    default:
+      console.warn(`Acción no reconocida: ${valor}`);
+  }
+  
+}
+if (viendo.value == 'editar') {
+  cargar_edit();
+}
+
 
 </script>
 
 <template>
-    <div>
-<div id="barra_navegacion">
-  <div>Cancionero</div>
-  <div id="barra_control">
-      <div>{{ cancion.cancion }} </div>
-  </div>
-  <ControladorTiempo :compas=compas :cancion="cancion" :contexto="contexto"
-  @play="onPlay" @pause="onPause" @stop="onStop" @next="onNext" @previous="onPrevious" @update-compas="onUpdateCompas">
 
-  </ControladorTiempo>
 
-  {{ compas }}
-  <div style="margin-left: auto;">Configuración</div>
-</div>
-<div id="vistas">
-</div>
-<div id="contenedor-musical">
-    <div v-for="(Componente, index) in componentesMusicales" :key="index">
-        <component :is="Componente" :compas="compas" :cancion="cancion" :contexto="contexto"></component>
-    </div>
-</div>
+
+
+<div>
+
+  <Menu 
+  :viendo_vista="viendo" :nro_cancion="director_ref.nro_cancion" :sesion="sesion_ref" 
+  :total_canciones="director_ref.total_canciones" @acciono="acciono" 
+  :compas="compas_ref" :cancion="cancion_ref" :ref="ctrlMenu"
+  :editando_cancion="editando_cancion" :estado="estado_ref" :conectado="conectado" :director="director_ref"
+   :bpm_encompas="bpm_encompas"
+  ></Menu>
+
+
+
+  <div class="carteliniciando" v-if="estado_ref=='iniciando'">
+        {{ faltan_parainicio }}
+   </div>    
+
+    <Tocar v-if="viendo=='tocar'"  @acciono="acciono" :compas="compas_ref" :cancion="cancion_ref"></Tocar>
+    <Listas v-if="viendo=='listas'" :nro_cancion="director.nro_cancion"  @acciono="acciono"></Listas>
+    <Configuracion v-if="viendo=='config'"></Configuracion>
+    <Editar v-if="viendo=='editar'"  @acciono="acciono" :cancion="editando_cancion" :item="editando_item"></Editar>
+    <Buscar v-if="viendo=='buscar'"  @acciono="acciono"></Buscar>
+
+
+
+  
 </div>
 </template>
 
 <style scoped>
+.pantalla {
+  width: 100%;
+}
 #contenedor-musical {
     display: flex;
     flex-direction: column;
@@ -156,5 +290,22 @@ function onUpdateCompas(newCompas: number) {
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-top: 20px;
+}
+
+.fixed-bottom-right {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 9999; /* Asegura que se muestre encima de otros elementos */
+}
+.carteliniciando {
+  position: absolute;
+  top: 20px;
+  font-size: 500px;
+  border: 5px solid #a9a8f6;
+  margin-left: 300px;
+  padding-left: 40px;
+  padding-right: 40px;
+  border-radius: 60px;
 }
 </style>

@@ -5,5 +5,4 @@ export class Letra {
     constructor(renglones: string[][]) {
         this.renglones = renglones;
     }
-     
 }

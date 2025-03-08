@@ -1,9 +1,20 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-// import BootstrapVue from 'bootstrap-vue'
+import { resolve } from 'path'
 
-// https://vitejs.dev/config/
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue()],
+  build: {
+    rollupOptions: {
+      input: {
+        index: resolve(__dirname, 'index.html'),
+        music: resolve(__dirname, 'music.html'),
+        ritmo: resolve(__dirname, 'ritmo.html')
+      }
+    }
+  },
+  server: {
+    host: '0.0.0.0', // Permite que el servidor escuche en todas las interfaces
+    port: 5173 // Asegúrate de que el puerto coincida
+  }
 })

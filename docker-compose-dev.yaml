@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  golang-server:
+    image: server-cancionero
+    container_name: cancionero
+    ports:
+      - "8080:8080"  
+
+  cliente:
+    image: cliente
+    container_name: cliente-cancionero
+    ports:
+      - "8081:80"
