@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import ComponenteMusicalEditar from '../components/ComponenteMusicalEditar.vue';
 import Cabecera from '../components/comp_editar/cabecera.vue';
+import ParteEditar from '../components/comp_editar/parteeditar.vue';
 import { item_lista } from '../modelo/item_lista';
 import { Cancion } from '../modelo/cancion';
 
@@ -22,9 +23,24 @@ function guardar_cancioneditada() {
 <template>
     <div class="contenedor-editar">
         <Cabecera @cerrar="cerro_editar" @guardar="guardar_cancioneditada"  :cancion="cancion" :item="item"></Cabecera>
+        {{  cancion.acordes.orden_partes }}
+        <ParteEditar v-for="(i, x) in cancion.acordes.orden_partes" :key="x"  :cancion="cancion" :parte="i" :parte_indice="x" :item="item"></ParteEditar>
+        
+        
+        <div class="row">
+    <div class="col-8" >
+        CANCION
+    </div>
+    <div class="col-4" >
+        HERRAMIENTAS
+    </div>
+</div>
+
         <ComponenteMusicalEditar @cerrar="cerro_editar" @guardar="guardar_cancioneditada" :item_indice="item" :editando_cancion="true" :compas="-1" :cancion="cancion"  ref="editref">
 
         </ComponenteMusicalEditar>
+
+
     </div>
 
 </template>

@@ -494,7 +494,7 @@ function click_editartexto(parteorden: number) {
         <div style="display: flex;">
             <div class="parte_secuencia"> {{   cancion.acordes.partes[cancion.acordes.orden_partes[index]].nombre }} </div>
             <div>
-              Acordes : <div v-for="(acorde) in cancion.acordes.partes[cancion.acordes.orden_partes[index]].acordes" class="acordediv" :key="acorde" :style="estilo_acorde(acorde)">
+              Mis Acordes : <div v-for="(acorde) in cancion.acordes.partes[cancion.acordes.orden_partes[index]].acordes" class="acordediv" :key="acorde">
             <span  >{{ acorde }}</span>
           </div>
           
@@ -598,18 +598,18 @@ function click_editartexto(parteorden: number) {
           
             @dragstart="inicio_arrastrar(acorde)" 
             @dragend="arrastrando_acordes = false"
-            :class="{acorde_paraarrastrar: editando_parte }" class="acordediv" :key="acorde" :style="estilo_acorde(acorde)">
+            :class="{acorde_paraarrastrar: editando_parte }" class="acordediv" :key="acorde" >
             <span  >{{ acorde }}</span>
           </div>
           <div class="acordediv" :draggable="editando_parte"  
           @dragstart="inicio_arrastrar('')" 
-              :style="estilo_acorde('')"   :class="{acorde_paraarrastrar: editando_parte }" >
+              :class="{acorde_paraarrastrar: editando_parte }" >
             &nbsp;
           </div>
           <div v-for="(acorde, index) in ref_noescala" 
           v-bind:key="index"
             @dragstart="inicio_arrastrar(acorde)" 
-            :draggable="editando_parte" :class="{acorde_paraarrastrar: editando_parte }"  class="acordediv" :style="estilo_acorde(acorde)">
+            :draggable="editando_parte" :class="{acorde_paraarrastrar: editando_parte }"  class="acordediv">
             <span  >{{ acorde }}</span>
           </div>
           
@@ -653,7 +653,7 @@ function click_editartexto(parteorden: number) {
           
           
           
-            <div class="acordediv acordediv_parte" :style="estilo_acorde(acorde)"
+            <div class="acordediv acordediv_parte"
                         @drop="dropeo_nota(index_parte)"
                   @dragover="onDragOver($event)"
             >
