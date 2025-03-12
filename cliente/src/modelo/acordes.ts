@@ -19,4 +19,12 @@ export class Acordes {
         this.orden_partes = orden_partes;
     }
      
+        GetTodosLosAcordes() {
+          let ret: string[] = [];
+          for (let i = 0; i < this.orden_partes.length; i++) {
+            ret = ret.concat(this.partes[this.orden_partes[i]].acordes);
+          }
+          return ret;
+        }
+    
 }
