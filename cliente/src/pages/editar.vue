@@ -47,22 +47,25 @@ function updateContent(event: Event) {
     ActualizarFondo(texto_cancion);
 }
 
-function texto_x_acorde(texto: string, acorde: string) {
+function texto_x_acorde(texto: string, acorde: string, id: number) {
 
     let tore = acorde;
     const tamaño_acorde = 9.5;
     if (acorde == undefined)
         tore = '';
+    let id_enspan = '';
+    if (id != -1) {
+        id_enspan = " id='span_acorde-" + id.toString() + "'";
+    }
 
     let tamaño = (texto.length + 1) * tamaño_acorde
-    if (tore.length * tamaño_acorde > tamaño) {
+    if (tore.length * tamaño_acorde * 1.2 > tamaño) {
         tamaño = tore.length * tamaño_acorde;
     }
-    console.log(texto, acorde, tore.length, tamaño);
 
 
 
-    return '<span style="display: inline-block; width: ' + tamaño.toString() +'px; ">' + tore + '</span>';
+    return '<span '  + id_enspan + ' style="display: inline-block; width: ' + tamaño.toString() +'px; ">' + tore  +  '</span>';
     if (acorde == undefined)
         tore = '';
     while (tore.length < texto.length + 1) {
@@ -70,26 +73,40 @@ function texto_x_acorde(texto: string, acorde: string) {
     }
     return tore;
 }
+function resaltar_acorde(id: number) {
+    const spans = document.querySelectorAll('span');
+    spans.forEach(span => {
+        span.classList.remove('acorde_resaltado');
+    });
+    const span = document.getElementById('span_acorde-' + id.toString());
+    console.log(span);
+    if (span != null) {
+        span.classList.add('acorde_resaltado');
+    }
+}   
 
 function ActualizarFondo(texto_cancion: string) {    
     let contentAcordesString = '';
     const acordes = props.cancion.acordes.GetTodosLosAcordes()
     let cont = 0;
+    console.log(texto_cancion);
 
     const partes = texto_cancion.split('|');
     partes.forEach(parte => {
 
+
         if (parte.includes('<br>')) {
             const partes_split = parte.split('<br>');
-            contentAcordesString += texto_x_acorde(partes_split[0], acordes[cont]);
+            contentAcordesString += texto_x_acorde(partes_split[0], acordes[cont], cont);
             contentAcordesString += '<br>';
-            contentAcordesString += texto_x_acorde(partes_split[1], '');
+            contentAcordesString += texto_x_acorde(partes_split[1], '', -1);
         } else {
-            contentAcordesString += texto_x_acorde(parte, acordes[cont]); 
+            contentAcordesString += texto_x_acorde(parte, acordes[cont], cont); 
         }
         cont++;
     });
     contentAcordes.value = contentAcordesString;
+    console.log(contentAcordesString);
 
 }
 /*
@@ -153,7 +170,7 @@ ActualizarFondo(texto);
           <div v-for="(acorde, index) in parte.acordes" :key="index" class="acorde">
           
           
-            <span  >{{ acorde }}</span>
+            <span @click="resaltar_acorde(3)"  >{{ acorde }}</span>
             
         </div>
         </div>
@@ -209,4 +226,10 @@ ActualizarFondo(texto);
     margin: 10px;
     border-radius: 8px;
 }
+
+.acorde_resaltado {
+    background-color: yellow;
+    border: 1px solid;
+}
+
 </style>
