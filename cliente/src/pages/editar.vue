@@ -6,6 +6,7 @@ import { item_lista } from '../modelo/item_lista';
 import { Cancion } from '../modelo/cancion';
 import { Musica } from '../modelo/musica';
 import { Parte } from '../modelo/acordes';
+import { EditarHelper } from '../components/comp_editar/editarHelper';
 import { ref, nextTick  } from 'vue';
 
 const props =defineProps<{ cancion: Cancion, item: item_lista }>()
@@ -44,35 +45,15 @@ const contentAcordes = ref("")
 function updateContent(event: Event) {
     
     const texto_cancion = (event.target as HTMLElement).innerHTML;
-    ActualizarFondo(texto_cancion);
+    const partes = texto_cancion.split('<div>');
+    const nt = partes.map(parte => parte.replace('</div>', '')).join('<br>');
+
+    console.log(nt);
+    const fondo = EditarHelper.ArmarFondoEditarAcordes(nt, props.cancion);
+    console.log(fondo);
+    contentAcordes.value = fondo;
 }
 
-function texto_x_acorde(texto: string, acorde: string, id: number) {
-
-    let tore = acorde;
-    const tamaño_acorde = 9.5;
-    if (acorde == undefined)
-        tore = '';
-    let id_enspan = '';
-    if (id != -1) {
-        id_enspan = " id='span_acorde-" + id.toString() + "'";
-    }
-
-    let tamaño = (texto.length + 1) * tamaño_acorde
-    if (tore.length * tamaño_acorde * 1.2 > tamaño) {
-        tamaño = tore.length * tamaño_acorde;
-    }
-
-
-
-    return '<span '  + id_enspan + ' style="display: inline-block; width: ' + tamaño.toString() +'px; ">' + tore  +  '</span>';
-    if (acorde == undefined)
-        tore = '';
-    while (tore.length < texto.length + 1) {
-        tore += ' ';
-    }
-    return tore;
-}
 function resaltar_acorde(id: number) {
     const spans = document.querySelectorAll('span');
     spans.forEach(span => {
@@ -85,38 +66,6 @@ function resaltar_acorde(id: number) {
     }
 }   
 
-function ActualizarFondo(texto_cancion: string) {    
-    let contentAcordesString = '';
-    const acordes = props.cancion.acordes.GetTodosLosAcordes()
-    let cont = 0;
-    console.log(texto_cancion);
-
-    const partes = texto_cancion.split('|');
-    partes.forEach(parte => {
-
-
-        if (parte.includes('<br>')) {
-            const partes_split = parte.split('<br>');
-            contentAcordesString += texto_x_acorde(partes_split[0], acordes[cont], cont);
-            contentAcordesString += '<br>';
-            contentAcordesString += texto_x_acorde(partes_split[1], '', -1);
-        } else {
-            contentAcordesString += texto_x_acorde(parte, acordes[cont], cont); 
-        }
-        cont++;
-    });
-    contentAcordes.value = contentAcordesString;
-    console.log(contentAcordesString);
-
-}
-/*
-let texto = "";
-props.cancion.letras.renglones.forEach(renglon => {
-    texto += renglon.map(renglon => renglon.replace('\\n','<br>')).join('|') + '|';
-});
-///\/
-ActualizarFondo(texto);
-*/
 </script>
 <template>
     
@@ -131,7 +80,7 @@ ActualizarFondo(texto);
         <div class="divEditable" contenteditable="true" @input="updateContent"  v-html="props.cancion.letras.renglones.flat().join('|').replace(/\/n/g, '<br>')">
             
         </div>
-        <div class="divAcordes" v-html="contentAcordes">
+        <div class="divAcordes" style="display: flex; flex-wrap: wrap" v-html="contentAcordes">
         </div>
 
     </div>
@@ -200,11 +149,9 @@ ActualizarFondo(texto);
         .divAcordes {
             position: absolute;
             top: 0px;
-            font-size: 20px;
             line-height: 2.5;
             z-index: 1;
             pointer-events: none; /* Para que los eventos de mouse pasen a través de este div */
-            color: red;
         }
 
 .contenedor-editar {
@@ -212,7 +159,6 @@ ActualizarFondo(texto);
   margin: 10px;
   padding: 6px;
 }
-
 .cancion {
     padding: 20px;
     border-radius: 8px;
@@ -220,16 +166,10 @@ ActualizarFondo(texto);
     margin-top: 20px;
 }
 
-.divListas {
-    border: 1px solid ;
-    padding: 15px;
-    margin: 10px;
-    border-radius: 8px;
-}
-
 .acorde_resaltado {
     background-color: yellow;
     border: 1px solid;
 }
+
 
 </style>
