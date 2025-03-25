@@ -37,7 +37,7 @@ export class HtmlAcordeSimple extends HtmlAcorde {
 
         
         const tamaño = this.ancho_porcaracter(this.ancho, this.acorde);
-        let ret =  `<div style="width: ${tamaño}px;"><div class='acordediv'>${this.acorde}</div></div>`;
+        let ret =  `<div style="width: ${tamaño}px;"><div class='acordediv'${id_enspan}> ${this.acorde}</div></div>`;
         return  ret;
     }
 }

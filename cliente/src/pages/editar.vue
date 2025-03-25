@@ -1,17 +1,12 @@
 <script setup lang="ts">
-import ComponenteMusicalEditar from '../components/ComponenteMusicalEditar.vue';
-import Cabecera from '../components/comp_editar/cabecera.vue';
-import ParteEditar from '../components/comp_editar/parteeditar.vue';
 import { item_lista } from '../modelo/item_lista';
 import { Cancion } from '../modelo/cancion';
-import { Musica } from '../modelo/musica';
 import { Parte } from '../modelo/acordes';
 import { EditarHelper } from '../components/comp_editar/editarHelper';
-import { ref, nextTick  } from 'vue';
+import { ref  } from 'vue';
 
 const props =defineProps<{ cancion: Cancion, item: item_lista }>()
 const emit = defineEmits(['acciono']);
-const musica = new Musica();
 
 function cerro_editar() {
     localStorage.setItem("editando", "no");
@@ -29,7 +24,7 @@ function agregar_a_secuencia()
 }
 
 function actualizarOrdenPartes(index: number) {
-    
+    console.log(index);
     props.cancion.acordes.orden_partes = props.cancion.acordes.orden_partes.filter(parte => parte !== -1);
    
   }
