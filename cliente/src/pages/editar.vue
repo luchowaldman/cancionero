@@ -35,14 +35,21 @@ function agregar_a_secuencia()
 }
   
 const contentAcordes = ref("")
-function updateContent(event: Event) {
+function updateContent() {
     
-    const texto_cancion = (event.target as HTMLElement).innerHTML;
+    const texto_cancion = (document.querySelector('.divEditable') as HTMLElement).innerHTML;
     const partes = texto_cancion.split('<div>');
     const nt = partes.map(parte => parte.replace('</div>', '')).join('<br>');
-
     const fondo = EditarHelper.ArmarFondoEditarAcordes(nt, props.cancion);
+    contentAcordes.value = fondo;
+}
+
+function updateCancion() {
     
+    const partes = props.cancion.letras.renglones.reduce((acc, val) => acc.concat(val), []).join('|').replace(/\/n/g, '<br>').split('<div>');
+
+    const nt = partes.map(parte => parte.replace('</div>', '')).join('<br>');
+    const fondo = EditarHelper.ArmarFondoEditarAcordes(nt, props.cancion);
     contentAcordes.value = fondo;
 }
 
@@ -77,7 +84,7 @@ function resaltar_acorde(id: number) {
 
     </div>
     <div class="col-4" >
-        <EditAcordes :cancion="cancion" ></EditAcordes>
+        <EditAcordes :cancion="cancion" @actualizo_cancion="updateCancion" ></EditAcordes>
     <h2 style="text-decoration: underline; margin-bottom: 2px;"> Secuencia </h2>
     <div styactualizarOrdenPartesle="display: flex; flex-wrap: wrap;">
           <div v-for="index in cancion.acordes.orden_partes" :key="index" class="ordendiv">
