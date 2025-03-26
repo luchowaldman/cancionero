@@ -3,6 +3,9 @@ import { item_lista } from '../modelo/item_lista';
 import { Cancion } from '../modelo/cancion';
 import { Parte } from '../modelo/acordes';
 import { EditarHelper } from '../components/comp_editar/editarHelper';
+import EditAcordes from '../components/comp_editar/editAcordes.vue';
+import Cabecera from '../components/comp_editar/cabecera.vue';
+
 import { ref  } from 'vue';
 
 const props =defineProps<{ cancion: Cancion, item: item_lista }>()
@@ -23,11 +26,6 @@ function agregar_a_secuencia()
   props.cancion.acordes.orden_partes.push(0);
 }
 
-function actualizarOrdenPartes(index: number) {
-    console.log(index);
-    props.cancion.acordes.orden_partes = props.cancion.acordes.orden_partes.filter(parte => parte !== -1);
-   
-  }
 
 
   function agregar_parte() {
@@ -43,9 +41,8 @@ function updateContent(event: Event) {
     const partes = texto_cancion.split('<div>');
     const nt = partes.map(parte => parte.replace('</div>', '')).join('<br>');
 
-    console.log(nt);
     const fondo = EditarHelper.ArmarFondoEditarAcordes(nt, props.cancion);
-    console.log(fondo);
+    
     contentAcordes.value = fondo;
 }
 
@@ -80,17 +77,11 @@ function resaltar_acorde(id: number) {
 
     </div>
     <div class="col-4" >
-        
+        <EditAcordes :cancion="cancion" ></EditAcordes>
     <h2 style="text-decoration: underline; margin-bottom: 2px;"> Secuencia </h2>
-    <div style="display: flex; flex-wrap: wrap;">
+    <div styactualizarOrdenPartesle="display: flex; flex-wrap: wrap;">
           <div v-for="index in cancion.acordes.orden_partes" :key="index" class="ordendiv">
             
-            <select v-model="cancion.acordes.orden_partes[index]" @change="actualizarOrdenPartes(index)" class="selectParteEnOrden">
-            <option v-for="(parte, parteIndex) in cancion.acordes.partes" :key="parteIndex" :value="parteIndex">
-                {{ parte.nombre }}
-            </option>
-            <option :value="-1">Eliminar</option>
-          </select>
 
           </div>
           <div style="border: 1px solid; padding: 2px;" @click="agregar_a_secuencia"> + </div>
