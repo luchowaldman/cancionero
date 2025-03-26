@@ -1,9 +1,57 @@
 
+import { escape } from 'querystring';
+import { Acordes, Parte } from '../../modelo/acordes';
 import { Cancion } from '../../modelo/cancion';
 
 export class editarAcordesHelper {
+    
 
-    static splitear_parte(cancion: Cancion, parte: number, acorde: number) {
+    static splitear_parte(cancion: Cancion, orden_parte: number, acorde: number) {
+        
+        const parte_tomod = cancion.acordes.orden_partes[orden_parte];
+        const parte = cancion.acordes.partes[parte_tomod];
+        const partes = [
+            parte.acordes.slice(0, acorde ),
+            parte.acordes.slice(acorde)
+        ]
+
+
+        
+        if (partes[0].length == 0) {
+            return;
+        }
+        const parte1: Parte = new Parte(parte.nombre, partes[0]);
+        const parte2: Parte = new Parte(parte.nombre + "B", partes[1]);
+        let nuevas_partes: Parte[] = [];
+        cancion.acordes.partes.forEach((parte, index) => {
+            if (index === parte_tomod) {
+                nuevas_partes.push(parte1);
+                nuevas_partes.push(parte2);
+            }
+            else {
+                nuevas_partes.push(parte);
+            }
+        });
+        cancion.acordes.partes = nuevas_partes;
+
+
+        let nuevo_orden: number[] = [];
+        cancion.acordes.orden_partes.forEach((orden) => {
+            if (orden === parte_tomod) {
+                nuevo_orden.push(orden);
+                nuevo_orden.push(orden + 1);
+            } else {
+                
+                if (orden >= parte_tomod) {
+                    nuevo_orden.push(orden + 1);
+                } else {
+                    nuevo_orden.push(orden);
+                }
+            }
+        });
+        cancion.acordes.orden_partes = nuevo_orden;
+        console.log(nuevo_orden);
+
     }
     static mix_acorde(cancion: Cancion, orden_parte: number, acorde: number) {
         const renglones = cancion.letras.renglones.flat();

@@ -15,6 +15,7 @@ const emit = defineEmits(['actualizo_cancion']);
 function actualizarOrdenPartes(index: number) {
     console.log(index);
     props.cancion.acordes.orden_partes = props.cancion.acordes.orden_partes.filter(parte => parte !== -1);
+    emit('actualizo_cancion');
    
   }
 
@@ -22,10 +23,12 @@ function actualizarOrdenPartes(index: number) {
     if (refMixeando.value) {
       editarAcordesHelper.mix_acorde(props.cancion, parte, acorde);
       emit('actualizo_cancion');
+      refMixeando.value = false;
     }
     if (refSpliteando.value) {
       editarAcordesHelper.splitear_parte(props.cancion, parte, acorde);        
       emit('actualizo_cancion');
+      refSpliteando.value = false;
     }
   }
 
