@@ -10,6 +10,11 @@ let musica = new Musica();
 const props = defineProps<{ cancion: Cancion  }>()
 const refMixeando = ref(false);
 const refSpliteando = ref(false);
+
+const refBorrandoParteSecuencia = ref(false);
+  const refAgregandoParteSecuencia = ref(false);
+  const refAgregandoParte = ref(false);
+
 const acordes_editando = ref("");
 
 const refEditantoOrdenParte = ref(-1);
@@ -21,7 +26,10 @@ function click_editarparte(index: number) {
 }
 
 function click_okeditarparte(index: number) {
-  const toana = acordes_editando.value.toUpperCase().replace('M', 'm').replace('SUS', 'sus').replace('MAJ', 'maj').replace('7MAJ', '7maj');
+  const toana = acordes_editando.value.toUpperCase()
+    .replace(/M/g, 'm')
+    .replace(/SUS/g, 'sus')
+    .replace(/MAJ/g, 'maj')
 
     props.cancion.acordes.partes[props.cancion.acordes.orden_partes[index]].acordes = toana.split('|');
     refEditantoOrdenParte.value = -1;
@@ -48,19 +56,35 @@ function actualizarOrdenPartes(index: number) {
     }
   }
 
-
+const refEditando = ref(false);
+function click_editaracordes() {
+    refEditando.value = !refEditando.value;
+    if (refEditando.value) {
+        refMixeando.value = false;
+        refSpliteando.value = false;
+        refBorrandoParteSecuencia.value = false;
+        refAgregandoParteSecuencia.value = false;
+        refAgregandoParte.value = false;
+    }
+  }
 
   function click_mixacorde() {
     refMixeando.value = !refMixeando.value;
     if (refMixeando.value) {
+        refEditando.value = false;
         refSpliteando.value = false;
+        refBorrandoParteSecuencia.value = false;
+        refAgregandoParteSecuencia.value = false;
+        refAgregandoParte.value = false;
+
     }    
   }
 
   function representa_acorde(parte: number, acorde: number) {
     let cont = 0;
     let sum = 0;
-    while (cont < parte) {
+    while ( (cont < parte) && (props.cancion.acordes.orden_partes.length > cont) )
+    {
       sum = sum + props.cancion.acordes.partes[props.cancion.acordes.orden_partes[cont]].acordes.length;
       cont++;
     }
@@ -79,11 +103,10 @@ function actualizarOrdenPartes(index: number) {
     if (spanAcorde) {
         //spanAcorde.style.backgroundColor = 'red';
         spanAcorde.classList.add('acorde_resaltado')
-        
-        
     }
-
   }
+
+
   function dejasobre_acorde(parte: number, acorde: number) {
     
     const spanAcorde = document.getElementById('span_acorde-' + representa_acorde(parte, acorde).toString());
@@ -97,7 +120,12 @@ function actualizarOrdenPartes(index: number) {
   function click_splitacorde() {
     refSpliteando.value = !refSpliteando.value;
     if (refSpliteando.value) {
+      
         refMixeando.value = false;
+        refBorrandoParteSecuencia.value = false;
+        refAgregandoParteSecuencia.value = false;
+        refAgregandoParte.value = false;
+        
     }
     
   }
@@ -121,15 +149,52 @@ function actualizarOrdenPartes(index: number) {
     }
   }
 
+  
+  function click_borrarpartesecuencia() {
+    refBorrandoParteSecuencia.value = !refBorrandoParteSecuencia.value;
+    if (refBorrandoParteSecuencia.value) {
+        refAgregandoParteSecuencia.value = false;
+        refAgregandoParte.value = false;
+        refMixeando.value = false;
+        refSpliteando.value = false
 
+    }
+}
+
+
+
+  function click_agregarparte() {
+    refAgregandoParte.value = !refAgregandoParte.value;
+    if (refAgregandoParte.value) {
+        refAgregandoParteSecuencia.value = false;
+        refMixeando.value = false;
+        refSpliteando.value = false;
+        refBorrandoParteSecuencia.value = false;
+
+    }
+  }
+  
+  function click_agregarpartesecuencia() {
+    refAgregandoParteSecuencia.value = !refAgregandoParteSecuencia.value;
+    if (refAgregandoParteSecuencia.value) {
+        refAgregandoParte.value = false;
+        refMixeando.value = false;
+        refSpliteando.value = false;
+        refBorrandoParteSecuencia.value = false;
+    }
+  }
 </script>
 
 
 <template>
 <div class="componenteMusical">
-<div style="display: flex;">
-    <div class="btnEditAcorde" :class="{ 'btnSeleccionado': refMixeando }" @click="click_mixacorde">Mix Acorde </div>
-    <div class="btnEditAcorde" :class="{ 'btnSeleccionado': refSpliteando }" @click="click_splitacorde"  >Split Parte</div>
+<div style="display: flex; flex-wrap: wrap;">
+    <div class="btnEditAcorde" :class="{ 'btnSeleccionado': refEditando }" @click="click_editaracordes"><span class="bi bi-pencil"></span></div>
+    <div class="btnEditAcorde" :class="{ 'btnSeleccionado': refMixeando }" @click="click_mixacorde">Mix</div>
+    <div class="btnEditAcorde" :class="{ 'btnSeleccionado': refSpliteando }" @click="click_splitacorde">/</div>
+    <div class="btnEditAcorde" :class="{ 'btnSeleccionado': refBorrandoParteSecuencia }" @click="click_borrarpartesecuencia">-</div>
+    <div class="btnEditAcorde" :class="{ 'btnSeleccionado': refAgregandoParteSecuencia }" @click="click_agregarpartesecuencia">+</div>
+    <div class="btnEditAcorde" :class="{ 'btnSeleccionado': refAgregandoParte }" @click="click_agregarparte">+ Parte</div>
 </div>
     <div >
       <div >
@@ -146,14 +211,11 @@ function actualizarOrdenPartes(index: number) {
          
        </div>
               <div class="btnEditAcorde"
-               v-if="index!=refEditantoOrdenParte"
-              @click="click_editarparte(index)"><span class="bi bi-pencil"></span></div>
-                
-              <div class="btnEditAcorde" @click="click_okeditarparte(index)"
-              
+               v-if="index!=refEditantoOrdenParte && refEditando"
+              @click="click_editarparte(index)" ><span class="bi bi-pencil"></span></div>                
+              <div class="btnEditAcorde" @click="click_okeditarparte(index)"              
                v-if="index==refEditantoOrdenParte">
-                <span >Ok</span>
-          
+                <span >Ok</span>         
         </div>
         
         <input type="text" v-model="cancion.acordes.partes[parte].nombre"
@@ -164,11 +226,12 @@ function actualizarOrdenPartes(index: number) {
                   <option v-for="(parte, parteIndex) in cancion.acordes.partes" :key="parteIndex" :value="parteIndex">
                   {{ parte.nombre }}
                 </option>
+                
             
           </select>
           
         </div>
-                <div style="display: flex; flex-wrap: wrap;"  v-if="index!=refEditantoOrdenParte">
+                <div style="display: flex; flex-wrap: wrap;"  v-if="index!=refEditantoOrdenParte && cancion.acordes.partes[parte]">
                     <div class="acorde_edicion" 
                     :class="{ 'acorde_mixiando': refMixeando , 'acorde_split': refSpliteando }"
                     @click="click_acorde(index, index_acorde)"
