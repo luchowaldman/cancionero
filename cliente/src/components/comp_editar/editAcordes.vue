@@ -183,17 +183,48 @@ function click_editaracordes() {
         refBorrandoParteSecuencia.value = false;
     }
   }
+  function click_borrarparte(index: number) {
+    props.cancion.acordes.orden_partes.splice(index, 1);
+    emit('actualizo_cancion');
+  }
+
+  function click_enagregarparte(index: number) {
+    if (refAgregandoParteSecuencia.value) {
+      props.cancion.acordes.partes.push(new Parte('Nueva parte', ["."]));
+      props.cancion.acordes.orden_partes.splice(index + 1, 0, props.cancion.acordes.partes.length - 1);
+      emit('actualizo_cancion');
+    }
+    if (refAgregandoParte.value) {
+        let n = [];
+
+        for (let i = 0; i < props.cancion.acordes.orden_partes.length; i++) {
+            n.push(props.cancion.acordes.orden_partes[i]);
+            if (i == index) {
+              n.push(props.cancion.acordes.orden_partes[i]);
+            }
+        }
+        props.cancion.acordes.orden_partes = n;
+        emit('actualizo_cancion');
+    }
+  }
+
 </script>
 
 
 <template>
 <div class="componenteMusical">
 <div style="display: flex; flex-wrap: wrap;">
-    <div class="btnEditAcorde" :class="{ 'btnSeleccionado': refEditando }" @click="click_editaracordes"><span class="bi bi-pencil"></span></div>
+    <div class="btnEditAcorde" :class="{ 'btnSeleccionado': refEditando }" @click="click_editaracordes">
+      <span class="bi bi-pencil"></span>
+      </div>
     <div class="btnEditAcorde" :class="{ 'btnSeleccionado': refMixeando }" @click="click_mixacorde">Mix</div>
     <div class="btnEditAcorde" :class="{ 'btnSeleccionado': refSpliteando }" @click="click_splitacorde">/</div>
-    <div class="btnEditAcorde" :class="{ 'btnSeleccionado': refBorrandoParteSecuencia }" @click="click_borrarpartesecuencia">-</div>
-    <div class="btnEditAcorde" :class="{ 'btnSeleccionado': refAgregandoParteSecuencia }" @click="click_agregarpartesecuencia">+</div>
+    <div class="btnEditAcorde" :class="{ 'btnSeleccionado': refBorrandoParteSecuencia }" @click="click_borrarpartesecuencia">
+      <span class="bi bi-trash"></span>
+    </div>
+    <div class="btnEditAcorde" :class="{ 'btnSeleccionado': refAgregandoParteSecuencia }" @click="click_agregarpartesecuencia">
+      <span class="bi bi-plus"></span>
+    </div>
     <div class="btnEditAcorde" :class="{ 'btnSeleccionado': refAgregandoParte }" @click="click_agregarparte">+ Parte</div>
 </div>
     <div >
@@ -221,7 +252,7 @@ function click_editaracordes() {
         <input type="text" v-model="cancion.acordes.partes[parte].nombre"
         :style="{ width :(1 + cancion.acordes.partes[parte].nombre.length).toString() + 'ch'}"
         v-if="index==refEditantoOrdenParte" />
-                <select v-model="cancion.acordes.orden_partes[index]"  v-if="index!=refEditantoOrdenParte" @change="actualizarOrdenPartes(index)" class="selectParteEnOrden">
+        <select v-model="cancion.acordes.orden_partes[index]"  v-if="index!=refEditantoOrdenParte" @change="actualizarOrdenPartes(index)" class="selectParteEnOrden">
                   
                   <option v-for="(parte, parteIndex) in cancion.acordes.partes" :key="parteIndex" :value="parteIndex">
                   {{ parte.nombre }}
@@ -235,13 +266,22 @@ function click_editaracordes() {
                     <div class="acorde_edicion" 
                     :class="{ 'acorde_mixiando': refMixeando , 'acorde_split': refSpliteando }"
                     @click="click_acorde(index, index_acorde)"
-
                     @pointerover="sobre_acorde(index, index_acorde)"  @pointerleave="dejasobre_acorde(index, index_acorde)"  
                     v-for="(acorde, index_acorde) in cancion.acordes.partes[parte].acordes"
                      :key="index_acorde">{{ acorde }}</div>
                 </div>       
                 <input type="text" :style="{ width :(3 + acordes_editando.length).toString() + 'ch'}"
                 v-model="acordes_editando" v-if="index==refEditantoOrdenParte"  />
+
+
+                <div class="btnEditAcorde"
+               v-if="refBorrandoParteSecuencia"
+              @click="click_borrarparte(index)" ><span class="bi bi-trash"></span></div>     
+
+              <div class="btnEditAcorde"
+               v-if="refAgregandoParte || refAgregandoParteSecuencia"
+              @click="click_enagregarparte(index)" ><span class="bi bi-plus"></span></div>     
+
         </div>
         </div>
         
