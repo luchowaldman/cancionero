@@ -4,6 +4,13 @@ import { Letra } from "./letra";
 
 // src/cancion.ts
 export class Cancion {
+    normalizar() {
+        const acordes = this.acordes.GetTotalAcordes();
+        const letras = this.letras.renglones.flat.length;
+        if (letras < acordes) {
+            this.letras.renglones.push(new Array(acordes - letras).fill(""));
+        }
+    }
     
     constructor(
         public cancion: string,

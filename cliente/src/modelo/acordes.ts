@@ -11,6 +11,13 @@ export class Parte {
 
 
 export class Acordes {
+    GetTotalAcordes() {
+      let tot = 0;
+      for (let i = 0; i < this.orden_partes.length; i++) {
+        tot += this.partes[this.orden_partes[i]].acordes.length;
+      }
+      return tot;
+    }
     partes: Parte[];
     orden_partes: number[];
 

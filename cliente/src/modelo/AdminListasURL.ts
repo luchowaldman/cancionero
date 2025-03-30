@@ -58,13 +58,16 @@ export class AdminListasURL extends  AdminiListas {
         
         const acordes = new Acordes(partes, data.acordes.orden_partes);
         
-        return new Cancion(
+        let toRet: Cancion = new Cancion(
             data.cancion,
             data.banda,
             acordes,
             new Letra(data.letras),
             data.bpm, data.calidad, data.compas_cantidad, data.compases_tiempo, data.escala
         );
+        toRet.normalizar();
+        return toRet;
+
     }
 
     async GetCancionxTema(banda: string, tema: string): Promise<Cancion> {
