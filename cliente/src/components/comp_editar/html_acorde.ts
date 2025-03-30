@@ -37,7 +37,7 @@ export class HtmlAcordeSimple extends HtmlAcorde {
 
         
         const tamaño = this.ancho_porcaracter(this.ancho, this.acorde);
-        let ret =  `<div style="width: ${tamaño}px;"><div class='acordediv2'${id_enspan}> ${this.acorde}</div></div>`;
+        let ret =  `<div style="width: ${tamaño}px;"><div class='acordediv' ${id_enspan}> ${this.acorde}</div></div>`;
         return  ret;
     }
 }
@@ -62,8 +62,10 @@ export class HtmlAcordeConBr extends HtmlAcorde {
         if (this.id != -1) {
             id_enspan = " id='span_acorde-" + this.id.toString() + "'";
         }
-        let ret =  `<div style="width: ${tamaño1}px;"><div class='acordediv2' ${id_enspan}>${this.acorde}</div></div>`;
-        ret += '<div style="flex-basis: 100%;"></div>'.repeat(this.cantidadDeBr);
+        let ret =  `<div style="width: ${tamaño1}px;"><div class='acordediv' ${id_enspan}>${this.acorde}</div></div>`;
+        ret += '<div class="saltolinea"></div>'.repeat(this.cantidadDeBr);
+        //style="flex-basis: 100%; "
+        //ret += '<div><br></div>'.repeat(this.cantidadDeBr);
         ret += `<div style="width: ${tamaño2}px;"></div>`
         return  ret;
     }

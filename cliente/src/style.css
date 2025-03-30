@@ -38,15 +38,12 @@
   
   
 
-.acordediv {
-  padding: 5px;
-  border: 1px solid;
-  border-radius: 5px;
-  color: #a9a8f6;
-  
-}
-
 
 .acorde_resaltado {
   border: 1px solid #a9a8f6;
 }
+
+.saltolinea {
+  flex-basis: 100%;
+}
+

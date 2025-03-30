@@ -222,10 +222,12 @@ function click_editaracordes() {
     <div class="btnEditAcorde" :class="{ 'btnSeleccionado': refBorrandoParteSecuencia }" @click="click_borrarpartesecuencia">
       <span class="bi bi-trash"></span>
     </div>
-    <div class="btnEditAcorde" :class="{ 'btnSeleccionado': refAgregandoParteSecuencia }" @click="click_agregarpartesecuencia">
-      <span class="bi bi-plus"></span>
+    <div class="btnEditAcorde" :class="{ 'btnSeleccionado': refAgregandoParte }" @click="click_agregarparte">
+      <span class="bi bi-plus"></span> 
     </div>
-    <div class="btnEditAcorde" :class="{ 'btnSeleccionado': refAgregandoParte }" @click="click_agregarparte">+ Parte</div>
+    <div class="btnEditAcorde" :class="{ 'btnSeleccionado': refAgregandoParteSecuencia }" @click="click_agregarpartesecuencia">
+      <span class="bi bi-music-note-beamed"></span>
+    </div>
 </div>
     <div >
       <div >

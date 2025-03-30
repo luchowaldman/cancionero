@@ -130,22 +130,25 @@ function resaltar_acorde(id: number) {
 
 <style scoped>
 
-
 .divEditable {
-            min-height: 100px;
-            position: absolute;
-            top: 20px;
-            line-height: 2.5;
-            font-size: 20px;
-            width: 100%;
-        }
-        .divAcordes {
-            position: absolute;
-            top: 0px;
-            line-height: 2.5;
-            z-index: 1;
-            pointer-events: none; /* Para que los eventos de mouse pasen a través de este div */
-        }
+    min-height: 100px;
+    position: absolute;
+    top: 25px;
+    line-height: 2.5;
+    font-size: 20px;
+    width: 100%;
+    padding: 20px;
+}
+.divAcordes {
+    padding: 20px;
+    min-height: 100px;
+    position: absolute;
+    top: 0px;
+    line-height: 2.5;
+    font-size: 20px;
+    z-index: 1;
+    pointer-events: none; /* Para que los eventos de mouse pasen a través de este div */
+}
 
 .contenedor-editar {
   border-radius: 5px;
