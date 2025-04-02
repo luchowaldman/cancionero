@@ -42,7 +42,40 @@ function updateContent() {
     const nt = partes.map(parte => parte.replace('</div>', '')).join('<br>');
     const fondo = EditarHelper.ArmarFondoEditarAcordes(nt, props.cancion);
     contentAcordes.value = fondo;
+    
 }
+
+
+function DescargarJSON() {
+    const texto_cancion = (document.querySelector('.divEditable') as HTMLElement).innerHTML;
+    const cancionJSON = JSON.stringify({
+      cancion: props.cancion.cancion,
+      banda: props.cancion.banda,
+      acordes: {
+        partes: props.cancion.acordes.partes.map(parte => ({
+          nombre: parte.nombre,
+          acordes: parte.acordes
+        })),
+        orden_partes: props.cancion.acordes.orden_partes
+      },
+      escala: props.cancion.escala,
+      letras: [ texto_cancion.split('<div>').map(parte => parte.replace('</div>', '').replace(/<br>/g, '/n'))] ,
+      bpm: props.cancion.bpm,
+      calidad: props.cancion.calidad,
+      compas_cantidad: props.cancion.compas_cantidad,
+      compas_unidad: props.cancion.compas_unidad,
+    });
+
+
+    const blob = new Blob([cancionJSON], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    const nombreArchivo = `${props.cancion.banda.replace(/\s+/g, '-')}_${props.cancion.cancion.replace(/\s+/g, '-')}.json`.toLocaleLowerCase();
+    a.download = nombreArchivo;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
 
 function updateCancion() {
     
@@ -69,7 +102,7 @@ function resaltar_acorde(id: number) {
 <template>
     
     <div class="contenedor-editar">
-        <Cabecera @cerrar="cerro_editar" @guardar="guardar_cancioneditada"  :cancion="cancion" :item="item"></Cabecera>
+        <Cabecera @cerrar="cerro_editar" @descargar="DescargarJSON" @guardar="guardar_cancioneditada"  :cancion="cancion" :item="item"></Cabecera>
         
         
         
