@@ -5,6 +5,7 @@ import { Musica } from '../../modelo/musica';
 import { item_lista } from '../../modelo/item_lista';
 import { Parte } from '../../modelo/acordes';
 import { editarAcordesHelper  } from '../comp_editar/editarAcordesHelper';
+import { EditarMusicaHelper  } from '../comp_editar/editarMusicaHelper';
 
 let musica = new Musica();
 const props = defineProps<{ cancion: Cancion  }>()
@@ -207,6 +208,54 @@ function click_editaracordes() {
         emit('actualizo_cancion');
     }
   }
+const refMostrandoParteSecuencia = ref(false);
+const refMostrandoParteSecuenciaIndex = ref(-1);
+const refPartesSeleccionadas = ref([] as number[]);
+const refPartesMostrar = ref([] as number[]);
+
+function click_mostrarpartespaxim(index: number) {
+  console.log(index, props.cancion.acordes.orden_partes[index]);
+  let part_ind = [];
+  
+  refMostrandoParteSecuenciaIndex.value = index;
+  let mixeando_parte = props.cancion.acordes.orden_partes[refMostrandoParteSecuenciaIndex.value];
+  for (let i = 0; i < props.cancion.acordes.orden_partes.length - 1; i++) {
+    if (props.cancion.acordes.orden_partes[i] == mixeando_parte) {
+      part_ind.push(props.cancion.acordes.orden_partes[i + 1]);
+    }
+  }
+  part_ind = [...new Set(part_ind)];
+  let mostr = [];
+  for (let i = 0; i < part_ind.length; i++) {
+    mostr.push(part_ind[i]);
+  }
+  refPartesMostrar.value = mostr;
+  refMostrandoParteSecuencia.value = true;
+}
+
+function click_mostrarpartespaquitar_de(index: number) {
+    refMostrandoParteSecuencia.value = true;
+    refMostrandoParteSecuenciaIndex.value = index;
+}
+
+function click_mostrarpartespaquitar(index: number) {
+    if (refPartesSeleccionadas.value.includes(refPartesMostrar.value[index])) {
+      const idx = refPartesSeleccionadas.value.indexOf(refPartesMostrar.value[index]);
+      if (idx !== -1) {
+        refPartesSeleccionadas.value.splice(idx, 1);
+      }
+    } else {
+      refPartesSeleccionadas.value.push(refPartesMostrar.value[index]);
+    }
+}
+function click_okcambiopartes()
+{
+
+  let mixeando_parte = props.cancion.acordes.orden_partes[refMostrandoParteSecuenciaIndex.value];
+  props.cancion.acordes = EditarMusicaHelper.mixear(props.cancion.acordes, refMostrandoParteSecuenciaIndex.value, refPartesSeleccionadas.value);
+  refMostrandoParteSecuenciaIndex.value = -1;
+  refMostrandoParteSecuencia.value = false;
+}
 
 </script>
 
@@ -276,6 +325,24 @@ function click_editaracordes() {
                 v-model="acordes_editando" v-if="index==refEditantoOrdenParte"  />
 
 
+                
+                <div class="btnEditAcorde"
+                v-if="refEditando && !refMostrandoParteSecuencia"
+                  @click="click_mostrarpartespaxim(index)" >Unir</div>   
+
+
+
+                  <div class="btnEditAcorde" v-if="refEditando && !refMostrandoParteSecuencia"
+                  @click="click_mostrarpartespaquitar_de(index)" >QUITAR DE</div>
+              
+                  <div v-if="refEditando && refMostrandoParteSecuencia && (refMostrandoParteSecuenciaIndex == index)">
+                    
+                    <div class="btnEditAcorde" v-for="(parte_m, parte_mindex_parte) in refPartesMostrar"
+                  :key="parte_mindex_parte"
+                  :class="{ 'seleccionada': refPartesSeleccionadas.includes(parte_m) }"
+                   @click="click_mostrarpartespaquitar(parte_mindex_parte)" >{{ cancion.acordes.partes[parte_m].nombre }}</div>
+                   <div v-if="refEditando && refMostrandoParteSecuencia" @click="click_okcambiopartes" class="btnEditAcorde">Ok</div>
+                  </div>
                 <div class="btnEditAcorde"
                v-if="refBorrandoParteSecuencia"
               @click="click_borrarparte(index)" ><span class="bi bi-trash"></span></div>     
@@ -339,5 +406,9 @@ function click_editaracordes() {
     border-radius: 12px;
     padding: 10px 24px;
 }
-
+.seleccionada {
+  background-color: #a9a8f6;
+  color: white !important;
+  border: 2px solid #a9a8f6;
+}
 </style>

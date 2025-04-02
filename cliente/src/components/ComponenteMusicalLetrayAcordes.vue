@@ -122,16 +122,18 @@ defineExpose({  Actualizar });
       <template v-for="(parte, index) in cancion.acordes.orden_partes" :key="index" class="parte">
         
         <template  v-for="(aco, index_aco) in cancion.acordes.partes[parte].acordes" :key="index_aco">
-                <div v-if="!letras[index][index_aco].includes('/n')" :class="{ en_compas: mostrando_parte === index && mostrando_compas_parte === index_aco }">
-                  <div><div  class="acordediv"> {{ aco }}</div></div>
+                <div v-if="letras[index][index_aco] && !letras[index][index_aco].includes('/n')" :class="{ en_compas: mostrando_parte === index && mostrando_compas_parte === index_aco }">
+                  <div>
+                    <div class="acordediv"> {{ aco }}</div>
+                  </div>
                   <div class="divletra" >{{ letras[index][index_aco] }}&nbsp;</div>
                 </div>
-                <div v-if="letras[index][index_aco].includes('/n')" :class="{ en_compas: mostrando_parte === index && mostrando_compas_parte === index_aco }">
+                <div v-if="letras[index][index_aco] && letras[index][index_aco].includes('/n')" :class="{ en_compas: mostrando_parte === index && mostrando_compas_parte === index_aco }">
                   <div><div  class="acordediv"> {{ aco }}</div></div>
                   <div class="divletra">{{ letras[index][index_aco].split('/n')[0] }}</div>
                 </div>
-                <div class="break" v-if="letras[index][index_aco].includes('/n')"></div>
-                <div v-if="letras[index][index_aco].includes('/n')" :class="{ en_compas: mostrando_parte === index && mostrando_compas_parte === index_aco }">
+                <div class="break" v-if="letras[index][index_aco] && letras[index][index_aco].includes('/n')"></div>
+                <div v-if="letras[index][index_aco] && letras[index][index_aco].includes('/n')" :class="{ en_compas: mostrando_parte === index && mostrando_compas_parte === index_aco }">
                   <div><div  class="noacorde">  &nbsp; </div></div>
                   <div class="divletra">{{ letras[index][index_aco].split('/n')[1] }}</div>
                 </div>
