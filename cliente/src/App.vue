@@ -15,6 +15,8 @@ import { Reproductor } from './modelo/reproductor';
 import { ModeloConfiguracion  } from './modelo/modeloconfiguracion';
 import { Cancion } from './modelo/cancion';
 import { Letra } from './modelo/letra';
+import { Aplicacion } from './modelo/aplicacion';
+
 import { Acordes, Parte } from './modelo/acordes';
 import { EstadoSesion } from './modelo/estadosesion';
 import { Director } from './modelo/director';
@@ -25,13 +27,20 @@ import { DirectorOnline } from './modelo/directoronline';
 
 
 
+const aplicacion: Aplicacion = new Aplicacion();
+
+
+
+
 // VISTA
 const cancion_ref  = ref(new Cancion("Cancion no cargada", "sin banda", new Acordes([], []), new Letra([])));
 const sesion_ref = ref(new EstadoSesion());
 const compas_ref = ref(-2);
 const editando_item = ref(new item_lista("no song name", "no band name"));
 const editando_cancion = ref(new Cancion("no song name", "no band name", new Acordes([new Parte("p1", ["C"])], [0]), new Letra([[""]]), 120, 4, 4, 4, "C"));
-const viendo = ref("tocar");
+
+const bpm_encompas = ref(0);
+
 let reproductor = new Reproductor(2200);
 
 
@@ -47,7 +56,6 @@ function startReproduccion()
 
 
 
-const bpm_encompas = ref(0);
 
 reproductor.setIniciaCicloHandler(() => {
   faltan_parainicio.value = faltan_parainicio.value - 1;
@@ -56,35 +64,15 @@ reproductor.setIniciaCicloHandler(() => {
 
 
 
-
-// VEO LA CONFIGURACION
-let config_load: string | null = localStorage.getItem("configuracion")
-if (!config_load)
-  config_load = ""
-
-let configuracionObj: ModeloConfiguracion;
-
-try {
-  configuracionObj = JSON.parse(config_load);
-} catch (error) 
-{
-}
-
-
-viendo.value = "config";
-  configuracionObj = new ModeloConfiguracion()
-  configuracionObj.sesion = new EstadoSesion()
-  configuracionObj.sesion.nombre = "default"
-  configuracionObj.nombre = "default"
-  localStorage.setItem("configuracion", JSON.stringify(configuracionObj))
+//viendo.value = "config";
 
 
 // CONTROLES
 const ctrlMenu = ref();
 
 
-viendo.value = localStorage.getItem("viendo") || "tocar";
-let director: Director = new DirectorOffline(configuracionObj);
+
+let director: Director = new DirectorOffline(aplicacion.configuracionObj);
   director.setcambiosHandler((directornuevo: Director) => {
     
     
@@ -108,7 +96,7 @@ const conectado = localStorage.getItem("conectado") || "no";
 
 function Conectar() {
 
-  director = new DirectorOnline(configuracionObj);
+  director = new DirectorOnline(aplicacion.configuracionObj);
   director.setcambiosHandler((directornuevo: Director) => {
     
     console.log("Estado _red")
@@ -132,10 +120,11 @@ function Desconectar() {
 } else {
   console.log("El objeto no es una instancia de DirectorOnline");
   }
-  director = new DirectorOffline(configuracionObj);
+  director = new DirectorOffline(aplicacion.configuracionObj);
   director.Iniciar();
   vincular_director();
 }
+
 
 function vincular_director() {
   director_ref.value = director;
@@ -155,13 +144,14 @@ function vincular_director() {
 
 onMounted(() => { 
     console.log("APP MONTADA")
+    
+    aplicacion.Iniciar();
 });
 
 function cargar_edit() {
   let item = JSON.parse(localStorage.getItem("editando_cancion") || "{}");
   GetCanciones.obtenerCancion(item).then((cancion_get: Cancion) => {
       editando_cancion.value = cancion_get;
-      
     });
 }
 
@@ -209,7 +199,7 @@ function acciono(valor: string, compas: number = 0) {
 
       if (valor == 'editar') 
       {
-        if (viendo.value == 'tocar') 
+        if (aplicacion.viendo.value == 'tocar') 
         {
           editando_item.value = director.getitemActual();
           localStorage.setItem("editando_cancion", JSON.stringify(editando_item.value));
@@ -225,7 +215,7 @@ function acciono(valor: string, compas: number = 0) {
 
       }
 
-      viendo.value = valor;
+      aplicacion.viendo.value  = valor;
       localStorage.setItem("viendo", valor);
       
       break;
@@ -234,7 +224,7 @@ function acciono(valor: string, compas: number = 0) {
   }
   
 }
-if (viendo.value == 'editar') {
+if (aplicacion.viendo.value  == 'editar') {
   cargar_edit();
 }
 
@@ -249,7 +239,7 @@ if (viendo.value == 'editar') {
 <div id="contenedor-musical" class="pantalla">
 
   <Menu 
-  :viendo_vista="viendo" :nro_cancion="director_ref.nro_cancion" :sesion="sesion_ref" 
+  :viendo_vista="aplicacion.viendo.value" :nro_cancion="director_ref.nro_cancion" :sesion="sesion_ref" 
   :total_canciones="director_ref.total_canciones" @acciono="acciono" 
   :compas="compas_ref" :cancion="cancion_ref" :ref="ctrlMenu"
   :editando_cancion="editando_cancion" :estado="estado_ref" :conectado="conectado" :director="director_ref"
@@ -262,11 +252,11 @@ if (viendo.value == 'editar') {
         {{ faltan_parainicio }}
    </div>    
 
-    <Tocar v-if="viendo=='tocar'"  @acciono="acciono" :compas="compas_ref" :cancion="cancion_ref"></Tocar>
-    <Listas v-if="viendo=='listas'" :nro_cancion="director.nro_cancion"  @acciono="acciono"></Listas>
-    <Configuracion v-if="viendo=='config'"></Configuracion>
-    <Editar v-if="viendo=='editar'"  @acciono="acciono" :cancion="editando_cancion" :item="editando_item"></Editar>
-    <Buscar v-if="viendo=='buscar'"  @acciono="acciono"></Buscar>
+    <Tocar v-if="aplicacion.viendo.value =='tocar'"  @acciono="acciono" :compas="compas_ref" :cancion="cancion_ref"></Tocar>
+    <Listas v-if="aplicacion.viendo.value =='listas'" :nro_cancion="director.nro_cancion"  @acciono="acciono"></Listas>
+    <Configuracion v-if="aplicacion.viendo.value =='config'"></Configuracion>
+    <Editar v-if="aplicacion.viendo.value =='editar'"  @acciono="acciono" :cancion="editando_cancion" :item="editando_item"></Editar>
+    <Buscar v-if="aplicacion.viendo.value =='buscar'"  @acciono="acciono"></Buscar>
 </div>
 </template>
 
