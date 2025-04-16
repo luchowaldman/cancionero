@@ -118,37 +118,8 @@ function resaltar_acorde(id: number) {
     </div>
     <div class="col-4" >
         <EditAcordes :cancion="cancion" @actualizo_cancion="updateCancion" ></EditAcordes>
-    <h2 style="text-decoration: underline; margin-bottom: 2px;"> Secuencia </h2>
-    <div styactualizarOrdenPartesle="display: flex; flex-wrap: wrap;">
-          <div v-for="index in cancion.acordes.orden_partes" :key="index" class="ordendiv">
-            
 
-          </div>
-          <div style="border: 1px solid; padding: 2px;" @click="agregar_a_secuencia"> + </div>
-            
-          </div>
-
-
-          
-        <div> 
-          
-          <span  style="text-decoration: underline; font-size: xxx-large; margin-bottom: 2px;">Partes</span>
-    <button @click="agregar_parte">+</button>
-
-        </div>
-
-    <div v-for="(parte, index_parte) in cancion.acordes.partes" :key="index_parte">
-        <div  style="display: flex; flex-wrap: wrap;">
-            <span>{{parte.nombre}}</span>
-        </div>
-        <div style="display: flex; flex-wrap: wrap;">
-          <div v-for="(acorde, index) in parte.acordes" :key="index" class="acorde">
-          
-          
-            <span @click="resaltar_acorde(3)"  >{{ acorde }}</span>
-            
-        </div>
-        </div>
+         
     </div> 
 
     </div>
@@ -157,7 +128,7 @@ function resaltar_acorde(id: number) {
 </div>
 
 
-    </div>
+    
 
 </template>
 

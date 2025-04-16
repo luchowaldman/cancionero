@@ -26,6 +26,7 @@ describe('Editor Helper Musica', () => {
   });
 
 
+
   
   it('Une con siguiente', () => {
     let acordes = new Acordes([

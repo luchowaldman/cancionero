@@ -4,8 +4,9 @@ import { Cancion } from '../../modelo/cancion';
 import { Musica } from '../../modelo/musica';
 import { item_lista } from '../../modelo/item_lista';
 import { Parte } from '../../modelo/acordes';
-import { editarAcordesHelper  } from '../comp_editar/editarAcordesHelper';
-import { EditarMusicaHelper  } from '../comp_editar/editarMusicaHelper';
+import { editarAcordesHelper  } from './editarAcordesHelper';
+import { EditarMusicaHelper  } from './editarMusicaHelper';
+import { EditarAcordesToTextoHelper  } from './editarAcordesToTextoHelper';
 
 let musica = new Musica();
 const props = defineProps<{ cancion: Cancion  }>()
@@ -24,6 +25,20 @@ const emit = defineEmits(['actualizo_cancion']);
 function click_editarparte(index: number) {
   acordes_editando.value = props.cancion.acordes.partes[props.cancion.acordes.orden_partes[index]].acordes.join('|').trim();
     refEditantoOrdenParte.value = index;
+}
+
+const refEditandoComoTexto = ref(false);
+const refEditandoTextoAcordes = ref("");
+function click_editarcomotexto() {
+  refEditandoComoTexto.value = !refEditandoComoTexto.value;
+  refEditandoTextoAcordes.value = EditarAcordesToTextoHelper.acordes_to_texto(props.cancion.acordes);
+}
+
+function click_editarcomotextook() {
+  refEditandoComoTexto.value = false;
+  let helper = new EditarAcordesToTextoHelper();
+  props.cancion.acordes = helper.texto_to_acordes(refEditandoTextoAcordes.value);
+  emit('actualizo_cancion');
 }
 
 function click_okeditarparte(index: number) {
@@ -263,6 +278,16 @@ function click_okcambiopartes()
 <template>
 <div class="componenteMusical">
 <div style="display: flex; flex-wrap: wrap;">
+
+  <div class="btnEditAcorde" :class="{ 'btnSeleccionado': refEditandoComoTexto }" @click="click_editarcomotexto">
+    <span class="bi bi-card-text"></span>
+  </div>
+  
+  <div class="btnEditAcorde" v-if="refEditandoComoTexto" @click="click_editarcomotextook">
+    <span class="bi bi-check-circle"></span>
+  </div>
+
+
     <div class="btnEditAcorde" :class="{ 'btnSeleccionado': refEditando }" @click="click_editaracordes">
       <span class="bi bi-pencil"></span>
       </div>
@@ -278,8 +303,11 @@ function click_okcambiopartes()
       <span class="bi bi-music-note-beamed"></span>
     </div>
 </div>
-    <div >
-      <div >
+<div ><div  v-if="refEditandoComoTexto"  >
+      <textarea v-model="refEditandoTextoAcordes" style="width: 100%; height: 200px; resize: none;" ></textarea>
+       
+    </div>
+      <div v-if="!refEditandoComoTexto" >
         <div class="contAcordes" v-for="(parte, index) in cancion.acordes.orden_partes" :key="index">
             <div style="display: flex;">
                 
@@ -391,9 +419,10 @@ function click_okcambiopartes()
 
 .acorde_mixiando:hover {
   border: 2px solid #a9a8f6;
-  color: red;
+  color: rgb(158, 52, 52);
   border-right: none;
 }
+
 .btnEditAcorde {
     border: 1px solid;
     color: #a9a8f6;
@@ -411,4 +440,6 @@ function click_okcambiopartes()
   color: white !important;
   border: 2px solid #a9a8f6;
 }
+
+
 </style>
