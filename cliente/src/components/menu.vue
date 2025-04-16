@@ -146,8 +146,8 @@ defineProps<{ viendo_vista: string, compas: number, cancion: Cancion, editando_c
 }
 .navbarFogon {
   display: flex;
-  border: 1px solid;
-  margin: 5px 10px 5px 10px;
+  border: 4px solid;
+  width: 100%;
   border-radius: 20px;
 }
 

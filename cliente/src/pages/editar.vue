@@ -59,7 +59,7 @@ function DescargarJSON() {
         orden_partes: props.cancion.acordes.orden_partes
       },
       escala: props.cancion.escala,
-      letras: [ texto_cancion.split('<div>').map(parte => parte.replace('</div>', '').replace(/<br>/g, '/n'))] ,
+      letras: [ texto_cancion.split('|').map(parte => parte.replace('</div>', '').replace(/<br>/g, '/n'))] ,
       bpm: props.cancion.bpm,
       calidad: props.cancion.calidad,
       compas_cantidad: props.cancion.compas_cantidad,

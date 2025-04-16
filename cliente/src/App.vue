@@ -32,8 +32,6 @@ const compas_ref = ref(-2);
 const editando_item = ref(new item_lista("no song name", "no band name"));
 const editando_cancion = ref(new Cancion("no song name", "no band name", new Acordes([new Parte("p1", ["C"])], [0]), new Letra([[""]]), 120, 4, 4, 4, "C"));
 const viendo = ref("tocar");
-
-
 let reproductor = new Reproductor(2200);
 
 
@@ -248,7 +246,7 @@ if (viendo.value == 'editar') {
 
 
 
-<div>
+<div id="contenedor-musical" class="pantalla">
 
   <Menu 
   :viendo_vista="viendo" :nro_cancion="director_ref.nro_cancion" :sesion="sesion_ref" 
@@ -269,14 +267,14 @@ if (viendo.value == 'editar') {
     <Configuracion v-if="viendo=='config'"></Configuracion>
     <Editar v-if="viendo=='editar'"  @acciono="acciono" :cancion="editando_cancion" :item="editando_item"></Editar>
     <Buscar v-if="viendo=='buscar'"  @acciono="acciono"></Buscar>
-
-
-
-  
 </div>
 </template>
 
 <style scoped>
+#contenedor-musical {
+  height: 100vh; /* Altura completa de la ventana */
+  width: 100%;
+}
 .pantalla {
   width: 100%;
 }
