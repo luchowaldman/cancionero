@@ -1,4 +1,3 @@
-<!--
 <script setup lang="ts">
 import { ref } from "vue"
 import Nota from '../modelo/Midi/nota';
@@ -95,4 +94,3 @@ function getnota(nota: Nota) {
   color: #888;
 }
 </style>
--->

@@ -1,4 +1,4 @@
-<!--
+
 <script setup lang="ts">
 import { MidiPlayer} from './modelo/midiplayer';
 import { Musica} from './modelo/musica';
@@ -232,7 +232,7 @@ fetch('data/notas_midi/' + archivos_instrumentos[id_instrumeto]  +'.json')
               <div>
               <div>{{ nota }}</div>
               <div v-for="(instru, instruid) in editando_cancion.notas_cancion" :key="instruid" style="display: flex;">
-                {{  instru  }}
+                
                 <div v-if="parteid == editando_parte_id && acordeid == editando_acorde_id">
               <div>Editando
                 Octava: <input type="number"  v-model="modi_escala" style="width: 7ch;" />
@@ -258,9 +258,7 @@ fetch('data/notas_midi/' + archivos_instrumentos[id_instrumeto]  +'.json')
       
       </div>
   </div>
-  <div> 
-    Edutabdi
-  </div>
+  
 </div>
 
 
@@ -298,4 +296,3 @@ fetch('data/notas_midi/' + archivos_instrumentos[id_instrumeto]  +'.json')
 }
 </style>
 
--->

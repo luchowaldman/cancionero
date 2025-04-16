@@ -98,7 +98,7 @@ describe('Editor Helper Musica', () => {
     const acordes = editar.texto_to_acordes(texto);
     const textor = EditarAcordesToTextoHelper.acordes_to_texto(acordes);
 
-    expect(textor).toEqual(texto);
+    expect(textor).toEqual("'verso 1'C|F|G|C*4" + retorno_carro + "'verso 2'A|B|C|D");
   });
 
   it('cuatro acorde*4 con renglones', () => {
@@ -143,13 +143,18 @@ describe('Editor Helper Musica', () => {
   });
 
 
+  it('to_Texto Dos Acorde', () => {
+    const acordes: Acordes = new Acordes([new Parte("Intro", ["A", "B"])], [0]);
+    const textor = EditarAcordesToTextoHelper.acordes_to_texto(acordes);
+    expect(textor).toEqual("'Intro'A|B");
+  });
     
-  it('to_Texto 2 Partes Acorde', () => {
+  it('to_Texto 2 Partes Acorde x 2', () => {
     const acordes: Acordes = new Acordes([new Parte("Intro", ["A", "B"])
-    , new Parte("Verso", ["C"])], [0, 1]);
+    , new Parte("Verso", ["C"])], [0, 0, 1]);
   
     const textor = EditarAcordesToTextoHelper.acordes_to_texto(acordes);
-    expect(textor).toEqual("'Intro'A|B" + retorno_carro + "'Verso'C"); 
+    expect(textor).toEqual("'Intro'A|B*2" + retorno_carro + "'Verso'C"); 
   });
 
 

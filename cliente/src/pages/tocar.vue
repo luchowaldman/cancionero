@@ -34,7 +34,7 @@ function cambiar_vista(vista: number) {
       new VistaControl(ancho / 30, 12, 7, "acordes", "col-3 d-md-block", alto_controles)
     ],
     [
-      new VistaControl(ancho / 50, 12, 7, "detalle", "col-9", alto_controles)
+      new VistaControl(ancho / 50, 12, 7, "partitura", "col-9", alto_controles)
     ],
     [
       new VistaControl(ancho / 50, 12, 7, "detalle", "col-9", alto_controles)

@@ -17,6 +17,10 @@ export class EditarAcordesToTextoHelper {
             const parte = acordes.partes[indice];
             if (ultima != indice) 
             { 
+                if (repite > 0) {
+                    texto += `*${repite + 1}`;
+                    repite = 0;
+                }
                 if (i > 0) {
                     texto += retorno_carro;
                 }
@@ -26,12 +30,18 @@ export class EditarAcordesToTextoHelper {
                     partes_mostradas.add(indice);
                 }
             }
-            else {
+            else 
+            {
                 repite++;
             }
             ultima = indice;
 
         });
+        
+        if (repite > 0) {
+            texto += `*${repite + 1}`;
+            repite = 0;
+        }
 
         return texto;
     }
@@ -60,6 +70,7 @@ export class EditarAcordesToTextoHelper {
         let multiplicador = 1;
         if (texto.includes("*")) {
             multiplicador = parseInt(texto.split("*")[1]);
+            texto = texto.split("*")[0].trim();
         }
         texto = texto.trim();
         let nombre_parte = "";
