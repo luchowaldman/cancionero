@@ -3,6 +3,8 @@ import { Cancion } from "./cancion";
 import { item_lista } from "./item_lista";
 import { Letra } from "./letra";
 import { AdminiListas } from "./AdminListas";
+import { CompacesPartitura, PartituraInstrumento } from "./PartituraInstrumento";
+import Nota from "./Midi/nota";
 
 
 export class AdminListasURL extends  AdminiListas {
@@ -57,13 +59,35 @@ export class AdminListasURL extends  AdminiListas {
 
         
         const acordes = new Acordes(partes, data.acordes.orden_partes);
-        
+        let partituras =  [
+            new PartituraInstrumento("piano", [
+                new CompacesPartitura([
+                    [
+                        new Nota("D4", 2), new Nota("E4", 2)
+                    ],
+                    
+                                        [new Nota("D4", 2)]
+                ]),
+                new CompacesPartitura([])
+            ], "G", data.escala),
+            new PartituraInstrumento("piano", [
+                new CompacesPartitura([
+                    [
+                        new Nota("D2", 2), new Nota("A3", 2)
+                    ],
+                    
+                                        []
+                ]),
+                new CompacesPartitura([])
+            ], "F", data.escala)
+        ];
         let toRet: Cancion = new Cancion(
             data.cancion,
             data.banda,
             acordes,
             new Letra(data.letras),
-            data.bpm, data.calidad, data.compas_cantidad, data.compases_tiempo, data.escala
+            data.bpm, data.calidad, data.compas_cantidad, data.compases_tiempo, data.escala,partituras
+           
         );
         toRet.normalizar();
         return toRet;

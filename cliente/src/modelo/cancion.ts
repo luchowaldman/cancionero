@@ -1,4 +1,5 @@
 import { NotasCancion } from "./NotasCancion";
+import { PartituraInstrumento } from "./PartituraInstrumento";
 import { Acordes } from "./acordes";
 import { Letra } from "./letra";
 
@@ -22,7 +23,7 @@ export class Cancion {
         public compas_cantidad: number = 4,
         public compas_unidad: number = 4,
         public escala: string = "",
-        public notas_cancion: NotasCancion[][] = []
+        public partitura_instrumentos: PartituraInstrumento[] = []
     ){}
 
 }

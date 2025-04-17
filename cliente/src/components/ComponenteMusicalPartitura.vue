@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+
+import Pentagrama from '../components/pentagrama.vue';
+import { Ref, ref, watch } from 'vue';
 import { Cancion } from '../modelo/cancion';
 import { VistaControl } from '../modelo/vista_control';
 import { Musica } from '../modelo/musica';
+import { CompacesPartitura } from '../modelo/PartituraInstrumento';
 const props = defineProps<{ compas: number, cancion: Cancion, vista: VistaControl  }>()
 
 
@@ -28,10 +31,34 @@ watch(() => props.compas, (newCompas) => {
   currentCompas.value = newCompas;
 });
 
+const primer_pentagrama: Ref<CompacesPartitura[][]> = ref([]);
+const segundo_pentagrama: Ref<CompacesPartitura[][]> = ref([]);
 
+function calcular_vista() 
+{
+
+  const N = 4; // Número de compases por grupo
+
+  primer_pentagrama.value = [];
+  const compases = props.cancion.partitura_instrumentos[0].compaces;
+
+  for (let i = 0; i < compases.length; i += N) {
+    primer_pentagrama.value.push(compases.slice(i, i + N));
+  }
+
+}
+calcular_vista();
 </script>
 <template>
   <div>
+    Partitura
+    <div class="renglon_compas" v-for="(grupo, index) in primer_pentagrama" :key="index">
+      <div class="compas" v-for="(compas, compasIndex) in grupo" :key="compasIndex">
+      
+      <Pentagrama :clave="'G'" :notas="compas.notas"></Pentagrama>
+      </div>
+    </div>
+    
     
 </div>
 </template>
