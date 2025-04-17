@@ -71,6 +71,7 @@ export class Aplicacion {
             break;
           case 'update-compas':
             this.director.update_compas(compas);
+            
             break;
           case 'conectar':
             console.log("conectar");
@@ -128,8 +129,10 @@ export class Aplicacion {
         if (this.viendo_pagina.value == 'editar') {
             this.cargar_edit();
         }
-
         
+        this.director.setcambiosCompasHandler((nro: number) => {
+          this.compas.value = nro;
+        });
         console.log("La aplicación ha iniciado.");
 
     }
