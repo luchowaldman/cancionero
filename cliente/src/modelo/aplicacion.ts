@@ -121,12 +121,15 @@ export class Aplicacion {
     
   }
   
-
+  public width: number = window.innerWidth;
+  public height: number = window.innerHeight;
     Iniciar(): void {
         this.CargarConfiguracion();
         if (this.viendo_pagina.value == 'editar') {
             this.cargar_edit();
         }
+
+        
         console.log("La aplicación ha iniciado.");
 
     }

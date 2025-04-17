@@ -155,6 +155,7 @@ function resaltar_acorde(id: number) {
 }
 
 .contenedor-editar {
+    width: 100%;
   border-radius: 5px;
   margin: 10px;
   padding: 6px;

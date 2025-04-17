@@ -132,11 +132,14 @@ function acciono(valor: string, compas: number = 0) {
         {{ faltan_parainicio }}
    </div>    
 
-    <Tocar v-if="aplicacion.viendo_pagina.value =='tocar'"  @acciono="acciono" :compas="aplicacion.compas.value" :cancion="aplicacion.cancion.value"></Tocar>
+    <Tocar v-if="aplicacion.viendo_pagina.value =='tocar'"  @acciono="acciono" :compas="aplicacion.compas.value" 
+    :width="aplicacion.width" :height="aplicacion.height" 
+    :cancion="aplicacion.cancion.value"></Tocar>
     <Listas v-if="aplicacion.viendo_pagina.value =='listas'" :nro_cancion="director.nro_cancion"  @acciono="acciono"></Listas>
     <Configuracion v-if="aplicacion.viendo_pagina.value =='config'"></Configuracion>
     <Editar v-if="aplicacion.viendo_pagina.value =='editar'"  @acciono="acciono" :cancion="aplicacion.editando_cancion.value" :item="aplicacion.editando_item.value"></Editar>
     <Buscar v-if="aplicacion.viendo_pagina.value =='buscar'"  @acciono="acciono"></Buscar>
+
 </div>
 </template>
 

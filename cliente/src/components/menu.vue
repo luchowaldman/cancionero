@@ -48,13 +48,14 @@ defineProps<{ viendo_vista: string, compas: number, cancion: Cancion, editando_c
     
     
     <div class="pagina_seleccionable" :class="{active: viendo_vista == 'tocar'}" >
-        <p class="clase_tocar" @click="acciono('tocar')"   :class="{active: viendo_vista == 'tocar'}" aria-current="page">
+        <p class="clase_tocar" @click="acciono('tocar')"   :class="{active: viendo_vista == 'tocar'}" aria-current="page" >
           
-          <i class="bi bi-fire ilogo">
-
-            
+          <i style="font-size: 45px;">
+            🎸
           </i>
           
+          <i class="bi bi-fire" style="position: absolute; top: 30px; left: 22px; background: transparent;">
+          </i>
 
         </p>	
       </div>

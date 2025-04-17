@@ -5,7 +5,7 @@ import { watch } from 'vue';
 import { Musica } from '../modelo/musica';
 import { VistaControl } from '../modelo/vista_control';
 
-const props = defineProps<{ compas: number, cancion: Cancion, vista: VistaControl  }>()
+const props = defineProps<{ compas: number, cancion: Cancion, vista: VistaControl, secuencia: boolean, partes: boolean  }>()
 
 const mostrando_parte = ref(-1)
 const mostrando_compas_parte = ref(-1)
@@ -139,7 +139,7 @@ function calcular_resumen_parte()
 <div>
   <div class="row">
 
-    <div v-if="repe_resu.length == 0">
+    <div v-if="props.secuencia && repe_resu.length == 0">
     <h2 style="text-decoration: underline; margin-bottom: 2px;">Secuencia</h2>
     <div style="display: flex; flex-wrap: wrap;">
           <div v-for="(parte, index) in cancion.acordes.orden_partes" :key="index" class="ordendiv">
@@ -153,7 +153,7 @@ function calcular_resumen_parte()
   </div>
     
     
-    <div v-if="repe_resu.length > 0">
+    <div v-if="props.secuencia && repe_resu.length > 0">
     <h2 style="text-decoration: underline; margin-bottom: 2px;">Secuencia</h2>
     <div style="display: flex; flex-wrap: wrap;">
           <div v-for="(parte, index) in secu_resu" :key="index">
@@ -170,9 +170,9 @@ function calcular_resumen_parte()
           
     </div>
   </div>
-  
-    <h2  style="text-decoration: underline; margin-bottom: 2px;">Partes</h2>
-    <div v-for="(parte, index_parte) in cancion.acordes.partes" :key="parte.nombre" class="row" >
+  <div   v-if="props.partes">
+    <h2 style="text-decoration: underline; margin-bottom: 2px;">Partes</h2>
+    <div  v-for="(parte, index_parte) in cancion.acordes.partes" :key="parte.nombre" class="row" >
       
         <div :style="{ 'font-size' : (vista.tamanio_referencia / 1.7 ) + 'px'}">{{ parte.nombre }}</div>
         <div class="partediv">
@@ -187,7 +187,7 @@ function calcular_resumen_parte()
           </div>
         </div>
     </div>
-  
+  </div>
  </div>
 </div>
 </template>

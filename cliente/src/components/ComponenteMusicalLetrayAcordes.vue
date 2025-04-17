@@ -70,7 +70,6 @@ watch(() => props.compas, (newCompas) => {
 
 function mover_scroll(posX: number) 
 {
-  
   letraDiv.value?.scrollTo({ top: posX, behavior: 'smooth' });
 }
 
