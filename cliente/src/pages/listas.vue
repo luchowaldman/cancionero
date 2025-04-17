@@ -137,6 +137,7 @@ function click_borrar_guardadas(item: item_lista) {
 }
 
 .divListas {
+    width: 100%;
     border: 1px solid ;
     padding: 15px;
     margin: 10px;

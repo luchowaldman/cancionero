@@ -116,7 +116,7 @@ defineExpose({  Actualizar });
   <div class="componenteMusical" v-if="letras.length > 0 && cancion.letras.renglones.length > 0">
     <div v-if="letras.length == 0">
     </div>  
-    <div ref="letraDiv"   class="overflow-auto" :style="{ 'max-height': vista.alto + 'px' }"> 
+    <div ref="letraDiv"   class="overflow-auto divDeLetra" :style="{ 'max-height': vista.alto + 'px' }"> 
     <div style="display: flex; flex-wrap: wrap;"  :style="{ 'font-size' : vista.tamanio_referencia + 'px'}">
       <template v-for="(parte, index) in cancion.acordes.orden_partes" :key="index" class="parte">
         
@@ -149,6 +149,11 @@ defineExpose({  Actualizar });
 
 
 <style scoped>
+.divDeLetra {
+  scrollbar-color: black transparent;
+  scrollbar-width: thin;
+}
+
 .componenteMusical {
   border: 1px solid;
   border-radius: 5px;

@@ -91,7 +91,7 @@ defineExpose({  Actualizar });
 <template>
   <div class="componenteMusical">
     
-    <div ref="letraDiv"   class="overflow-auto" :style="{ 'max-height': vista.alto + 'px' }"> 
+    <div ref="letraDiv"   class="overflow-auto divDeLetra" :style="{ 'max-height': vista.alto + 'px' }"> 
     <div style="display: flex; flex-wrap: wrap;"  :style="{ 'font-size' : vista.tamanio_referencia + 'px'}">
       <template v-for="(renglon, index) in cancion.letras.renglones" :key="index" class="parte">
         
@@ -148,6 +148,13 @@ defineExpose({  Actualizar });
   margin-right: 10px;
   
 }
+
+
+.divDeLetra {
+  scrollbar-color: black transparent;
+  scrollbar-width: thin;
+}
+
 
 
 .noacorde {
