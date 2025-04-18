@@ -17,22 +17,8 @@ function cerro_editar() {
 
 
 function guardar_cancioneditada() { 
-    
-    
 }
 
-function agregar_a_secuencia() 
-{
-  props.cancion.acordes.orden_partes.push(0);
-}
-
-
-
-  function agregar_parte() {
-  const nueva_parte = new Parte("Nueva Parte", []);
-  props.cancion.acordes.partes.push(nueva_parte);
-  
-}
   
 const contentAcordes = ref("")
 function updateContent() {
@@ -103,10 +89,7 @@ function resaltar_acorde(id: number) {
     
     <div class="contenedor-editar">
         <Cabecera @cerrar="cerro_editar" @descargar="DescargarJSON" @guardar="guardar_cancioneditada"  :cancion="cancion" :item="item"></Cabecera>
-        
-        
-        
-        <div class="row">
+    <div class="row">
     <div class="col-8" style="position: relative;">
         <!-- Div editable -->
         <div class="divEditable" contenteditable="true" @input="updateContent"  v-html="props.cancion.letras.renglones.flat().join('|').replace(/\/n/g, '<br>')">
@@ -118,8 +101,6 @@ function resaltar_acorde(id: number) {
     </div>
     <div class="col-4" >
         <EditAcordes :cancion="cancion" @actualizo_cancion="updateCancion" ></EditAcordes>
-
-         
     </div> 
 
     </div>

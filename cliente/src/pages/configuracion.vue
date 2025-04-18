@@ -53,7 +53,7 @@ const config_guardada = ref(configuracionObj)
 </script>
 
 <template>
-    <div>
+    <div style="width: 100%;">
         
         
         <div class="row">

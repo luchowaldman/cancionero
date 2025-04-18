@@ -100,7 +100,7 @@ function click_borrar_guardadas(item: item_lista) {
         
 
     
-        <div style="font-size: xx-large;">Reproduciendo</div>
+<div style="font-size: xx-large;">Reproduciendo</div>
     <ListadoTemas :ref="ctrlviendolista" titulo="" :indice="canciones_Actual" :muestra_renglones=10
     :nro_cancion="props.nro_cancion"
     :btnTocar="true"
