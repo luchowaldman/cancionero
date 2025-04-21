@@ -89,16 +89,16 @@ function vincular_director() {
   });
 
   director.setcambiosCompasHandler((compas: number) => {
-    aplicacion.compas.value = parseInt(compas.toString());
+    //aplicacion.compas.value = parseInt(compas.toString());
     });
   }
 
-  director.Iniciar();
   vincular_director();
 
 onMounted(() => { 
-    console.log("APP MONTADA")
+    console.log("APP MONTADA");
     
+    director.Iniciar();
     aplicacion.Iniciar();
 });
 
@@ -122,7 +122,8 @@ function acciono(valor: string, compas: number = 0) {
   <Menu 
   :viendo_vista="aplicacion.viendo_pagina.value" :nro_cancion="director_ref.nro_cancion" :sesion="sesion_ref" 
   :total_canciones="director_ref.total_canciones" @acciono="acciono" 
-  :compas="aplicacion.compas.value" :cancion="aplicacion.cancion.value" :ref="ctrlMenu"
+  :compas="aplicacion.compas.value"
+  :cancion="aplicacion.cancion.value" :ref="ctrlMenu"
   :editando_cancion="aplicacion.editando_cancion.value" :estado="estado_ref" :conectado="conectado" :director="director_ref"
    :bpm_encompas="bpm_encompas"
   ></Menu>

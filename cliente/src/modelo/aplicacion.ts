@@ -100,7 +100,6 @@ export class Aplicacion {
             break;
           case 'listas':
           case 'config':
-          case 'editar':
           case 'buscar':
           default:
             console.warn(`Acción no reconocida: ${valor}`);
@@ -120,14 +119,16 @@ export class Aplicacion {
   public height: number = window.innerHeight;
     Iniciar(): void {
         this.CargarConfiguracion();
+        
         if (this.viendo_pagina.value == 'editar') {
             this.cargar_edit();
         }
         
         this.director.setcambiosCompasHandler((nro: number) => {
+          console.log("Compas actualizado", nro);
           this.compas.value = nro;
         });
-        console.log("La aplicación ha iniciado.");
+        
 
     }
 }

@@ -73,7 +73,6 @@ export class Director {
     }
 
     update_compas(nro: number) {
-        this.nro_compas = parseInt(nro.toString());
         this.cambiosCompasHandler?.(nro);
         //console.log("Compas actualizado", nro);
     }

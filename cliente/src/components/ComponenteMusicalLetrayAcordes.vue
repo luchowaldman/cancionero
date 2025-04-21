@@ -19,7 +19,6 @@ watch(() => props.cancion, (cancion: Cancion) => {
 });
 
 function actualizarLetras(cancion: Cancion) {
-  console.log('Actualizando letras', cancion.cancion);
   let contador_renglon_texto = 0;
   let contador_renglon_parte_texto = 0;
   let nueva_letra = [] as string[][];
@@ -60,11 +59,9 @@ watch(() => props.compas, (newCompas) => {
   let ve = renglon * props.vista.tamanio_referencia * 3.7;
    ve -= props.vista.alto * 0.4;
   const nueva_pos = Math.max(ve, 0);
-  //console.log('Nueva pos', nueva_pos);
   
   mover_scroll(nueva_pos)
       
-  //console.log('Compas actual', currentCompas.value);
 });
 
 
@@ -76,7 +73,6 @@ function mover_scroll(posX: number)
 
 function Actualizar() {
   if (letras.value.length === 0) {
-    console.log('actualizar letras');
     actualizarLetras(props.cancion);
   }
   return false;
