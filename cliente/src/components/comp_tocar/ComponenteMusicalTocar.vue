@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
-import { MidiPlayer} from '../modelo/midiplayer';
-import Pianocontrol from './pianocontrol.vue';
-import { Cancion } from '../modelo/cancion';
-import { VistaControl } from '../modelo/vista_control';
+import { MidiPlayer} from '../../modelo/midiplayer';
+import Pianocontrol from '../pianocontrol.vue';
+import { Cancion } from '../../modelo/cancion';
+import { VistaControl } from '../../modelo/vista_control';
 
 const props = defineProps<{ compas: number, cancion: Cancion, vista: VistaControl  }>()
 

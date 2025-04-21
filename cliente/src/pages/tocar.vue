@@ -3,12 +3,12 @@
 import { Cancion } from '../modelo/cancion';
 import { VistaControl } from '../modelo/vista_control';
 import { onMounted, Ref, ref } from 'vue';
-import ComponenteMusicalLetrayAcordes from '../components/ComponenteMusicalLetrayAcordes.vue';
-import ComponenteMusicalLetra from '../components/ComponenteMusicalLetra.vue';
-import ComponenteMusicalAcordes from '../components/ComponenteMusicalAcordes.vue';
-import ComponenteMusicalAcordesSeguidos from '../components/ComponenteMusicalAcordesSeguidos.vue';
+import ComponenteMusicalLetrayAcordes from '../components/comp_tocar/ComponenteMusicalLetrayAcordes.vue';
+import ComponenteMusicalLetra from '../components/comp_tocar/ComponenteMusicalLetra.vue';
+import ComponenteMusicalAcordes from '../components/comp_tocar/ComponenteMusicalAcordes.vue';
+import ComponenteMusicalAcordesSeguidos from '../components/comp_tocar/ComponenteMusicalAcordesSeguidos.vue';
 import ComponenteMusicalPartitura from '../components/ComponenteMusicalPartitura.vue';
-import { findSourceMap } from 'module';
+
 const props = defineProps<{ compas: number, cancion: Cancion, width: number, height: number }>()
 
 class vista_tocar {

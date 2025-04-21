@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
-import { Cancion } from '../modelo/cancion';
-import { Musica } from '../modelo/musica';
-import { item_lista } from '../modelo/item_lista';
-import { Parte } from '../modelo/acordes';
+import { Cancion } from '../../modelo/cancion';
+import { Musica } from '../../modelo/musica';
+import { item_lista } from '../../modelo/item_lista';
+import { Parte } from '../../modelo/acordes';
 
 let musica = new Musica();
 const props = defineProps<{ compas: number, cancion: Cancion, item_indice: item_lista, editando_cancion: boolean }>()
@@ -364,6 +364,7 @@ function texto_combino_editado(parte: number, acordeid: number) {
   
   for (var i = 0; i < props.cancion.acordes.orden_partes.length; i++) 
   {
+  
     if (props.cancion.acordes.orden_partes[i] == parte) 
     {
       let contado_palabra = 0;

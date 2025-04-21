@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, watch } from 'vue';
-import { Cancion } from '../modelo/cancion';
-import { VistaControl } from '../modelo/vista_control';
-import { Musica } from '../modelo/musica';
+import { Cancion } from '../../modelo/cancion';
+import { VistaControl } from '../../modelo/vista_control';
+import { Musica } from '../../modelo/musica';
 const props = defineProps<{ compas: number, cancion: Cancion, vista: VistaControl }>()
 const scrollTop = ref(0); // Ref to store the horizontal scroll position
 

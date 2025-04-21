@@ -1,12 +1,12 @@
 import { markRaw, ref } from 'vue';
-import ComponenteMusicalLetraAcordes from '../components/ComponenteMusicalLetrayAcordes.vue';
-import ComponenteMusicalAcordesSeguidos from '../components/ComponenteMusicalAcordesSeguidos.vue';
+import ComponenteMusicalLetraAcordes from '../components/comp_tocar/ComponenteMusicalLetrayAcordes.vue';
+import ComponenteMusicalAcordesSeguidos from '../components/comp_tocar/ComponenteMusicalAcordesSeguidos.vue';
 
-import ComponenteMusicalLetra  from '../components/ComponenteMusicalLetra.vue';
-import ComponenteMusicalAcordes from '../components/ComponenteMusicalAcordes.vue';
+import ComponenteMusicalLetra  from '../components/comp_tocar/ComponenteMusicalLetra.vue';
+import ComponenteMusicalAcordes from '../components/comp_tocar/ComponenteMusicalAcordes.vue';
 import ComponenteMusicalPartitura from '../components/ComponenteMusicalPartitura.vue';
-import ComponenteMusicalVerDetalles from '../components/ComponenteMusicalVerDetalles.vue';
-import ComponenteMusicalTocar from '../components/ComponenteMusicalTocar.vue';
+import ComponenteMusicalVerDetalles from '../components/comp_tocar/ComponenteMusicalVerDetalles.vue';
+import ComponenteMusicalTocar from '../components/comp_tocar/ComponenteMusicalTocar.vue';
 
 
 export class VistaControl {

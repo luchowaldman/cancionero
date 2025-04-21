@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { Cancion } from '../modelo/cancion';
+import { Cancion } from '../../modelo/cancion';
 import { watch } from 'vue';
-import { VistaControl } from '../modelo/vista_control';
+import { VistaControl } from '../../modelo/vista_control';
 
 const props = defineProps<{ compas: number, cancion: Cancion, vista: VistaControl  }>()
 

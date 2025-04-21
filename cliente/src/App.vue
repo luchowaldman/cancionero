@@ -4,7 +4,7 @@
 import { ref, onMounted } from 'vue';
 
 
-import Menu from './components/menu.vue';
+import Menu from './components/comp_cabecera/menu.vue';
 import Tocar from './pages/tocar.vue';
 import Listas from './pages/listas.vue';
 import Editar from './pages/editar.vue';

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Cancion } from '../modelo/cancion';
-import { Musica } from '../modelo/musica';
-import { Tiempo } from '../modelo/tiempo';
+import { Cancion } from '../../modelo/cancion';
+import { Musica } from '../../modelo/musica';
+import { Tiempo } from '../../modelo/tiempo';
 
 import 'bootstrap-icons/font/bootstrap-icons.css';
 const props = defineProps<{ compas: number, cancion: Cancion,  nro_cancion: number, total_canciones: number, viendo_vista: string, editando_cancion: Cancion }>();

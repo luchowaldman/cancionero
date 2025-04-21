@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import { EstadoSesion } from '../modelo/estadosesion';
+import { EstadoSesion } from '../../modelo/estadosesion';
 defineProps<{ sesion: EstadoSesion }>();
 const nro = ref(0);
 const emit = defineEmits(['conectar', 'desconectar']);
