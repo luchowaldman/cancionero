@@ -17,7 +17,6 @@ export class AdminListasURL extends  AdminiListas {
     }
 
     async getIndice(): Promise<item_lista[]> {
-        console.log("Busca indice", this.url + `/indice.json`);
         const response = await fetch(this.url + `/indice.json`);
         const data = await response.json();
         let items_lista = []
@@ -45,9 +44,7 @@ export class AdminListasURL extends  AdminiListas {
     
 
     async GetCancion(item: item_lista): Promise<Cancion> {
-        console.log("Buscar", item);
         const archivo = this.url + `/${item.banda.replace(/\s+/g, '-')}_${item.cancion.replace(/\s+/g, '-')}.json`
-        console.log(archivo)
         const response = await fetch(archivo);
         const data = await response.json();
         

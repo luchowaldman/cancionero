@@ -72,18 +72,6 @@ function updateCancion() {
     contentAcordes.value = fondo;
 }
 
-function resaltar_acorde(id: number) {
-    const spans = document.querySelectorAll('span');
-    spans.forEach(span => {
-        span.classList.remove('acorde_resaltado');
-    });
-    const span = document.getElementById('span_acorde-' + id.toString());
-    console.log(span);
-    if (span != null) {
-        span.classList.add('acorde_resaltado');
-    }
-}   
-
 </script>
 <template>
     

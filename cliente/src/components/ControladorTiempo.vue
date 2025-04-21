@@ -80,8 +80,6 @@ function updateCompas(newCompas: number) {
             
             <div v-if="viendo_vista=='editar'">
 
-              <input type="text" v-model="editando_cancion.cancion"/> -
-      <input type="text" v-model="editando_cancion.banda" /> 
             </div>
             
             <div v-if="viendo_vista=='tocar'"> 
@@ -155,7 +153,10 @@ function updateCompas(newCompas: number) {
     display: flex;
     
 }
-
+.clsEditando {
+  background-color: black;
+  color: #a9a8f6;
+}
 .titulocontorltiempo {
   border: 1px solid;
   font-size: 38px;

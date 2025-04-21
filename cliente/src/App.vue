@@ -36,9 +36,7 @@ let reproductor = new Reproductor(2200);
 function startReproduccion() 
 {
 
-  console.log("Iniciando reproduccion");
    const seg = 60 / aplicacion.cancion.value.bpm;
-   console.log("Duracion:", seg);
    reproductor.setDuracion(seg * 1000);
    reproductor.iniciar();
 }

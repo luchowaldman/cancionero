@@ -176,7 +176,7 @@ function calcular_resumen_parte()
       
         <div :style="{ 'font-size' : (vista.tamanio_referencia / 1.7 ) + 'px'}">{{ parte.nombre }}</div>
         <div class="partediv">
-          <div v-for="(acorde, index) in parte.acordes" class="acordediv" :key="acorde" :style="estilo_acorde(acorde)">
+          <div v-for="(acorde, index) in parte.acordes" class="acordediv" :key="acorde" >
             <span  
              :style="{ 'font-size' : vista.tamanio_referencia + 'px'}"
             :class="{ compas_actual: ((  mostrando_compas_parte === index ) &&
