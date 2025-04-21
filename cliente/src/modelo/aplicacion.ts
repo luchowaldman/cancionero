@@ -61,14 +61,17 @@ export class Aplicacion {
 
         switch (valor) {
           case 'next':
-            this.director.click_siguiente();
+            this.director.user_set_nro_cancion(this.nro_cancion.value + 1);
+            this.viendo_pagina.value = 'tocar'
             break;
           case 'previous':
-            this.director.click_anterior();
+            this.director.user_set_nro_cancion(this.nro_cancion.value - 1);
+            this.viendo_pagina.value = 'tocar'
             break;
             
           case 'setcancion':
             this.director.user_set_nro_cancion(compas);
+            this.viendo_pagina.value = 'tocar'
             break;
           case 'play':
             this.director.click_play();
