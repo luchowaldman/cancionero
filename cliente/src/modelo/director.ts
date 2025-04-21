@@ -9,30 +9,21 @@ import { GetCanciones } from './GetCanciones';
 
 export class Director {
     configuracion: ModeloConfiguracion;
-    lista: item_lista[];
-    cancion_actual: Cancion;
     esDirector: boolean;
     estado: string = "pausado";
     
-    nro_compas: number;
-    nro_cancion: number;
     
-    
-    protected cambiosHandler?: (director: Director) => void;
-
-    setcambiosHandler(handler: (director: Director) => void) {
-        this.cambiosHandler = handler;
-    }
-    
-
-    
-    protected cambiosCancionHandler?: (cancion: Cancion) => void;
-
-    setcambiosCancionHandler(handler: (cancion: Cancion) => void) {
-        this.cambiosCancionHandler = handler;
-    }
-
+    protected cambiosListaHandler?: (lista: string) => void;
+    protected cambiosNroCancionHandler?: (cancion: number) => void;
     protected cambiosCompasHandler?: (compas: number) => void;
+
+    setcambiosListaHandler(handler: (lista: string) => void) {
+        this.cambiosListaHandler = handler;
+    }   
+
+    setcambiosNroCancionHandler(handler: (cancion: number) => void) {
+        this.cambiosNroCancionHandler = handler;
+    }
 
     setcambiosCompasHandler(handler: (compas: number) => void) {
         this.cambiosCompasHandler = handler;
@@ -41,39 +32,16 @@ export class Director {
     constructor(configuracion: ModeloConfiguracion) 
     {
         this.configuracion = configuracion;
-        this.nro_compas = 0;
-        this.nro_cancion = 0;
-        this.lista = [new item_lista("intoxicados", "fuego") ];
-        this.cancion_actual = new Cancion("Cancion no cargada", "sin banda");
         this.esDirector = false;
     }
 
 
-     onCliente_SendDirector(directorrec: string) {
-            console.log("Soy el nuevo director", directorrec, this.lista)
-            this.esDirector = true;
-    }
-          
-    click_siguiente() {
-        const nuevo_track = (this.nro_cancion + 1) % this.total_canciones;
-        this.onNroCancionRecibido(nuevo_track);
-    }
-     
-      
-    click_anterior() {
-        const nuevo_track = (this.nro_cancion - 1) % this.total_canciones;
-        this.onNroCancionRecibido(nuevo_track);
+    user_set_nro_cancion(nro_cancion: number) {
+        console.log("set_nro_cancion", nro_cancion);
     }
 
-    
-    set_nro_cancion(nro_cancion: number) {
-        const nuevo_track = nro_cancion % this.total_canciones;
-        this.onNroCancionRecibido(nuevo_track);
-
-    }
-
-    update_compas(nro: number) {
-        this.cambiosCompasHandler?.(nro);
+    user_set_update_compas(nro: number) {
+        console.log("set_nro_cancion", nro);
         //console.log("Compas actualizado", nro);
     }
 
@@ -136,7 +104,7 @@ export class Director {
     obtenerCancion() {
         GetCanciones.obtenerCancion(this.lista[this.nro_cancion]).then((cancion_get: Cancion) => {
             this.cancion_actual = cancion_get;
-            this.cambiosCancionHandler?.(cancion_get);
+            this.cambiosNroCancionHandler?.(cancion_get);
         });
     }
 

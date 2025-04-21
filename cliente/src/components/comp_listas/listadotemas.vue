@@ -1,21 +1,29 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
-import { item_lista } from '../modelo/item_lista';
-import { Musica } from '../modelo/musica';
-import { Tiempo } from '../modelo/tiempo';
+import { item_lista } from '../../modelo/item_lista';
+import { Musica } from '../../modelo/musica';
+import { Tiempo } from '../../modelo/tiempo';
 
-    
-const emit = defineEmits(['click_ver', 'click_descargar', 'click_agregar', 'click_borrar', 'click_tocar' ]);
+const emit = defineEmits(['click_ver', 'click_descargar', 'click_agregar', 'click_borrar', 'click_tocar']);
+
 
 const props = defineProps<{ indice: item_lista[], titulo: string, muestra_renglones: number
-    ,  btnVer: boolean, btnDescargar: boolean, btnAgregar: boolean, btnBorrar: boolean, nro_cancion: number, btnTocar: boolean
+    ,  btnVer: boolean, btnDescargar: boolean, btnAgregar: boolean, btnBorrar: boolean
  }>();
 const musica = new Musica();
 const tiempo = new Tiempo();
 const indice_disponible = ref(props.indice);
+const viendo_detalles = ref([] as number[]);
 const indice_disponible_filtro = ref([] as item_lista[]);
 
 
+function VerDetalle(indice: number) {
+    if (viendo_detalles.value.includes(indice)) {
+        viendo_detalles.value = viendo_detalles.value.filter((item) => item != indice);
+    } else {
+        viendo_detalles.value.push(indice);
+    }
+}
 
 watch(() => props.indice, (newindice: item_lista[]) => {
   indice_disponible.value = newindice;
@@ -26,10 +34,10 @@ function click_ver(item: item_lista) {
     emit('click_ver', item);
 }
 
-function click_tocar(nro_cancion: number) {
-    console.log("tocar", nro_cancion);
-    emit('click_tocar', nro_cancion);
+function click_tocar(item: item_lista) {
+    emit('click_tocar', item);
 }
+
 
 function click_descargar(indice: item_lista) {
     emit('click_descargar', indice);
@@ -44,12 +52,14 @@ function click_borrar(indice: item_lista) {
 }
 
 
+const muy_faciles = ref(false);
 const fil_can = ref("");
 const fil_ban = ref("");
 const max_registros = ref(100);
 const calidad_min = ref(0);
 const calidad_max = ref(10);
 
+const con_buenaspropos = ref(false);
 
 function cancionesFiltradas() 
 {
@@ -89,7 +99,7 @@ function cancionesFiltradas()
     }
     indice_disponible_filtro.value = indices_ret;
 
-    
+    viendo_detalles.value = [];
 }
 cancionesFiltradas();
 
@@ -121,15 +131,17 @@ defineExpose({  cancionesFiltradas });
             </thead>
             <tbody>
 
-                
-                <tr v-for="(cancion, cancionid) in indice" :key="cancionid" :class="{ 'tocando_cancion': nro_cancion === cancionid }">
-                   <td >
-                    
-                      <span style="font-size: 24px;">{{ FormatearNombre(cancion.cancion) }}</span> - <span style="font-size: 15px;">{{ FormatearNombre(cancion.banda) }}</span>
+                <template v-for="(cancion, cancionid) in indice_disponible_filtro" :key="cancionid" >
+                <tr >
+                    <td >
+                        <p style="font-size: 30px;">{{ FormatearNombre(cancion.cancion) }}</p>
+                        <p style="font-size: 20px;">{{ FormatearNombre(cancion.banda) }}</p>
                     </td>
                     
                     <td>
                         <div class="origen" v-if="cancion.origen.startsWith('url')">{{ cancion.origen }}</div>
+                        
+
                     </td>
                     <td> 
                         <div class="duracion">  {{ tiempo.formatSegundos(musica.duracion_cancion_indice(cancion))  }} </div>
@@ -146,10 +158,15 @@ defineExpose({  cancionesFiltradas });
                     <td>
                                     
                         
-                                            <div class="btnGrilla" v-if="btnTocar" @click="click_tocar(cancionid)">
+                                            <div class="btnGrilla" v-if="btnVer" @click="click_tocar(cancion)">
                                             <i class="bi bi-fire"></i>
                                             </div>
 
+                                            <div class="btnGrilla" v-if="btnVer" @click="VerDetalle(cancionid)"
+                                            :class="{viendodetalles: viendo_detalles.includes(cancionid)}"
+                                            >
+                                            <i class="bi bi-eye"></i>
+                                            </div>
 
 
                                                                                         
@@ -168,12 +185,75 @@ defineExpose({  cancionesFiltradas });
                                             </div>
                                         </td>
                 </tr>
-            
+                <tr v-if="viendo_detalles.includes(cancionid)">
+                    <td colspan="6">
+                        
+                        <table style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th colspan="4">Detalles</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Compás:</td>
+                                <td><strong>{{ cancion.compas_cantidad }} / {{ cancion.compas_unidad }}</strong></td>
+          
+                                <td>BPM:</td>
+                                <td><strong>{{ cancion.bpm }}</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Calidad:</td>
+                                <td><strong>{{ cancion.calidad }}</strong></td>
+                                <td>Compases:</td>
+                                <td><strong>{{ cancion.compases }}</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Longitud de Secuencia:</td>
+                                <td><strong>{{ cancion.len_secuencia }}</strong></td>
+                                <td>Longitud de Partes:</td>
+                                <td><strong>{{ cancion.len_partes }}</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Acordes:</td>
+                                <td colspan="3">
+                                    <div class="acordes">
+                                    <div v-for="(c) in cancion.acordes.split('.')" class="acorde"> {{  c }}</div>
+                                </div>
+                                </td>
+                            </tr></tbody>
+                        </table>
+                    </td>
+
+                </tr> 
+            </template>
             </tbody>
         </table>
     </div>
     
     
+    <div class="controls">
+        <div>{{  indice_disponible_filtro.length }} de <input type="text" v-on:change="cancionesFiltradas()" v-model="max_registros" /></div>
+        <div>
+        Muy faciles: <input type="checkbox" v-on:change="cancionesFiltradas()" v-model="muy_faciles" />
+        Con buenas propos: <input type="checkbox" v-on:change="cancionesFiltradas()" v-model="con_buenaspropos" />
+        </div>
+        
+        <div>
+            
+             Cancion <input type="text" v-on:change="cancionesFiltradas()" v-model="fil_can" />
+             Banda <input type="text" v-on:change="cancionesFiltradas()" v-model="fil_ban" />
+        </div>
+        <div>
+            Rango de calidad: 
+            <input type="range" min="0" max="10" v-model="calidad_min" @change="cancionesFiltradas()" />
+            <span>{{ calidad_min }}</span>
+            -
+            <input type="range" min="0" max="10" v-model="calidad_max" @change="cancionesFiltradas()" />
+            <span>{{ calidad_max }}</span>
+        </div>
+    </div>
+        
     </div>
 
 
@@ -200,17 +280,13 @@ defineExpose({  cancionesFiltradas });
 
 }
 
-.tocando_cancion {
-    color: #d2ab46 !important;
-}
-
 .viendodetalles {
     background-color: #d2ab46;
     color: white;
 }
 
 .origen {
-    font-size: 14px;
+    font-size: 20px;
     border: 4px solid;
     padding: 6px;
     border-radius: 5px;
@@ -218,14 +294,14 @@ defineExpose({  cancionesFiltradas });
 
 
 .duracion {
-    font-size: 20px;
+    font-size: 40px;
     padding: 6px;
     border-radius: 5px;
 }
 
 
 .escala {
-    font-size: 20px;
+    font-size: 40px;
     padding: 6px;
     border-radius: 5px;
     border: 4px solid;
@@ -259,11 +335,11 @@ defineExpose({  cancionesFiltradas });
     background-color: #a9a8f6;
     color: white;
     font-size: larger;
-    padding: 1px;
+    padding: 10px;
 }
 
 .tablaListas td {
-    padding: 1px;
+    padding: 10px;
 }
 
 .tablaListas tbody tr:nth-child(odd) {
@@ -279,8 +355,8 @@ defineExpose({  cancionesFiltradas });
     display: inline-block;
     border: 1px solid;
     font-size: xx-large;
-    padding: 3px;
-    margin: 5px;
+    padding: 10px;
+    margin: 3px;
     cursor: pointer;
 }
 

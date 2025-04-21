@@ -29,7 +29,7 @@ export class DirectorOnline extends Director {
     
 
     setcambiosCancionHandler(handler: (cancion: Cancion) => void) {
-        this.cambiosCancionHandler = handler;
+        this.cambiosNroCancionHandler = handler;
     }
 
 
@@ -83,7 +83,7 @@ export class DirectorOnline extends Director {
     }
 
     
-    set_nro_cancion(nro_cancion: number) {
+    user_set_nro_cancion(nro_cancion: number) {
         const nuevo_track = nro_cancion % this.total_canciones;
         if (this.configuracion.sesion.estado == "conectado") {
             this.cliente.set_cancion(nuevo_track);
@@ -93,7 +93,7 @@ export class DirectorOnline extends Director {
 
     }
 
-    update_compas(nro: number) {
+    user_set_update_compas(nro: number) {
         this.nro_compas = parseInt(nro.toString());
         this.cambiosCompasHandler?.(nro);
         //console.log("Compas actualizado", nro);
@@ -233,7 +233,7 @@ export class DirectorOnline extends Director {
     obtenerCancion() {
         GetCanciones.obtenerCancion(this.lista[this.nro_cancion]).then((cancion_get: Cancion) => {
             this.cancion_actual = cancion_get;
-            this.cambiosCancionHandler?.(cancion_get);
+            this.cambiosNroCancionHandler?.(cancion_get);
         });
         
 

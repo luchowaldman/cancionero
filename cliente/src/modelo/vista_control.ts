@@ -4,7 +4,7 @@ import ComponenteMusicalAcordesSeguidos from '../components/comp_tocar/Component
 
 import ComponenteMusicalLetra  from '../components/comp_tocar/ComponenteMusicalLetra.vue';
 import ComponenteMusicalAcordes from '../components/comp_tocar/ComponenteMusicalAcordes.vue';
-import ComponenteMusicalPartitura from '../components/ComponenteMusicalPartitura.vue';
+import ComponenteMusicalPartitura from '../components/comp_tocar/ComponenteMusicalPartitura.vue';
 import ComponenteMusicalVerDetalles from '../components/comp_tocar/ComponenteMusicalVerDetalles.vue';
 import ComponenteMusicalTocar from '../components/comp_tocar/ComponenteMusicalTocar.vue';
 

@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { Almacenado } from '../modelo/Almacenado';
 import { item_lista } from '../modelo/item_lista';
 import { Cancion } from '../modelo/cancion';
-import ListadoTemas from '../components/listadotemas.vue';
+import ListadoTemas from '../components/comp_listas/listadotemas.vue';
 import { AdminListasURL } from '../modelo/AdminListasURL';
 import { AdminListasLocalStorage } from '../modelo/AdminListasStorage';
 import { AdminListasTocables } from '../modelo/AdminIndiceListas';

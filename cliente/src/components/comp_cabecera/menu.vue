@@ -5,6 +5,7 @@ import ControladorTiempo from './ControladorTiempo.vue';
 import Metronomo from './metronomo.vue';
 import { EstadoSesion } from '../modelo/estadosesion';
 import { ref } from 'vue';
+import { item_lista } from '../../modelo/item_lista';
 
 
 
@@ -19,7 +20,7 @@ function acciono(valor: string, compas: number = 0, ) {
     
 }
 defineProps<{ viendo_vista: string, compas: number, cancion: Cancion, editando_cancion: Cancion
-  ,  nro_cancion: number, total_canciones: number, sesion: EstadoSesion, estado: string, bpm_encompas: number }>()
+  ,  nro_cancion: number, listaCanciones: item_lista[], sesion: EstadoSesion, estado: string, bpm_encompas: number }>()
 
 
   function actualizar_vista() {
@@ -60,10 +61,10 @@ defineProps<{ viendo_vista: string, compas: number, cancion: Cancion, editando_c
         </p>	
       </div>
         
-          <ControladorTiempo :nro_cancion="nro_cancion" :total_canciones="total_canciones"  :compas=compas :cancion="cancion"
+          <ControladorTiempo :nro_cancion="nro_cancion" :total_canciones="listaCanciones.length + 1"  :compas=compas :cancion="cancion"
           :viendo_vista="viendo_vista" :editando_cancion="editando_cancion" :estado="estado"
           @play="acciono('play')" @pause="acciono('pause')" @stop="acciono('stop')" @next="acciono('next')" @previous="acciono('previous')"
-            @update-compas="(valor) => acciono('update-compas', valor)">
+            @update-compas="(valor) => acciono('update-compas', parseInt(valor))">
         </ControladorTiempo> 
       
         <div class="clsDivEditando" v-if="viendo_vista=='editar'">

@@ -1,11 +1,11 @@
 <script setup lang="ts">
 
-import Pentagrama from '../components/pentagrama.vue';
+import Pentagrama from '../pentagrama.vue';
 import { Ref, ref, watch } from 'vue';
-import { Cancion } from '../modelo/cancion';
-import { VistaControl } from '../modelo/vista_control';
-import { Musica } from '../modelo/musica';
-import { CompacesPartitura } from '../modelo/PartituraInstrumento';
+import { Cancion } from '../../modelo/cancion';
+import { VistaControl } from '../../modelo/vista_control';
+import { Musica } from '../../modelo/musica';
+import { CompacesPartitura } from '../../modelo/PartituraInstrumento';
 const props = defineProps<{ compas: number, cancion: Cancion, vista: VistaControl  }>()
 
 
@@ -39,9 +39,12 @@ function calcular_vista()
 
   const N = 4; // Número de compases por grupo
 
-  primer_pentagrama.value = [];
-  const compases = props.cancion.partitura_instrumentos[0].compaces;
 
+  if (props.cancion.partitura_instrumentos.length == 0) {
+    return;
+  }
+
+  const compases = props.cancion.partitura_instrumentos[0].compaces;
   for (let i = 0; i < compases.length; i += N) {
     primer_pentagrama.value.push(compases.slice(i, i + N));
   }

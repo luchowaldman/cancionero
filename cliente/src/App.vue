@@ -25,28 +25,6 @@ const aplicacion: Aplicacion = new Aplicacion();
 
 
 
-// VISTA
-
-const sesion_ref = ref(new EstadoSesion());
-const bpm_encompas = ref(0);
-
-let reproductor = new Reproductor(2200);
-
-
-function startReproduccion() 
-{
-
-   const seg = 60 / aplicacion.cancion.value.bpm;
-   reproductor.setDuracion(seg * 1000);
-   reproductor.iniciar();
-}
-
-
-reproductor.setIniciaCicloHandler(() => {
-  faltan_parainicio.value = faltan_parainicio.value - 1;
-  bpm_encompas.value = (bpm_encompas.value + 1) % aplicacion.cancion.value.compas_cantidad;
-});
-
 
 
 //viendo.value = "config";
@@ -54,51 +32,8 @@ reproductor.setIniciaCicloHandler(() => {
 
 // CONTROLES
 const ctrlMenu = ref();
-
-
-
-let director: Director = new DirectorOffline(aplicacion.configuracionObj);
-  director.setcambiosHandler((directornuevo: Director) => {
-    
-    
-    sesion_ref.value = directornuevo.configuracion.sesion;
-    if (estado_ref.value == 'pausado' && directornuevo.estado != 'pausado') {
-      faltan_parainicio.value = aplicacion.cancion.value.compas_cantidad; 
-      startReproduccion();
-      
-    }
-    director.set_nro_cancion(directornuevo.nro_cancion);
-    
-    estado_ref.value = directornuevo.estado;
-    ctrlMenu.value?.actualizar_vista();
-  });
-
-const director_ref = ref(director);
-const faltan_parainicio = ref(-1);
-const estado_ref = ref(director.estado);
-const conectado = localStorage.getItem("conectado") || "no";
-
-
-
-function vincular_director() {
-  director_ref.value = director;
-  sesion_ref.value = director.configuracion.sesion;
-
-  director.setcambiosCancionHandler((cancion: Cancion) => {
-    aplicacion.cancion.value = cancion;
-  });
-
-  director.setcambiosCompasHandler((compas: number) => {
-    //aplicacion.compas.value = parseInt(compas.toString());
-    });
-  }
-
-  vincular_director();
-
 onMounted(() => { 
     console.log("APP MONTADA");
-    
-    director.Iniciar();
     aplicacion.Iniciar();
 });
 
@@ -108,7 +43,7 @@ function acciono(valor: string, compas: number = 0) {
   aplicacion.acciono(valor, compas);
 }
 
-
+const faltan_parainicio = ref(-1);
 
 </script>
 
@@ -120,21 +55,30 @@ function acciono(valor: string, compas: number = 0) {
 <div id="contenedor-musical" class="pantalla">
 
   <Menu 
-  :viendo_vista="aplicacion.viendo_pagina.value" :nro_cancion="director_ref.nro_cancion" :sesion="sesion_ref" 
-  :total_canciones="director_ref.total_canciones" @acciono="acciono" 
+  :viendo_vista="aplicacion.viendo_pagina.value" :sesion="aplicacion.sesion.value" 
+  :nro_cancion="aplicacion.nro_cancion.value" 
+  :listaCanciones="aplicacion.listacanciones.value" @acciono="acciono"
   :compas="aplicacion.compas.value"
-  :cancion="aplicacion.cancion.value" :ref="ctrlMenu"
-  :editando_cancion="aplicacion.editando_cancion.value" :estado="estado_ref" :conectado="conectado" :director="director_ref"
-   :bpm_encompas="bpm_encompas"
+  :cancion="aplicacion.cancion.value" 
+  :estado="aplicacion.estado.value"
+  :ref="ctrlMenu"
+  
+  
+  :editando_cancion="aplicacion.editando_cancion.value" 
+   :bpm_encompas="1"
   ></Menu>
-  <div class="carteliniciando" v-if="estado_ref=='iniciando'">
+  <div class="carteliniciando" v-if="aplicacion.estado.value=='iniciando'">
         {{ faltan_parainicio }}
    </div>    
 
     <Tocar v-if="aplicacion.viendo_pagina.value =='tocar'"  @acciono="acciono" :compas="aplicacion.compas.value" 
     :width="aplicacion.width" :height="aplicacion.height" 
     :cancion="aplicacion.cancion.value"></Tocar>
-    <Listas v-if="aplicacion.viendo_pagina.value =='listas'" :nro_cancion="director.nro_cancion"  @acciono="acciono"></Listas>
+    <Listas v-if="aplicacion.viendo_pagina.value =='listas'" 
+      :nro_cancion="aplicacion.nro_cancion.value"  
+      :lista_actual="aplicacion.listacanciones.value"
+      @acciono="acciono">
+    </Listas>
     <Configuracion v-if="aplicacion.viendo_pagina.value =='config'"></Configuracion>
     <Editar v-if="aplicacion.viendo_pagina.value =='editar'"  @acciono="acciono" :cancion="aplicacion.editando_cancion.value" :item="aplicacion.editando_item.value"></Editar>
     <Buscar v-if="aplicacion.viendo_pagina.value =='buscar'"  @acciono="acciono"></Buscar>

@@ -7,7 +7,7 @@ import ComponenteMusicalLetrayAcordes from '../components/comp_tocar/ComponenteM
 import ComponenteMusicalLetra from '../components/comp_tocar/ComponenteMusicalLetra.vue';
 import ComponenteMusicalAcordes from '../components/comp_tocar/ComponenteMusicalAcordes.vue';
 import ComponenteMusicalAcordesSeguidos from '../components/comp_tocar/ComponenteMusicalAcordesSeguidos.vue';
-import ComponenteMusicalPartitura from '../components/ComponenteMusicalPartitura.vue';
+import ComponenteMusicalPartitura from '../components/comp_tocar/ComponenteMusicalPartitura.vue';
 
 const props = defineProps<{ compas: number, cancion: Cancion, width: number, height: number }>()
 

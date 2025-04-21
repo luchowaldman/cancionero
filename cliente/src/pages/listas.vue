@@ -2,13 +2,13 @@
 import { ref } from 'vue';
 import { Almacenado } from '../modelo/Almacenado';
 import { item_lista } from '../modelo/item_lista';
-import ListadoTemas from '../components/listadotemassimples.vue';
+import ListadoTemas from '../components/comp_listas/listadotemassimples.vue';
 import { AdminListasURL } from '../modelo/AdminListasURL';
 import { AdminListasLocalStorage } from '../modelo/AdminListasStorage';
 import { AdminListasTocables } from '../modelo/AdminIndiceListas';
 
 
-const props = defineProps<{ nro_cancion: number }>();
+const props = defineProps<{ nro_cancion: number, lista_actual: item_lista[] }>();
 
 const emit = defineEmits(['acciono']);
 const ctrlguardados = ref();
@@ -101,7 +101,7 @@ function click_borrar_guardadas(item: item_lista) {
 
     
 <div style="font-size: xx-large;">Reproduciendo</div>
-    <ListadoTemas :ref="ctrlviendolista" titulo="" :indice="canciones_Actual" :muestra_renglones=10
+    <ListadoTemas :ref="ctrlviendolista" titulo="" :indice="lista_actual" :muestra_renglones=10
     :nro_cancion="props.nro_cancion"
     :btnTocar="true"
     :btnVer=true v-on:click_ver="click_editar_item" :btnDescargar=false :btnBorrar=true :btnAgregar=false
