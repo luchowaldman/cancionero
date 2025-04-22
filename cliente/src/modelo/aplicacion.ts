@@ -79,7 +79,6 @@ export class Aplicacion {
             break;
           case 'update-compas':
             this.director.user_set_update_compas(compas);
-            // Actualizo esto porque, ¿actualiza la vista?s
             this.viendo_pagina.value = 'tocar'
             break;
           case 'conectar':

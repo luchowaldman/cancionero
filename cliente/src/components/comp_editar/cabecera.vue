@@ -5,7 +5,7 @@ import { Cancion } from '../../modelo/cancion';
 
 
 const props = defineProps<{ cancion: Cancion, item: item_lista }>()
-const emit = defineEmits(['cerrar', 'guardar', 'nuevo', 'descargar']);
+const emit = defineEmits(['cerrar', 'guardar', 'nueva', 'descargar']);
 
 
 </script>
@@ -39,16 +39,26 @@ const emit = defineEmits(['cerrar', 'guardar', 'nuevo', 'descargar']);
         Calidad: <input type="range" v-model="cancion.calidad" min="0" max="10" />
 
         <div style="display: inline; float: right;">
-            <button @click="emit('guardar')">
-        <i class="bi bi-save"></i> 
-            </button>
-            <button @click="emit('nuevo')">
-              <i class="bi bi-file-earmark-plus"></i>
-            </button>
-            <button @click="emit('descargar')">
-              <i class="bi bi-download"></i>
-            </button>
             
+            <div div class="btnsMenu" style="display: flex; flex-wrap: wrap;">|
+   
+              <div class="divBtnMenu" @click="emit('nuevo')">
+        <i class="bi bi-file-earmark-plus"></i> Nuevo
+      
+      </div>
+      <div class="divBtnMenu" @click="emit('guardar')">
+        <i class="bi bi-file-earmark-plus"></i>Guardar
+      
+      </div>
+      
+      <div class="divBtnMenu" @click="emit('descargar')">
+        
+              <i class="bi bi-download"></i>Descargar
+      </div>
+
+      
+
+    </div>
           </div>
         </div>
           
@@ -61,8 +71,23 @@ const emit = defineEmits(['cerrar', 'guardar', 'nuevo', 'descargar']);
 </template>
 
 <style scoped>
+.menuEditar {
+  border: 5px solid #a9a8f6;
+  height: 80px;
+  padding: 4px;
+}
 .read-the-docs {
   color: #888;
 }
+
+
+.divBtnMenu {
+  border: 1px solid;
+  margin: 5px 10px 5px 10px;
+  border-radius: 20px;
+  padding: 10px;
+  color: #a9a8f6;
+}
+
 </style>
 

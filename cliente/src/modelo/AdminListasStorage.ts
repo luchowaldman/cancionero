@@ -1,6 +1,8 @@
+import { Acordes } from "./acordes";
 import { Almacenado } from "./Almacenado";
 import { Cancion } from "./cancion";
 import { item_lista } from "./item_lista";
+import { Letra } from "./letra";
 
 
 export class AdminListasLocalStorage  {
@@ -8,7 +10,20 @@ export class AdminListasLocalStorage  {
         let indice = this.almacen.indice();
         const index = indice.findIndex(i => i.banda === banda && i.cancion === cancion);
         ///console.log("Busca cancion", banda, cancion, index);
-        return this.almacen.obtenerTodasLasCanciones()[index];
+        const toGet = this.almacen.obtenerTodasLasCanciones()[index];
+        
+                let toRet: Cancion = new Cancion(
+                    toGet.cancion,
+                    toGet.banda,
+                    new Acordes(toGet.acordes.partes, toGet.acordes.orden_partes),
+                    new Letra(toGet.letras.renglones),
+                    toGet.bpm, toGet.calidad, toGet.compas_cantidad, toGet.compas_unidad, toGet.escala, []
+
+                   
+                );
+                toRet.normalizar();
+                return toRet;
+
     
     }
 

@@ -129,7 +129,7 @@ defineExpose({  cancionesFiltradas });
                     </td>
                     
                     <td>
-                        <div class="origen" v-if="cancion.origen.startsWith('url')">{{ cancion.origen }}</div>
+                        <div class="origen" v-if="cancion.origen">{{ cancion.origen }}</div>
                     </td>
                     <td> 
                         <div class="duracion">  {{ tiempo.formatSegundos(musica.duracion_cancion_indice(cancion))  }} </div>

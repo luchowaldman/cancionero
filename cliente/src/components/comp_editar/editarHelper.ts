@@ -6,7 +6,11 @@ export class EditarHelper {
 
     static texto_x_objetoshtml(texto: string, cancion: Cancion): HtmlAcorde[] {
         //HtmlAcorde, HtmlAcordeSimple, HtmlAcordeConBr
+        
         const acordes = cancion.acordes.GetTodosLosAcordes()
+        if (acordes == null) {
+            return [];
+        }  
         return this.acordes_a_objetoshtml(texto, acordes);
 
 

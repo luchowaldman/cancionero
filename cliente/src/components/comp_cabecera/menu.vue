@@ -72,15 +72,7 @@ defineProps<{ viendo_vista: string, compas: number, cancion: Cancion, editando_c
         <input class="clsEditando" type="text" v-model="editando_cancion.cancion"/> -
       <input  class="clsEditando" type="text" v-model="editando_cancion.banda" /> 
     </div>
-    <div div class="btnsMenu" style="display: flex; flex-wrap: wrap;">|
-      <div class="divBtnMenu">Nuevo</div>
-      <div class="divBtnMenu">Guardar</div>
-      <div class="divBtnMenu" @click="acciono('descargar')">
-        
-              <i class="bi bi-download"></i>
-            
-        Descargar</div>
-    </div>
+
     </div>
       
       <Metronomo v-if="viendo_vista=='tocar' && estado=='tocando'" ref="metronomeRef" :bpm_encompas="bpm_encompas" :cancion="cancion"></Metronomo>
@@ -144,14 +136,6 @@ defineProps<{ viendo_vista: string, compas: number, cancion: Cancion, editando_c
   border: 1px solid;
   margin: 5px 10px 5px 10px;
   background-color: #353333;
-}
-
-.divBtnMenu {
-  border: 1px solid;
-  margin: 5px 10px 5px 10px;
-  border-radius: 20px;
-  padding: 10px;
-  color: #a9a8f6;
 }
 .clsDivEditando {
   border: 1px solid;

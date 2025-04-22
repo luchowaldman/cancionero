@@ -80,7 +80,10 @@ const faltan_parainicio = ref(-1);
       @acciono="acciono">
     </Listas>
     <Configuracion v-if="aplicacion.viendo_pagina.value =='config'"></Configuracion>
-    <Editar v-if="aplicacion.viendo_pagina.value =='editar'"  @acciono="acciono" :cancion="aplicacion.editando_cancion.value" :item="aplicacion.editando_item.value"></Editar>
+    <Editar v-if="aplicacion.viendo_pagina.value =='editar'"  
+      
+      @acciono="acciono" :cancion="aplicacion.editando_cancion.value" 
+      :item="aplicacion.editando_item.value"></Editar>
     <Buscar v-if="aplicacion.viendo_pagina.value =='buscar'"  @acciono="acciono"></Buscar>
 
 </div>
