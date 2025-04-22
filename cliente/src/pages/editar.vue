@@ -23,6 +23,14 @@ function guardar_cancioneditada() {
     const texto_cancion = (document.querySelector('.divEditable') as HTMLElement).innerHTML;
     props.cancion.letras.renglones =  [ texto_cancion.split('|').map(parte => parte.replace('</div>', '').replace(/<br>/g, '/n'))] ;
     props.item.origen = "local";
+    props.item.cancion = props.cancion.cancion;
+    props.item.banda = props.cancion.banda;
+    props.item.calidad = props.cancion.calidad;
+    props.item.escala = props.cancion.escala;
+    props.item.bpm = props.cancion.bpm;
+    props.item.compas_cantidad = props.cancion.compas_cantidad;
+    props.item.compas_unidad = props.cancion.compas_unidad;
+    props.item.acordes = props.cancion.acordes.GetTodosLosAcordes().filter((acorde, index, self) => self.indexOf(acorde) === index).slice(0, 5).join(', ');
     generadorlistasLS.GuardarCancion(props.item, props.cancion);
 }
 
