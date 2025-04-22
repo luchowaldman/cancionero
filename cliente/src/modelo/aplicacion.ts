@@ -55,23 +55,21 @@ export class Aplicacion {
     public acciono(valor: string, compas: number = 0) {
 
       
-        this.viendo_pagina.value  = valor;
-        localStorage.setItem("viendo", valor);            
         
 
         switch (valor) {
           case 'next':
             this.director.user_set_nro_cancion(this.nro_cancion.value + 1);
-            this.viendo_pagina.value = 'tocar'
+          //  this.viendo_pagina.value = 'tocar'
             break;
           case 'previous':
             this.director.user_set_nro_cancion(this.nro_cancion.value - 1);
-            this.viendo_pagina.value = 'tocar'
+           // this.viendo_pagina.value = 'tocar'
             break;
             
           case 'setcancion':
             this.director.user_set_nro_cancion(compas);
-            this.viendo_pagina.value = 'tocar'
+          //  this.viendo_pagina.value = 'tocar'
             break;
           case 'play':
             this.director.click_play();
@@ -92,13 +90,14 @@ export class Aplicacion {
             console.log("conectar");
             this.Desconectar();
             break;
-            case 'editar':
-              if (this.viendo_pagina.value == 'tocar') 
-                {
-                  this.editando_item.value = this.director.getitemActual();
-                  localStorage.setItem("editando_cancion", JSON.stringify(this.editando_item.value));                
-                }              
-                this.cargar_edit();
+          case 'editar':
+                if (this.viendo_pagina.value == 'tocar') {
+                      this.editando_item.value = this.listacanciones.value[this.nro_cancion.value];
+                      
+                      localStorage.setItem("editando_cancion", JSON.stringify(this.editando_item.value));
+                      this.cargar_edit();
+                }
+                this.viendo_pagina.value  = valor;
                 break;
           
           case 'tocar_cancion':
@@ -108,13 +107,24 @@ export class Aplicacion {
             break;
           case 'tocar':
             //this.director.CargarLista();
+            this.viendo_pagina.value  = valor;
             break;
           case 'listas':
+            this.viendo_pagina.value  = valor;
+            break;
           case 'config':
+            this.viendo_pagina.value  = valor;
+            break;
           case 'buscar':
+            this.viendo_pagina.value  = valor;
+            break;
           default:
             console.warn(`Acción no reconocida: ${valor}`);
         }
+
+        
+        localStorage.setItem("viendo", valor);            
+        
         
       }
 

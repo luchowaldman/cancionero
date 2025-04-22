@@ -11,10 +11,6 @@ import { ref  } from 'vue';
 const props =defineProps<{ cancion: Cancion, item: item_lista }>()
 const emit = defineEmits(['acciono']);
 
-function cerro_editar() {
-    localStorage.setItem("editando", "no");
-}
-
 
 function guardar_cancioneditada() { 
 }
@@ -76,7 +72,7 @@ function updateCancion() {
 <template>
     
     <div class="contenedor-editar">
-        <Cabecera @cerrar="cerro_editar" @descargar="DescargarJSON" @guardar="guardar_cancioneditada"  :cancion="cancion" :item="item"></Cabecera>
+        <Cabecera  @descargar="DescargarJSON" @guardar="guardar_cancioneditada"  :cancion="cancion" :item="item"></Cabecera>
     <div class="row">
     <div class="col-8" style="position: relative;">
         <!-- Div editable -->
