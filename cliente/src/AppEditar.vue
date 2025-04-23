@@ -35,7 +35,6 @@ const ctrlMenu = ref();
 onMounted(() => { 
     console.log("APP MONTADA");
     aplicacion.Iniciar();
-    aplicacion.viendo_pagina.value = "tocar";
 });
 
 
@@ -54,9 +53,8 @@ const faltan_parainicio = ref(-1);
 
 
 <div id="contenedor-musical" class="pantalla">
-
   <Menu 
-  viendo_vista="tocar" :sesion="aplicacion.sesion.value" 
+  :viendo_vista="aplicacion.viendo_pagina.value" :sesion="aplicacion.sesion.value" 
   :nro_cancion="aplicacion.nro_cancion.value" 
   :listaCanciones="aplicacion.listacanciones.value" @acciono="acciono"
   :compas="aplicacion.compas.value"
@@ -67,11 +65,25 @@ const faltan_parainicio = ref(-1);
   
   :editando_cancion="aplicacion.editando_cancion.value" 
    :bpm_encompas="1"
-  ></Menu>  
+  ></Menu>
+  <div class="carteliniciando" v-if="aplicacion.estado.value=='iniciando'">
+        {{ faltan_parainicio }}
+   </div>    
 
-    <Tocar @acciono="acciono" :compas="aplicacion.compas.value" 
+    <Tocar v-if="aplicacion.viendo_pagina.value =='tocar'"  @acciono="acciono" :compas="aplicacion.compas.value" 
     :width="aplicacion.width" :height="aplicacion.height" 
     :cancion="aplicacion.cancion.value"></Tocar>
+    <Listas v-if="aplicacion.viendo_pagina.value =='listas'" 
+      :nro_cancion="aplicacion.nro_cancion.value"  
+      :lista_actual="aplicacion.listacanciones.value"
+      @acciono="acciono">
+    </Listas>
+    <Configuracion v-if="aplicacion.viendo_pagina.value =='config'"></Configuracion>
+    <Editar v-if="aplicacion.viendo_pagina.value =='editar'"  
+      
+      @acciono="acciono" :cancion="aplicacion.editando_cancion.value" 
+      :item="aplicacion.editando_item.value"></Editar>
+    <Buscar v-if="aplicacion.viendo_pagina.value =='buscar'"  @acciono="acciono"></Buscar>
 
 </div>
 </template>

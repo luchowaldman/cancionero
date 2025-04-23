@@ -143,17 +143,16 @@ function click_cancelareditacorde() {
     <div class="contenedor-editar">
         <Cabecera  @descargar="DescargarJSON" @guardar="guardar_cancioneditada" @nuevo="nueva_cancion"  :cancion="cancion" :item="item"></Cabecera>
     <div class="row">
+      <div class="col-8" v-if="!refEditandoTexto"  style="display: flex;" >
+
+          
+          <ComponenteMusicalLetrayAcordes :cancion="props.cancion"  :compas="-2" :vista="vistaLetraYAcordes"></ComponenteMusicalLetrayAcordes>
       
-  <div class="col-8" v-if="!refEditandoTexto"  style="display: flex;">
-        <div>
-        <ComponenteMusicalLetrayAcordes :cancion="props.cancion"  :compas="-2" :vista="vistaLetraYAcordes"></ComponenteMusicalLetrayAcordes>
+        
       </div>
-      <div >
-        <div class="btnEditAcorde" :class="{ 'btnSeleccionado': refEditandoTexto }" @click="click_editartexto">
-      <span class="bi bi-pencil"></span>
-      </div>
-      </div>
-  </div>
+  
+  
+
     <div class="col-8" v-if="refEditandoTexto" style="position: relative;">
         <!-- Div editable -->
         <div class="divEditable" contenteditable="true" @input="updateContent" 
@@ -171,8 +170,33 @@ function click_cancelareditacorde() {
       <span class="bi  bi-x-circle"></span> Cancelar
       </div>
     </div>
-    <div class="col-4" >
+    <div class="col-4" style="display: flex;" >
+      <div>
         <EditAcordes :cancion="cancion" @actualizo_cancion="updateCancion" ></EditAcordes>
+      </div>
+      
+      <div>
+
+
+
+
+        <div class="dropdown" >
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-eye"></i>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <li v-on:click="click_editartexto"><a class="dropdown-item" href="#">Editar Texto</a></li>
+      <li v-on:click="cambiar_vista('acordes')"><a class="dropdown-item" href="#">Acordes a Texto</a></li>
+      <li v-on:click="cambiar_vista('soloacordes')"><a class="dropdown-item" href="#">Editar Acordes</a></li>
+         
+    </ul>
+  </div>
+
+
+
+
+      </div>
+
     </div> 
 
     </div>

@@ -10,6 +10,7 @@ import ComponenteMusicalAcordesSeguidos from '../components/comp_tocar/Component
 import ComponenteMusicalPartitura from '../components/comp_tocar/ComponenteMusicalPartitura.vue';
 
 const props = defineProps<{ compas: number, cancion: Cancion, width: number, height: number }>()
+const emit = defineEmits(['acciono']);
 
 class vista_tocar {
   viendo: string = "karaoke";
@@ -41,6 +42,8 @@ function click_secuencia() {
   adecu_ancho();
 
 }
+
+
 
 function click_partes() {
   vista.value.partes = !vista.value.partes;
@@ -98,6 +101,11 @@ const vistaAcordes = ref(new VistaControl(30, 12, 7, "acordes_seguidos", "col-9"
         <i class="bi bi-check-circle" v-if="vista.partes"></i> 
         Partes</a></li>
 
+        <li><hr class="dropdown-divider"></li>
+      <li v-on:click="emit('acciono','editar')"><a class="dropdown-item" href="#">
+        <i class="bi bi-pen"></i> Editar</a></li>
+
+         
     </ul>
   </div>
     

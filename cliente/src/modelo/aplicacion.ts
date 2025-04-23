@@ -94,7 +94,7 @@ export class Aplicacion {
                       this.editando_item.value = this.listacanciones.value[this.nro_cancion.value];
                       
                       localStorage.setItem("editando_cancion", JSON.stringify(this.editando_item.value));
-                      this.cargar_edit();
+                      window.location.href = `/editar`;
                 }
                 this.viendo_pagina.value  = valor;
                 break;

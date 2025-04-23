@@ -8,7 +8,9 @@ export default defineConfig({
     rollupOptions: {
       input: {
         index: resolve(__dirname, 'index.html'),
-        music: resolve(__dirname, 'music.html'),
+        editar: resolve(__dirname, 'editar.html'),
+        listas: resolve(__dirname, 'listas.html'),
+        configurar: resolve(__dirname, 'configurar.html'),
         ritmo: resolve(__dirname, 'ritmo.html')
       }
     }

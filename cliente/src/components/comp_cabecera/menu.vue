@@ -19,6 +19,14 @@ function acciono(valor: string, compas: number = 0, ) {
     emit('acciono', valor, compas);
     
 }
+
+function ir_pantalla(valor: string) 
+{
+    //console.log("Acciono--->", valor, compas);
+    window.location.href = `/${valor}`;
+    
+}
+
 defineProps<{ viendo_vista: string, compas: number, cancion: Cancion, editando_cancion: Cancion
   ,  nro_cancion: number, listaCanciones: item_lista[], sesion: EstadoSesion, estado: string, bpm_encompas: number }>()
 
@@ -49,7 +57,7 @@ defineProps<{ viendo_vista: string, compas: number, cancion: Cancion, editando_c
     
     
     <div class="pagina_seleccionable" :class="{active: viendo_vista == 'tocar'}" >
-        <p class="clase_tocar" @click="acciono('tocar')"   :class="{active: viendo_vista == 'tocar'}" aria-current="page" >
+        <p class="clase_tocar" @click="ir_pantalla('index')"   :class="{active: viendo_vista == 'tocar'}" aria-current="page" >
           
           <i style="font-size: 45px;">
             🎸
@@ -91,19 +99,13 @@ defineProps<{ viendo_vista: string, compas: number, cancion: Cancion, editando_c
           </div>
       </div>
 
-        <div class="otra_paginas" @click="acciono('listas')"  :class="{active: viendo_vista == 'listas'}" v-if="ViendoDetalle">
+        <div class="otra_paginas" @click="ir_pantalla('listas')"  :class="{active: viendo_vista == 'listas'}" v-if="ViendoDetalle">
         
           <i class="bi bi-list"></i>
         
       </div>    
       
 
-
-      <div class="otra_paginas" @click="acciono('editar')"  :class="{active: viendo_vista == 'editar'}" v-if="ViendoDetalle">
-        
-            <i class="bi bi-pencil"></i>
-        
-      </div> 
       <div class="otra_paginas" @click="acciono('buscar')"  :class="{active: viendo_vista == 'buscar'}" v-if="ViendoDetalle">
         
             <i class="bi bi-globe"></i>
@@ -111,7 +113,7 @@ defineProps<{ viendo_vista: string, compas: number, cancion: Cancion, editando_c
       </div>    
       
           
-          <div class="otra_paginas" @click="acciono('config')" :class="{active: viendo_vista == 'config'}" v-if="ViendoDetalle">
+          <div class="otra_paginas" @click="ir_pantalla('config')" :class="{active: viendo_vista == 'config'}" v-if="ViendoDetalle">
               <i class="bi bi-gear-fill"></i>
           </div>
           <div class="otra_paginas" @click="ViendoDetalle = !ViendoDetalle"  v-if="ViendoDetalle" >
