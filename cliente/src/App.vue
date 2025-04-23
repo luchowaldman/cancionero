@@ -59,13 +59,14 @@ const faltan_parainicio = ref(-1);
   viendo_vista="tocar" :sesion="aplicacion.sesion.value" 
   :nro_cancion="aplicacion.nro_cancion.value" 
   :listaCanciones="aplicacion.listacanciones.value" @acciono="acciono"
+  :bpm_encompas="aplicacion.bpm_encompas.value"
   :compas="aplicacion.compas.value"
   :cancion="aplicacion.cancion.value" 
   :estado="aplicacion.estado.value"
   :ref="ctrlMenu"
   
   
-   :bpm_encompas="1"
+   
   ></Menu>  
 
     <Tocar @acciono="acciono" :compas="aplicacion.compas.value" 

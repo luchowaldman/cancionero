@@ -2,7 +2,7 @@
 
 // src/cancion.ts
 export class Reproductor  {
-    private duracion_compas: number;
+    public duracion_compas: number;
     public estado: 'pausa' | 'iniciando' | 'tocando' = "pausa";
 
     private intervalId: any;

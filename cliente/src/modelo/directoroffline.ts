@@ -15,10 +15,8 @@ export class DirectorOffline extends Director {
     esDirector: boolean;
     reproductor: Reproductor = new Reproductor(2200);
     musica: Musica = new Musica();
+
     
-
-
- 
 
     setcambiosCompasHandler(handler: (compas: number) => void) {
         this.cambiosCompasHandler = handler;
@@ -44,30 +42,51 @@ export class DirectorOffline extends Director {
     }
 
     user_set_update_compas(nro: number) {
-        this.nro_compas = parseInt(nro.toString());
         this.cambiosCompasHandler?.(nro);
     }
 
     click_pause() {
-        
-        console.log("Pause");
+        this.bpm_encompas.value = 0;
+        this.cambiosEstadoHandler?.("pausa");
         this.reproductor.pausar();
     }
 
-    click_play() {
+    click_stop() {
+        this.cambiosEstadoHandler?.("nuevo");
+        this.reproductor.pausar();
+        this.bpm_encompas.value = 0;
+        this.cambiosCompasHandler?.(-2);
+    }
+
+    override click_play() {
 
         
             //console.log("Play", this.cambiosHandler);
-            this.estado = 'iniciando';
             
-            //this.cambiosHandler?.(this);
-            this.reproductor = new Reproductor(this.musica.duracion_compas(this.cancion_actual) * 1000);
-            this.reproductor.setIniciaCicloHandler(this.onNroCompasRecibido.bind(this));
+            this.cambiosEstadoHandler?.("tocando");
+            this.cambiosCompasHandler?.(this.compas.value + 1);
+            this.reproductor = new Reproductor((60 / this.cancion.value.bpm) * 1000);
+            this.reproductor.setIniciaCicloHandler(this.onInicioCiclo.bind(this));
             this.reproductor.iniciar();
-        
-    }   
+            
+    }
           
   
+  
+    onInicioCiclo() {
+        this.bpm_encompas.value = this.bpm_encompas.value + 1;
+        
+        
+        console.log("BPM en compas", this.bpm_encompas.value);
+        if (this.bpm_encompas.value >= this.cancion.value.compas_cantidad) {
+            this.cambiosCompasHandler?.(this.compas.value + 1);
+            this.bpm_encompas.value = 0;
+        }
+
+        
+        
+      }
+      
   
   
         
@@ -79,30 +98,7 @@ export class DirectorOffline extends Director {
         }
     }
 
-
-
-    onListaRecibida(listaBandas: string[], listaTemas: string[]) {
-
-        console.log("Lista recibida", listaBandas, listaTemas);
-        this.lista = [];
-        for (let i = 0; i < listaBandas.length; i++) {
-            this.lista.push(new item_lista(listaTemas[i], listaBandas[i]));    
-
-        }
-        
-        
-    }
-
-    onNroCancionRecibido(nro: number) {
-        this.nro_cancion  = nro;
-        localStorage.setItem('nro_cancion', this.nro_cancion.toString());
-        console.log("Nro Cancion recibido", nro);
-    }
   
-   onNroCompasRecibido() 
-   {
-       this.cambiosCompasHandler?.(this.nro_compas);
-  }
   
   
 

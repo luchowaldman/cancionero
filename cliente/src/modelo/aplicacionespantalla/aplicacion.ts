@@ -18,6 +18,7 @@ export class Aplicacion {
     public viendo_pagina: Ref<string> = ref("tocar");
     public cancion: Ref<Cancion>  = ref(new Cancion("Cancion no cargada", "sin banda", new Acordes([], []), new Letra([])));
     public compas: Ref<number> = ref(-2);
+    public bpm_encompas: Ref<number> = ref(0);
     public nro_cancion: Ref<number> = ref(-2);
     public estado: Ref<string> = ref("nuevo");
     public listacanciones: Ref<item_lista[]> = ref([]);
@@ -62,9 +63,12 @@ export class Aplicacion {
             this.director.user_set_nro_cancion(compas);
           //  this.viendo_pagina.value = 'tocar'
             break;
-          case 'play':
-            this.director.click_play();
-            break;
+            case 'play':
+              this.director.click_play();
+              break;
+              case 'stop':
+                this.director.click_stop();
+                break;
           case 'pause':
             this.director.click_pause();
             break;
@@ -129,6 +133,9 @@ export class Aplicacion {
   public height: number = window.innerHeight;
     Iniciar(): void {
         this.CargarConfiguracion();
+        this.director.cancion = this.cancion;
+        this.director.compas = this.compas;
+        this.director.bpm_encompas = this.bpm_encompas;
         this.director.setcambiosCompasHandler((nro: number) => {
           this.CambiarCompas(nro);
         });
@@ -140,14 +147,25 @@ export class Aplicacion {
         this.director.setcambiosListaHandler((lista: string) => {
           this.CargarLista(lista);
         });
+
+        this.director.setcambiosEstadoHandler((estado: string) => {
+          this.CambiarEstado(estado);
+        });
+
+
         this.director.Iniciar();
 
         
     }
+  
   public CambiarCompas(nro: number): void {
     this.compas.value = nro;
-    
   }
+
+  public CambiarEstado(estado: string): void {
+    this.estado.value = estado;
+  }
+
   public CargarLista(lista: string, cancion: number = 0): void {
     const admin_indiceslista = new AdminListasTocables();
     this.listacanciones.value = admin_indiceslista.GetIndice(lista)

@@ -83,7 +83,7 @@ defineProps<{ viendo_vista: string, compas: number, cancion: Cancion
 
     </div>
       
-      <Metronomo v-if="viendo_vista=='tocar' && estado=='tocando'" ref="metronomeRef" :bpm_encompas="bpm_encompas" :cancion="cancion"></Metronomo>
+      <Metronomo v-if="viendo_vista=='tocar'" :compas="compas" :estado="estado" ref="metronomeRef" :bpm_encompas="bpm_encompas" :cancion="cancion"></Metronomo>
 
        
       <div class="otras_paginas">

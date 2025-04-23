@@ -4,22 +4,33 @@ import { item_lista } from '../modelo/item_lista';
 import { AdminListasTocables } from './AdminIndiceListas';
 import { Cancion } from './cancion';
 import { GetCanciones } from './GetCanciones';
+import { ref, Ref } from 'vue';
+import { Acordes } from './acordes';
+import { Letra } from './letra';
 
 
 
 export class Director {
     configuracion: ModeloConfiguracion;
-    esDirector: boolean;
-    estado: string = "pausado";
+    esDirector: boolean;    
+    public compas: Ref<number> = ref(-2);
+    public cancion: Ref<Cancion>  = ref(new Cancion("Cancion no cargada", "sin banda", new Acordes([], []), new Letra([])));
+    public bpm_encompas: Ref<number> = ref(0);
+    
     
     
     protected cambiosListaHandler?: (lista: string) => void;
     protected cambiosNroCancionHandler?: (cancion: number) => void;
     protected cambiosCompasHandler?: (compas: number) => void;
+    protected cambiosEstadoHandler?: (estado: string) => void;
 
     setcambiosListaHandler(handler: (lista: string) => void) {
         this.cambiosListaHandler = handler;
-    }   
+    }
+
+    setcambiosEstadoHandler(handler: (estado: string) => void) {
+        this.cambiosEstadoHandler = handler;
+    }
 
     setcambiosNroCancionHandler(handler: (cancion: number) => void) {
         this.cambiosNroCancionHandler = handler;
@@ -48,8 +59,16 @@ export class Director {
     click_pause() {
     }
 
-    click_play() {
+
+    click_stop() {}
+    iniciar_clock() 
+    {
         
+
+    }
+
+    click_play() {
+        console.log("CLICK PLAY DIRECTOR BASE", this.cambiosEstadoHandler);
     }   
           
   
@@ -63,27 +82,8 @@ export class Director {
 
 
 
-    onListaRecibida(listaBandas: string[], listaTemas: string[]) {
-
-        console.log("Lista recibida CLASE BASE", listaBandas, listaTemas);
-    }
-
-    onNroCancionRecibido(nro: number) {
-        this.nro_cancion  = nro;
-        this.obtenerCancion()
-        console.log("Nro Cancion recibido", nro);
-    }
-  
-   onNroCompasRecibido(nro: number) {
-    this.nro_compas  = nro;
-    this.cambiosCompasHandler?.(nro);
-    console.log("Nro Compas recibido", nro);
-  }
-  
 
    onStartCompasRecibido(nro: number) {
-    this.nro_compas  = nro;
-    console.log("Star recibido", nro);
   }
 
 
