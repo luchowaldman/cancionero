@@ -21,7 +21,7 @@ function guardar_cancioneditada() {
     const almacen = new Almacenado();
     const generadorlistasLS = new AdminListasLocalStorage(almacen);
     const texto_cancion = (document.querySelector('.divEditable') as HTMLElement).innerHTML;
-    props.cancion.letras.renglones =  [ texto_cancion.split('|').map(parte => parte.replace('</div>', '').replace(/<br>/g, '/n'))] ;
+    props.cancion.letras.renglones =  [ texto_cancion.replace('&nbsp;', ' ').replace('<div>', '/n').replace('</div>', '').replace(/<br>/g, '/n').split('|') ] ;
     props.item.origen = "local";
     props.item.cancion = props.cancion.cancion;
     props.item.banda = props.cancion.banda;
