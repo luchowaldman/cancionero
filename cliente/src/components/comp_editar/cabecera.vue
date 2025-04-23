@@ -34,9 +34,11 @@ const emit = defineEmits(['cerrar', 'guardar', 'nueva', 'descargar']);
 
 <span class="lblCabecera">Compas:</span> 
          <input type="text" v-model="cancion.compas_cantidad" maxlength="1" :style="{ width: '3ch' }" /> / 
-        <input type="text" v-model="cancion.compas_unidad" maxlength="1" :style="{ width: '3ch' }" /> - Escala  
+        <input type="text" v-model="cancion.compas_unidad" maxlength="1" :style="{ width: '3ch' }" /> - <span class="lblCabecera">Escala:</span>   
         <input type="text" v-model="cancion.escala" maxlength="4" :style="{ width: '6ch' }" />
-        Calidad: <input type="range" v-model="cancion.calidad" min="0" max="10" />
+        
+        <span class="lblCabecera">Calidad:</span> 
+         <input type="range" v-model="cancion.calidad" min="0" max="10" />
 
         <div style="display: inline; float: right;">
             
