@@ -7,7 +7,11 @@ import { Parte } from '../../modelo/acordes';
 import { editarAcordesHelper  } from './editarAcordesHelper';
 import { EditarMusicaHelper  } from './editarMusicaHelper';
 import { EditarAcordesToTextoHelper  } from './editarAcordesToTextoHelper';
+import ComponenteMusicalAcordes from '../comp_tocar/ComponenteMusicalAcordes.vue';
 
+
+import { VistaControl } from '../../modelo/vista_control';
+const vista = new VistaControl(20, 12, 7, "acordes_seguidos", "col-9", 0);
 let musica = new Musica();
 const props = defineProps<{ cancion: Cancion  }>()
 const refMixeando = ref(false);
@@ -303,7 +307,19 @@ function click_okcambiopartes()
       <span class="bi bi-music-note-beamed"></span>
     </div>
 </div>
-<div ><div  v-if="refEditandoComoTexto"  >
+<div>
+  
+  
+  <ComponenteMusicalAcordes :cancion="cancion" :compas="-2"
+      :secuencia="true" :partes="true" 
+      :width="300" :height="2000" :vista="vista"
+      ></ComponenteMusicalAcordes>
+
+  
+  
+  
+  
+  <div  v-if="refEditandoComoTexto"  >
       <textarea v-model="refEditandoTextoAcordes" style="width: 100%; height: 200px; resize: none;" ></textarea>
        
     </div>

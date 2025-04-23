@@ -12,7 +12,7 @@ import { item_lista } from '../../modelo/item_lista';
 
 const emit = defineEmits(['acciono']);
 const ctrlSesion = ref();
-const ViendoDetalle = ref(false);
+const ViendoDetalle = ref(true);
 
 function acciono(valor: string, compas: number = 0, ) {
     //console.log("Acciono--->", valor, compas);

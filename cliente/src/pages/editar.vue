@@ -4,13 +4,16 @@ import { Cancion } from '../modelo/cancion';
 import { Acordes, Parte } from '../modelo/acordes';
 import { EditarHelper } from '../components/comp_editar/editarHelper';
 import EditAcordes from '../components/comp_editar/editAcordes.vue';
+import ComponenteMusicalLetrayAcordes from '../components/comp_tocar/ComponenteMusicalLetrayAcordes.vue';
 import Cabecera from '../components/comp_editar/cabecera.vue';
+
 
 import { ref  } from 'vue';
 import { Letra } from '../modelo/letra';
 import { preProcessFile } from 'typescript';
 import { Almacenado } from '../modelo/Almacenado';
 import { AdminListasLocalStorage } from '../modelo/AdminListasStorage';
+import { VistaControl } from '../modelo/vista_control';
 
 const props =defineProps<{ cancion: Cancion, item: item_lista }>()
 const emit = defineEmits(['acciono']);
@@ -110,7 +113,29 @@ function handlePaste(event: ClipboardEvent) {
     document.execCommand("insertText", false, text); // Insertar el texto en la posición del cursor
   }
 }
+const vistaLetraYAcordes = ref(new VistaControl(20, 12, 7, "acordes_seguidos", "col-9", props.height - 180));
 
+const refEditandoTexto = ref(false);
+function click_editartexto() {
+    refEditandoTexto.value = !refEditandoTexto.value;
+
+}
+
+function click_okeditacorde() {
+    refEditandoTexto.value = false;
+    const texto_cancion = (document.querySelector('.divEditable') as HTMLElement).innerHTML;
+    props.cancion.letras.renglones =  [ texto_cancion.replace('&nbsp;', ' ').replace('<div>', '/n').replace('</div>', '').replace(/<br>/g, '/n').split('|') ] ;
+    updateCancion();
+}
+
+function click_cancelareditacorde() {
+    refEditandoTexto.value = false;
+    const texto_cancion = (document.querySelector('.divEditable') as HTMLElement).innerHTML;
+    const partes = texto_cancion.split('<div>');
+    const nt = partes.map(parte => parte.replace('</div>', '')).join('<br>');
+    const fondo = EditarHelper.ArmarFondoEditarAcordes(nt, props.cancion);
+    contentAcordes.value = fondo;
+}
 
 </script>
 <template>
@@ -118,16 +143,32 @@ function handlePaste(event: ClipboardEvent) {
     <div class="contenedor-editar">
         <Cabecera  @descargar="DescargarJSON" @guardar="guardar_cancioneditada" @nuevo="nueva_cancion"  :cancion="cancion" :item="item"></Cabecera>
     <div class="row">
-    <div class="col-8" style="position: relative;">
+  <div class="col-8" v-if="!refEditandoTexto"  style="display: flex;">
+        <div>
+        <ComponenteMusicalLetrayAcordes :cancion="props.cancion"  :compas="-2" :vista="vistaLetraYAcordes"></ComponenteMusicalLetrayAcordes>
+      </div>
+      <div >
+        <div class="btnEditAcorde" :class="{ 'btnSeleccionado': refEditandoTexto }" @click="click_editartexto">
+      <span class="bi bi-pencil"></span>
+      </div>
+      </div>
+  </div>
+    <div class="col-8" v-if="refEditandoTexto" style="position: relative;">
         <!-- Div editable -->
         <div class="divEditable" contenteditable="true" @input="updateContent" 
          @paste="handlePaste"
             v-html="props.cancion.letras.renglones.flat().join('|').replace(/\/n/g, '<br>')">
-            
         </div>
         <div class="divAcordes" style="display: flex; flex-wrap: wrap" v-html="contentAcordes">
         </div>
 
+        
+        <div class="btnEditAcorde" style="right: -500px; position: relative;" @click="click_okeditacorde" >
+      <span class="bi  bi-check-circle"></span> Ok
+      </div>
+        <div class="btnEditAcorde" style="right: -500px; position: relative;" @click="click_cancelareditacorde" >
+      <span class="bi  bi-x-circle"></span> Cancelar
+      </div>
     </div>
     <div class="col-4" >
         <EditAcordes :cancion="cancion" @actualizo_cancion="updateCancion" ></EditAcordes>
@@ -144,6 +185,20 @@ function handlePaste(event: ClipboardEvent) {
 </template>
 
 <style scoped>
+
+
+.btnEditAcorde {
+    border: 1px solid;
+    color: #a9a8f6;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+    padding: 10px 24px;
+}
 
 .divEditable {
     min-height: 100px;
