@@ -143,6 +143,7 @@ function click_cancelareditacorde() {
     <div class="contenedor-editar">
         <Cabecera  @descargar="DescargarJSON" @guardar="guardar_cancioneditada" @nuevo="nueva_cancion"  :cancion="cancion" :item="item"></Cabecera>
     <div class="row">
+      
   <div class="col-8" v-if="!refEditandoTexto"  style="display: flex;">
         <div>
         <ComponenteMusicalLetrayAcordes :cancion="props.cancion"  :compas="-2" :vista="vistaLetraYAcordes"></ComponenteMusicalLetrayAcordes>
