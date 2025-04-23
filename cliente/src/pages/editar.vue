@@ -103,6 +103,14 @@ function updateCancion() {
     contentAcordes.value = fondo;
 }
 
+function handlePaste(event: ClipboardEvent) {
+  event.preventDefault(); // Evitar el comportamiento predeterminado
+  const text = event.clipboardData?.getData("text/plain"); // Obtener solo el texto sin formato
+  if (text) {
+    document.execCommand("insertText", false, text); // Insertar el texto en la posición del cursor
+  }
+}
+
 
 </script>
 <template>
@@ -112,7 +120,9 @@ function updateCancion() {
     <div class="row">
     <div class="col-8" style="position: relative;">
         <!-- Div editable -->
-        <div class="divEditable" contenteditable="true" @input="updateContent"  v-html="props.cancion.letras.renglones.flat().join('|').replace(/\/n/g, '<br>')">
+        <div class="divEditable" contenteditable="true" @input="updateContent" 
+         @paste="handlePaste"
+            v-html="props.cancion.letras.renglones.flat().join('|').replace(/\/n/g, '<br>')">
             
         </div>
         <div class="divAcordes" style="display: flex; flex-wrap: wrap" v-html="contentAcordes">

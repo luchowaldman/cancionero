@@ -19,7 +19,7 @@ const emit = defineEmits(['cerrar', 'guardar', 'nueva', 'descargar']);
     <div class="marca">
       
       
-        BPM: <input type="range" style="background-color: #a9a8f6; color: white;"  v-model="cancion.bpm" min="30" max="240" /> {{ cancion.bpm }} - 
+        <span class="lblCabecera">BPM:</span> <input type="range" style="background-color: #a9a8f6; color: white;"  v-model="cancion.bpm" min="30" max="240" /> {{ cancion.bpm }} - 
      
         <span  style="color: white  !important;"  v-if="cancion.bpm < 40">No cargada o menos que lenta</span>
         <span  style="background-color: #a9a8f6; color: white;"  v-if="cancion.bpm >= 40 && cancion.bpm <= 60">Largo</span>
@@ -32,8 +32,8 @@ const emit = defineEmits(['cerrar', 'guardar', 'nueva', 'descargar']);
 <span v-if="cancion.bpm > 176 && cancion.bpm <= 200">Presto</span>
 <span v-if="cancion.bpm > 200">Prestissimo</span>
 
-      
-        Compas: <input type="text" v-model="cancion.compas_cantidad" maxlength="1" :style="{ width: '3ch' }" /> / 
+<span class="lblCabecera">Compas:</span> 
+         <input type="text" v-model="cancion.compas_cantidad" maxlength="1" :style="{ width: '3ch' }" /> / 
         <input type="text" v-model="cancion.compas_unidad" maxlength="1" :style="{ width: '3ch' }" /> - Escala  
         <input type="text" v-model="cancion.escala" maxlength="4" :style="{ width: '6ch' }" />
         Calidad: <input type="range" v-model="cancion.calidad" min="0" max="10" />
@@ -71,6 +71,10 @@ const emit = defineEmits(['cerrar', 'guardar', 'nueva', 'descargar']);
 </template>
 
 <style scoped>
+.lblCabecera {
+  margin: 13px 0px 0px 15px;
+  font-size: 20px;
+}
 .menuEditar {
   border: 5px solid #a9a8f6;
   height: 80px;
