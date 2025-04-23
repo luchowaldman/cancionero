@@ -14,7 +14,7 @@ import Configuracion from './pages/configuracion.vue';
 import { Reproductor } from './modelo/reproductor';
 
 import { Cancion } from './modelo/cancion';
-import { Aplicacion } from './modelo/aplicacion';
+import { Aplicacion } from './modelo/aplicacionespantalla/aplicacion';
 import { EstadoSesion } from './modelo/estadosesion';
 import { Director } from './modelo/director';
 import { DirectorOffline } from './modelo/directoroffline';
@@ -65,7 +65,6 @@ const faltan_parainicio = ref(-1);
   :ref="ctrlMenu"
   
   
-  :editando_cancion="aplicacion.editando_cancion.value" 
    :bpm_encompas="1"
   ></Menu>  
 

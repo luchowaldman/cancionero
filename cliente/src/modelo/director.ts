@@ -87,36 +87,13 @@ export class Director {
   }
 
 
-    CargarLista() {
-        
-        const admin_indiceslista = new AdminListasTocables();
-        this.lista = admin_indiceslista.GetIndice("default");
-        if (this.lista.length == 0) {
-            this.lista = [new item_lista("fuego", "intoxicados")];
-        }
-    }
     
     Iniciar() 
     {
         this.configuracion.sesion.estado = 'iniciando BASE';
+        this.cambiosListaHandler?.("default"); 
 
-    }
-    obtenerCancion() {
-        GetCanciones.obtenerCancion(this.lista[this.nro_cancion]).then((cancion_get: Cancion) => {
-            this.cancion_actual = cancion_get;
-            this.cambiosNroCancionHandler?.(cancion_get);
-        });
-    }
-
-    getitemActual() {
-        return this.lista[this.nro_cancion];
     }
     
-
-
-    get total_canciones(): number {
-        return this.lista.length;
-    }
-
 
 }

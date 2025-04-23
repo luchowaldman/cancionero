@@ -1,15 +1,15 @@
 import { ref, Ref } from "vue";
-import { EstadoSesion } from "./estadosesion";
-import { ModeloConfiguracion } from "./modeloconfiguracion";
-import { DirectorOffline } from "./directoroffline";
-import { Director } from "./director";
-import { Cancion } from "./cancion";
-import { Acordes } from "./acordes";
-import { Letra } from "./letra";
-import { DirectorOnline } from "./directoronline";
-import { item_lista } from "./item_lista";
-import { GetCanciones } from './GetCanciones';
-import { AdminListasTocables } from "./AdminIndiceListas";
+import { EstadoSesion } from "../estadosesion";
+import { ModeloConfiguracion } from "../modeloconfiguracion";
+import { DirectorOffline } from "../directoroffline";
+import { Director } from "../director";
+import { Cancion } from "../cancion";
+import { Acordes } from "../acordes";
+import { Letra } from "../letra";
+import { DirectorOnline } from "../directoronline";
+import { item_lista } from "../item_lista";
+import { GetCanciones } from '../GetCanciones';
+import { AdminListasTocables } from "../AdminIndiceListas";
 
 export class Aplicacion {
     public configuracionObj: ModeloConfiguracion = new ModeloConfiguracion();
@@ -22,8 +22,6 @@ export class Aplicacion {
     public estado: Ref<string> = ref("nuevo");
     public listacanciones: Ref<item_lista[]> = ref([]);
     public sesion: Ref<EstadoSesion> = ref(new EstadoSesion());
-    public editando_cancion: Ref<Cancion>  = ref(new Cancion("Cancion no cargada", "sin banda", new Acordes([], []), new Letra([])));
-    public editando_item: Ref<item_lista> = ref(new item_lista("no song name", "no band name"));
     private CargarConfiguracion(): void {
         this.viendo_pagina.value = localStorage.getItem("viendo") || "tocar";        
 
@@ -44,13 +42,6 @@ export class Aplicacion {
 
     
 
- cargar_edit() {
-    let item = JSON.parse(localStorage.getItem("editando_cancion") || "{}");
-    GetCanciones.obtenerCancion(item).then((cancion_get: Cancion) => {
-        this.editando_cancion.value = cancion_get;
-      });
-  }
-  
 
     public acciono(valor: string, compas: number = 0) {
 
@@ -91,9 +82,9 @@ export class Aplicacion {
             break;
           case 'editar':
                 if (this.viendo_pagina.value == 'tocar') {
-                      this.editando_item.value = this.listacanciones.value[this.nro_cancion.value];
                       
-                      localStorage.setItem("editando_cancion", JSON.stringify(this.editando_item.value));
+                      
+                      localStorage.setItem("editando_cancion", JSON.stringify(this.listacanciones.value[this.nro_cancion.value]));
                       window.location.href = `/editar`;
                 }
                 this.viendo_pagina.value  = valor;
@@ -138,9 +129,6 @@ export class Aplicacion {
   public height: number = window.innerHeight;
     Iniciar(): void {
         this.CargarConfiguracion();
-        if (this.viendo_pagina.value == 'editar') {
-            this.cargar_edit();
-        }
         this.director.setcambiosCompasHandler((nro: number) => {
           this.CambiarCompas(nro);
         });
@@ -148,9 +136,13 @@ export class Aplicacion {
         this.director.setcambiosNroCancionHandler((nro: number) => {
           this.EstablecerCancion(nro);
         });
+
+        this.director.setcambiosListaHandler((lista: string) => {
+          this.CargarLista(lista);
+        });
         this.director.Iniciar();
 
-        this.CargarLista("default");
+        
     }
   public CambiarCompas(nro: number): void {
     this.compas.value = nro;

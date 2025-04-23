@@ -27,7 +27,7 @@ function ir_pantalla(valor: string)
     
 }
 
-defineProps<{ viendo_vista: string, compas: number, cancion: Cancion, editando_cancion: Cancion
+defineProps<{ viendo_vista: string, compas: number, cancion: Cancion
   ,  nro_cancion: number, listaCanciones: item_lista[], sesion: EstadoSesion, estado: string, bpm_encompas: number }>()
 
 
@@ -70,15 +70,15 @@ defineProps<{ viendo_vista: string, compas: number, cancion: Cancion, editando_c
       </div>
         
           <ControladorTiempo :nro_cancion="nro_cancion" :total_canciones="listaCanciones.length + 1"  :compas=compas :cancion="cancion"
-          :viendo_vista="viendo_vista" :editando_cancion="editando_cancion" :estado="estado"
+          :viendo_vista="viendo_vista" :estado="estado"
           @play="acciono('play')" @pause="acciono('pause')" @stop="acciono('stop')" @next="acciono('next')" @previous="acciono('previous')"
             @update-compas="(valor) => acciono('update-compas', parseInt(valor))">
         </ControladorTiempo> 
       
         <div class="clsDivEditando" v-if="viendo_vista=='editar'">
           <div>
-        <input class="clsEditando" type="text" v-model="editando_cancion.cancion"/> -
-      <input  class="clsEditando" type="text" v-model="editando_cancion.banda" /> 
+        <input class="clsEditando" type="text" v-model="cancion.cancion"/> -
+      <input  class="clsEditando" type="text" v-model="cancion.banda" /> 
     </div>
 
     </div>

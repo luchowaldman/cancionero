@@ -14,7 +14,7 @@ import Configuracion from './pages/configuracion.vue';
 import { Reproductor } from './modelo/reproductor';
 
 import { Cancion } from './modelo/cancion';
-import { Aplicacion } from './modelo/aplicacion';
+import { Aplicacion } from './modelo/aplicacionespantalla/aplicacioneditar';
 import { EstadoSesion } from './modelo/estadosesion';
 import { Director } from './modelo/director';
 import { DirectorOffline } from './modelo/directoroffline';
@@ -54,7 +54,7 @@ const faltan_parainicio = ref(-1);
 
 <div id="contenedor-musical" class="pantalla">
   <Menu 
-  :viendo_vista="aplicacion.viendo_pagina.value" :sesion="aplicacion.sesion.value" 
+  viendo_vista="editar" :sesion="aplicacion.sesion.value" 
   :nro_cancion="aplicacion.nro_cancion.value" 
   :listaCanciones="aplicacion.listacanciones.value" @acciono="acciono"
   :compas="aplicacion.compas.value"
@@ -63,26 +63,13 @@ const faltan_parainicio = ref(-1);
   :ref="ctrlMenu"
   
   
-  :editando_cancion="aplicacion.editando_cancion.value" 
    :bpm_encompas="1"
   ></Menu>
-  <div class="carteliniciando" v-if="aplicacion.estado.value=='iniciando'">
-        {{ faltan_parainicio }}
-   </div>    
 
-    <Tocar v-if="aplicacion.viendo_pagina.value =='tocar'"  @acciono="acciono" :compas="aplicacion.compas.value" 
-    :width="aplicacion.width" :height="aplicacion.height" 
-    :cancion="aplicacion.cancion.value"></Tocar>
-    <Listas v-if="aplicacion.viendo_pagina.value =='listas'" 
-      :nro_cancion="aplicacion.nro_cancion.value"  
-      :lista_actual="aplicacion.listacanciones.value"
-      @acciono="acciono">
-    </Listas>
-    <Configuracion v-if="aplicacion.viendo_pagina.value =='config'"></Configuracion>
     <Editar v-if="aplicacion.viendo_pagina.value =='editar'"  
       
-      @acciono="acciono" :cancion="aplicacion.editando_cancion.value" 
-      :item="aplicacion.editando_item.value"></Editar>
+      @acciono="acciono" :cancion="aplicacion.cancion.value" 
+      :item="aplicacion.item.value"></Editar>
     <Buscar v-if="aplicacion.viendo_pagina.value =='buscar'"  @acciono="acciono"></Buscar>
 
 </div>
