@@ -168,7 +168,21 @@ export class Aplicacion {
 
   public CargarLista(lista: string, cancion: number = 0): void {
     const admin_indiceslista = new AdminListasTocables();
-    this.listacanciones.value = admin_indiceslista.GetIndice(lista)
+    if (lista.startsWith(".s=")) 
+      {
+        const partes = lista.replace(".s=", "").split("|");
+        console.log("Cargar lista", partes[0], partes[1]);
+        this.listacanciones.value = [
+          new item_lista(partes[0], partes[1])
+        ]
+
+
+
+      }
+      else  {
+        this.listacanciones.value = admin_indiceslista.GetIndice(lista)
+      }
+    
     this.EstablecerCancion(cancion);
   }
 

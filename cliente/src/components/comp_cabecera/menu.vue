@@ -69,7 +69,7 @@ defineProps<{ viendo_vista: string, compas: number, cancion: Cancion
         </p>	
       </div>
         
-          <ControladorTiempo :nro_cancion="nro_cancion" :total_canciones="listaCanciones.length + 1"  :compas=compas :cancion="cancion"
+          <ControladorTiempo :nro_cancion="nro_cancion" :total_canciones="listaCanciones.length"  :compas=compas :cancion="cancion"
           :viendo_vista="viendo_vista" :estado="estado"
           @play="acciono('play')" @pause="acciono('pause')" @stop="acciono('stop')" @next="acciono('next')" @previous="acciono('previous')"
             @update-compas="(valor) => acciono('update-compas', parseInt(valor))">

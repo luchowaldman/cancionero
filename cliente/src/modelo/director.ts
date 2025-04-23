@@ -91,7 +91,15 @@ export class Director {
     Iniciar() 
     {
         this.configuracion.sesion.estado = 'iniciando BASE';
-        this.cambiosListaHandler?.("default"); 
+        const queryS = new URLSearchParams(window.location.search).get('cancion') || "";
+        console.log("Iniciar", queryS); 
+        let vista = "default";
+        if (queryS != "") {
+            vista = ".s=" + queryS;
+        } else {
+            vista = "default";
+        }
+        this.cambiosListaHandler?.(vista); 
 
     }
     
