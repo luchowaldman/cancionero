@@ -55,7 +55,7 @@ const faltan_parainicio = ref(-1);
 <div id="contenedor-musical" class="pantalla">
 
   <Menu 
-  :viendo_vista="listas" :sesion="aplicacion.sesion.value" 
+  viendo_vista="aplicacion.viendo_pagina" :sesion="aplicacion.sesion.value" 
   :nro_cancion="aplicacion.nro_cancion.value" 
   :listaCanciones="aplicacion.listacanciones.value" @acciono="acciono"
   :compas="aplicacion.compas.value"
@@ -68,12 +68,14 @@ const faltan_parainicio = ref(-1);
         {{ faltan_parainicio }}
    </div>    
     <Listas 
+      v-if="aplicacion.viendo_pagina.value =='listas'"
       :nro_cancion="aplicacion.nro_cancion.value"  
       :lista_actual="aplicacion.listacanciones.value"
       @acciono="acciono">
     </Listas>
     
 
+    <Buscar v-if="aplicacion.viendo_pagina.value =='buscar'"  @acciono="acciono"></Buscar>
 </div>
 </template>
 

@@ -96,6 +96,7 @@ export class Director {
         let vista = "default";
         if (queryS != "") {
             vista = ".s=" + queryS;
+            console.log("Vista", vista);
         } else {
             vista = "default";
         }

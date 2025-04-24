@@ -99,7 +99,10 @@ function FormatearNombre(nombre: string) {
 }
 
 defineExpose({  cancionesFiltradas });
-
+function link_cancion(cancion: item_lista) {
+    return "/?cancion=" + cancion.banda.replace(' ','-') + "_" + cancion.cancion.replace(' ','-');
+    
+}
 </script>
 
 <template>
@@ -125,7 +128,7 @@ defineExpose({  cancionesFiltradas });
                 <tr v-for="(cancion, cancionid) in indice" :key="cancionid" :class="{ 'tocando_cancion': nro_cancion === cancionid }">
                    <td >
                     
-                      <span style="font-size: 24px;">{{ FormatearNombre(cancion.cancion) }}</span> - <span style="font-size: 15px;">{{ FormatearNombre(cancion.banda) }}</span>
+                      <a :href="link_cancion(cancion)" style="font-size: 24px;">{{ FormatearNombre(cancion.cancion) }}</a> - <span style="font-size: 15px;">{{ FormatearNombre(cancion.banda) }}</span>
                     </td>
                     
                     <td>

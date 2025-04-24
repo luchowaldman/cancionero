@@ -100,7 +100,7 @@ export class Aplicacion {
             this.viendo_pagina.value = 'listas'
             break;
           case 'tocar':
-            //this.director.CargarLista();
+            
             this.viendo_pagina.value  = valor;
             break;
           case 'listas':
@@ -154,7 +154,7 @@ export class Aplicacion {
 
 
         this.director.Iniciar();
-
+        this.CargarLista("default", 0);
         
     }
   
@@ -170,11 +170,13 @@ export class Aplicacion {
     const admin_indiceslista = new AdminListasTocables();
     if (lista.startsWith(".s=")) 
       {
-        const partes = lista.replace(".s=", "").split("|");
-        console.log("Cargar lista", partes[0], partes[1]);
+        const partes = lista.replace(".s=", "").split("_");
+        
+        console.log("Cargar lista", lista, partes[0], partes[1]);
         this.listacanciones.value = [
-          new item_lista(partes[0], partes[1])
+          new item_lista(partes[1], partes[0])
         ]
+        console.log("Cargar lista", this.listacanciones.value);
 
 
 

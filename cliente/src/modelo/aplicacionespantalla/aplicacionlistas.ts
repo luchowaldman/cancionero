@@ -45,7 +45,10 @@ export class Aplicacion {
 
 
     public acciono(valor: string, compas: number = 0) {
-        localStorage.setItem("viendo", valor);            
+        localStorage.setItem("viendo", valor);
+        if (valor == "buscar") {
+            this.viendo_pagina.value = "buscar";
+        }
         
         
       }
@@ -61,7 +64,7 @@ export class Aplicacion {
   public height: number = window.innerHeight;
     Iniciar(): void {
         this.CargarConfiguracion();
-        
+        this.viendo_pagina.value = "listas"
         this. CargarLista("default", 0);
     }
   public CambiarCompas(nro: number): void {
