@@ -11,6 +11,9 @@ export class Cancion {
         if (letras < acordes) {
             this.letras.renglones.push(new Array(acordes - letras).fill(""));
         }
+        if (acordes < letras) {
+            console.log("Ajustando acordes a letras", acordes, letras);
+        }
     }
     
     constructor(

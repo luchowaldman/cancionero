@@ -14,7 +14,8 @@ const props = defineProps<{ cancion: Cancion, compas: number, estado: string, bp
   <div class="metronono">
 
 
-<div style="display: flex;">
+<div style="display: flex;" v-if="estado == 'tocando'">
+
 <div v-for="n in props.cancion.compas_cantidad" :key="n" class="beat" :class="{ beat_activo: n - 1  === bpm_encompas }">
     
     {{ n }}
