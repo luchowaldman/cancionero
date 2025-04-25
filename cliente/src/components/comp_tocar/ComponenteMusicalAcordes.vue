@@ -136,7 +136,7 @@ function calcular_resumen_parte()
 </script>
 
 <template>
-<div>
+<div class="acordesPantalla">
   <div class="row">
 
     <div v-if="props.secuencia && repe_resu.length == 0">
@@ -247,5 +247,10 @@ function calcular_resumen_parte()
 .repeticion {
   display: inline-block;
   margin: 4px;
+}
+.acordesPantalla {
+  border: 1px solid ;
+  padding: 10px;
+  border-radius: 2%;
 }
 </style>
